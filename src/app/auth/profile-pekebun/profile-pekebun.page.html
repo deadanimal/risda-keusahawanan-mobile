@@ -1,0 +1,206 @@
+<ion-header>
+  <ion-toolbar style="height: 80px;">
+    <ion-buttons slot="start">
+      <ion-button color="success" href="/dashboard">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
+    </ion-buttons>
+    <ion-text color="success">
+      <h1>
+        <strong>
+           PROFIL
+        </strong>
+      </h1>
+    </ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- 00A651 -->
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+
+    <ion-fab-button color="light">
+      <ion-icon color="success" name="caret-down-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <!-- <a href="/profile"> -->
+      <ion-fab-button color="success" href="/profile">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Usahawan</small></ion-text>
+      <!-- </a> -->
+      <!-- <a href="/profile-syarikat" style="text-decoration:none;"> -->
+        <ion-fab-button color="success" href="/profile-syarikat">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </ion-fab-button>
+        <ion-text color="success"><small> Syarikat</small></ion-text>
+      <!-- </a> -->
+
+      <ion-fab-button color="success"  href="/profile-perniagaan">
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Perniagaan</small></ion-text>
+
+      <ion-fab-button color="success" href="/profile-pekebun">
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Pekebun</small></ion-text>
+    </ion-fab-list>
+  </ion-fab>
+
+  <!-- <ion-item-divider>
+    <ion-label>
+      Basic Item Divider
+    </ion-label>
+  </ion-item-divider> -->
+
+  <!-- <ion-item-divider class="ion-padding" color="light">
+    <ion-text color="success">
+
+      <h1><strong>
+          <ion-icon name="chevron-back-outline"></ion-icon> PROFIL
+        </strong></h1>
+    </ion-text>
+
+  </ion-item-divider> -->
+
+
+  <ion-grid [fixed]="true">
+
+
+    <form action="" class="ion-padding form-control">
+
+      <ion-row>
+        <ion-col>
+          <strong>Maklumat Pekebun Kecil</strong>
+        </ion-col>
+      </ion-row>
+      <br>
+
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>NO. MYKAD</ion-label>
+          <ion-input value = {{pekebun.No_KP}} ></ion-input>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>NAMA PEKEBUN KECIL</ion-label>
+          <ion-input value = {{pekebun.Nama_PK}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>NO. TANAM SEMULA/SIC</ion-label>
+          <ion-input value = {{pekebun.Tsmohon_No}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>STATUS DAFTAR USAHAWAN</ion-label>
+          <ion-input value = {{pekebun.status_daftar_usahawan}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+
+      <br><br><br>
+
+      <ion-row>
+        <ion-col>
+          <strong>Maklumat Tanah</strong>
+        </ion-col>
+      </ion-row>
+      <br>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> NO.GERAN</ion-label>
+          <ion-input value = {{pekebun.No_Geran}} ></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> POSKOD</ion-label>
+          <ion-input  ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> NEGERI</ion-label>
+          <ion-input value = {{pekebun.U_Negeri_ID}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> DAERAH</ion-label>
+          <ion-input value = {{pekebun.U_Daerah_ID}} ></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> MUKIM</ion-label>
+          <ion-input value = {{pekebun.U_Mukim_ID}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> PARLIMEN</ion-label>
+          <ion-input value = {{pekebun.U_Parlimen_ID}} ></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> DUN</ion-label>
+          <ion-input value = {{pekebun.U_Dun_ID}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> KAMPUNG</ion-label>
+          <ion-input value = {{pekebun.U_Kampung_ID}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> SEKSYEN</ion-label>
+          <ion-input value = {{pekebun.U_Seksyen_ID}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> KELUARAN HEKTAR</ion-label>
+          <ion-input value = {{pekebun.keluasan_hektar}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> JENIS TANAMAN PEKEBUN</ion-label>
+          <ion-input value = {{pekebun.jenis_tanaman_kebun}} ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <br><br><br>
+      <ion-row>
+        <ion-col>
+          <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->
+          <ion-button expand="block" color="success">KEMASKINI</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </ion-grid>
+
+
+</ion-content>

@@ -1,0 +1,279 @@
+<ion-header>
+  <ion-toolbar style="height: 80px;">
+    <ion-buttons slot="start">
+      <ion-button color="success" href="/dashboard">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
+    </ion-buttons>
+    <ion-text color="success">
+      <h1>
+        <strong>
+          PROFIL
+        </strong>
+      </h1>
+    </ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+
+    <ion-fab-button color="light">
+      <ion-icon color="success" name="caret-down-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <!-- <a href="/profile"> -->
+      <ion-fab-button color="success" href="/profile">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Usahawan</small></ion-text>
+      <!-- </a> -->
+      <!-- <a href="/profile-syarikat" style="text-decoration:none;"> -->
+      <ion-fab-button color="success" href="/profile-syarikat">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Syarikat</small></ion-text>
+      <!-- </a> -->
+
+      <ion-fab-button color="success" href="/profile-perniagaan">
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Perniagaan</small></ion-text>
+
+      <ion-fab-button color="success" href="/profile-pekebun">
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Pekebun</small></ion-text>
+    </ion-fab-list>
+  </ion-fab>
+
+
+  <!-- <ion-item-divider class="ion-padding" color="light">
+    <ion-text color="success">
+
+      <h1>
+        <strong>
+          <ion-icon name="chevron-back-outline"></ion-icon> PROFIL
+        </strong>
+      </h1>
+    </ion-text>
+
+  </ion-item-divider> -->
+
+
+  <ion-grid [fixed]="true">
+
+
+    <form action="" class="ion-padding form-control">
+
+      <ion-row>
+        <ion-col>
+          <strong>Maklumat Peribadi</strong>
+        </ion-col>
+      </ion-row>
+      <br>
+
+
+      <ion-row class="ion-justify-content-center" style="height: 120px;">
+        <ion-col></ion-col>
+
+        <ion-col class="ion-justify-content-center">
+          <ion-avatar class="ion-justify-content-center" style="height: 100px; width: 100px;">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+        </ion-col>
+        <ion-col></ion-col>
+
+      </ion-row>
+      <br>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>NO. USAHAWAN</ion-label>
+          <ion-input value="{{usahawan.id}}" ></ion-input>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>NAMA PENUH</ion-label>
+          <ion-input value="{{usahawan.namausahawan}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>NO. MYCARD</ion-label>
+          <ion-input value="{{user.no_kp}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>TARIKH LAHIR</ion-label>
+          <ion-input value="{{usahawan.tarikhlahir}}"></ion-input>
+        </ion-col>
+
+        <ion-col>
+
+          <ion-label> JANTINA</ion-label>
+          <ion-input value="{{usahawan.U_Jantina_ID}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <br>
+          <ion-label> BANGSA</ion-label>
+          <ion-input value="{{usahawan.U_Bangsa_ID}}"></ion-input>
+        </ion-col>
+
+        <ion-col>
+
+
+          <ion-label> STATUS PERKAHWINAN</ion-label>
+          <ion-input value="{{usahawan.statusperkahwinan}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> TAHAP PENDIDIKAN</ion-label>
+          <ion-input value="{{usahawan.U_Pendidikan_ID}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <br><br><br>
+
+      <ion-row>
+        <ion-col>
+          <strong>Maklumat Kediaman</strong>
+        </ion-col>
+      </ion-row>
+      <br>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> ALAMAT (BARIS 1)</ion-label>
+          <ion-input value="{{usahawan.alamat1}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> ALAMAT (BARIS 2)</ion-label>
+          <ion-input value="{{usahawan.alamat2}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> ALAMAT (BARIS 3)</ion-label>
+          <ion-input value="{{usahawan.alamat3}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> BANDAR</ion-label>
+          <ion-input value="{{usahawan.bandar}}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> POSKOD</ion-label>
+          <ion-input value="{{usahawan.poskod}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> NEGERI</ion-label>
+          <ion-input value="{{usahawan.U_Negeri_ID}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> DAERAH</ion-label>
+          <ion-input value="{{usahawan.U_Daerah_ID}}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> MUKIM</ion-label>
+          <ion-input value="{{usahawan.U_Mukim_ID}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> PARLIMEN</ion-label>
+          <ion-input value="{{usahawan.U_Parlimen_ID}}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> DUN</ion-label>
+          <ion-input value="{{usahawan.U_Dun_ID}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> KAMPUNG</ion-label>
+          <ion-input value="{{usahawan.U_Kampung_ID}}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> SEKSYEN</ion-label>
+          <ion-input value="{{usahawan.U_Seksyen_ID}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <br><br><br>
+      <ion-row>
+        <ion-col>
+          <strong>Maklumat Lain</strong>
+        </ion-col>
+      </ion-row>
+      <br>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> KATEGORI USAHAWAN</ion-label>
+          <ion-input value="{{usahawan.id_kategori_usahawan}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> NO. TELEFON</ion-label>
+          <ion-input value="{{usahawan.notelefon}}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> NO. TELEFON (HP)</ion-label>
+          <ion-input value="{{usahawan.nohp}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> EMAIL</ion-label>
+          <ion-input value="{{usahawan.email}}"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->
+          <ion-button expand="block" color="success">KEMASKINI</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </ion-grid>
+
+
+</ion-content>

@@ -1,0 +1,225 @@
+<ion-header>
+  <ion-toolbar style="height: 80px;">
+    <ion-buttons slot="start">
+      <ion-button color="success" href="/dashboard">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
+    </ion-buttons>
+    <ion-text color="success">
+      <h1>
+        <strong>
+           PROFIL
+        </strong>
+      </h1>
+    </ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+
+    <ion-fab-button color="light">
+      <ion-icon color="success" name="caret-down-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <!-- <a href="/profile"> -->
+      <ion-fab-button color="success" href="/profile">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Usahawan</small></ion-text>
+      <!-- </a> -->
+      <!-- <a href="/profile-syarikat" style="text-decoration:none;"> -->
+        <ion-fab-button color="success" href="/profile-syarikat">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </ion-fab-button>
+        <ion-text color="success"><small> Syarikat</small></ion-text>
+      <!-- </a> -->
+
+      <ion-fab-button color="success"  href="/profile-perniagaan">
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Perniagaan</small></ion-text>
+
+      <ion-fab-button color="success" href="/profile-pekebun">
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </ion-fab-button>
+      <ion-text color="success"><small> Pekebun</small></ion-text>
+    </ion-fab-list>
+  </ion-fab>
+
+
+
+  <!-- <ion-item-divider class="ion-padding" color="light">
+    <ion-text color="success">
+
+      <h1><strong>
+          <ion-icon name="chevron-back-outline"></ion-icon> PROFIL
+        </strong></h1>
+    </ion-text>
+
+  </ion-item-divider> -->
+
+
+  <ion-grid [fixed]="true">
+
+
+    <form action="" class="ion-padding form-control">
+
+      <ion-row>
+        <ion-col>
+          <strong>Maklumat Syarikat</strong>
+        </ion-col>
+      </ion-row>
+      <br>
+
+
+      <ion-row class="ion-justify-content-center" style="height: 120px;">
+        <ion-col></ion-col>
+
+        <ion-col class="ion-justify-content-center">
+          <ion-avatar class="ion-justify-content-center" style="height: 100px; width: 100px;">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+        </ion-col>
+        <ion-col></ion-col>
+
+      </ion-row>
+      <br>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>NAMA SYARIKAT</ion-label>
+          <ion-input value="{{syarikat.namasyarikat}}" ></ion-input>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>JENIS MILIKAN PERNIAGAAN</ion-label>
+          <ion-input value="{{syarikat.jenismilikanperniagaan}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> NO. DAFTAR SSM</ion-label>
+          <ion-input value="{{syarikat.nodaftarssm}}" ></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> NO. DAFTAR PBT</ion-label>
+          <ion-input value="{{syarikat.nodaftarpbt}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+          <ion-label>NO. DAFTAR PERSIJILAN</ion-label>
+
+          <ion-input value="{{syarikat.nodaftarpersijilanhalal}}" ></ion-input>
+
+        </ion-col>
+
+        <ion-col>
+          <br>
+          <ion-label>NO. DAFTAR MESTI</ion-label>
+          <ion-input value="{{syarikat.nodaftarmesti}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>TARIKH MULA OPERASI</ion-label>
+          <ion-input value="{{syarikat.tahunmulaoperasi}}" ></ion-input>
+        </ion-col>
+        <ion-col>
+          <br>
+          <ion-label>BILANGAN PEKERJA</ion-label>
+          <ion-input value="{{syarikat.bilanganpekerja}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> ALAMAT 1 (BARIS 1)</ion-label>
+          <ion-input value="{{syarikat.alamat1_ssm}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> ALAMAT 2 (BARIS 2)</ion-label>
+          <ion-input value="{{syarikat.alamat2_ssm}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> ALAMAT 3 (BARIS 3)</ion-label>
+          <ion-input value="{{syarikat.alamat3_ssm}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> TARIKH MULA MOF</ion-label>
+          <ion-input value="{{syarikat.tarikh_mula_mof}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> TARIKH TAMAT MOF</ion-label>
+          <ion-input value="{{syarikat.tarikh_tamat_mof}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> STATUS BUMIPUTERA</ion-label>
+          <ion-input value="{{syarikat.status_bumiputera}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>PREFIX ID</ion-label>
+          <ion-input value="{{syarikat.prefix_id}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> NO. TELEFON</ion-label>
+          <ion-input value="{{syarikat.notelefon}}" ></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label> NO. TELEFON (HP)</ion-label>
+          <ion-input value="{{syarikat.no_hp}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> EMAIL</ion-label>
+          <ion-input value="{{syarikat.email}}" ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->
+          <ion-button expand="block" color="success">KEMASKINI</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </ion-grid>
+
+
+</ion-content>

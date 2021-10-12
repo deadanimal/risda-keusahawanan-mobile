@@ -1,0 +1,59 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+
+  <div id="overlay"
+    style="background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute">
+
+  </div>
+  <div id="overlay" style="position: absolute;"></div>
+
+
+  <div style="z-index: 4; margin: 3%; margin-top:20%; align-items:center">
+
+    <div class="element-logo"></div>
+
+    <!-- <ion-text >
+      <h1 class="welcome-back nunitosans-extra-bold-green-haze-36px">Selamat Datang</h1>
+    </ion-text> -->
+    <ion-text class="welcome-back">
+      <h1 class="welcome-back nunitosans-extra-bold-green-haze-36px">Selamat Datang</h1>
+    </ion-text>
+
+    <ion-text style="text-align: center;">
+      <h2>Log Masuk</h2>
+    </ion-text>
+    <br>
+
+    <!-- <h1 class="welcome-backnats-regular-normal-log-cabin-26px ion-text-center">Log Masuk Kali Pertama</h1> -->
+
+    <form [formGroup]="form">
+      <ion-item style="border-radius: 50px;">
+        <!-- <ion-label position="floating"></ion-label> -->
+        <ion-input placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp'></ion-input>
+      </ion-item>
+      <br>
+
+      <ion-item style="border-radius: 50px;">
+        <!-- <ion-label position="floating">Kata Laluan</ion-label> -->
+        <ion-input type="password" placeholder="Kata Laluan" name="password" formControlName='password'>
+        </ion-input>
+      </ion-item>
+      <br>
+      <a href="/forgot-password" style="text-decoration: none;">
+        <div class="forget-password nunitosans-extra-bold-green-haze-12px">Lupa Kata Laluan?</div>
+      </a>
+      <br>
+
+      <ion-button expand="block" color="success" (click)="login()" [disabled]="form.invalid">Log masuk</ion-button>
+    </form>
+
+
+  </div>
+
+
+</ion-content>
