@@ -39,8 +39,10 @@ export class LoginPage implements OnInit {
     this.form = new FormGroup({
       no_kp: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),
+      // device_name: new FormControl(),
     })
-
+    
+    
   }
 
   login() {
@@ -61,10 +63,10 @@ export class LoginPage implements OnInit {
       // }
     });
 
-    // this.loginService.login(this.form.value).subscribe((res) => {
-    //   console.log(res);
+    this.loginService.login(this.form.value).subscribe((res) => {
+      console.log("token",res);
 
-    // });
+    });
 
   }
 

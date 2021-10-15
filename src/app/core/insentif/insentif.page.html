@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar style="height: 80px;">
+
+    <ion-buttons slot="start">
+      <ion-button color="success" href="/dashboard">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
+    </ion-buttons>
+    <ion-text color="success">
+      <h1>
+        <strong class="ion-text-uppercase">
+          Insentif
+        </strong>
+      </h1>
+    </ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div class="rectangle-280"></div>
+
+  <div class="bg-white">
+
+    <ion-grid style="margin-top: 1%; margin-left:5%; margin-right:5%">
+      <ion-row style="margin-bottom: 10px;">
+        <ion-col>
+          <h5 class="bold"> Maklumat<br />Insentif</h5>
+        </ion-col>
+        <ion-col class="ion-text-end">
+          <h5 class="bold">Jumlah<br />Bantuan</h5>
+        </ion-col>
+      </ion-row>
+      <ion-grid style="max-height: 70%; overflow: scroll;">
+        <ion-row *ngFor="let insentif of insentif" style="padding-bottom: 10px;">
+          <ion-col>
+            <div class="content-box bold" style="font-family: 'Nunito Sans';">
+              <ion-grid style="padding: 0%;">
+                <ion-row style="padding: 0%;">
+                  <ion-col size="8">
+                    <ion-text>
+                      JENIS INSENTIF
+                    </ion-text>
+                    <br>
+                    <ion-text color="success">
+                      Tahun Terima: {{insentif.tahun}}
+                    </ion-text>
+                  </ion-col>
+                  <ion-col size="4" style="padding: 0%;">
+                    <div class="content-box"
+                      style="height: 100%; display:flex; align-items:center; background-color:#EDEDED">
+                      <ion-text color="success">
+                        RM {{insentif.jumlah}}
+                      </ion-text>
+
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-grid>
+
+  </div>
+
+  <!-- <div class="kmi nunitosans-extra-bold-te-papa-green-18px">Maklumat<br />Insentif</div>
+
+  <div class="body">
+    <div class="maklumatnunitosans-extra-bold-te-papa-green-18px">
+      <div class="kmi">Maklumat<br />Insentif</div>
+      <div class="x2000">Jumlah<br />Bantuan</div>
+    </div>
+
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div>1 of 2</div>
+      </ion-col>
+      <ion-col>
+        <div>2 of 2</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div>1 of 3</div>
+      </ion-col>
+      <ion-col>
+        <div>2 of 3</div>
+      </ion-col>
+      <ion-col>
+        <div>3 of 3</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+
+
+
+
+</ion-content>

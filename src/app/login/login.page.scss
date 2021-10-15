@@ -42,14 +42,17 @@
     letter-spacing: 0;
     min-height: 16px;
     min-width: 105px;
-    text-align:end;
+    text-align: end;
     color: green;
 }
 
-ion-input{
-    height: 60px
+ion-input {
+    height: 60px;
 }
-
 
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:700,600,800|Lato:400");
 // @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:700,600,800|Lato:400");
+
+// ion-button[disabled] {
+//     --ion-color-base: #858585 !important;
+// }

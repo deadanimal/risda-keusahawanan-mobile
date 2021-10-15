@@ -9,6 +9,8 @@ export class AppComponent {
   public appPages = [
     { title: 'Dashboard', url: '/dashboard', icon: 'paper-plane' },
     { title: 'Profil', url: '/profile', icon: 'heart' },
+    { title: 'Insentif', url: '/insentif', icon: 'archive' },
+    { title: 'Aliran Tunai', url: '/aliran-tunai', icon: 'paper-plane' },
     { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
     { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
     { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },

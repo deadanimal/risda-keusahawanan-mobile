@@ -46,6 +46,22 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./core/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'insentif',
+    loadChildren: () => import('./core/insentif/insentif.module').then( m => m.InsentifPageModule)
+  },
+  {
+    path: 'aliran-tunai',
+    loadChildren: () => import('./core/aliran-tunai/aliran-tunai.module').then( m => m.AliranTunaiPageModule)
+  },
+  {
+    path: 'tambah-tunai-masuk',
+    loadChildren: () => import('./core/modal/tambah-tunai-masuk/tambah-tunai-masuk.module').then( m => m.TambahTunaiMasukPageModule)
+  },
+  {
+    path: 'tambah-tunai-keluar',
+    loadChildren: () => import('./core/modal/tambah-tunai-keluar/tambah-tunai-keluar.module').then( m => m.TambahTunaiKeluarPageModule)
   }
 ];
 

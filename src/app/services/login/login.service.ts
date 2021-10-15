@@ -12,7 +12,7 @@ export class LoginService {
 
   url: string = environment.baseUrl + "api/user";
 
-  url2: string = environment.baseUrl + "api/login";
+  url2: string = environment.baseUrl + "api/sanctum/token";
 
   public models: LoginModel[] = [];
   public model: LoginModel;
