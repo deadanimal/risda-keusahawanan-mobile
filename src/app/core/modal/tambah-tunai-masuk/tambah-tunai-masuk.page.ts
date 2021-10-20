@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { KategoriAliranService } from 'src/app/services/kategoriAliran/kategori-aliran.service';
+import { map } from 'rxjs/operators';
+import { AliranService } from 'src/app/services/Aliran/aliran.service';
 
 @Component({
   selector: 'app-tambah-tunai-masuk',
@@ -12,18 +15,27 @@ export class TambahTunaiMasukPage implements OnInit {
 
   private tunai_masuk: FormGroup;
 
+  usahawan_id = window.sessionStorage.getItem("usahawan_id");
+  user_id = window.sessionStorage.getItem("user_id");
+  
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
+    private kategoriAliranService:KategoriAliranService,
+    private aliranService:AliranService
   ) {
     this.tunai_masuk = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: [''],
-      downtime_start:[''],
+      id_pengguna: [''],
+      id_kategori_aliran: ['', Validators.required],
+      tarikh_aliran:['', Validators.required],
+      keterangan_aliran: ['', Validators.required],
+      jumlah_aliran:['', Validators.required],
+      dokumen_lampiran:[''],
     });
   }
 
   ngOnInit() {
+    this.getKategoriAliran();
   }
 
   dismiss() {
@@ -35,7 +47,33 @@ export class TambahTunaiMasukPage implements OnInit {
   }
 
   logForm(){
+
+    this.tunai_masuk.value.id_pengguna = this.user_id;
     console.log(this.tunai_masuk.value)
+
+    this.aliranService.post(this.tunai_masuk.value).subscribe((res) => {
+      console.log("res",res);
+
+    });
+
+  }
+
+  kategori_aliran_masuk :any;
+
+  getKategoriAliran() {
+
+    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_masuk"))).subscribe((res) => {
+      console.log("kategori aliran",res);
+      this.kategori_aliran_masuk = res;
+      console.log("kategori aliran",this.kategori_aliran_masuk);
+    });
+
+  }
+
+  userDetails: any;
+  handleFileInput(event) {
+    console.log(event);
+    this.userDetails.profilePic = event.target.files[0];
   }
 
 }

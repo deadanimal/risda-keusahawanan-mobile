@@ -62,6 +62,14 @@ const routes: Routes = [
   {
     path: 'tambah-tunai-keluar',
     loadChildren: () => import('./core/modal/tambah-tunai-keluar/tambah-tunai-keluar.module').then( m => m.TambahTunaiKeluarPageModule)
+  },
+  {
+    path: 'kemaskini-tunai-masuk',
+    loadChildren: () => import('./core/modal/kemaskini-tunai-masuk/kemaskini-tunai-masuk.module').then( m => m.KemaskiniTunaiMasukPageModule)
+  },
+  {
+    path: 'kemaskini-tunai-keluar',
+    loadChildren: () => import('./core/modal/kemaskini-tunai-keluar/kemaskini-tunai-keluar.module').then( m => m.KemaskiniTunaiKeluarPageModule)
   }
 ];
 

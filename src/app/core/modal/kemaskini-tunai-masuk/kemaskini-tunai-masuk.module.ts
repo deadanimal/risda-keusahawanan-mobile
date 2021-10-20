@@ -4,18 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TambahTunaiKeluarPageRoutingModule } from './tambah-tunai-keluar-routing.module';
+import { KemaskiniTunaiMasukPageRoutingModule } from './kemaskini-tunai-masuk-routing.module';
 
-import { TambahTunaiKeluarPage } from './tambah-tunai-keluar.page';
+import { KemaskiniTunaiMasukPage } from './kemaskini-tunai-masuk.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TambahTunaiKeluarPageRoutingModule,
+    KemaskiniTunaiMasukPageRoutingModule,
     ReactiveFormsModule,
+    FormsModule
   ],
-  declarations: [TambahTunaiKeluarPage]
+  declarations: [KemaskiniTunaiMasukPage]
 })
-export class TambahTunaiKeluarPageModule {}
+export class KemaskiniTunaiMasukPageModule {}

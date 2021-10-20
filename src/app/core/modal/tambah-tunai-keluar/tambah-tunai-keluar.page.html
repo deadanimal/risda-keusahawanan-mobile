@@ -1,11 +1,95 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>tambah-tunai-keluar</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="success" (click)="dismiss()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-text color="success">
+        <h1>
+          <strong class="ion-text-uppercase">
+            TUNAI KELUAR
+          </strong>
+        </h1>
+      </ion-text>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <!-- <form [formGroup]="tunai_masuk" (ngSubmit)="logForm()" style="margin: 30px;">
+    <ion-item class="form-control">
+      <ion-label>Todo</ion-label>
+      <ion-input type="text" formControlName="title"></ion-input>
+    </ion-item>
 
-  Tunai Keluar
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+    <ion-button type="submit" [disabled]="!tunai_masuk.valid">Submit</ion-button>
+  </form> -->
+
+  <ion-grid>
+    <form [formGroup]="tunai_keluar" (ngSubmit)="logForm()" style="margin: 30px;">
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>KATEGORI ALIRAN</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>TARIKH</ion-label>
+          <!-- <ion-input type="date" formControlName="title"></ion-input> -->
+          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="downtime_start" style="background-color: #f5f5f5;">
+          </ion-datetime>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>KETERANGAN</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-text-center" style="display: flex; justify-content:center">
+        <!-- <ion-col class="ion-text-center"> -->
+        <p style="margin: 0px;"> JUMLAH <span style="color: red;">*</span></p><br>
+        <!-- </ion-col> -->
+      </ion-row>
+
+      <ion-row style="margin-bottom: 30px; border-bottom: 1px solid">
+        <ion-col class="jumlah" [size]=4 style="display:flex; justify-content:center; align-items:center">
+          RM
+        </ion-col>
+        <ion-col [size]=8>
+          <!-- <ion-item class=" ion-text-center">
+            <ion-label class="jumlah" style="margin-top:50px">RM </ion-label> -->
+          <ion-input class="jumlah" type="number" placeholder="0.00"></ion-input>
+          <!-- </ion-item> -->
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="form-control">
+          <ion-label>DOKUMEN LAMPIRAN</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-button color="success" expand="block">PILIH DOKUMEN</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-button color="success" expand="block" >TAMBAH TUNAI MASUK</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </ion-grid>
+  
+
+
 
 </ion-content>

@@ -15,7 +15,7 @@ import { TambahTunaiMasukPage } from './tambah-tunai-masuk.page';
     IonicModule,
     TambahTunaiMasukPageRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    
   ],
   declarations: [TambahTunaiMasukPage]
 })

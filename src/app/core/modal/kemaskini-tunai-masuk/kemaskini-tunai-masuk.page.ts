@@ -4,19 +4,19 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-tambah-tunai-keluar',
-  templateUrl: './tambah-tunai-keluar.page.html',
-  styleUrls: ['./tambah-tunai-keluar.page.scss'],
+  selector: 'app-kemaskini-tunai-masuk',
+  templateUrl: './kemaskini-tunai-masuk.page.html',
+  styleUrls: ['./kemaskini-tunai-masuk.page.scss'],
 })
-export class TambahTunaiKeluarPage implements OnInit {
+export class KemaskiniTunaiMasukPage implements OnInit {
 
-  private tunai_keluar: FormGroup;
+  private tunai_masuk: FormGroup;
 
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
   ) {
-    this.tunai_keluar = this.formBuilder.group({
+    this.tunai_masuk = this.formBuilder.group({
       title: ['', Validators.required],
       description: [''],
       downtime_start:[''],
@@ -35,7 +35,7 @@ export class TambahTunaiKeluarPage implements OnInit {
   }
 
   logForm(){
-    console.log(this.tunai_keluar.value)
+    console.log(this.tunai_masuk.value)
   }
 
 }

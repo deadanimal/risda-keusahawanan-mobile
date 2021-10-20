@@ -4,11 +4,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-tambah-tunai-keluar',
-  templateUrl: './tambah-tunai-keluar.page.html',
-  styleUrls: ['./tambah-tunai-keluar.page.scss'],
+  selector: 'app-kemaskini-tunai-keluar',
+  templateUrl: './kemaskini-tunai-keluar.page.html',
+  styleUrls: ['./kemaskini-tunai-keluar.page.scss'],
 })
-export class TambahTunaiKeluarPage implements OnInit {
+export class KemaskiniTunaiKeluarPage implements OnInit {
 
   private tunai_keluar: FormGroup;
 

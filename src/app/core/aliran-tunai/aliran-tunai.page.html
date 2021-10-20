@@ -22,7 +22,7 @@
   <div>
     <ion-tabs>
       <ion-tab-bar slot="top" class="tab">
-        <ion-tab-button tab="tunai-masuk" style="height:30px; max-width:40%">
+        <ion-tab-button tab="/tunai-masuk" style="height:30px; max-width:40%">
           <ion-label style="width: 80%; ">
             <div>
               Tunai Masuk
@@ -31,7 +31,7 @@
           </ion-label>
           <!-- <ion-icon name="musical-note"></ion-icon> -->
         </ion-tab-button>
-        <ion-tab-button tab="tunai-keluar" style="height:30px; max-width:40%">
+        <ion-tab-button tab="/tunai-keluar" style="height:30px; max-width:40%">
           <ion-label>
             Tunai Keluar
           </ion-label>
@@ -40,7 +40,7 @@
 
       </ion-tab-bar>
 
-      <ion-tab tab="tunai-masuk">
+      <ion-tab tab="/tunai-masuk">
         <ion-content fullscreen>
           <div class="rectangle-280"></div>
 
@@ -57,28 +57,28 @@
             </ion-grid>
             <div style="height: 65%; width:100%; overflow: scroll;">
               <ion-grid style="margin-left:5%; margin-right:5%;">
-                <ion-row *ngFor="let tunai_masuk of tunai_masuk" style="padding-bottom: 10px;">
+                <ion-row *ngFor="let tunai_masuk of tunai_masuk" style="padding-bottom: 10px;" >
                   <ion-col>
-                    <div class="content-box bold" style="font-family: 'Nunito Sans';">
+                    <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiMasuk()">
                       <ion-grid style="padding: 0%;">
                         <ion-row style="padding: 0%;">
                           <ion-col size="8">
                             <ion-text>
                               <h6 class="bold no-padding">
-                                {{tunai_masuk.kategori}}
+                                {{tunai_masuk.kategori_aliran}}
                               </h6>
                             </ion-text>
                             <ion-text color="success">
-                              {{tunai_masuk.keterangan}}
+                              {{tunai_masuk.keterangan_aliran}}
                             </ion-text>
                           </ion-col>
                           <ion-col size="4" style="padding: 0%;">
                             <div class="content-box"
                               style="height: 100%; display:flex; align-items:center; background-color:#EDEDED; display:flex; justify-content:center">
                               <ion-text color="success" class="ion-text-center">
-                                <p class="jumlah no-padding"> RM {{tunai_masuk.jumlah}}</p>
+                                <p class="jumlah no-padding"> RM {{tunai_masuk.jumlah_aliran}}</p>
 
-                                <p class="tarikh no-padding">{{tunai_masuk.tarikh}}</p>
+                                <p class="tarikh no-padding">{{tunai_masuk.tarikh_aliran}}</p>
                               </ion-text>
                             </div>
                           </ion-col>
@@ -91,7 +91,7 @@
             </div>
             <div
               style="width:100%; height:25%; display:flex; justify-content:flex-end; align-items:flex-end; border-radius: 0px 0px 25px 25px; ">
-              <div class="ion-padding ion-margin ion-text-center" (click)="presentModal()">
+              <div class="ion-padding ion-margin ion-text-center" (click)="tambahTunaiMasuk()">
                 <img src="/assets/icon/add-item-icon.png" alt="" height="50" width="50">
                 <br>
 
@@ -107,7 +107,7 @@
         </ion-content>
       </ion-tab>
 
-      <ion-tab tab="tunai-keluar">
+      <ion-tab tab="/tunai-keluar">
         <ion-content fullscreen>
           <div class="rectangle-280"></div>
 
@@ -126,7 +126,7 @@
               <ion-grid style="margin-left:5%; margin-right:5%;">
                 <ion-row *ngFor="let tunai_masuk of tunai_masuk" style="padding-bottom: 10px;">
                   <ion-col>
-                    <div class="content-box bold" style="font-family: 'Nunito Sans';">
+                    <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiKeluar()">
                       <ion-grid style="padding: 0%;">
                         <ion-row style="padding: 0%;">
                           <ion-col size="8">
@@ -158,7 +158,7 @@
             </div>
             <div
               style="width:100%; height:25%; display:flex; justify-content:flex-end; align-items:flex-end; border-radius: 0px 0px 25px 25px; ">
-              <div class="ion-padding ion-margin ion-text-center" (click)="presentModal()">
+              <div class="ion-padding ion-margin ion-text-center" (click)="tambahTunaiKeluar()">
                 <img src="/assets/icon/add-item-icon.png" alt="" height="50" width="50">
                 <br>
 
