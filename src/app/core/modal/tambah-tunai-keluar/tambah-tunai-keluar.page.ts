@@ -6,6 +6,7 @@ import { Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
 import { KategoriAliranService } from 'src/app/services/kategoriAliran/kategori-aliran.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tambah-tunai-keluar',
@@ -24,6 +25,7 @@ export class TambahTunaiKeluarPage implements OnInit {
     private formBuilder: FormBuilder,
     private aliranService:AliranService,
     private kategoriAliranService:KategoriAliranService,
+    private router: Router
     
   ) {
     this.tunai_keluar = this.formBuilder.group({
@@ -57,8 +59,9 @@ export class TambahTunaiKeluarPage implements OnInit {
     this.aliranService.post(this.tunai_keluar.value).subscribe((res) => {
       console.log("res",res);
 
-      this.refresh();
+      // this.refresh();
       this.dismiss();
+      // this.router.navigate(['/aliran-tunai/tunai-keluar']);
 
     });
   }

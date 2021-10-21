@@ -6,6 +6,9 @@ import { KategoriAliranService } from 'src/app/services/kategoriAliran/kategori-
 import { map } from 'rxjs/operators';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
 import { Router } from '@angular/router';
+// import Swal from 'sweetalert2/dist/sweetalert2.js';
+// import swal from 'sweetalert';
+
 
 
 @Component({
@@ -84,5 +87,11 @@ export class TambahTunaiMasukPage implements OnInit {
     console.log(event);
     this.userDetails.profilePic = event.target.files[0];
   }
+
+  // openmodal()
+  // {
+  //   console.log("success")
+  //   swal("Hello world!");
+  // }
 
 }

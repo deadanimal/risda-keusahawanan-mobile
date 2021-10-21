@@ -26,24 +26,28 @@
     <ion-fab-list side="bottom">
       <!-- <a href="/profile"> -->
       <ion-fab-button color="success" href="/profile">
-        <ion-icon name="logo-facebook"></ion-icon>
+        <!-- <ion-icon name="logo-facebook"></ion-icon> -->
+        <img src="assets/icon/usahawan-icon.png" alt="">
       </ion-fab-button>
       <ion-text color="success"><small> Usahawan</small></ion-text>
       <!-- </a> -->
       <!-- <a href="/profile-syarikat" style="text-decoration:none;"> -->
       <ion-fab-button color="success" href="/profile-syarikat">
-        <ion-icon name="logo-twitter"></ion-icon>
+        <!-- <ion-icon name="logo-twitter"></ion-icon> -->
+        <img src="assets/icon/Syarikat--icon.png" alt="">
       </ion-fab-button>
       <ion-text color="success"><small> Syarikat</small></ion-text>
       <!-- </a> -->
 
       <ion-fab-button color="success" href="/profile-perniagaan">
-        <ion-icon name="logo-vimeo"></ion-icon>
+        <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
+        <img src="assets/icon/Perniagaan--icon.png" alt="">
       </ion-fab-button>
       <ion-text color="success"><small> Perniagaan</small></ion-text>
 
       <ion-fab-button color="success" href="/profile-pekebun">
-        <ion-icon name="logo-vimeo"></ion-icon>
+        <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
+        <img src="assets/icon/Pekebun--icon.png" alt="">
       </ion-fab-button>
       <ion-text color="success"><small> Pekebun</small></ion-text>
     </ion-fab-list>
@@ -66,7 +70,7 @@
   <ion-grid [fixed]="true">
 
 
-    <form action="" class="ion-padding form-control">
+    <form [formGroup]="form" class="ion-padding form-control" (ngSubmit)="logForm()">
 
       <ion-row>
         <ion-col>
@@ -80,9 +84,10 @@
         <ion-col></ion-col>
 
         <ion-col class="ion-justify-content-center">
-          <ion-avatar class="ion-justify-content-center" style="height: 100px; width: 100px;">
+          <ion-avatar class="ion-justify-content-center" style="padding:3%; height: 100px; width: 100px; border: 3px solid #ABC128;">
             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
           </ion-avatar>
+          <img src="assets/icon/cam.png" alt="" height="30%" style="position: absolute; bottom:0px; left:37px">
         </ion-col>
         <ion-col></ion-col>
 
@@ -93,16 +98,15 @@
         <ion-col>
 
           <ion-label>NO. USAHAWAN</ion-label>
-          <ion-input value="{{usahawan.id}}" ></ion-input>
+          <ion-input value="{{usahawan.Kod_PT}}" formControlName="Kod_PT"></ion-input>
 
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-
           <ion-label>NAMA PENUH</ion-label>
-          <ion-input value="{{usahawan.namausahawan}}"></ion-input>
+          <ion-input value="{{usahawan.namausahawan}}" formControlName="namausahawan"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -110,7 +114,7 @@
         <ion-col>
 
           <ion-label>NO. MYCARD</ion-label>
-          <ion-input value="{{user.no_kp}}"></ion-input>
+          <ion-input value="{{user.no_kp}}" formControlName="nokadpengenalan"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -118,13 +122,13 @@
         <ion-col>
 
           <ion-label>TARIKH LAHIR</ion-label>
-          <ion-input value="{{usahawan.tarikhlahir}}"></ion-input>
+          <ion-input value="{{usahawan.tarikhlahir}}" formControlName="tarikhlahir"></ion-input>
         </ion-col>
 
         <ion-col>
 
           <ion-label> JANTINA</ion-label>
-          <ion-input value="{{usahawan.U_Jantina_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Jantina_ID}}" formControlName="U_Jantina_ID"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -132,21 +136,21 @@
         <ion-col>
           <br>
           <ion-label> BANGSA</ion-label>
-          <ion-input value="{{usahawan.U_Bangsa_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Bangsa_ID}}" formControlName="U_Bangsa_ID"></ion-input>
         </ion-col>
 
         <ion-col>
 
 
           <ion-label> STATUS PERKAHWINAN</ion-label>
-          <ion-input value="{{usahawan.statusperkahwinan}}"></ion-input>
+          <ion-input value="{{usahawan.statusperkahwinan}}" formControlName="statusperkahwinan"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> TAHAP PENDIDIKAN</ion-label>
-          <ion-input value="{{usahawan.U_Pendidikan_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Pendidikan_ID}}" formControlName="U_Pendidikan_ID"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -162,72 +166,72 @@
       <ion-row>
         <ion-col>
           <ion-label> ALAMAT (BARIS 1)</ion-label>
-          <ion-input value="{{usahawan.alamat1}}"></ion-input>
+          <ion-input value="{{usahawan.alamat1}}" formControlName="alamat1"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> ALAMAT (BARIS 2)</ion-label>
-          <ion-input value="{{usahawan.alamat2}}"></ion-input>
+          <ion-input value="{{usahawan.alamat2}}" formControlName="alamat2"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> ALAMAT (BARIS 3)</ion-label>
-          <ion-input value="{{usahawan.alamat3}}"></ion-input>
+          <ion-input value="{{usahawan.alamat3}}" formControlName="alamat3"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> BANDAR</ion-label>
-          <ion-input value="{{usahawan.bandar}}"></ion-input>
+          <ion-input value="{{usahawan.bandar}}" formControlName="bandar"></ion-input>
         </ion-col>
         <ion-col>
           <ion-label> POSKOD</ion-label>
-          <ion-input value="{{usahawan.poskod}}"></ion-input>
+          <ion-input value="{{usahawan.poskod}}" formControlName="poskod"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> NEGERI</ion-label>
-          <ion-input value="{{usahawan.U_Negeri_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Negeri_ID}}" formControlName="U_Negeri_ID"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> DAERAH</ion-label>
-          <ion-input value="{{usahawan.U_Daerah_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Daerah_ID}}" formControlName="U_Daerah_ID"></ion-input>
         </ion-col>
         <ion-col>
           <ion-label> MUKIM</ion-label>
-          <ion-input value="{{usahawan.U_Mukim_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Mukim_ID}}" formControlName="U_Mukim_ID"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> PARLIMEN</ion-label>
-          <ion-input value="{{usahawan.U_Parlimen_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Parlimen_ID}}" formControlName="U_Parlimen_ID"></ion-input>
         </ion-col>
         <ion-col>
           <ion-label> DUN</ion-label>
-          <ion-input value="{{usahawan.U_Dun_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Dun_ID}}" formControlName="U_Dun_ID"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> KAMPUNG</ion-label>
-          <ion-input value="{{usahawan.U_Kampung_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Kampung_ID}}" formControlName="U_Kampung_ID"></ion-input>
         </ion-col>
         <ion-col>
           <ion-label> SEKSYEN</ion-label>
-          <ion-input value="{{usahawan.U_Seksyen_ID}}"></ion-input>
+          <ion-input value="{{usahawan.U_Seksyen_ID}}" formControlName="U_Seksyen_ID"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -242,32 +246,32 @@
       <ion-row>
         <ion-col>
           <ion-label> KATEGORI USAHAWAN</ion-label>
-          <ion-input value="{{usahawan.id_kategori_usahawan}}"></ion-input>
+          <ion-input value="{{usahawan.id_kategori_usahawan}}" formControlName="id_kategori_usahawan"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> NO. TELEFON</ion-label>
-          <ion-input value="{{usahawan.notelefon}}"></ion-input>
+          <ion-input value="{{usahawan.notelefon}}" formControlName="notelefon"></ion-input>
         </ion-col>
         <ion-col>
           <ion-label> NO. TELEFON (HP)</ion-label>
-          <ion-input value="{{usahawan.nohp}}"></ion-input>
+          <ion-input value="{{usahawan.nohp}}" formControlName="nohp"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> EMAIL</ion-label>
-          <ion-input value="{{usahawan.email}}"></ion-input>
+          <ion-input value="{{usahawan.email}}" formControlName="email"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->
-          <ion-button expand="block" color="success">KEMASKINI</ion-button>
+          <ion-button type="submit" expand="block" color="success">KEMASKINI</ion-button>
         </ion-col>
       </ion-row>
 
