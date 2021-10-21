@@ -13,15 +13,15 @@ import { AliranService } from 'src/app/services/Aliran/aliran.service';
 export class AliranTunaiPage implements OnInit {
 
   tunai_masuk: any;
-  aliran_keluar: any;
+  tunai_keluar: any;
 
   usahawan_id = window.sessionStorage.getItem("usahawan_id");
   user_id = window.sessionStorage.getItem("user_id");
 
   constructor(
     public modalController: ModalController,
-    private aliranService:AliranService
-    ) { }
+    private aliranService: AliranService
+  ) { }
 
   ngOnInit() {
     this.getAliran()
@@ -79,9 +79,22 @@ export class AliranTunaiPage implements OnInit {
   getAliran() {
 
     this.aliranService.get().subscribe((res) => {
-      console.log("aliran",res);
-      
-      this.tunai_masuk = res;
+      console.log("aliran", res);
+
+      let temp = [];
+      let temp2 = [];
+      res.forEach(element => {
+        // console.log("id",element.id_kategori_aliran);
+        if (element.id_kategori_aliran == 1 || element.id_kategori_aliran == 2 || element.id_kategori_aliran == 3 || element.id_kategori_aliran == 4 || element.id_kategori_aliran == 5 || element.id_kategori_aliran == 6 || element.id_kategori_aliran == 7 || element.id_kategori_aliran == 8) {
+          temp.push(element);
+        }
+        else{
+          temp2.push(element);
+        }
+      });
+
+      this.tunai_masuk = temp;
+      this.tunai_keluar = temp2;
     });
 
   }

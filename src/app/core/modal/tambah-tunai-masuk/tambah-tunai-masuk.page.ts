@@ -5,6 +5,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KategoriAliranService } from 'src/app/services/kategoriAliran/kategori-aliran.service';
 import { map } from 'rxjs/operators';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tambah-tunai-masuk',
@@ -17,20 +19,21 @@ export class TambahTunaiMasukPage implements OnInit {
 
   usahawan_id = window.sessionStorage.getItem("usahawan_id");
   user_id = window.sessionStorage.getItem("user_id");
-  
+
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private kategoriAliranService:KategoriAliranService,
-    private aliranService:AliranService
+    private kategoriAliranService: KategoriAliranService,
+    private aliranService: AliranService,
+    private router: Router
   ) {
     this.tunai_masuk = this.formBuilder.group({
       id_pengguna: [''],
       id_kategori_aliran: ['', Validators.required],
-      tarikh_aliran:['', Validators.required],
+      tarikh_aliran: ['', Validators.required],
       keterangan_aliran: ['', Validators.required],
-      jumlah_aliran:['', Validators.required],
-      dokumen_lampiran:[''],
+      jumlah_aliran: ['', Validators.required],
+      dokumen_lampiran: [''],
     });
   }
 
@@ -46,28 +49,34 @@ export class TambahTunaiMasukPage implements OnInit {
     });
   }
 
-  logForm(){
+  logForm() {
 
     this.tunai_masuk.value.id_pengguna = this.user_id;
     console.log(this.tunai_masuk.value)
 
     this.aliranService.post(this.tunai_masuk.value).subscribe((res) => {
-      console.log("res",res);
+      console.log("res", res);
 
+      this.refresh();
+      this.dismiss();
     });
 
   }
 
-  kategori_aliran_masuk :any;
+  kategori_aliran_masuk: any;
 
   getKategoriAliran() {
 
     this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_masuk"))).subscribe((res) => {
-      console.log("kategori aliran",res);
+      console.log("kategori aliran", res);
       this.kategori_aliran_masuk = res;
-      console.log("kategori aliran",this.kategori_aliran_masuk);
+      console.log("kategori aliran", this.kategori_aliran_masuk);
     });
 
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
   userDetails: any;

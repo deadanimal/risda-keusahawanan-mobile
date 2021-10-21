@@ -124,7 +124,7 @@
             </ion-grid>
             <div style="height: 65%; width:100%; overflow: scroll;">
               <ion-grid style="margin-left:5%; margin-right:5%;">
-                <ion-row *ngFor="let tunai_masuk of tunai_masuk" style="padding-bottom: 10px;">
+                <ion-row *ngFor="let tunai_keluar of tunai_keluar" style="padding-bottom: 10px;">
                   <ion-col>
                     <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiKeluar()">
                       <ion-grid style="padding: 0%;">
@@ -132,20 +132,20 @@
                           <ion-col size="8">
                             <ion-text>
                               <h6 class="bold no-padding">
-                                {{tunai_masuk.kategori}}
+                                {{tunai_keluar.kategori_aliran}}
                               </h6>
                             </ion-text>
                             <ion-text color="success">
-                              {{tunai_masuk.keterangan}}
+                              {{tunai_keluar.keterangan_aliran}}
                             </ion-text>
                           </ion-col>
                           <ion-col size="4" style="padding: 0%;">
                             <div class="content-box"
                               style="height: 100%; display:flex; align-items:center; background-color:#EDEDED; display:flex; justify-content:center">
                               <ion-text color="danger" class="ion-text-center">
-                                <p class="jumlah no-padding"> RM {{tunai_masuk.jumlah}}</p>
+                                <p class="jumlah no-padding"> RM {{tunai_keluar.jumlah_aliran}}</p>
 
-                                <p class="tarikh no-padding">{{tunai_masuk.tarikh}}</p>
+                                <p class="tarikh no-padding">{{tunai_keluar.tarikh_aliran}}</p>
                               </ion-text>
                             </div>
                           </ion-col>
