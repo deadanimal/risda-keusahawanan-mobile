@@ -48,17 +48,18 @@ export class LoginPage implements OnInit {
   login() {
     console.log(this.form.value);
     this.loginService.check1user(this.form.value).subscribe((res) => {
-      console.log(res);
+      console.log("user",res);
 
       if (Object.keys(res).length === 0) {
         console.log("failed")
       }
       else {
-        console.log("res id", res.id)
+        // console.log("res id", res.role)
         var setsession_user_id = window.sessionStorage.setItem("user_id", res.id);
-        var setsession_usahawan_id = window.sessionStorage.setItem("usahawan_id", res.id);
+        var setsession_usahawan_id = window.sessionStorage.setItem("usahawan_id", res.usahawanid );
+        var setsession_role = window.sessionStorage.setItem("role", res.role);
         console.log("login success")
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/dashboard']);
        
       }
     });

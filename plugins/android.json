@@ -28,7 +28,23 @@
     },
     "im.ltdev.cordova.UserAgent": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-globalization": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    }
+  }
 }

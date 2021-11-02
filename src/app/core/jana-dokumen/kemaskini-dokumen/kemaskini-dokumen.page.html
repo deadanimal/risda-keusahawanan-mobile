@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="success" (click)="dismiss()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-text color="success">
+        <h1>
+          <strong class="ion-text-uppercase">
+            DOKUMEN PERNIAGAAN
+          </strong>
+        </h1>
+      </ion-text>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <form [formGroup]="tambah_dokumen" (ngSubmit)="logForm()" style="margin: 20px;">
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <h5 class="form-header">Maklumat Pelanggan</h5>
+          
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>NAMA PELANGGAN</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>ALAMAT 1</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>ALAMAT 2</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>ALAMAT 3</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>DAERAH</ion-label>
+          <ion-input type="text" formControlName="title">
+          </ion-input>
+        </ion-col>
+        <ion-col class="form-control">
+          <ion-label>POSKOD</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>NEGERI</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+        <ion-col class="form-control">
+          <ion-label>NO. TELEFON</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>NO. FAKS</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <h5 class="form-header">Maklumat Pembelian</h5>
+          
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <!-- <ion-item lines="none" style="border: none;"> -->
+          <ion-label position="stacked">NAMA PRODUK</ion-label>
+          <ion-select formControlName="title">
+            <ion-select-option value="publish">Publish</ion-select-option>
+            <ion-select-option value="draft">Draft</ion-select-option>
+          </ion-select>
+          <!-- </ion-item> -->
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <!-- <ion-item lines="none" style="border: none;"> -->
+          <ion-label position="stacked">KUANTITI</ion-label>
+          <ion-select formControlName="title">
+            <ion-select-option value="publish">Publish</ion-select-option>
+            <ion-select-option value="draft">Draft</ion-select-option>
+          </ion-select>
+          <!-- </ion-item> -->
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <div style="width:100%; display:flex; justify-content:flex-end;">
+            <div class="ion-text-center" (click)="tambahDokumen()">
+              <img src="/assets/icon/add-item-icon.png" alt="" height="50" width="50">
+              <br>
+      
+              <ion-text class="bold" color="success">
+                <ion-icon name="add"></ion-icon>
+                <span style="font-size: 12px; font-weight: 900;"><strong> TAMBAH </strong></span>
+              </ion-text>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-button color="success" expand="block">KEMASKINI</ion-button>
+          <ion-button color="danger" expand="block">HAPUS</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+
+
+
+
+</ion-content>

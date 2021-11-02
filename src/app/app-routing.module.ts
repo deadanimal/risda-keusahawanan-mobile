@@ -70,6 +70,86 @@ const routes: Routes = [
   {
     path: 'kemaskini-tunai-keluar',
     loadChildren: () => import('./core/modal/kemaskini-tunai-keluar/kemaskini-tunai-keluar.module').then( m => m.KemaskiniTunaiKeluarPageModule)
+  },
+  {
+    path: 'buku-tunai',
+    loadChildren: () => import('./core/buku-tunai/buku-tunai.module').then( m => m.BukuTunaiPageModule)
+  },
+  {
+    path: 'ringkasan-lejar',
+    loadChildren: () => import('./core/ringkasan-lejar/ringkasan-lejar.module').then( m => m.RingkasanLejarPageModule)
+  },
+  {
+    path: 'pnl',
+    loadChildren: () => import('./core/pnl/pnl.module').then( m => m.PnlPageModule)
+  },
+  {
+    path: 'katalog',
+    loadChildren: () => import('./core/katalog/katalog/katalog.module').then( m => m.KatalogPageModule)
+  },
+  {
+    path: 'tambah-katalog',
+    loadChildren: () => import('./core/katalog/tambah-katalog/tambah-katalog.module').then( m => m.TambahKatalogPageModule)
+  },
+  {
+    path: 'kemaskini-katalog',
+    loadChildren: () => import('./core/katalog/kemaskini-katalog/kemaskini-katalog.module').then( m => m.KemaskiniKatalogPageModule)
+  },
+  {
+    path: 'katalog-pegawai',
+    loadChildren: () => import('./core/katalog/katalog-pegawai/katalog-pegawai.module').then( m => m.KatalogPegawaiPageModule)
+  },
+  {
+    path: 'maklumat-produk',
+    loadChildren: () => import('./core/katalog/maklumat-produk/maklumat-produk.module').then( m => m.MaklumatProdukPageModule)
+  },
+  {
+    path: 'jana-dokumen',
+    loadChildren: () => import('./core/jana-dokumen/jana-dokumen/jana-dokumen.module').then( m => m.JanaDokumenPageModule)
+  },
+  {
+    path: 'tambah-jana-dokumen',
+    loadChildren: () => import('./core/jana-dokumen/tambah-jana-dokumen/tambah-jana-dokumen.module').then( m => m.TambahJanaDokumenPageModule)
+  },
+  {
+    path: 'kemaskini-dokumen',
+    loadChildren: () => import('./core/jana-dokumen/kemaskini-dokumen/kemaskini-dokumen.module').then( m => m.KemaskiniDokumenPageModule)
+  },
+  {
+    path: 'buletin',
+    loadChildren: () => import('./core/buletin/buletin/buletin.module').then( m => m.BuletinPageModule)
+  },
+  {
+    path: 'tambah-buletin',
+    loadChildren: () => import('./core/buletin/tambah-buletin/tambah-buletin.module').then( m => m.TambahBuletinPageModule)
+  },
+  {
+    path: 'kemaskini-buletin',
+    loadChildren: () => import('./core/buletin/kemaskini-buletin/kemaskini-buletin.module').then( m => m.KemaskiniBuletinPageModule)
+  },
+  {
+    path: 'lawatan-pegawai',
+    loadChildren: () => import('./core/lawatan/lawatan-pegawai/lawatan-pegawai.module').then( m => m.LawatanPegawaiPageModule)
+  },
+  {
+    path: 'tarikh-lawatan-pgw',
+    loadChildren: () => import('./core/lawatan/tarikh-lawatan-pgw/tarikh-lawatan-pgw.module').then( m => m.TarikhLawatanPgwPageModule)
+  },
+  {
+    path: 'pengesahan-tarikh-lawatan-pgw',
+    loadChildren: () => import('./core/lawatan/pengesahan-tarikh-lawatan-pgw/pengesahan-tarikh-lawatan-pgw.module').then( m => m.PengesahanTarikhLawatanPgwPageModule)
+  },
+  {
+    path: 'tambah-laporan',
+    loadChildren: () => import('./core/lawatan/tambah-laporan/tambah-laporan.module').then( m => m.TambahLaporanPageModule)
+  },
+  {
+    path: 'lawatan-usahawan',
+    loadChildren: () => import('./core/lawatan/lawatan-usahawan/lawatan-usahawan.module').then( m => m.LawatanUsahawanPageModule)
+  },
+  {
+    path: 'notifikasi',
+    loadChildren: () => import('./core/notifikasi/notifikasi.module').then( m => m.NotifikasiPageModule)
   }
 ];
 

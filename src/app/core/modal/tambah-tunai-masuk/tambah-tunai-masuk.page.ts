@@ -8,6 +8,8 @@ import { AliranService } from 'src/app/services/Aliran/aliran.service';
 import { Router } from '@angular/router';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';
 // import swal from 'sweetalert';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+// import { File } from '@ionic-native/file';
 
 
 
@@ -60,8 +62,8 @@ export class TambahTunaiMasukPage implements OnInit {
     this.aliranService.post(this.tunai_masuk.value).subscribe((res) => {
       console.log("res", res);
 
-      this.refresh();
-      this.dismiss();
+      // this.refresh();
+      // this.dismiss();
     });
 
   }

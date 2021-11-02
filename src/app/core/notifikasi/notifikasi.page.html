@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar style="height: 80px;">
+
+    <ion-buttons slot="start">
+      <ion-button color="success" href="/dashboard">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-text color="success">
+        <h1>
+          <strong class="ion-text-uppercase">
+            NOTIFIKASI
+          </strong>
+        </h1>
+      </ion-text>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="bg-white" style="display: flex; flex-wrap:wrap">
+
+    <div style="height: 100%; width:100%; overflow: scroll;">
+      <ion-grid style="margin-left:5%; margin-right:5%;">
+        <ion-row *ngFor="let notifikasi of notifikasi" style="padding-bottom: 10px;">
+          <ion-col>
+            <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiMasuk()">
+              <ion-grid style="padding: 0%;">
+                <ion-row style="padding: 0%;">
+                  <ion-col size="10">
+                    <ion-text color=success>
+                      <h6 class="bold no-padding">
+                        {{notifikasi.tajuk}}
+                      </h6>
+                    </ion-text>
+                    <ion-text color="medium">
+                      {{notifikasi.keterangan}}
+                    </ion-text>
+                  </ion-col>
+                  <ion-col size="2" style="padding: 0%;">
+                    
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+
+
+</ion-content>

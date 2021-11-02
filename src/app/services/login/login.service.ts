@@ -23,8 +23,8 @@ export class LoginService {
     return this.http.get<LoginModel[]>(`${this.url}`);
   }
 
-  check1user(user: LoginModel): Observable<LoginModel> {
-    return this.http.post<LoginModel>(`${this.url}`, user);
+  check1user(user: any): Observable<any> {
+    return this.http.post<any>(`${this.url}`, user);
   }
 
   show(id): Observable<LoginModel> {

@@ -31,7 +31,7 @@
   
 
   <ion-grid>
-    <form [formGroup]="tunai_masuk" (ngSubmit)="logForm()">
+    <form [formGroup]="tunai_masuk" (ngSubmit)="logForm()" enctype="multipart/form-data">
       <ion-row>
         <ion-col class="form-control">
           <ion-item lines="none" style="border: none;">
@@ -92,7 +92,7 @@
               PILIH DOKUMEN
             </ion-button>
             <input class="ion-hide" #f type="file" id="file-input"
-               formControlName="dokumen_lampiran">
+               formControlName="dokumen_lampiran" (change)="onFileChange($event)">
 
           </ion-item>
 
