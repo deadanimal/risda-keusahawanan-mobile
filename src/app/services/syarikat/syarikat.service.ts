@@ -28,4 +28,11 @@ export class SyarikatService {
   show(id): Observable<SyarikatModel> {
     return this.http.get<SyarikatModel>(`${this.url}` + "/" + id);
   }
+
+
+  update(syarikat: any, usahawan_id: number,): Observable<any> {
+    return this.http.put<any>(
+      `${this.url}/${usahawan_id}`, syarikat
+    );
+  }
 }

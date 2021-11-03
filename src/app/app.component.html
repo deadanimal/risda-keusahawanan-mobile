@@ -16,7 +16,7 @@
           </ion-list-header>
           <!-- <ion-note>hi@ionicframework.com</ion-note> -->
 
-          <div *ngIf="role == 'usahawan'">
+          <div *ngIf="role == '2'">
 
             <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
               <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
@@ -28,7 +28,7 @@
             </ion-menu-toggle>
           </div>
 
-          <div *ngIf="role == 'pegawai'">
+          <div *ngIf="role == '1'">
             <ion-menu-toggle auto-hide="false" *ngFor="let p of appPagesPegawai; let i = index">
               <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
                 routerLinkActive="selected">

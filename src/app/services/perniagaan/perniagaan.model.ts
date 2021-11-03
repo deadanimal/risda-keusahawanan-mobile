@@ -27,6 +27,22 @@ export class PerniagaanModel {
     public latitud: Number;
     public logitud: Number;
     public facebook: String;
+    public instagram: String;
+    public twitter: String;
+    public lamanweb: String;
+    public dropship: String;
+    public ejen: String;
+    public outlet: String;
+    public stokis: String;
+    public luarnegara: String;
+    public domestik: String;
+    public pasaranonline: String;
+    public purata_jualan_bulanan: String;
+    public hasil_jualan_tahunan: String;
+    // public domestik: String;
+    // public domestik: String;
+
+
     public logo_syarikat: String;
     public createdby_id: Number;
     public createdby_kod_PT: Number;

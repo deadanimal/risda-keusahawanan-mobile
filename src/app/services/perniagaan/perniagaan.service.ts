@@ -26,7 +26,14 @@ export class PerniagaanService {
   //   return this.http.post<PerniagaanModel>(`${this.url}`,user);
   // }
 
-  show(id): Observable<PerniagaanModel> {
-    return this.http.get<PerniagaanModel>(`${this.url}` + "/" + id);
+  show(id): Observable<any> {
+    return this.http.get<any>(`${this.url}` + "/" + id);
+  }
+
+
+  update(perniagaan: any, usahawan_id: number,): Observable<any> {
+    return this.http.put<any>(
+      `${this.url}/${usahawan_id}`, perniagaan
+    );
   }
 }

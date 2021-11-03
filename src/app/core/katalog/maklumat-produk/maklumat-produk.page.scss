@@ -31,6 +31,7 @@ h1 {
 }
 
 .rectangle-280 {
+    
     background-color: #00a651;
     position: absolute;
     height: 100%;
@@ -53,9 +54,11 @@ h1 {
 
 .gambar_produk {
     // border: 1px solid black;
+    background-image: url('/assets/img/pic2.jpeg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    
     border-radius: 0px 0px 30px 30px;
     
 }

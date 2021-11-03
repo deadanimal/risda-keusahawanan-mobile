@@ -9,6 +9,7 @@ import { UsahawanService } from 'src/app/services/usahawan/usahawan.service';
 import { UsahawanModel } from 'src/app/services/usahawan/usahawan.model';
 // import { LoginModel } from 'src/app/services/login/login.model';
 import { LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 import Swal from 'sweetalert2'
 
@@ -33,7 +34,8 @@ export class ProfilePage implements OnInit {
     private user: LoginModel,
     private usahawan: UsahawanModel,
     private formBuilder: FormBuilder,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    public alertController: AlertController
   ) { 
 
     this.form = this.formBuilder.group({
@@ -159,11 +161,22 @@ export class ProfilePage implements OnInit {
 
       loading.dismiss();
 
-      Swal.fire(
-        '',
-        'Kemaskini Berjaya',
-        'success'
-      )
+      this.presentAlert()
     });
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Kemaskini Berjaya',
+      subHeader: 'Kemaskini Maklumat Usahawan Telah Berjaya',
+      message: '',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 }
