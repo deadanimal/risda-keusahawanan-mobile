@@ -7,7 +7,7 @@
       <ion-text color="success">
         <h1>
           <strong class="ion-text-uppercase">
-            TUNAI KELUAR 
+            TUNAI KELUAR
           </strong>
         </h1>
       </ion-text>
@@ -29,15 +29,16 @@
     <ion-button type="submit" [disabled]="!tunai_masuk.valid">Submit</ion-button>
   </form> -->
 
+
   <ion-grid>
-    <form [formGroup]="tunai_keluar" (ngSubmit)="logForm()">
+    <form [formGroup]="form" (ngSubmit)="logForm()" enctype="multipart/form-data">
       <ion-row>
         <ion-col class="form-control">
           <ion-item lines="none" style="border: none;">
             <ion-label class="padding" position="stacked">KATEGORI ALIRAN <span style="color: red;">*</span></ion-label>
-            <ion-select formControlName="id_kategori_aliran">
-              <ion-select-option *ngFor="let aliran_masuk of kategori_aliran_masuk" value="{{aliran_masuk.id}}">
-                {{aliran_masuk.nama_kategori_aliran}}</ion-select-option>
+            <ion-select formControlName="id_kategori_aliran" >
+              <ion-select-option *ngFor="let kategori_aliran of kategori_aliran" value="{{kategori_aliran.id}}">
+                {{kategori_aliran.nama_kategori_aliran}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -47,7 +48,8 @@
           <ion-item lines="none" class="form-control" style="border: none;">
             <ion-label class="padding" position="stacked">TARIKH <span style="color: red;">*</span></ion-label>
             <!-- <ion-input type="date" formControlName="title"></ion-input> -->
-            <ion-datetime displayFormat="YYYY-MM-DD" formControlName="tarikh_aliran" style="background-color: #f5f5f5;">
+            <ion-datetime displayFormat="D/M/YYYY" pickerFormat="D/M/YYYY" formControlName="tarikh_aliran"
+               style="background-color: #f5f5f5;">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -66,11 +68,11 @@
         <!-- </ion-col> -->
       </ion-row>
 
-      <ion-row style="margin-bottom: 30px; border-bottom: 1px solid">
+      <ion-row style="margin-bottom: 30px; border-bottom: 0.8px solid; margin-left:5%; margin-right:5%">
         <ion-col class="jumlah" [size]=4 style="display:flex; justify-content:center; align-items:center">
           RM
         </ion-col>
-        <ion-col [size]=8>
+        <ion-col [size]=8 class="ion-text-center">
           <!-- <ion-item class=" ion-text-center">
             <ion-label class="jumlah" style="margin-top:50px">RM </ion-label> -->
           <ion-input class="jumlah" type="number" placeholder="0.00" formControlName="jumlah_aliran"></ion-input>
@@ -86,12 +88,12 @@
       <ion-row style="margin-bottom: 20px;">
 
         <ion-col class="form-control">
-          <ion-item>
+          <ion-item lines="none">
             <ion-button color="success" expand="block" (click)="f.click()">
               PILIH DOKUMEN
             </ion-button>
-            <input class="ion-hide" #f type="file" id="file-input"
-               formControlName="dokumen_lampiran">
+            <input class="ion-hide" #f type="file" id="file-input" formControlName="dokumen_lampiran"
+              (change)="onFileChange($event)">
 
           </ion-item>
 
@@ -103,7 +105,9 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button color="success" expand="block" type="submit" [disabled]="tunai_keluar.invalid">TAMBAH TUNAI KELUAR</ion-button>
+          <!-- (click)="openmodal()" -->
+          <ion-button color="success" expand="block" type="submit" [disabled]="form.invalid">TAMBAH TUNAI MASUK
+          </ion-button>
         </ion-col>
       </ion-row>
 

@@ -38,6 +38,7 @@
     "ajv": "^6.12.6",
     "cordova-res": "^0.15.3",
     "ionic-angular": "^3.9.10",
+    "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.1.9",

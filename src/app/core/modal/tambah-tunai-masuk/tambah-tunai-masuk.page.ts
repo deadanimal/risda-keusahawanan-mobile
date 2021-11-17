@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 // import { File } from '@ionic-native/file';
 
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tambah-tunai-masuk',
@@ -57,13 +57,15 @@ export class TambahTunaiMasukPage implements OnInit {
   logForm() {
 
     this.tunai_masuk.value.id_pengguna = this.user_id;
+    this.tunai_masuk.value.tarikh_aliran = moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD');
+    
     console.log(this.tunai_masuk.value)
 
     this.aliranService.post(this.tunai_masuk.value).subscribe((res) => {
       console.log("res", res);
 
-      // this.refresh();
-      // this.dismiss();
+      this.refresh();
+      this.dismiss();
     });
 
   }
@@ -84,11 +86,19 @@ export class TambahTunaiMasukPage implements OnInit {
     window.location.reload();
   }
 
-  userDetails: any;
-  handleFileInput(event) {
-    console.log(event);
-    this.userDetails.profilePic = event.target.files[0];
+
+  doSomething() {
+    console.log(this.tunai_masuk.value.tarikh_aliran);
+    console.log('date', moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD')); // 2019-04-22
+
+    // this.tunai_masuk.value.tarikh_aliran = moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD');
   }
+
+  // userDetails: any;
+  // handleFileInput(event) {
+  //   console.log(event);
+  //   this.userDetails.profilePic = event.target.files[0];
+  // }
 
   // openmodal()
   // {

@@ -16,39 +16,30 @@
 </ion-header>
 
 <ion-content>
-  <!-- <form [formGroup]="tunai_masuk" (ngSubmit)="logForm()" style="margin: 30px;">
-    <ion-item class="form-control">
-      <ion-label>Todo</ion-label>
-      <ion-input type="text" formControlName="title"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Description</ion-label>
-      <ion-textarea formControlName="description"></ion-textarea>
-    </ion-item>
-    <ion-button type="submit" [disabled]="!tunai_masuk.valid">Submit</ion-button>
-  </form> -->
 
   <ion-grid>
-    <form [formGroup]="tunai_masuk" (ngSubmit)="logForm()" style="margin: 30px;">
+    <form [formGroup]="form" (ngSubmit)="logForm()" style="margin: 30px;">
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>KATEGORI ALIRAN</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-select formControlName="id_kategori_aliran" >
+            <ion-select-option *ngFor="let aliran_masuk of kategori_aliran_masuk" [value]="aliran_masuk.id" selected="aliran_masuk.id == this.tunai_masuk.id_kategori_aliran">
+              {{aliran_masuk.nama_kategori_aliran}}</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>TARIKH</ion-label>
           <!-- <ion-input type="date" formControlName="title"></ion-input> -->
-          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="downtime_start" style="background-color: #f5f5f5;">
+          <ion-datetime displayFormat="D/M/YYYY" pickerFormat="D/M/YYYY" formControlName="tarikh_aliran" value="{{tunai_masuk.tarikh_aliran}}" style="background-color: #f5f5f5;">
           </ion-datetime>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>KETERANGAN</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="keterangan_aliran" ></ion-input>
         </ion-col>
       </ion-row>
       <ion-row class="ion-text-center" style="display: flex; justify-content:center">
@@ -64,7 +55,7 @@
         <ion-col [size]=8>
           <!-- <ion-item class=" ion-text-center">
             <ion-label class="jumlah" style="margin-top:50px">RM </ion-label> -->
-          <ion-input class="jumlah" type="number" placeholder="0.00"></ion-input>
+            <ion-input class="jumlah" type="number" formControlName="jumlah_aliran"></ion-input>
           <!-- </ion-item> -->
         </ion-col>
       </ion-row>
@@ -82,19 +73,12 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button color="success" expand="block" >KEMASKINI</ion-button>
+          <ion-button color="success" expand="block" type="submit">KEMASKINI</ion-button>
+          <ion-button color="danger" expand="block" (click)="onDelete()">PADAM</ion-button>
         </ion-col>
       </ion-row>
-      <ion-row style="margin-bottom: 20px;">
-        <ion-col class="form-control">
-          <ion-button color="danger" expand="block" >PADAM</ion-button>
-        </ion-col>
-      </ion-row>
-
+      
     </form>
   </ion-grid>
   
-
-
-
 </ion-content>

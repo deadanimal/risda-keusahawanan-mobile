@@ -31,7 +31,6 @@
       </ion-row>
     </ion-grid>
     <div style="height: 70%; width:100%; overflow: scroll; display:flex; justify-content:center">
-
       <ion-grid class="rectangle-279">
         <ion-row *ngFor="let katalog of katalog"
           style="margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;" (click)="kemaskiniKatalog()">
@@ -46,7 +45,7 @@
                       </h6>
                     </ion-text>
                     <ion-text color="success">
-                      {{katalog.created_date}}
+                      {{katalog.updated_at  | date: 'dd/MM/yyyy'}}
                     </ion-text>
                   </ion-col>
                   <ion-col size="4" style="padding: 0%; display:flex; justify-content:flex-end">

@@ -18,40 +18,40 @@
 <ion-content>
 
   <ion-grid>
-    <form [formGroup]="tunai_masuk" (ngSubmit)="logForm()" style="margin: 20px;">
+    <form [formGroup]="form" (ngSubmit)="logForm()" style="margin: 20px;">
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>NAMA PRODUK</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="nama_produk"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>KANDUNGAN PRODUK</ion-label>
           <!-- <ion-input type="date" formControlName="title"></ion-input> -->
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="kandungan_produk"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>BERAT</ion-label>
-          <ion-input placeholder="0.0" class="ion-text-right" type="text" formControlName="title">
+          <ion-label>BERAT (kg)</ion-label>
+          <ion-input placeholder="0.0" class="ion-text-right" type="number" formControlName="berat_produk">
           </ion-input>
         </ion-col>
         <ion-col class="form-control">
           <ion-label>HARGA JUALAN</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="number" formControlName="harga_produk"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>UNIT PRODUCTION</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="unit_production" (change)="updateBakiStok()"></ion-input>
         </ion-col>
         <ion-col class="form-control">
           <ion-label>BAKI STOK</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="baki_stok" value="bakiStok" readonly></ion-input>
         </ion-col>
       </ion-row>
 
@@ -59,7 +59,7 @@
         <ion-col class="form-control">
           <ion-label>KETERANGAN LAIN</ion-label>
           <!-- <ion-input type="text" formControlName="title"></ion-input> -->
-          <ion-textarea rows="5"></ion-textarea>
+          <ion-textarea rows="5" formControlName="keterangan_produk"></ion-textarea>
         </ion-col>
       </ion-row>
 
@@ -67,8 +67,8 @@
         <ion-col class="form-control">
           <!-- <ion-item lines="none" style="border: none;"> -->
           <ion-label position="stacked">STATUS</ion-label>
-          <ion-select formControlName="title">
-            <ion-select-option value="publish">Publish</ion-select-option>
+          <ion-select formControlName="status_katalog">
+            <ion-select-option value="pending">Publish</ion-select-option>
             <ion-select-option value="draft">Draft</ion-select-option>
           </ion-select>
           <!-- </ion-item> -->
@@ -87,32 +87,12 @@
             <div >
               
               <br>
-              <img src="assets/img/default_profile.png" class="border-radius-md" width="80" height="80"
+              <img [src]="url" class="border-radius-md" width="80" height="80"
                 id="upload-Preview" />
-
-              <!-- <a class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
-                <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" aria-hidden="true"
-                  data-bs-original-title="Edit Image" aria-label="Edit Image"></i><span class="sr-only">Edit
-                  Image</span>
-              </a> -->
             </div>
-            <input id="upload-Image" type="file" onchange="loadImageFile();" name="gambar_profil" style="display: none">
+            <ion-input accept="image/*" (change)="onSelectFile($event)" formControlName="gambar_url"  type="file" name="gambar_profil" style="display: none"></ion-input>
           </label>
 
-
-          <!-- <ion-content padding>
-            <ion-item>
-              <p>{{imageURI}}</p>
-              <button ion-button color="secondary" (click)="getImage()">Get Image</button>
-            </ion-item>
-            <ion-item>
-              <h4>Image Preview</h4>
-              <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
-            </ion-item>
-            <ion-item>
-              <button ion-button (click)="uploadFile()">Upload</button>
-            </ion-item>
-          </ion-content> -->
         </ion-col>
       </ion-row>
 

@@ -1,14 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from "src/environments/environment";
-import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AliranService {
+export class KatalogService {
 
-  url: string = environment.baseUrl + "api/aliran";
+  url: string = environment.baseUrl + "api/katalog";
 
   constructor(private http: HttpClient) { }
 
@@ -16,8 +16,8 @@ export class AliranService {
     return this.http.post<any>(`${this.url}`, data);
   }
 
-  get(): Observable<any> {
-    return this.http.get<any>(`${this.url}`);
+  get(user_id): Observable<any> {
+    return this.http.get<any>(`${this.url}` + "/" + user_id);
   }
 
   update(aliran: any, aliran_id: number,): Observable<any> {
@@ -26,7 +26,7 @@ export class AliranService {
     );
   }
 
-  delete( aliran_id: number ): Observable<any>{
+  delete(aliran_id: number): Observable<any> {
     return this.http.delete<any>(
       `${this.url}/${aliran_id}`
     );

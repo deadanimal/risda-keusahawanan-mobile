@@ -5,6 +5,7 @@ import { KemaskiniTunaiMasukPage } from '../modal/kemaskini-tunai-masuk/kemaskin
 import { TambahTunaiKeluarPage } from '../modal/tambah-tunai-keluar/tambah-tunai-keluar.page';
 import { TambahTunaiMasukPage } from '../modal/tambah-tunai-masuk/tambah-tunai-masuk.page';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
+// import { KemaskiniTunaiMasukComponent } from './kemaskini-tunai-masuk/kemaskini-tunai-masuk.component';
 @Component({
   selector: 'app-aliran-tunai',
   templateUrl: './aliran-tunai.page.html',
@@ -27,19 +28,6 @@ export class AliranTunaiPage implements OnInit {
     this.getAliran()
   }
 
-  // tunai_masuk = [
-  //   { kategori: "Jualan Perolehan", keterangan:"keterangan1", jumlah: 100, tarikh: "10/10/21" },
-  //   { kategori: "Deposit Jualan", keterangan:"keterangan2", jumlah: 200, tarikh: "10/10/21" },
-  //   { kategori: "Pulangan Belian", keterangan:"keterangan3", jumlah: 300, tarikh: "10/10/21" },
-  //   { kategori: "Stok Akhir", keterangan:"keterangan4", jumlah: 200, tarikh: "10/10/21" },
-  //   { kategori: "Hasil Sewaan", keterangan:"keterangan5", jumlah: 200, tarikh: "10/10/21" },
-  //   { kategori: "Hasil Dividen", keterangan:"keterangan6", jumlah: 250, tarikh: "10/10/21" },
-  //   { kategori: "Hasil Komisen", keterangan:"keterangan7", jumlah: 250, tarikh: "10/10/21" },
-  //   { kategori: "Hasil Lain", keterangan:"keterangan8", jumlah: 250, tarikh: "10/10/21" },
-  //   { kategori: "Deposit Jualan", keterangan:"keterangan9", jumlah: 250, tarikh: "10/10/21" },
-  //   { kategori: "Pulangan Belian", keterangan:"keterangan0", jumlah: 250, tarikh: "10/10/21" },
-  // ]
-
   async tambahTunaiMasuk() {
     console.log("tambah tunai masuk");
     const modal = await this.modalController.create({
@@ -49,13 +37,16 @@ export class AliranTunaiPage implements OnInit {
     return await modal.present();
   }
 
-  async kemaskiniTunaiMasuk() {
+  async kemaskiniTunaiMasuk(tunai_masuk: any) {
     console.log("kemaskini tunai masuk");
     const modal = await this.modalController.create({
       component: KemaskiniTunaiMasukPage,
-      cssClass: 'my-custom-class'
+      componentProps: { tunai_masuk },
+      // cssClass: 'my-custom-class'
     });
-    return await modal.present();
+
+    modal.present();
+    // return await modal.present();
   }
 
   async tambahTunaiKeluar() {
@@ -65,13 +56,16 @@ export class AliranTunaiPage implements OnInit {
       cssClass: 'my-custom-class'
     });
     return await modal.present();
+
+    // this.getAliran();
   }
 
-  async kemaskiniTunaiKeluar() {
+  async kemaskiniTunaiKeluar(tunai_keluar: any) {
     console.log("kemaskini tunai keluar");
     const modal = await this.modalController.create({
       component: KemaskiniTunaiKeluarPage,
-      cssClass: 'my-custom-class'
+      componentProps: { tunai_keluar },
+      // cssClass: 'my-custom-class'
     });
     return await modal.present();
   }
@@ -88,7 +82,7 @@ export class AliranTunaiPage implements OnInit {
         if (element.id_kategori_aliran == 1 || element.id_kategori_aliran == 2 || element.id_kategori_aliran == 3 || element.id_kategori_aliran == 4 || element.id_kategori_aliran == 5 || element.id_kategori_aliran == 6 || element.id_kategori_aliran == 7 || element.id_kategori_aliran == 8) {
           temp.push(element);
         }
-        else{
+        else {
           temp2.push(element);
         }
       });

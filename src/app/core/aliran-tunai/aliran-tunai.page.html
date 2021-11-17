@@ -59,7 +59,7 @@
               <ion-grid style="margin-left:5%; margin-right:5%;">
                 <ion-row *ngFor="let tunai_masuk of tunai_masuk" style="padding-bottom: 10px;" >
                   <ion-col>
-                    <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiMasuk()">
+                    <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiMasuk( tunai_masuk )">
                       <ion-grid style="padding: 0%;">
                         <ion-row style="padding: 0%;">
                           <ion-col size="8">
@@ -126,7 +126,7 @@
               <ion-grid style="margin-left:5%; margin-right:5%;">
                 <ion-row *ngFor="let tunai_keluar of tunai_keluar" style="padding-bottom: 10px;">
                   <ion-col>
-                    <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiKeluar()">
+                    <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiKeluar( tunai_keluar )">
                       <ion-grid style="padding: 0%;">
                         <ion-row style="padding: 0%;">
                           <ion-col size="8">

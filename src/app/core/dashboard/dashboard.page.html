@@ -14,36 +14,6 @@
 
 <ion-content>
 
-
-  <!-- <div style="margin: 10px; height:initial; background-color:aqua; display:flex; flex-wrap:nowrap">
-    <ion-scroll scrollX="true" scrollY="true" style="display:flex; flex-wrap:nowrap; ">
-   
-
-      <ion-card *ngFor="let img_info of img_info" class="no-padding" style="width: 200px;">
-
-        <ion-card-content class="no-padding" style="width: 200px;">
-          <div style="background-image: url('{{img_info.url}}');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        border-radius: 0px 0px 30px 30px;
-        width:200px;
-        height:300px;
-        color:black;
-        ">
-            ALALALLA
-          </div>
-
-        </ion-card-content>
-      </ion-card>
-
-      
-
-
-
-    </ion-scroll>
-
-  </div> -->
   <div class="ion-margin-top ion-padding bold" style="width: 100%; padding-bottom:0px !important">
 
     <ion-grid>
@@ -65,15 +35,17 @@
 
         <ion-card-content class="no-padding" style="width: 200px;">
           <div style="background-image: url('{{img_info.url}}');
+        background-size: cover;
         background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        border-radius: 0px 0px 30px 30px;
-        width:180px;
+        background-position: 50% 50%;
+        border-radius: 20px 20px 20px 20px;
         height:230px;
         color:black;
+        display:flex;
+        justify-content:flex-end;
         ">
-       
+
+            <img src="/assets/icon/fav--no-fill-icon.png" alt="" height="50px">
           </div>
 
         </ion-card-content>
@@ -92,7 +64,6 @@
         </ion-col>
         <ion-col style="display: flex; justify-content:flex-end">
           <img src="assets/icon/arrow-down--(greeny)-icon.png" alt="" height="20px">
-
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -106,7 +77,8 @@
         <ion-card-title>Madison, WI</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
+        Wisconsin Territory in 1836.
       </ion-card-content>
     </ion-card>
 
@@ -117,7 +89,8 @@
         <ion-card-title>Madison, WI</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
+        Wisconsin Territory in 1836.
       </ion-card-content>
     </ion-card>
   </div>
