@@ -112,6 +112,12 @@ let AliranService = class AliranService {
     get() {
         return this.http.get(`${this.url}`);
     }
+    update(aliran, aliran_id) {
+        return this.http.put(`${this.url}/${aliran_id}`, aliran);
+    }
+    delete(aliran_id) {
+        return this.http.delete(`${this.url}/${aliran_id}`);
+    }
 };
 AliranService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient }

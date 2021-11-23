@@ -196,7 +196,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() */
-          [__webpack_require__.e("default-src_app_core_modal_tambah-tunai-masuk_tambah-tunai-masuk_page_ts"), __webpack_require__.e("default-src_app_core_modal_tambah-tunai-keluar_tambah-tunai-keluar_page_ts"), __webpack_require__.e("common"), __webpack_require__.e("src_app_core_aliran-tunai_aliran-tunai_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_modal_tambah-tunai-masuk_tambah-tunai-masuk_page_ts"), __webpack_require__.e("default-src_app_core_modal_kemaskini-tunai-masuk_kemaskini-tunai-masuk_page_ts"), __webpack_require__.e("default-src_app_core_modal_kemaskini-tunai-keluar_kemaskini-tunai-keluar_page_ts"), __webpack_require__.e("default-src_app_core_modal_tambah-tunai-keluar_tambah-tunai-keluar_page_ts"), __webpack_require__.e("src_app_core_aliran-tunai_aliran-tunai_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
           /*! ./core/aliran-tunai/aliran-tunai.module */
           65807)).then(function (m) {
             return m.AliranTunaiPageModule;
@@ -207,7 +207,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() */
-          [__webpack_require__.e("default-src_app_core_modal_tambah-tunai-masuk_tambah-tunai-masuk_page_ts"), __webpack_require__.e("src_app_core_modal_tambah-tunai-masuk_tambah-tunai-masuk_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_modal_tambah-tunai-masuk_tambah-tunai-masuk_page_ts"), __webpack_require__.e("src_app_core_modal_tambah-tunai-masuk_tambah-tunai-masuk_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
           /*! ./core/modal/tambah-tunai-masuk/tambah-tunai-masuk.module */
           42662)).then(function (m) {
             return m.TambahTunaiMasukPageModule;
@@ -218,7 +218,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() */
-          [__webpack_require__.e("default-src_app_core_modal_tambah-tunai-keluar_tambah-tunai-keluar_page_ts"), __webpack_require__.e("src_app_core_modal_tambah-tunai-keluar_tambah-tunai-keluar_module_ts-src_app_services_Aliran_-8fbc4b")]).then(__webpack_require__.bind(__webpack_require__,
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_modal_tambah-tunai-keluar_tambah-tunai-keluar_page_ts"), __webpack_require__.e("src_app_core_modal_tambah-tunai-keluar_tambah-tunai-keluar_module_ts-src_app_services_Aliran_-8fbc4b")]).then(__webpack_require__.bind(__webpack_require__,
           /*! ./core/modal/tambah-tunai-keluar/tambah-tunai-keluar.module */
           35203)).then(function (m) {
             return m.TambahTunaiKeluarPageModule;
@@ -229,7 +229,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() */
-          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_modal_kemaskini-tunai-masuk_kemaskini-tunai-masuk_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_modal_kemaskini-tunai-masuk_kemaskini-tunai-masuk_page_ts"), __webpack_require__.e("src_app_core_modal_kemaskini-tunai-masuk_kemaskini-tunai-masuk_module_ts-src_app_services_Ali-022d15")]).then(__webpack_require__.bind(__webpack_require__,
           /*! ./core/modal/kemaskini-tunai-masuk/kemaskini-tunai-masuk.module */
           71247)).then(function (m) {
             return m.KemaskiniTunaiMasukPageModule;
@@ -240,10 +240,230 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() */
-          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_modal_kemaskini-tunai-keluar_kemaskini-tunai-keluar_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_modal_kemaskini-tunai-keluar_kemaskini-tunai-keluar_page_ts"), __webpack_require__.e("src_app_core_modal_kemaskini-tunai-keluar_kemaskini-tunai-keluar_module_ts-src_app_services_A-689f8e")]).then(__webpack_require__.bind(__webpack_require__,
           /*! ./core/modal/kemaskini-tunai-keluar/kemaskini-tunai-keluar.module */
           7545)).then(function (m) {
             return m.KemaskiniTunaiKeluarPageModule;
+          });
+        }
+      }, {
+        path: 'buku-tunai',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_buku-tunai_buku-tunai_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/buku-tunai/buku-tunai.module */
+          62967)).then(function (m) {
+            return m.BukuTunaiPageModule;
+          });
+        }
+      }, {
+        path: 'ringkasan-lejar',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_ringkasan-lejar_ringkasan-lejar_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/ringkasan-lejar/ringkasan-lejar.module */
+          26932)).then(function (m) {
+            return m.RingkasanLejarPageModule;
+          });
+        }
+      }, {
+        path: 'pnl',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_pnl_pnl_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/pnl/pnl.module */
+          89771)).then(function (m) {
+            return m.PnlPageModule;
+          });
+        }
+      }, {
+        path: 'katalog',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_katalog_kemaskini-katalog_kemaskini-katalog_page_ts"), __webpack_require__.e("default-src_app_core_katalog_tambah-katalog_tambah-katalog_page_ts"), __webpack_require__.e("src_app_core_katalog_katalog_katalog_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/katalog/katalog/katalog.module */
+          96661)).then(function (m) {
+            return m.KatalogPageModule;
+          });
+        }
+      }, {
+        path: 'tambah-katalog',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("default-src_app_core_katalog_tambah-katalog_tambah-katalog_page_ts"), __webpack_require__.e("src_app_core_katalog_tambah-katalog_tambah-katalog_module_ts-src_app_services_katalog_katalog-70b9ad")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/katalog/tambah-katalog/tambah-katalog.module */
+          38425)).then(function (m) {
+            return m.TambahKatalogPageModule;
+          });
+        }
+      }, {
+        path: 'kemaskini-katalog',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_katalog_kemaskini-katalog_kemaskini-katalog_page_ts"), __webpack_require__.e("src_app_core_katalog_kemaskini-katalog_kemaskini-katalog_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/katalog/kemaskini-katalog/kemaskini-katalog.module */
+          27131)).then(function (m) {
+            return m.KemaskiniKatalogPageModule;
+          });
+        }
+      }, {
+        path: 'katalog-pegawai',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_katalog_katalog-pegawai_katalog-pegawai_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/katalog/katalog-pegawai/katalog-pegawai.module */
+          73145)).then(function (m) {
+            return m.KatalogPegawaiPageModule;
+          });
+        }
+      }, {
+        path: 'maklumat-produk',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_katalog_maklumat-produk_maklumat-produk_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/katalog/maklumat-produk/maklumat-produk.module */
+          37108)).then(function (m) {
+            return m.MaklumatProdukPageModule;
+          });
+        }
+      }, {
+        path: 'jana-dokumen',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("default-src_app_core_jana-dokumen_kemaskini-dokumen_kemaskini-dokumen_page_ts"), __webpack_require__.e("default-src_app_core_jana-dokumen_tambah-jana-dokumen_tambah-jana-dokumen_page_ts"), __webpack_require__.e("src_app_core_jana-dokumen_jana-dokumen_jana-dokumen_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/jana-dokumen/jana-dokumen/jana-dokumen.module */
+          12754)).then(function (m) {
+            return m.JanaDokumenPageModule;
+          });
+        }
+      }, {
+        path: 'tambah-jana-dokumen',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("default-src_app_core_jana-dokumen_tambah-jana-dokumen_tambah-jana-dokumen_page_ts"), __webpack_require__.e("src_app_core_jana-dokumen_tambah-jana-dokumen_tambah-jana-dokumen_module_ts-src_app_services_-c05393")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/jana-dokumen/tambah-jana-dokumen/tambah-jana-dokumen.module */
+          78593)).then(function (m) {
+            return m.TambahJanaDokumenPageModule;
+          });
+        }
+      }, {
+        path: 'kemaskini-dokumen',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("default-src_app_core_jana-dokumen_kemaskini-dokumen_kemaskini-dokumen_page_ts"), __webpack_require__.e("src_app_core_jana-dokumen_kemaskini-dokumen_kemaskini-dokumen_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/jana-dokumen/kemaskini-dokumen/kemaskini-dokumen.module */
+          63217)).then(function (m) {
+            return m.KemaskiniDokumenPageModule;
+          });
+        }
+      }, {
+        path: 'buletin',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_buletin_buletin_buletin_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/buletin/buletin/buletin.module */
+          862)).then(function (m) {
+            return m.BuletinPageModule;
+          });
+        }
+      }, {
+        path: 'tambah-buletin',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_buletin_tambah-buletin_tambah-buletin_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/buletin/tambah-buletin/tambah-buletin.module */
+          30112)).then(function (m) {
+            return m.TambahBuletinPageModule;
+          });
+        }
+      }, {
+        path: 'kemaskini-buletin',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_buletin_kemaskini-buletin_kemaskini-buletin_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/buletin/kemaskini-buletin/kemaskini-buletin.module */
+          56374)).then(function (m) {
+            return m.KemaskiniBuletinPageModule;
+          });
+        }
+      }, {
+        path: 'lawatan-pegawai',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_lawatan_lawatan-pegawai_lawatan-pegawai_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/lawatan/lawatan-pegawai/lawatan-pegawai.module */
+          95054)).then(function (m) {
+            return m.LawatanPegawaiPageModule;
+          });
+        }
+      }, {
+        path: 'tarikh-lawatan-pgw',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_lawatan_tarikh-lawatan-pgw_tarikh-lawatan-pgw_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/lawatan/tarikh-lawatan-pgw/tarikh-lawatan-pgw.module */
+          28532)).then(function (m) {
+            return m.TarikhLawatanPgwPageModule;
+          });
+        }
+      }, {
+        path: 'pengesahan-tarikh-lawatan-pgw',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_lawatan_pengesahan-tarikh-lawatan-pgw_pengesahan-tarikh-lawatan-pgw_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/lawatan/pengesahan-tarikh-lawatan-pgw/pengesahan-tarikh-lawatan-pgw.module */
+          33685)).then(function (m) {
+            return m.PengesahanTarikhLawatanPgwPageModule;
+          });
+        }
+      }, {
+        path: 'tambah-laporan',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("common"), __webpack_require__.e("src_app_core_lawatan_tambah-laporan_tambah-laporan_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/lawatan/tambah-laporan/tambah-laporan.module */
+          36601)).then(function (m) {
+            return m.TambahLaporanPageModule;
+          });
+        }
+      }, {
+        path: 'lawatan-usahawan',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_lawatan_lawatan-usahawan_lawatan-usahawan_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/lawatan/lawatan-usahawan/lawatan-usahawan.module */
+          8032)).then(function (m) {
+            return m.LawatanUsahawanPageModule;
+          });
+        }
+      }, {
+        path: 'notifikasi',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_notifikasi_notifikasi_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/notifikasi/notifikasi.module */
+          57458)).then(function (m) {
+            return m.NotifikasiPageModule;
           });
         }
       }];
@@ -312,13 +532,16 @@
       function AppComponent() {
         _classCallCheck(this, AppComponent);
 
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
+        this.role = window.sessionStorage.getItem("role");
         this.appPages = [{
           title: 'Aliran Tunai',
           url: '/aliran-tunai',
           icon: 'assets/icon/ALIRAN-TUNAI-icon.png'
         }, {
           title: 'Buku tunai',
-          url: '#',
+          url: '/buku-tunai',
           icon: 'assets/icon/buku-tunai-icon.png'
         }, {
           title: 'Insentif',
@@ -326,47 +549,51 @@
           icon: 'assets/icon/insentif-icon.png'
         }, {
           title: 'Lawatan',
-          url: '#',
+          url: 'lawatan-usahawan',
           icon: 'assets/icon/lawatan-icon.png'
         }, {
           title: 'Penyata Untung Rugi',
-          url: '#',
+          url: '/pnl',
           icon: 'assets/icon/penyata-untung-rugi.png'
         }, {
           title: 'Ringkasan lejar',
-          url: '#',
+          url: '/ringkasan-lejar',
           icon: 'assets/icon/ringkasan-lejar.png'
         }, {
           title: 'Katalog',
-          url: '#',
+          url: 'katalog',
           icon: 'assets/icon/katalog.png'
         }, {
           title: 'Jana Dokumen',
-          url: '#',
+          url: '/jana-dokumen',
           icon: 'assets/icon/jana-dokumen.png'
         }, {
           title: 'Log Keluar',
           url: '#',
           icon: 'assets/icon/log-out-button.png'
+        }];
+        this.appPagesPegawai = [{
+          title: 'Carian',
+          url: '#',
+          icon: 'assets/icon/search-button.png'
         }, {
-          title: 'Dashboard',
-          url: '/dashboard',
-          icon: 'archive'
+          title: 'Lawatan',
+          url: '/lawatan-pegawai',
+          icon: 'assets/icon/lawatan-icon.png'
         }, {
-          title: 'Profil',
-          url: '/profile',
-          icon: 'heart'
+          title: 'Katalog',
+          url: '/katalog-pegawai',
+          icon: 'assets/icon/katalog.png'
         }, {
-          title: 'Insentif',
-          url: '/insentif',
-          icon: 'archive'
-        } // { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
-        // { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
-        // { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-        // { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-        // { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-        // { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
-        ];
+          title: 'Buletin',
+          url: '/buletin',
+          icon: 'assets/icon/buletin.png'
+        }, {
+          title: 'Log Keluar',
+          url: '#',
+          icon: 'assets/icon/log-out-button.png'
+        }];
+        console.log("role", this.role);
       };
 
       _AppComponent.ctorParameters = function () {
@@ -403,37 +630,37 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @angular/platform-browser */
       39075);
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/common/http */
       91841);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @ionic/angular */
       80476);
       /* harmony import */
@@ -451,7 +678,7 @@
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @angular/forms */
       3679);
       /* harmony import */
@@ -460,19 +687,37 @@
       var _services_login_login_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! ./services/login/login.service */
       58762);
+      /* harmony import */
+
+
+      var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @ionic-native/splash-screen/ngx */
+      51524);
+      /* harmony import */
+
+
+      var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @ionic-native/status-bar/ngx */
+      73494);
 
       var _AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
       };
 
-      _AppModule = (0, tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_4__.NgModule)({
+      _AppModule = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_6__.NgModule)({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__.BrowserModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule.forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_7__.HttpClientModule, _angular_forms__WEBPACK_IMPORTED_MODULE_8__.ReactiveFormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_8__.FormsModule],
-        providers: [{
-          provide: _angular_router__WEBPACK_IMPORTED_MODULE_9__.RouteReuseStrategy,
-          useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicRouteStrategy
-        }, _services_login_login_service__WEBPACK_IMPORTED_MODULE_2__.LoginService, _angular_common_http__WEBPACK_IMPORTED_MODULE_7__.HttpClientModule],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__.BrowserModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.IonicModule.forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_9__.HttpClientModule, _angular_forms__WEBPACK_IMPORTED_MODULE_10__.ReactiveFormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_10__.FormsModule],
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__.StatusBar, _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__.SplashScreen, // // { provide: ErrorHandler, useClass: IonicErrorHandler },
+        // FileTransfer,
+        // // FileUploadOptions,
+        // FileTransferObject,
+        // File,
+        // Camera,
+        {
+          provide: _angular_router__WEBPACK_IMPORTED_MODULE_11__.RouteReuseStrategy,
+          useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.IonicRouteStrategy
+        }, _services_login_login_service__WEBPACK_IMPORTED_MODULE_2__.LoginService, _angular_common_http__WEBPACK_IMPORTED_MODULE_9__.HttpClientModule],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent]
       })], _AppModule);
       /***/
@@ -672,7 +917,7 @@
         "./ion-item-option_3.entry.js": [58056, "common", "node_modules_ionic_core_dist_esm_ion-item-option_3_entry_js"],
         "./ion-item_8.entry.js": [10862, "common", "node_modules_ionic_core_dist_esm_ion-item_8_entry_js"],
         "./ion-loading.entry.js": [7509, "common", "node_modules_ionic_core_dist_esm_ion-loading_entry_js"],
-        "./ion-menu_3.entry.js": [76272, "common", "node_modules_ionic_core_dist_esm_ion-menu_3_entry_js"],
+        "./ion-menu_3.entry.js": [86030, "common", "node_modules_ionic_core_dist_esm_ion-menu_3_entry_js"],
         "./ion-modal.entry.js": [71855, "common", "node_modules_ionic_core_dist_esm_ion-modal_entry_js"],
         "./ion-nav_2.entry.js": [38708, "common", "node_modules_ionic_core_dist_esm_ion-nav_2_entry_js"],
         "./ion-popover.entry.js": [23527, "common", "node_modules_ionic_core_dist_esm_ion-popover_entry_js"],
@@ -743,7 +988,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu class=\"custom_menu\" contentId=\"main-content\" type=\"overlay\">\n      <ion-content>\n        <ion-list id=\"inbox-list\">\n          <ion-list-header style=\"height: 90px; display:flex; align-items:flex-start\">\n            <!-- <ion-col class=\"ion-justify-content-center\"> -->\n            <a href=\"/profile\">\n              <ion-avatar href=\"\" class=\"ion-justify-content-center\"\n                style=\"padding:1%; height: 80px; width: 80px; border: 3px solid #ABC128;\">\n                <img src=\"https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y\">\n              </ion-avatar>\n              <img src=\"assets/icon/cam.png\" alt=\"\" height=\"35%\" style=\"position: absolute; bottom: -5px; left:25px\">\n            </a>\n            <!-- </ion-col> -->\n          </ion-list-header>\n          <!-- <ion-note>hi@ionicframework.com</ion-note> -->\n\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages; let i = index\">\n            <ion-item routerDirection=\"root\" [routerLink]=\"[p.url]\" lines=\"none\" detail=\"false\"\n              routerLinkActive=\"selected\">\n              <!-- <ion-icon  slot=\"start\" [ios]=\"p.icon + '-outline'\" [md]=\"p.icon + '-sharp'\"></ion-icon> -->\n              <img src=\"{{ p.icon }}\" alt=\"\">\n              <!-- <ion-label position=\"stacked\">{{ p.title }}</ion-label> -->\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n        <!-- <ion-list id=\"labels-list\">\n          <ion-list-header>Labels</ion-list-header>\n\n          <ion-item *ngFor=\"let label of labels\" lines=\"none\">\n            <ion-icon slot=\"start\" ios=\"bookmark-outline\" md=\"bookmark-sharp\"></ion-icon>\n            <ion-label>{{ label }}</ion-label>\n          </ion-item>\n        </ion-list> -->\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>";
+      __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu class=\"custom_menu\" contentId=\"main-content\" type=\"overlay\">\n      <ion-content>\n        <ion-list id=\"inbox-list\">\n          <ion-list-header style=\"height: 90px; display:flex; align-items:flex-start\">\n            <!-- <ion-col class=\"ion-justify-content-center\"> -->\n            <a href=\"/profile\">\n              <ion-avatar href=\"\" class=\"ion-justify-content-center\"\n                style=\"padding:1%; height: 80px; width: 80px; border: 3px solid #ABC128;\">\n                <img src=\"https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y\">\n              </ion-avatar>\n              <img src=\"assets/icon/cam.png\" alt=\"\" height=\"35%\" style=\"position: absolute; bottom: -5px; left:25px\">\n            </a>\n            <!-- </ion-col> -->\n          </ion-list-header>\n          <!-- <ion-note>hi@ionicframework.com</ion-note> -->\n\n          <div *ngIf=\"role == '2'\">\n\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages; let i = index\">\n              <ion-item routerDirection=\"root\" [routerLink]=\"[p.url]\" lines=\"none\" detail=\"false\"\n                routerLinkActive=\"selected\">\n                <!-- <ion-icon  slot=\"start\" [ios]=\"p.icon + '-outline'\" [md]=\"p.icon + '-sharp'\"></ion-icon> -->\n                <img src=\"{{ p.icon }}\" alt=\"\">\n                <!-- <ion-label position=\"stacked\">{{ p.title }}</ion-label> -->\n              </ion-item>\n            </ion-menu-toggle>\n          </div>\n\n          <div *ngIf=\"role == '1'\">\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPagesPegawai; let i = index\">\n              <ion-item routerDirection=\"root\" [routerLink]=\"[p.url]\" lines=\"none\" detail=\"false\"\n                routerLinkActive=\"selected\">\n                <!-- <ion-icon  slot=\"start\" [ios]=\"p.icon + '-outline'\" [md]=\"p.icon + '-sharp'\"></ion-icon> -->\n                <img src=\"{{ p.icon }}\" alt=\"\">\n                <!-- <ion-label position=\"stacked\">{{ p.title }}</ion-label> -->\n              </ion-item>\n            </ion-menu-toggle>\n          </div>\n        </ion-list>\n\n        <!-- <ion-list id=\"labels-list\">\n          <ion-list-header>Labels</ion-list-header>\n\n          <ion-item *ngFor=\"let label of labels\" lines=\"none\">\n            <ion-icon slot=\"start\" ios=\"bookmark-outline\" md=\"bookmark-sharp\"></ion-icon>\n            <ion-label>{{ label }}</ion-label>\n          </ion-item>\n        </ion-list> -->\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>";
       /***/
     }
   },

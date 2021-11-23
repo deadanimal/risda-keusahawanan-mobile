@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { AlertController, ModalController } from '@ionic/angular';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { PelangganService } from 'src/app/services/pelanggan/pelanggan.service';
+import { StokService } from 'src/app/services/stok/stok.service';
+import { DaerahService } from 'src/app/services/daerah/daerah.service';
+import { map } from 'rxjs/operators';
+import { NegeriService } from 'src/app/services/negeri/negeri.service';
+import { KatalogService } from 'src/app/services/katalog/katalog.service';
 
 @Component({
   selector: 'app-tambah-jana-dokumen',
@@ -10,20 +16,91 @@ import { Validators } from '@angular/forms';
 })
 export class TambahJanaDokumenPage implements OnInit {
 
-  private tambah_dokumen: FormGroup;
+  private form1: FormGroup;
+  private form2: FormGroup;
+  authForm: FormGroup;
+
+  usahawan_id = window.sessionStorage.getItem("usahawan_id");
+  user_id = window.sessionStorage.getItem("user_id");
+
+  // variable
+
+  negeri: any;
+  daerah: any;
 
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-  ) { 
-    this.tambah_dokumen = this.formBuilder.group({
-      title: ['', Validators.required],
-      nama_produk: [''],
-      downtime_start: [''],
+    private pelangganService: PelangganService,
+    public alertController: AlertController,
+    public stokService: StokService,
+    private daerahService: DaerahService,
+    private negeriService: NegeriService,
+    private katalogService: KatalogService,
+
+
+  ) {
+
+    this.form1 = this.formBuilder.group({
+      nama_pelanggan: ['', Validators.required],
+      alamat1: ['', Validators.required],
+      alamat2: ['', Validators.required],
+      alamat3: ['', Validators.required],
+      poskod: ['', Validators.required],
+      U_Negeri_ID: ['', Validators.required],
+      U_Daerah_ID: ['', Validators.required],
+      no_telefon: ['', Validators.required],
+      no_fax: ['', Validators.required],
+
+      produk: this.formBuilder.array([]),
+      //maklumat produk
+      // id_katalog: ['',],
+      // id_pelanggan: [''],
+      // stok_dijual: ['',],
+      // modified_by: [''],
     });
+
+
+
   }
 
+  count : any = 0;
+  productLength : any = 0;
+  addProduk() {
+    const produk = this.formBuilder.group({
+      id_katalog: ['',],
+      id_pelanggan: [''],
+      stok_dijual: ['',],
+      modified_by: [''],
+    });
+    this.getProdukArray.push(produk);
+
+    this.count++;
+    this.productLength = this.getProdukArray.length;
+    console.log("this.productLength", this.productLength)
+    console.log('After Add: ', this.form1.value);
+  }
+
+  get getProdukArray() {
+    return (<FormArray>this.form1.get('produk'));
+  }
+
+  deleteProduk(i) {
+    
+    this.getProdukArray.removeAt(i);
+
+    this.count--;
+    this.productLength = this.getProdukArray.length;
+  }
+
+
   ngOnInit() {
+
+    this.getNegeri();
+    // this.getDaerah();
+    this.getKatalog();
+
+    this.addProduk();
   }
 
   dismiss() {
@@ -35,7 +112,92 @@ export class TambahJanaDokumenPage implements OnInit {
   }
 
   logForm() {
-    console.log(this.tambah_dokumen.value)
+    console.log(this.form1.value);
+
+    let prodTemp = this.form1.value.produk;
+    let prodTempLength = prodTemp.length;
+
+    console.log("prodTemp", prodTemp[1])
+
+    this.pelangganService.post(this.form1.value).subscribe((res) => {
+      console.log("res pelanggan", res);
+
+      let pelanggan = res;
+
+      for (let i = 0; i < prodTempLength; i++) {
+
+        prodTemp[i].id_pelanggan = pelanggan.id;
+        prodTemp[i].modified_by = this.user_id;
+
+        this.stokService.post(prodTemp[i]).subscribe((res) => {
+          console.log("res stok", res);
+
+        });
+      }
+
+
+      this.dismiss();
+      this.presentAlert()
+
+    });
+  }
+
+  getNegeri() {
+    this.negeriService.get().subscribe((res) => {
+
+      console.log("negeri", res);
+      this.negeri = res;
+
+    });
+
+  }
+
+  getDaerah(event) {
+
+    // console.log("test")
+    // console.log(this.form1.value.U_Negeri_ID)
+
+    this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form1.value.U_Negeri_ID))).subscribe((res) => {
+      // this.daerahService.get().subscribe((res) => {
+
+      console.log("Daerah", res);
+      this.daerah = res;
+    });
+
+  }
+
+  katalog: any;
+  getKatalog() {
+    console.log("this.user_id", this.user_id);
+
+    this.katalogService.get(this.user_id).pipe(map(x => x.filter(i => i.status_katalog == "publish"))).subscribe((res) => {
+      console.log("katalog", res);
+
+      this.katalog = res
+    });
+
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Berjaya',
+      subHeader: 'Maklumat pelanggan telah berjaya disimpan',
+      message: '',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+
+    this.dismiss();
+    this.refresh();
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
 }

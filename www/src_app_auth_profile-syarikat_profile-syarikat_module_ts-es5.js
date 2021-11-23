@@ -133,7 +133,7 @@
       };
 
       _ProfileSyarikatPageModule = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.NgModule)({
-        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule, _profile_syarikat_routing_module__WEBPACK_IMPORTED_MODULE_0__.ProfileSyarikatPageRoutingModule],
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule, _profile_syarikat_routing_module__WEBPACK_IMPORTED_MODULE_0__.ProfileSyarikatPageRoutingModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule],
         declarations: [_profile_syarikat_page__WEBPACK_IMPORTED_MODULE_1__.ProfileSyarikatPage]
       })], _ProfileSyarikatPageModule);
       /***/
@@ -179,7 +179,7 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
@@ -191,7 +191,13 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @angular/forms */
+      3679);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
@@ -206,17 +212,46 @@
       var src_app_services_syarikat_syarikat_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! src/app/services/syarikat/syarikat.service */
       96987);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @ionic/angular */
+      80476);
 
       var _ProfileSyarikatPage = /*#__PURE__*/function () {
-        function ProfileSyarikatPage(syarikatService, loginService, router, syarikat) {
+        function ProfileSyarikatPage(syarikatService, loginService, router, syarikat, alertController, loadingController, formBuilder) {
           _classCallCheck(this, ProfileSyarikatPage);
 
           this.syarikatService = syarikatService;
           this.loginService = loginService;
           this.router = router;
           this.syarikat = syarikat;
+          this.alertController = alertController;
+          this.loadingController = loadingController;
+          this.formBuilder = formBuilder;
           this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
           this.user_id = window.sessionStorage.getItem("user_id");
+          this.form = this.formBuilder.group({
+            namasyarikat: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            jenismilikanperniagaan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            nodaftarssm: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            nodaftarpbt: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            nodaftarpersijilanhalal: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            nodaftarmesti: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            tahunmulaoperasi: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            bilanganpekerja: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            alamat1_ssm: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            alamat2_ssm: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            alamat3_ssm: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            tarikh_mula_mof: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            tarikh_tamat_mof: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            status_bumiputera: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            prefix_id: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            notelefon: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            no_hp: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
+          });
         }
 
         _createClass(ProfileSyarikatPage, [{
@@ -240,8 +275,110 @@
               } else {
                 _this.syarikat = res;
                 console.log("profile syarikat success");
+
+                _this.setFormValues();
               }
             });
+          }
+        }, {
+          key: "setFormValues",
+          value: function setFormValues() {
+            this.form.setValue({
+              namasyarikat: this.syarikat.namasyarikat,
+              jenismilikanperniagaan: this.syarikat.jenismilikanperniagaan,
+              nodaftarssm: this.syarikat.nodaftarssm,
+              nodaftarpbt: this.syarikat.nodaftarpbt,
+              nodaftarpersijilanhalal: this.syarikat.nodaftarpersijilanhalal,
+              nodaftarmesti: this.syarikat.nodaftarmesti,
+              tahunmulaoperasi: this.syarikat.tahunmulaoperasi,
+              bilanganpekerja: this.syarikat.bilanganpekerja,
+              alamat1_ssm: this.syarikat.alamat1_ssm,
+              alamat2_ssm: this.syarikat.alamat2_ssm,
+              alamat3_ssm: this.syarikat.alamat3_ssm,
+              tarikh_mula_mof: this.syarikat.tarikh_mula_mof,
+              tarikh_tamat_mof: this.syarikat.tarikh_tamat_mof,
+              status_bumiputera: this.syarikat.status_bumiputera,
+              prefix_id: this.syarikat.prefix_id,
+              notelefon: this.syarikat.notelefon,
+              no_hp: this.syarikat.no_hp,
+              email: this.syarikat.email
+            });
+          }
+        }, {
+          key: "logForm",
+          value: function logForm() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this2 = this;
+
+              var loading;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.loadingController.create({
+                        message: 'Loading ...'
+                      });
+
+                    case 2:
+                      loading = _context.sent;
+                      loading.present();
+                      console.log(this.form.value);
+                      this.syarikatService.update(this.form.value, Number(this.usahawan_id)).subscribe(function (res) {
+                        console.log("updated data", res);
+                        loading.dismiss();
+
+                        _this2.presentAlert();
+                      });
+
+                    case 6:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "presentAlert",
+          value: function presentAlert() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var alert, _yield$alert$onDidDis, role;
+
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        header: 'Kemaskini Berjaya',
+                        subHeader: 'Kemaskini Maklumat Syarikat Telah Berjaya',
+                        message: '',
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context2.sent;
+                      _context2.next = 5;
+                      return alert.present();
+
+                    case 5:
+                      _context2.next = 7;
+                      return alert.onDidDismiss();
+
+                    case 7:
+                      _yield$alert$onDidDis = _context2.sent;
+                      role = _yield$alert$onDidDis.role;
+                      console.log('onDidDismiss resolved with role', role);
+
+                    case 10:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
           }
         }]);
 
@@ -254,13 +391,19 @@
         }, {
           type: src_app_services_login_login_service__WEBPACK_IMPORTED_MODULE_2__.LoginService
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.Router
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router
         }, {
           type: src_app_services_syarikat_syarikat_model__WEBPACK_IMPORTED_MODULE_3__.SyarikatModel
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.AlertController
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.LoadingController
+        }, {
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormBuilder
         }];
       };
 
-      _ProfileSyarikatPage = (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+      _ProfileSyarikatPage = (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-profile-syarikat',
         template: _raw_loader_profile_syarikat_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_profile_syarikat_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -374,6 +517,11 @@
           value: function show(id) {
             return this.http.get("".concat(this.url) + "/" + id);
           }
+        }, {
+          key: "update",
+          value: function update(syarikat, usahawan_id) {
+            return this.http.put("".concat(this.url, "/").concat(usahawan_id), syarikat);
+          }
         }]);
 
         return SyarikatService;
@@ -411,7 +559,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"success\">\n      <h1>\n        <strong>\n           PROFIL\n        </strong>\n      </h1>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n\n    <ion-fab-button color=\"light\">\n      <ion-icon color=\"success\" name=\"caret-down-outline\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"bottom\">\n      <!-- <a href=\"/profile\"> -->\n      <ion-fab-button color=\"success\" href=\"/profile\">\n        <!-- <ion-icon name=\"logo-facebook\"></ion-icon> -->\n        <img src=\"assets/icon/usahawan-icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Usahawan</small></ion-text>\n      <!-- </a> -->\n      <!-- <a href=\"/profile-syarikat\" style=\"text-decoration:none;\"> -->\n      <ion-fab-button color=\"success\" href=\"/profile-syarikat\">\n        <!-- <ion-icon name=\"logo-twitter\"></ion-icon> -->\n        <img src=\"assets/icon/Syarikat--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Syarikat</small></ion-text>\n      <!-- </a> -->\n\n      <ion-fab-button color=\"success\" href=\"/profile-perniagaan\">\n        <!-- <ion-icon name=\"logo-vimeo\"></ion-icon> -->\n        <img src=\"assets/icon/Perniagaan--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Perniagaan</small></ion-text>\n\n      <ion-fab-button color=\"success\" href=\"/profile-pekebun\">\n        <!-- <ion-icon name=\"logo-vimeo\"></ion-icon> -->\n        <img src=\"assets/icon/Pekebun--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Pekebun</small></ion-text>\n    </ion-fab-list>\n  </ion-fab>\n\n\n\n  <!-- <ion-item-divider class=\"ion-padding\" color=\"light\">\n    <ion-text color=\"success\">\n\n      <h1><strong>\n          <ion-icon name=\"chevron-back-outline\"></ion-icon> PROFIL\n        </strong></h1>\n    </ion-text>\n\n  </ion-item-divider> -->\n\n\n  <ion-grid [fixed]=\"true\">\n\n\n    <form action=\"\" class=\"ion-padding form-control\">\n\n      <ion-row>\n        <ion-col>\n          <strong>Maklumat Syarikat</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n\n      <ion-row class=\"ion-justify-content-center\" style=\"height: 120px;\">\n        <ion-col></ion-col>\n\n        <ion-col class=\"ion-justify-content-center\">\n          <ion-avatar class=\"ion-justify-content-center\" style=\"padding:3%; height: 100px; width: 100px; border: 3px solid #ABC128;\">\n            <img src=\"https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y\">\n          </ion-avatar>\n          <img src=\"assets/icon/cam.png\" alt=\"\" height=\"30%\" style=\"position: absolute; bottom:0px; left:37px\">\n        </ion-col>\n        <ion-col></ion-col>\n\n      </ion-row>\n      <br>\n\n      <ion-row>\n        <ion-col>\n\n          <ion-label>NAMA SYARIKAT</ion-label>\n          <ion-input value=\"{{syarikat.namasyarikat}}\" ></ion-input>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>JENIS MILIKAN PERNIAGAAN</ion-label>\n          <ion-input value=\"{{syarikat.jenismilikanperniagaan}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NO. DAFTAR SSM</ion-label>\n          <ion-input value=\"{{syarikat.nodaftarssm}}\" ></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label> NO. DAFTAR PBT</ion-label>\n          <ion-input value=\"{{syarikat.nodaftarpbt}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n\n          <ion-label>NO. DAFTAR PERSIJILAN</ion-label>\n\n          <ion-input value=\"{{syarikat.nodaftarpersijilanhalal}}\" ></ion-input>\n\n        </ion-col>\n\n        <ion-col>\n          <br>\n          <ion-label>NO. DAFTAR MESTI</ion-label>\n          <ion-input value=\"{{syarikat.nodaftarmesti}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>TARIKH MULA OPERASI</ion-label>\n          <ion-input value=\"{{syarikat.tahunmulaoperasi}}\" ></ion-input>\n        </ion-col>\n        <ion-col>\n          <br>\n          <ion-label>BILANGAN PEKERJA</ion-label>\n          <ion-input value=\"{{syarikat.bilanganpekerja}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> ALAMAT 1 (BARIS 1)</ion-label>\n          <ion-input value=\"{{syarikat.alamat1_ssm}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> ALAMAT 2 (BARIS 2)</ion-label>\n          <ion-input value=\"{{syarikat.alamat2_ssm}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> ALAMAT 3 (BARIS 3)</ion-label>\n          <ion-input value=\"{{syarikat.alamat3_ssm}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> TARIKH MULA MOF</ion-label>\n          <ion-input value=\"{{syarikat.tarikh_mula_mof}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> TARIKH TAMAT MOF</ion-label>\n          <ion-input value=\"{{syarikat.tarikh_tamat_mof}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> STATUS BUMIPUTERA</ion-label>\n          <ion-input value=\"{{syarikat.status_bumiputera}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>PREFIX ID</ion-label>\n          <ion-input value=\"{{syarikat.prefix_id}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NO. TELEFON</ion-label>\n          <ion-input value=\"{{syarikat.notelefon}}\" ></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label> NO. TELEFON (HP)</ion-label>\n          <ion-input value=\"{{syarikat.no_hp}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> EMAIL</ion-label>\n          <ion-input value=\"{{syarikat.email}}\" ></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->\n          <ion-button expand=\"block\" color=\"success\">KEMASKINI</ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n\n  </ion-grid>\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"success\">\n      <h1>\n        <strong>\n           PROFIL\n        </strong>\n      </h1>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n\n    <ion-fab-button color=\"light\">\n      <ion-icon color=\"success\" name=\"caret-down-outline\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"bottom\">\n      <!-- <a href=\"/profile\"> -->\n      <ion-fab-button color=\"success\" href=\"/profile\">\n        <!-- <ion-icon name=\"logo-facebook\"></ion-icon> -->\n        <img src=\"assets/icon/usahawan-icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Usahawan</small></ion-text>\n      <!-- </a> -->\n      <!-- <a href=\"/profile-syarikat\" style=\"text-decoration:none;\"> -->\n      <ion-fab-button color=\"success\" href=\"/profile-syarikat\">\n        <!-- <ion-icon name=\"logo-twitter\"></ion-icon> -->\n        <img src=\"assets/icon/Syarikat--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Syarikat</small></ion-text>\n      <!-- </a> -->\n\n      <ion-fab-button color=\"success\" href=\"/profile-perniagaan\">\n        <!-- <ion-icon name=\"logo-vimeo\"></ion-icon> -->\n        <img src=\"assets/icon/Perniagaan--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Perniagaan</small></ion-text>\n\n      <ion-fab-button color=\"success\" href=\"/profile-pekebun\">\n        <!-- <ion-icon name=\"logo-vimeo\"></ion-icon> -->\n        <img src=\"assets/icon/Pekebun--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Pekebun</small></ion-text>\n    </ion-fab-list>\n  </ion-fab>\n\n  <!-- <ion-button (click)=\"presentAlert()\">click</ion-button> -->\n\n\n\n  <!-- <ion-item-divider class=\"ion-padding\" color=\"light\">\n    <ion-text color=\"success\">\n\n      <h1><strong>\n          <ion-icon name=\"chevron-back-outline\"></ion-icon> PROFIL\n        </strong></h1>\n    </ion-text>\n\n  </ion-item-divider> -->\n\n\n  <ion-grid [fixed]=\"true\">\n\n\n    <form action=\"\" [formGroup]=\"form\" class=\"ion-padding form-control\" (ngSubmit)=\"logForm()\">\n\n      <ion-row>\n        <ion-col>\n          <strong>Maklumat Syarikat</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n\n      <ion-row class=\"ion-justify-content-center\" style=\"height: 120px;\">\n        <ion-col></ion-col>\n\n        <ion-col class=\"ion-justify-content-center\">\n          <ion-avatar class=\"ion-justify-content-center\" style=\"padding:3%; height: 100px; width: 100px; border: 3px solid #ABC128;\">\n            <img src=\"https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y\">\n          </ion-avatar>\n          <img src=\"assets/icon/cam.png\" alt=\"\" height=\"30%\" style=\"position: absolute; bottom:0px; left:37px\">\n        </ion-col>\n        <ion-col></ion-col>\n\n      </ion-row>\n      <br>\n\n      <ion-row>\n        <ion-col>\n\n          <ion-label>NAMA SYARIKAT</ion-label>\n          <ion-input value=\"{{syarikat.namasyarikat}}\" formControlName=\"namasyarikat\"></ion-input>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>JENIS MILIKAN PERNIAGAAN</ion-label>\n          <ion-input value=\"{{syarikat.jenismilikanperniagaan}}\" formControlName=\"jenismilikanperniagaan\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NO. DAFTAR SSM</ion-label>\n          <ion-input value=\"{{syarikat.nodaftarssm}}\" formControlName=\"nodaftarssm\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label> NO. DAFTAR PBT</ion-label>\n          <ion-input value=\"{{syarikat.nodaftarpbt}}\" formControlName=\"nodaftarpbt\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n\n          <ion-label>NO. DAFTAR PERSIJILAN HALAL</ion-label>\n\n          <ion-input value=\"{{syarikat.nodaftarpersijilanhalal}}\" formControlName=\"nodaftarpersijilanhalal\"></ion-input>\n\n        </ion-col>\n\n        <ion-col>\n          <br>\n          <ion-label>NO. DAFTAR MESTI</ion-label>\n          <ion-input value=\"{{syarikat.nodaftarmesti}}\" formControlName=\"nodaftarmesti\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>TAHUN MULA OPERASI</ion-label>\n          <ion-input value=\"{{syarikat.tahunmulaoperasi}}\" formControlName=\"tahunmulaoperasi\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <br>\n          <ion-label>BILANGAN PEKERJA</ion-label>\n          <ion-input value=\"{{syarikat.bilanganpekerja}}\" formControlName=\"bilanganpekerja\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> ALAMAT 1 (BARIS 1)</ion-label>\n          <ion-input value=\"{{syarikat.alamat1_ssm}}\" formControlName=\"alamat1_ssm\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> ALAMAT 2 (BARIS 2)</ion-label>\n          <ion-input value=\"{{syarikat.alamat2_ssm}}\" formControlName=\"alamat2_ssm\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> ALAMAT 3 (BARIS 3)</ion-label>\n          <ion-input value=\"{{syarikat.alamat3_ssm}}\" formControlName=\"alamat3_ssm\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> TARIKH MULA MOF</ion-label>\n          <ion-input value=\"{{syarikat.tarikh_mula_mof}}\" formControlName=\"tarikh_mula_mof\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> TARIKH TAMAT MOF</ion-label>\n          <ion-input value=\"{{syarikat.tarikh_tamat_mof}}\" formControlName=\"tarikh_tamat_mof\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> STATUS BUMIPUTERA</ion-label>\n          <ion-input value=\"{{syarikat.status_bumiputera}}\" formControlName=\"status_bumiputera\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>PREFIX ID</ion-label>\n          <ion-input value=\"{{syarikat.prefix_id}}\" formControlName=\"prefix_id\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NO. TELEFON</ion-label>\n          <ion-input value=\"{{syarikat.notelefon}}\" formControlName=\"notelefon\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label> NO. TELEFON (HP)</ion-label>\n          <ion-input value=\"{{syarikat.no_hp}}\" formControlName=\"no_hp\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> EMAIL</ion-label>\n          <ion-input value=\"{{syarikat.email}}\" formControlName=\"email\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->\n          <ion-button type=\"submit\" expand=\"block\" color=\"success\" [disabled]=\"form.invalid\">KEMASKINI</ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n\n  </ion-grid>\n\n\n</ion-content>";
       /***/
     }
   }]);

@@ -87,7 +87,7 @@
             <div >
               
               <br>
-              <img [src]="url" class="border-radius-md" width="80" height="80"
+              <img [src]="katalog.gambar_url" class="border-radius-md" width="80" height="80"
                 id="upload-Preview" />
             </div>
             <ion-input accept="image/*" (change)="onSelectFile($event)" formControlName="gambar_url"  type="file" name="gambar_profil" style="display: none"></ion-input>
@@ -98,8 +98,8 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button color="success" expand="block">KEMASKINI</ion-button>
-          <ion-button color="danger" expand="block">HAPUS</ion-button>
+          <ion-button type="submit" color="success" expand="block">KEMASKINI</ion-button>
+          <ion-button color="danger" expand="block" (click)="onDelete()">HAPUS</ion-button>
         </ion-col>
       </ion-row>
     </form>

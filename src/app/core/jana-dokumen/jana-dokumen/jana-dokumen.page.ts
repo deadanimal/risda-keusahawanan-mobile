@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { PelangganService } from 'src/app/services/pelanggan/pelanggan.service';
 import { KemaskiniDokumenPage } from '../kemaskini-dokumen/kemaskini-dokumen.page';
 import { TambahJanaDokumenPage } from '../tambah-jana-dokumen/tambah-jana-dokumen.page';
 
@@ -10,28 +11,21 @@ import { TambahJanaDokumenPage } from '../tambah-jana-dokumen/tambah-jana-dokume
 })
 export class JanaDokumenPage implements OnInit {
 
-  constructor(public modalController: ModalController,) { }
+
+  usahawan_id = window.sessionStorage.getItem("usahawan_id");
+  user_id = window.sessionStorage.getItem("user_id");
+
+
+  constructor(
+    public modalController: ModalController,
+    private pelangganService: PelangganService,
+  ) { }
 
   ngOnInit() {
+    this.getPelanggan();
   }
 
-  pelanggan = [
-    { nama_pelanggan: "Kamal", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_pelanggan: "amin", status_katalog: "draft", created_date: "1/2/2020" },
-    { nama_pelanggan: "zainur", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_pelanggan: "amir", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_pelanggan: "azri", status_katalog: "publish", created_date: "3/2/2020" },
-    { nama_pelanggan: "niena", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_pelanggan: "tasha", status_katalog: "draft", created_date: "1/2/2020" },
-    { nama_pelanggan: "umie", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_pelanggan: "boi", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_pelanggan: "afiq", status_katalog: "publish", created_date: "3/2/2020" },
-    { nama_pelanggan: "Alya", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_pelanggan: "zainoor", status_katalog: "draft", created_date: "1/2/2020" },
-    { nama_pelanggan: "hadi", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_pelanggan: "ali", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_pelanggan: "jemah", status_katalog: "publish", created_date: "3/2/2020" },
-  ]
+  pelanggan: any
 
 
   async tambahDokumen() {
@@ -43,13 +37,23 @@ export class JanaDokumenPage implements OnInit {
     return await modal.present();
   }
 
-  async kemaskiniDokumen() {
+  async kemaskiniDokumen(pelanggan: any) {
     console.log("kemaskini Dokumen");
     const modal = await this.modalController.create({
       component: KemaskiniDokumenPage,
+      componentProps: { pelanggan },
       cssClass: 'my-custom-class'
     });
     return await modal.present();
+  }
+
+  getPelanggan() {
+
+    this.pelangganService.get(this.user_id).subscribe((res) => {
+      console.log("res pelanggan", res);
+
+      this.pelanggan = res;
+    });
   }
 
 }

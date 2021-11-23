@@ -28,7 +28,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -46,19 +46,19 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic/angular */
       80476);
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/forms */
       3679);
       /* harmony import */
@@ -70,7 +70,7 @@
       /* harmony import */
 
 
-      var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! rxjs/operators */
       88002);
       /* harmony import */
@@ -82,10 +82,19 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @angular/router */
-      39895); // import Swal from 'sweetalert2/dist/sweetalert2.js';
-      // import swal from 'sweetalert';
+      39895);
+      /* harmony import */
+
+
+      var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! moment */
+      16738);
+      /* harmony import */
+
+
+      var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__); // import { File } from '@ionic-native/file';
 
 
       var _TambahTunaiMasukPage = /*#__PURE__*/function () {
@@ -101,10 +110,10 @@
           this.user_id = window.sessionStorage.getItem("user_id");
           this.tunai_masuk = this.formBuilder.group({
             id_pengguna: [''],
-            id_kategori_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
-            tarikh_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
-            keterangan_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
-            jumlah_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
+            id_kategori_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            tarikh_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            keterangan_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            jumlah_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
             dokumen_lampiran: ['']
           });
         }
@@ -126,26 +135,32 @@
         }, {
           key: "logForm",
           value: function logForm() {
+            var _this = this;
+
             this.tunai_masuk.value.id_pengguna = this.user_id;
+            this.tunai_masuk.value.tarikh_aliran = moment__WEBPACK_IMPORTED_MODULE_4__(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD');
             console.log(this.tunai_masuk.value);
             this.aliranService.post(this.tunai_masuk.value).subscribe(function (res) {
-              console.log("res", res); // this.refresh();
-              // this.dismiss();
+              console.log("res", res);
+
+              _this.refresh();
+
+              _this.dismiss();
             });
           }
         }, {
           key: "getKategoriAliran",
           value: function getKategoriAliran() {
-            var _this = this;
+            var _this2 = this;
 
-            this.kategoriAliranService.getKategoriAliran().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(function (x) {
+            this.kategoriAliranService.getKategoriAliran().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.map)(function (x) {
               return x.filter(function (i) {
                 return i.jenis_aliran == "tunai_masuk";
               });
             })).subscribe(function (res) {
               console.log("kategori aliran", res);
-              _this.kategori_aliran_masuk = res;
-              console.log("kategori aliran", _this.kategori_aliran_masuk);
+              _this2.kategori_aliran_masuk = res;
+              console.log("kategori aliran", _this2.kategori_aliran_masuk);
             });
           }
         }, {
@@ -154,10 +169,11 @@
             window.location.reload();
           }
         }, {
-          key: "handleFileInput",
-          value: function handleFileInput(event) {
-            console.log(event);
-            this.userDetails.profilePic = event.target.files[0];
+          key: "doSomething",
+          value: function doSomething() {
+            console.log(this.tunai_masuk.value.tarikh_aliran);
+            console.log('date', moment__WEBPACK_IMPORTED_MODULE_4__(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD')); // 2019-04-22
+            // this.tunai_masuk.value.tarikh_aliran = moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD');
           }
         }]);
 
@@ -166,19 +182,19 @@
 
       _TambahTunaiMasukPage.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.ModalController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.ModalController
         }, {
-          type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormBuilder
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormBuilder
         }, {
           type: src_app_services_kategoriAliran_kategori_aliran_service__WEBPACK_IMPORTED_MODULE_2__.KategoriAliranService
         }, {
           type: src_app_services_Aliran_aliran_service__WEBPACK_IMPORTED_MODULE_3__.AliranService
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router
         }];
       };
 
-      _TambahTunaiMasukPage = (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
+      _TambahTunaiMasukPage = (0, tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
         selector: 'app-tambah-tunai-masuk',
         template: _raw_loader_tambah_tunai_masuk_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_tambah_tunai_masuk_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -247,6 +263,16 @@
           key: "get",
           value: function get() {
             return this.http.get("".concat(this.url));
+          }
+        }, {
+          key: "update",
+          value: function update(aliran, aliran_id) {
+            return this.http.put("".concat(this.url, "/").concat(aliran_id), aliran);
+          }
+        }, {
+          key: "delete",
+          value: function _delete(aliran_id) {
+            return this.http["delete"]("".concat(this.url, "/").concat(aliran_id));
           }
         }]);
 
@@ -359,7 +385,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            TUNAI MASUK\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- <form [formGroup]=\"tunai_masuk\" (ngSubmit)=\"logForm()\" style=\"margin: 30px;\">\n    <ion-item class=\"form-control\">\n      <ion-label>Todo</ion-label>\n      <ion-input type=\"text\" formControlName=\"title\"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label>Description</ion-label>\n      <ion-textarea formControlName=\"description\"></ion-textarea>\n    </ion-item>\n    <ion-button type=\"submit\" [disabled]=\"!tunai_masuk.valid\">Submit</ion-button>\n  </form> -->\n  \n\n  <ion-grid>\n    <form [formGroup]=\"tunai_masuk\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">KATEGORI ALIRAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"id_kategori_aliran\">\n              <ion-select-option *ngFor=\"let aliran_masuk of kategori_aliran_masuk\" value=\"{{aliran_masuk.id}}\">\n                {{aliran_masuk.nama_kategori_aliran}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">TARIKH <span style=\"color: red;\">*</span></ion-label>\n            <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n            <ion-datetime displayFormat=\"YYYY-MM-DD\" formControlName=\"tarikh_aliran\" style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">KETERANGAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-input type=\"text\" formControlName=\"keterangan_aliran\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"ion-text-center\" style=\"display: flex; justify-content:center\">\n        <!-- <ion-col class=\"ion-text-center\"> -->\n        <p style=\"margin: 0px;\"> JUMLAH <span style=\"color: red;\">*</span></p><br>\n        <!-- </ion-col> -->\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 30px; border-bottom: 0.8px solid; margin-left:5%; margin-right:5%\">\n        <ion-col class=\"jumlah\" [size]=4 style=\"display:flex; justify-content:center; align-items:center\">\n          RM\n        </ion-col>\n        <ion-col [size]=8 class=\"ion-text-center\">\n          <!-- <ion-item class=\" ion-text-center\">\n            <ion-label class=\"jumlah\" style=\"margin-top:50px\">RM </ion-label> -->\n          <ion-input class=\"jumlah\" type=\"number\" placeholder=\"0.00\" formControlName=\"jumlah_aliran\"></ion-input>\n          <!-- </ion-item> -->\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-label>DOKUMEN LAMPIRAN</ion-label>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\">\n            <ion-button color=\"success\" expand=\"block\" (click)=\"f.click()\">\n              PILIH DOKUMEN\n            </ion-button>\n            <input class=\"ion-hide\" #f type=\"file\" id=\"file-input\"\n               formControlName=\"dokumen_lampiran\">\n\n          </ion-item>\n\n          <!-- <label for=\"doc\">\n            <ion-button for=\"doc\" color=\"success\" expand=\"block\" for=\"doc\">PILIH DOKUMEN</ion-button>\n          </label> -->\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <!-- (click)=\"openmodal()\" -->\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"tunai_masuk.invalid\" >TAMBAH TUNAI MASUK</ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            TUNAI MASUK\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- <form [formGroup]=\"tunai_masuk\" (ngSubmit)=\"logForm()\" style=\"margin: 30px;\">\n    <ion-item class=\"form-control\">\n      <ion-label>Todo</ion-label>\n      <ion-input type=\"text\" formControlName=\"title\"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label>Description</ion-label>\n      <ion-textarea formControlName=\"description\"></ion-textarea>\n    </ion-item>\n    <ion-button type=\"submit\" [disabled]=\"!tunai_masuk.valid\">Submit</ion-button>\n  </form> -->\n\n\n  <ion-grid>\n    <form [formGroup]=\"tunai_masuk\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">KATEGORI ALIRAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"id_kategori_aliran\" >\n              <ion-select-option *ngFor=\"let aliran_masuk of kategori_aliran_masuk\" value=\"{{aliran_masuk.id}}\">\n                {{aliran_masuk.nama_kategori_aliran}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">TARIKH <span style=\"color: red;\">*</span></ion-label>\n            <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n            <ion-datetime displayFormat=\"D/M/YYYY\" pickerFormat=\"D/M/YYYY\" formControlName=\"tarikh_aliran\"\n              (ionChange)=\"doSomething()\" style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">KETERANGAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-input type=\"text\" formControlName=\"keterangan_aliran\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row class=\"ion-text-center\" style=\"display: flex; justify-content:center\">\n        <!-- <ion-col class=\"ion-text-center\"> -->\n        <p style=\"margin: 0px;\"> JUMLAH <span style=\"color: red;\">*</span></p><br>\n        <!-- </ion-col> -->\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 30px; border-bottom: 0.8px solid; margin-left:5%; margin-right:5%\">\n        <ion-col class=\"jumlah\" [size]=4 style=\"display:flex; justify-content:center; align-items:center\">\n          RM\n        </ion-col>\n        <ion-col [size]=8 class=\"ion-text-center\">\n          <!-- <ion-item class=\" ion-text-center\">\n            <ion-label class=\"jumlah\" style=\"margin-top:50px\">RM </ion-label> -->\n          <ion-input class=\"jumlah\" type=\"number\" placeholder=\"0.00\" formControlName=\"jumlah_aliran\"></ion-input>\n          <!-- </ion-item> -->\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-label>DOKUMEN LAMPIRAN</ion-label>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\">\n            <ion-button color=\"success\" expand=\"block\" (click)=\"f.click()\">\n              PILIH DOKUMEN\n            </ion-button>\n            <input class=\"ion-hide\" #f type=\"file\" id=\"file-input\" formControlName=\"dokumen_lampiran\"\n              (change)=\"onFileChange($event)\">\n\n          </ion-item>\n\n          <!-- <label for=\"doc\">\n            <ion-button for=\"doc\" color=\"success\" expand=\"block\" for=\"doc\">PILIH DOKUMEN</ion-button>\n          </label> -->\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <!-- (click)=\"openmodal()\" -->\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"tunai_masuk.invalid\">TAMBAH TUNAI MASUK\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>";
       /***/
     }
   }]);

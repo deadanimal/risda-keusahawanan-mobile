@@ -18,125 +18,155 @@
 <ion-content>
 
   <ion-grid>
-    <form [formGroup]="tambah_dokumen" (ngSubmit)="logForm()" style="margin: 20px;">
+    <form [formGroup]="form1" (ngSubmit)="logForm()" style="margin: 20px;">
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <h5 class="form-header">Maklumat Pelanggan</h5>
-          
+
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>NAMA PELANGGAN</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="nama_pelanggan"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>ALAMAT 1</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="alamat1"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>ALAMAT 2</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="alamat2"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>ALAMAT 3</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="alamat3"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>DAERAH</ion-label>
-          <ion-input type="text" formControlName="title">
-          </ion-input>
+          <ion-label>NEGERI</ion-label>
+          <!-- <ion-input type="text" formControlName="U_Negeri_ID"></ion-input> -->
+          <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah($event)">
+            <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">{{negeri.Negeri}}
+            </ion-select-option>
+          </ion-select>
         </ion-col>
         <ion-col class="form-control">
-          <ion-label>POSKOD</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-label>DAERAH</ion-label>
+          <!-- <ion-input type="text" formControlName="U_Daerah_ID">
+          </ion-input> -->
+          <ion-select formControlName="U_Daerah_ID">
+            <ion-select-option *ngFor="let daerah of daerah" value="{{daerah.U_Daerah_ID}}">{{daerah.Daerah}}
+            </ion-select-option>
+
+          </ion-select>
         </ion-col>
+
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NEGERI</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-label>POSKOD</ion-label>
+          <ion-input type="number" formControlName="poskod"></ion-input>
         </ion-col>
         <ion-col class="form-control">
           <ion-label>NO. TELEFON</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="number" formControlName="no_telefon"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>NO. FAKS</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="number" formControlName="no_fax"></ion-input>
         </ion-col>
       </ion-row>
+
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <h5 class="form-header">Maklumat Pembelian</h5>
-          
         </ion-col>
       </ion-row>
+      <div formArrayName="produk">
+        <div *ngFor="let produk of getProdukArray.controls; let i=index" [formGroupName]="i">
 
-      <ion-row style="margin-bottom: 20px;">
-        <ion-col class="form-control">
-          <!-- <ion-item lines="none" style="border: none;"> -->
-          <ion-label position="stacked">NAMA PRODUK</ion-label>
-          <ion-select formControlName="title">
-            <ion-select-option value="publish">Publish</ion-select-option>
-            <ion-select-option value="draft">Draft</ion-select-option>
-          </ion-select>
-          <!-- </ion-item> -->
-        </ion-col>
-      </ion-row>
+          <ion-row style="margin-bottom: 10px;">
+            <ion-col class="form-control">
+              <!-- <ion-item lines="none" style="border: none;"> -->
+              <ion-label position="stacked">NAMA PRODUK</ion-label>
+              <!-- <ion-input formControlName="id_katalog"></ion-input> -->
+              <ion-select formControlName="id_katalog">
+                <ion-select-option *ngFor="let katalog of katalog" value="{{katalog.id}}">{{katalog.nama_produk}}
+                </ion-select-option>
+                <!-- <ion-select-option value="draft">Draft</ion-select-option> -->
+              </ion-select>
+              <!-- </ion-item> -->
+            </ion-col>
+          </ion-row>
 
-      <ion-row style="margin-bottom: 20px;">
-        <ion-col class="form-control">
-          <!-- <ion-item lines="none" style="border: none;"> -->
-          <ion-label position="stacked">KUANTITI</ion-label>
-          <ion-select formControlName="title">
-            <ion-select-option value="publish">Publish</ion-select-option>
-            <ion-select-option value="draft">Draft</ion-select-option>
-          </ion-select>
-          <!-- </ion-item> -->
-        </ion-col>
-      </ion-row>
+          <ion-row style="margin-bottom: 20px;">
+            <ion-col class="form-control">
+              <!-- <ion-item lines="none" style="border: none;"> -->
+              <ion-label position="stacked">KUANTITI</ion-label>
+              <ion-input type="number" formControlName="stok_dijual"></ion-input>
+            </ion-col>
 
-      <ion-row style="margin-bottom: 20px;">
+
+          </ion-row>
+
+          <ion-row style="margin-bottom: 20px;">
+            <ion-col class="form-control">
+              <div style="width:100%; display:flex; justify-content:flex-end;">
+
+                <div class="ion-text-center" (click)="deleteProduk(i)">
+                  <img src="/assets/icon/trash-icon.png" alt="" height="30" width="30">
+                  <br>
+                </div>
+
+                <div *ngIf="i == (productLength-1)" class="ion-text-center" (click)="addProduk()">
+                  <img src="/assets/icon/add-item-icon.png" alt="" height="30" width="30">
+                  <br>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+
+
+        </div>
+
+      </div>
+
+      <!-- <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <div style="width:100%; display:flex; justify-content:flex-end;">
-            <div class="ion-text-center" (click)="tambahDokumen()">
-              <img src="/assets/icon/add-item-icon.png" alt="" height="50" width="50">
+
+            <div class="ion-text-center" (click)="addProduk()">
+              <img src="/assets/icon/add-item-icon.png" alt="" height="40" width="40">
               <br>
-      
-              <ion-text class="bold" color="success">
-                <ion-icon name="add"></ion-icon>
-                <span style="font-size: 12px; font-weight: 900;"><strong> TAMBAH </strong></span>
-              </ion-text>
             </div>
+
           </div>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
-     
+
+
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button color="success" expand="block">TAMBAH</ion-button>
+          <ion-button color="success" expand="block" type="submit">TAMBAH</ion-button>
         </ion-col>
       </ion-row>
     </form>
   </ion-grid>
-
-
 
 
 </ion-content>

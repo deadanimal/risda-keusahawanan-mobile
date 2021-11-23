@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { DaerahService } from 'src/app/services/daerah/daerah.service';
+import { NegeriService } from 'src/app/services/negeri/negeri.service';
+import { KatalogService } from 'src/app/services/katalog/katalog.service';
+import { map } from 'rxjs/operators';
+import { StokService } from 'src/app/services/stok/stok.service';
+import { PelangganService } from 'src/app/services/pelanggan/pelanggan.service';
 
 @Component({
   selector: 'app-kemaskini-dokumen',
@@ -10,32 +16,314 @@ import { Validators } from '@angular/forms';
 })
 export class KemaskiniDokumenPage implements OnInit {
 
-  private tambah_dokumen: FormGroup;
+
+  @Input() pelanggan: any;
+
+  private form: FormGroup;
+
+  usahawan_id = window.sessionStorage.getItem("usahawan_id");
+  user_id = window.sessionStorage.getItem("user_id");
+
+  // variable
+
+  negeri: any;
+  daerah: any;
 
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-  ) { 
-    this.tambah_dokumen = this.formBuilder.group({
-      title: ['', Validators.required],
-      nama_produk: [''],
-      downtime_start: [''],
+    public loadingController: LoadingController,
+    public alertController: AlertController,
+    private daerahService: DaerahService,
+    private negeriService: NegeriService,
+    private katalogService: KatalogService,
+    private stokService: StokService,
+    private pelangganService: PelangganService,
+  ) {
+    this.form = this.formBuilder.group({
+      nama_pelanggan: ['', Validators.required],
+      alamat1: ['', Validators.required],
+      alamat2: ['', Validators.required],
+      alamat3: ['', Validators.required],
+      poskod: ['', Validators.required],
+      U_Negeri_ID: ['', Validators.required],
+      U_Daerah_ID: ['', Validators.required],
+      no_telefon: ['', Validators.required],
+      no_fax: ['', Validators.required],
+
+      produk: this.formBuilder.array([]),
     });
   }
 
+  count: any = 0;
+  productLength: any = 0;
+  addProduk() {
+
+    const produk = this.formBuilder.group({
+      id: ['',],
+      id_katalog: ['',],
+      id_pelanggan: [''],
+      stok_dijual: ['',],
+      modified_by: [''],
+    });
+    this.getProdukArray.push(produk);
+
+    this.count++;
+    this.productLength = this.getProdukArray.length;
+    console.log("this.productLength", this.productLength)
+    console.log('After Add: ', this.form.value);
+  }
+
+  get getProdukArray() {
+    return (<FormArray>this.form.get('produk'));
+  }
+
+  deleteProduk(i, produk) {
+    console.log(produk);
+    this.getProdukArray.removeAt(i);
+
+    this.count--;
+    this.productLength = this.getProdukArray.length;
+    console.log("this.productLength", this.productLength)
+    console.log('After Add: ', this.form.value);
+
+    if (produk != '') {
+      this.stokService.delete(produk).subscribe((res) => {
+        console.log("deleted stok", res);
+
+      });
+    }
+
+  }
+
   ngOnInit() {
+    console.log(this.pelanggan);
+
+    this.getNegeri();
+    this.getKatalog();
+    this.getDaerah(this.pelanggan.U_Negeri_ID)
+    this.getStok(this.pelanggan.id_pelanggan);
+
+  }
+
+  setFormValues() {
+
+    this.form.patchValue({
+      nama_pelanggan: this.pelanggan.nama_pelanggan,
+      alamat1: this.pelanggan.alamat1,
+      alamat2: this.pelanggan.alamat2,
+      alamat3: this.pelanggan.alamat3,
+      poskod: this.pelanggan.poskod,
+      U_Negeri_ID: this.pelanggan.U_Negeri_ID,
+      U_Daerah_ID: this.pelanggan.U_Daerah_ID,
+      no_telefon: this.pelanggan.no_telefon,
+      no_fax: this.pelanggan.no_fax,
+    });
+
+    this.form.updateValueAndValidity();
+  }
+
+  setProdukVAlue() {
+
+    this.stok.forEach(element => {
+      const produk = this.formBuilder.group({
+        id: element.id,
+        id_katalog: element.id_katalog,
+        id_pelanggan: element.id_pelanggan,
+        stok_dijual: element.stok_dijual,
+        modified_by: element.modified_by,
+      });
+      this.getProdukArray.push(produk);
+
+      this.count++;
+      this.productLength = this.getProdukArray.length;
+      console.log("this.productLength", this.productLength)
+      console.log('After Add: ', this.form.value);
+    });
   }
 
   dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
       'dismissed': true
     });
   }
 
   logForm() {
-    console.log(this.tambah_dokumen.value)
+    console.log(this.form.value)
+
+    let prodTemp = this.form.value.produk;
+    let prodTempLength = prodTemp.length;
+
+    console.log("prodTemp", prodTemp[1])
+
+    this.pelangganService.update(this.form.value, this.pelanggan.id).subscribe((res) => {
+      console.log("res pelanggan", res);
+
+      let pelanggan = res;
+
+      for (let i = 0; i < prodTempLength; i++) {
+
+        prodTemp[i].id_pelanggan = pelanggan.id;
+        prodTemp[i].modified_by = this.user_id;
+
+        console.log(prodTemp[i]);
+
+        if (prodTemp[i].id == '') {
+          this.stokService.post(prodTemp[i]).subscribe((res) => {
+            console.log("res stok", res);
+
+          });
+        } else {
+          this.stokService.update(prodTemp[i], prodTemp[i].id).subscribe((res) => {
+            console.log("res stok", res);
+
+          });
+        }
+
+      }
+
+      // this.dismiss();
+      this.presentAlert()
+
+    });
+  }
+
+  async onDelete() {
+    const loading = await this.loadingController.create({ message: 'Deleting ...' });
+    loading.present();
+
+    this.pelangganService.delete(this.pelanggan.id_pelanggan).subscribe((res) => {
+      console.log("deleted", res);
+
+      this.stokService.deleteMany(this.pelanggan.id_pelanggan).subscribe((res) => {
+        console.log("deleted stok", res);
+
+
+        loading.dismiss();
+        this.presentAlert2()
+      });
+    });
+
+
+  }
+
+  getNegeri() {
+    this.negeriService.get().subscribe((res) => {
+
+      console.log("negeri", res);
+      this.negeri = res;
+
+    });
+
+  }
+
+  getDaerah(event) {
+
+    // console.log("test")
+    // console.log(this.form1.value.U_Negeri_ID)
+
+    this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
+      // this.daerahService.get().subscribe((res) => {
+
+      console.log("Daerah", res);
+      this.daerah = res;
+
+      this.setFormValues();
+    });
+
+  }
+
+  katalog: any;
+  getKatalog() {
+    console.log("this.user_id", this.user_id);
+
+    this.katalogService.get(this.user_id).pipe(map(x => x.filter(i => i.status_katalog == "publish"))).subscribe((res) => {
+      console.log("katalog", res);
+
+      this.katalog = res
+
+    });
+
+  }
+
+  stok: any;
+  getStok(id) {
+    this.stokService.get(this.pelanggan.id_pelanggan).subscribe((res) => {
+      console.log("stok", res);
+      this.stok = res;
+
+      this.setProdukVAlue();
+    });
+
+  }
+
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Berjaya',
+      subHeader: 'Maklumat pelanggan telah berjaya dikemaskini',
+      message: '',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+
+    this.dismiss();
+    this.refresh();
+  }
+
+  async presentAlert2() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Berjaya Dihapus',
+      subHeader: 'Maklumat Pelanggan Telah Berjaya Dihapus',
+      message: '',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+
+    this.dismiss();
+    this.refresh();
+  }
+
+  async presentAlertConfirm(i) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirm!',
+      message: 'Message <strong>text</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            console.log(i);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+
+  refresh(): void {
+    window.location.reload();
   }
 
 }
