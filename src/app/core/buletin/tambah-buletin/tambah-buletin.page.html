@@ -18,11 +18,11 @@
 <ion-content>
 
   <ion-grid>
-    <form [formGroup]="tunai_masuk" (ngSubmit)="logForm()" style="margin: 20px;">
+    <form [formGroup]="form" (ngSubmit)="logForm()" style="margin: 20px;">
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>TAJUK</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-input type="text" formControlName="tajuk"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
@@ -30,22 +30,24 @@
           <ion-label> TARIKH</ion-label>
           <!-- <ion-input type="date" formControlName="title"></ion-input> -->
           <!-- <ion-input type="text" formControlName="title"></ion-input> -->
-          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="tarikh_aliran" style="background-color: #f5f5f5;">
+          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tarikh" style="background-color: #f5f5f5;">
           </ion-datetime>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>KETERANGAN LAIN</ion-label>
-          <ion-textarea rows="6" placeholder=""></ion-textarea>
+          <ion-textarea rows="6" placeholder="" formControlName="keterangan_lain"></ion-textarea>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>STATUS</ion-label>
-          <ion-input class="ion-text-right" type="text" formControlName="title">
-          </ion-input>
+          <ion-select formControlName="status">
+            <ion-select-option value="aktif">AKTIF</ion-select-option>
+            <ion-select-option value="tidak_aktif">TIDAK AKTIF</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
@@ -60,10 +62,10 @@
         <ion-col class="form-control" style="display: flex; justify-content:center">
           <label style="display: flex; justify-content:center">
             <div style="display: flex; justify-content:center">
-              <img src="assets/icon/image-not-available.png" class="border-radius-md" width="40%" 
+              <img [src]="url" class="border-radius-md" width="40%" 
                 id="upload-Preview" style="border-radius: 10px;" />
             </div>
-            <input id="upload-Image" type="file" onchange="loadImageFile();" name="gambar_profil" style="display: none">
+            <input id="upload-Image" type="file" formControlName="gambar_buletin" accept="image/*" (change)="onSelectFile($event)" style="display: none">
           </label>
 
         </ion-col>
@@ -71,7 +73,7 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button color="success" expand="block">TAMBAH BULETIN</ion-button>
+          <ion-button color="success" expand="block" type="submit" [disabled]="form.invalid" >TAMBAH BULETIN</ion-button>
         </ion-col>
       </ion-row>
     </form>

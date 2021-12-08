@@ -13,21 +13,7 @@ export class KatalogPegawaiPage implements OnInit {
   user_id = window.sessionStorage.getItem("user_id");
 
   katalog = [
-    { nama_produk: "Gaming Chair", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_produk: "Maja study", status_katalog: "publish", created_date: "1/2/2020" },
-    { nama_produk: "keyboard", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_produk: "imac", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_produk: "monitor", status_katalog: "publish", created_date: "3/2/2020" },
-    { nama_produk: "Gaming Chair", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_produk: "Maja study", status_katalog: "publish", created_date: "1/2/2020" },
-    { nama_produk: "keyboard", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_produk: "imac", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_produk: "monitor", status_katalog: "publish", created_date: "3/2/2020" },
-    { nama_produk: "Gaming Chair", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_produk: "Maja study", status_katalog: "publish", created_date: "1/2/2020" },
-    { nama_produk: "keyboard", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_produk: "imac", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_produk: "monitor", status_katalog: "publish", created_date: "3/2/2020" },
+
   ]
 
   constructor(
@@ -36,15 +22,27 @@ export class KatalogPegawaiPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getKatalog();
   }
 
-  async lihatKatalog() {
+  async lihatKatalog(katalog: any) {
     console.log("kemaskini Katalog");
     const modal = await this.modalController.create({
       component: MaklumatProdukPage,
+      componentProps: { katalog },
       cssClass: 'my-custom-class'
     });
     return await modal.present();
+  }
+
+  getKatalog() {
+    console.log("this.user_id", this.user_id);
+    this.katalogService.getKatalogPegawai(4).subscribe((res) => {
+      console.log("katalog", res);
+
+      this.katalog = res
+    });
+
   }
 
 }

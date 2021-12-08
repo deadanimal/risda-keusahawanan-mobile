@@ -21,7 +21,7 @@ export class AppComponent {
     { title: 'Ringkasan lejar', url: '/ringkasan-lejar', icon: 'assets/icon/ringkasan-lejar.png' },
     { title: 'Katalog', url: 'katalog', icon: 'assets/icon/katalog.png' },
     { title: 'Jana Dokumen', url: '/jana-dokumen', icon: 'assets/icon/jana-dokumen.png' },
-    { title: 'Log Keluar', url: '#', icon: 'assets/icon/log-out-button.png' },
+    // { title: 'Log Keluar',  url: '#', icon: 'assets/icon/log-out-button.png' },
   ];
 
   public appPagesPegawai = [
@@ -29,7 +29,7 @@ export class AppComponent {
     { title: 'Lawatan', url: '/lawatan-pegawai', icon: 'assets/icon/lawatan-icon.png' },
     { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/icon/katalog.png' },
     { title: 'Buletin', url: '/buletin', icon: 'assets/icon/buletin.png' },
-    { title: 'Log Keluar', url: '#', icon: 'assets/icon/log-out-button.png' },
+    // { title: 'Log Keluar', url: '#', icon: 'assets/icon/log-out-button.png' },
     
   ];
   // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
@@ -39,5 +39,9 @@ export class AppComponent {
   // }
   constructor(){
     console.log("role", this.role)
+  }
+
+  logout() {
+    sessionStorage.clear();
   }
 }

@@ -9,7 +9,7 @@
     <ion-text color="success">
       <h1>
         <strong>
-           PROFIL
+           PROFIL SYARIKAT
         </strong>
       </h1>
     </ion-text>
@@ -73,7 +73,7 @@
 
     <form action="" [formGroup]="form" class="ion-padding form-control" (ngSubmit)="logForm()">
 
-      <ion-row>
+      <ion-row style="background-color: #00A651; color:white">
         <ion-col>
           <strong>Maklumat Syarikat</strong>
         </ion-col>
@@ -85,11 +85,21 @@
         <ion-col></ion-col>
 
         <ion-col class="ion-justify-content-center">
-          <ion-avatar class="ion-justify-content-center" style="padding:3%; height: 100px; width: 100px; border: 3px solid #ABC128;">
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-          </ion-avatar>
-          <img src="assets/icon/cam.png" alt="" height="30%" style="position: absolute; bottom:0px; left:37px">
+
+          <label>
+            <div>
+              <ion-avatar class="ion-justify-content-center"
+                style="padding:3%; height: 100px; width: 100px; border: 3px solid #ABC128;">
+                <img [src]="syarikat.logo_syarikat">
+              </ion-avatar>
+              <img src="assets/icon/cam.png" alt="" height="30%" style="position: absolute; bottom:0px; left:37px">
+            </div>
+            <ion-input accept="image/*" (change)="onSelectFile($event)" formControlName="logo_syarikat" type="file"
+              name="gambar_profil" style="display: none"></ion-input>
+          </label>
+
         </ion-col>
+
         <ion-col></ion-col>
 
       </ion-row>
@@ -107,7 +117,11 @@
       <ion-row>
         <ion-col>
           <ion-label>JENIS MILIKAN PERNIAGAAN</ion-label>
-          <ion-input value="{{syarikat.jenismilikanperniagaan}}" formControlName="jenismilikanperniagaan"></ion-input>
+          <!-- <ion-input value="{{syarikat.jenismilikanperniagaan}}" formControlName="jenismilikanperniagaan"></ion-input> -->
+          <ion-select formControlName="jenismilikanperniagaan">
+            <ion-select-option *ngFor="let jenis_milikan of jenis_milikan" value="{{jenis_milikan.id}}"  
+              >{{jenis_milikan.name}}</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
@@ -141,7 +155,9 @@
       <ion-row>
         <ion-col>
           <ion-label>TAHUN MULA OPERASI</ion-label>
-          <ion-input value="{{syarikat.tahunmulaoperasi}}" formControlName="tahunmulaoperasi"></ion-input>
+          <!-- <ion-input value="{{syarikat.tahunmulaoperasi}}" formControlName="tahunmulaoperasi"></ion-input> -->
+          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tahunmulaoperasi" 
+            style="background-color: #f5f5f5;"></ion-datetime>
         </ion-col>
         <ion-col>
           <br>
@@ -174,14 +190,18 @@
       <ion-row>
         <ion-col>
           <ion-label> TARIKH MULA MOF</ion-label>
-          <ion-input value="{{syarikat.tarikh_mula_mof}}" formControlName="tarikh_mula_mof"></ion-input>
+          <!-- <ion-input value="{{syarikat.tarikh_mula_mof}}" formControlName="tarikh_mula_mof"></ion-input> -->
+          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tarikh_mula_mof" 
+            style="background-color: #f5f5f5;"></ion-datetime>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> TARIKH TAMAT MOF</ion-label>
-          <ion-input value="{{syarikat.tarikh_tamat_mof}}" formControlName="tarikh_tamat_mof"></ion-input>
+          <!-- <ion-input value="{{syarikat.tarikh_tamat_mof}}" formControlName="tarikh_tamat_mof"></ion-input> -->
+          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tarikh_tamat_mof" 
+            style="background-color: #f5f5f5;"></ion-datetime>
         </ion-col>
       </ion-row>
 

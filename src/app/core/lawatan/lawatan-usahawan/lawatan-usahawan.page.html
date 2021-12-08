@@ -58,9 +58,9 @@
             <div style="height: 70%; width:100%; overflow: scroll; display:flex; justify-content:center">
 
               <ion-grid class="rectangle-279">
-                <ion-row *ngFor="let katalog of katalog"
+                <ion-row *ngFor="let lawatan of lawatan"
                   style="margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;"
-                  (click)="pengesahanLawatan()">
+                  (click)="lawatan.status_lawatan=='usahawan'  ? pengesahanLawatan(lawatan):null;">
                   <ion-col>
                     <div class=" bold" style="font-family: 'Nunito Sans';">
                       <ion-grid style="padding: 0%;">
@@ -68,19 +68,19 @@
                           <ion-col size="8">
                             <ion-text>
                               <h6 class="bold no-padding">
-                                {{katalog.nama_produk}}
+                                {{lawatan.nama_pegawai}}
                               </h6>
                             </ion-text>
                             <ion-text color="success">
-                              {{katalog.created_date}}
+                              {{lawatan.updated_at | date: 'dd/MM/yyyy'}}
                             </ion-text>
                           </ion-col>
                           <ion-col size="4" style="padding: 0%; display:flex; justify-content:flex-end">
-                            <img *ngIf="katalog.status_katalog == 'pending'" src="assets/icon/pending.png" alt="pending"
+                            <img *ngIf="lawatan.status_lawatan == 'pegawai'" src="assets/icon/pending.png" alt="pending"
                               height="50px">
-                            <img *ngIf="katalog.status_katalog == 'publish'" src="assets/icon/publish-icon.png"
+                            <img *ngIf="lawatan.status_lawatan == 'disahkan'" src="assets/icon/publish-icon.png"
                               alt="publish" height="50px%">
-                            <img *ngIf="katalog.status_katalog == 'draft'" src="assets/icon/draft-icon.png" alt="draft"
+                            <img *ngIf="lawatan.status_lawatan == 'usahawan'" src="assets/icon/draft-icon.png" alt="draft"
                               height="50px%">
                           </ion-col>
                         </ion-row>
@@ -116,9 +116,9 @@
             <div style="height: 70%; width:100%; overflow: scroll; display:flex; justify-content:center">
 
               <ion-grid class="rectangle-279">
-                <ion-row *ngFor="let pelanggan of pelanggan" (click)="kemaskiniDokumen()"
+                <ion-row *ngFor="let laporan of laporan"
                   style="margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;"
-                  (click)="kemaskiniKatalog()">
+                  >
                   <ion-col>
                     <div class=" bold" style="font-family: 'Nunito Sans';">
                       <ion-grid style="padding: 0%;">
@@ -126,12 +126,12 @@
                           <ion-col size="8">
                             <ion-text>
                               <h6 class="bold no-padding">
-                                {{pelanggan.nama_pelanggan}}
+                                {{laporan.nama_pegawai}}
                               </h6>
                             </ion-text>
                             <ion-text color="medium">
                               <p class="font-13 no-padding">
-                                {{pelanggan.created_date}}
+                                {{laporan.updated_at | date: 'dd/MM/yyyy'}}
                               </p>
                             </ion-text>
                           </ion-col>

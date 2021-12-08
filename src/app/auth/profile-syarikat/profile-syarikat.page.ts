@@ -9,6 +9,12 @@ import { SyarikatModel } from 'src/app/services/syarikat/syarikat.model';
 import { SyarikatService } from 'src/app/services/syarikat/syarikat.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 
+interface LocalFile {
+  name: string;
+  path: string;
+  data: string;
+}
+
 @Component({
   selector: 'app-profile-syarikat',
   templateUrl: './profile-syarikat.page.html',
@@ -21,6 +27,13 @@ export class ProfileSyarikatPage implements OnInit {
   usahawan_id = window.sessionStorage.getItem("usahawan_id");
   user_id = window.sessionStorage.getItem("user_id");
 
+  jenis_milikan = [
+    { id:"JPP01", name:"PEMILIKAN TUNGGAL"},
+    { id:"JPP02", name:"PERKONGSIAN"},
+    { id:"JPP03", name:"SYARIKAT SDN BHD"},
+    { id:"JPP04", name:"PERKONGSIAN LIABILITI TERHAD"},
+  ];
+
   constructor(
     private syarikatService: SyarikatService,
     private loginService: LoginService,
@@ -29,27 +42,31 @@ export class ProfileSyarikatPage implements OnInit {
     public alertController: AlertController,
     private loadingController: LoadingController,
     private formBuilder: FormBuilder,
-  ) { 
+  ) {
     this.form = this.formBuilder.group({
-      namasyarikat: ['',Validators.required],
-      jenismilikanperniagaan:  ['',Validators.required],
-      nodaftarssm:  ['',Validators.required],
-      nodaftarpbt:  ['',Validators.required],
-      nodaftarpersijilanhalal:  ['',Validators.required],
-      nodaftarmesti:  ['',Validators.required],
-      tahunmulaoperasi:  ['',Validators.required],
-      bilanganpekerja:  ['',Validators.required],
-      alamat1_ssm:  ['',Validators.required],
-      alamat2_ssm:  ['',Validators.required],
-      alamat3_ssm:  ['',Validators.required],
-      tarikh_mula_mof:  ['',Validators.required],
-      tarikh_tamat_mof:  ['',Validators.required],
-      status_bumiputera:  ['',Validators.required],
-      prefix_id:  ['',Validators.required],
-      notelefon:  ['',Validators.required],
-      no_hp:  ['',Validators.required],
-      email:  ['',Validators.required],
-      
+      id: ['',],
+      usahawanid: ['',],
+      Kod_PT: ['',],
+      logo_syarikat: ['',],
+      namasyarikat: ['', Validators.required],
+      jenismilikanperniagaan: ['', Validators.required],
+      nodaftarssm: ['', Validators.required],
+      nodaftarpbt: ['', Validators.required],
+      nodaftarpersijilanhalal: ['', Validators.required],
+      nodaftarmesti: ['', Validators.required],
+      tahunmulaoperasi: ['', Validators.required],
+      bilanganpekerja: ['', Validators.required],
+      alamat1_ssm: ['', Validators.required],
+      alamat2_ssm: ['', Validators.required],
+      alamat3_ssm: ['', Validators.required],
+      tarikh_mula_mof: ['', Validators.required],
+      tarikh_tamat_mof: ['', Validators.required],
+      status_bumiputera: ['', Validators.required],
+      prefix_id: ['', Validators.required],
+      notelefon: ['', Validators.required],
+      no_hp: ['', Validators.required],
+      email: ['', Validators.required],
+
     })
   }
 
@@ -80,36 +97,43 @@ export class ProfileSyarikatPage implements OnInit {
 
   }
 
-  setFormValues(){
+  setFormValues() {
     this.form.setValue({
+      id: this.syarikat.syarikat_id,
+      usahawanid: this.syarikat.usahawanid,
+      Kod_PT: this.syarikat.Kod_PT,
+      logo_syarikat: this.syarikat.logo_syarikat,
       namasyarikat: this.syarikat.namasyarikat,
-      jenismilikanperniagaan:  this.syarikat.jenismilikanperniagaan,
-      nodaftarssm:  this.syarikat.nodaftarssm,
-      nodaftarpbt:  this.syarikat.nodaftarpbt,
-      nodaftarpersijilanhalal:  this.syarikat.nodaftarpersijilanhalal,
-      nodaftarmesti:  this.syarikat.nodaftarmesti,
-      tahunmulaoperasi:  this.syarikat.tahunmulaoperasi,
-      bilanganpekerja:  this.syarikat.bilanganpekerja,
-      alamat1_ssm:  this.syarikat.alamat1_ssm,
-      alamat2_ssm:  this.syarikat.alamat2_ssm,
-      alamat3_ssm:  this.syarikat.alamat3_ssm,
-      tarikh_mula_mof:  this.syarikat.tarikh_mula_mof,
-      tarikh_tamat_mof:  this.syarikat.tarikh_tamat_mof,
-      status_bumiputera:  this.syarikat.status_bumiputera,
-      prefix_id:  this.syarikat.prefix_id,
-      notelefon:  this.syarikat.notelefon,
-      no_hp:  this.syarikat.no_hp,
-      email:  this.syarikat.email,
+      jenismilikanperniagaan: this.syarikat.jenismilikanperniagaan,
+      nodaftarssm: this.syarikat.nodaftarssm,
+      nodaftarpbt: this.syarikat.nodaftarpbt,
+      nodaftarpersijilanhalal: this.syarikat.nodaftarpersijilanhalal,
+      nodaftarmesti: this.syarikat.nodaftarmesti,
+      tahunmulaoperasi: this.syarikat.tahunmulaoperasi,
+      bilanganpekerja: this.syarikat.bilanganpekerja,
+      alamat1_ssm: this.syarikat.alamat1_ssm,
+      alamat2_ssm: this.syarikat.alamat2_ssm,
+      alamat3_ssm: this.syarikat.alamat3_ssm,
+      tarikh_mula_mof: this.syarikat.tarikh_mula_mof,
+      tarikh_tamat_mof: this.syarikat.tarikh_tamat_mof,
+      status_bumiputera: this.syarikat.status_bumiputera,
+      prefix_id: this.syarikat.prefix_id,
+      notelefon: this.syarikat.notelefon,
+      no_hp: this.syarikat.no_hp,
+      email: this.syarikat.email,
     })
   }
 
-  async logForm(){
-    const loading = await this.loadingController.create({message:'Loading ...'});
+  async logForm() {
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
     loading.present();
+
+    this.form.value.logo_syarikat = this.syarikat.logo_syarikat;
     console.log(this.form.value)
+    // console.log(this.form.value)
 
     this.syarikatService.update(this.form.value, Number(this.usahawan_id)).subscribe((res) => {
-      console.log("updated data",res);
+      console.log("updated data", res);
 
 
       loading.dismiss();
@@ -133,4 +157,62 @@ export class ProfileSyarikatPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
+  url: any
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
+        this.syarikat.logo_syarikat = this.url;
+      }
+
+      this.fileEvent(event);
+    }
+  }
+
+  // Convert the base64 to blob data
+  // and create  formData with it
+
+  images: LocalFile[];
+  async fileEvent(e) {
+
+    this.images = []
+
+    const files = e.target.files;
+    const file = files[0];
+    const filePath = files[0].size;
+    const base64Data = await this.readAsBase64(file);
+
+    const fileName = new Date().getTime() + '.jpeg';
+
+    this.images.push({
+      name: fileName,
+      path: filePath,
+      data: `${base64Data}`,
+    });
+
+    console.log("AAAA", this.images);
+  }
+
+  // https://ionicframework.com/docs/angular/your-first-app/3-saving-photos
+  private async readAsBase64(blob) {
+    // Fetch the photo, read as a blob, then convert to base64 format
+    // const response = await fetch(photo.webPath);
+    // const blob = await response.blob();
+
+    return (await this.convertBlobToBase64(blob)) as string;
+  }
+
+  convertBlobToBase64 = (blob: Blob) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.readAsDataURL(blob);
+    });
 }

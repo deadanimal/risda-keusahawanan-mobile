@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
+import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 
 @Component({
   selector: 'app-tarikh-lawatan-pgw',
@@ -11,27 +13,28 @@ import { Router } from '@angular/router';
 })
 export class TarikhLawatanPgwPage implements OnInit {
 
-  private tunai_masuk: FormGroup;
+  private form: FormGroup;
 
   usahawan_id = window.sessionStorage.getItem("usahawan_id");
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
   user_id = window.sessionStorage.getItem("user_id");
 
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private lawatanService: LawatanService,
   ) {
-    this.tunai_masuk = this.formBuilder.group({
-      id_pengguna: [''],
-      id_kategori_aliran: ['', Validators.required],
-      tarikh_aliran: ['', Validators.required],
-      keterangan_aliran: ['', Validators.required],
-      jumlah_aliran: ['', Validators.required],
-      dokumen_lampiran: [''],
+    this.form = this.formBuilder.group({
+      id_pengguna: ['', Validators.required],
+      id_pegawai: ['',],
+      tarikh_lawatan: ['', Validators.required],
+      masa_lawatan: ['', Validators.required],
     });
   }
 
   ngOnInit() {
+    this.getSenaraiUsahawan();
   }
 
   dismiss() {
@@ -43,11 +46,32 @@ export class TarikhLawatanPgwPage implements OnInit {
   }
 
   logForm() {
+    
+    this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
+    this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('HH:mm');
 
-    this.tunai_masuk.value.id_pengguna = this.user_id;
-    console.log(this.tunai_masuk.value)
+    this.form.value.id_pegawai = this.pegawai_id;
+
+    console.log(this.form.value) 
+
+    this.lawatanService.post(this.form.value).subscribe((res) => {
+      console.log("res", res);
+
+      this.dismiss();
+
+      window.location.reload();
+    });
 
 
+  }
+
+  usahawan :any;
+  getSenaraiUsahawan(){
+    this.lawatanService.getsenaraiusahawan(this.pegawai_id).subscribe((res) => {
+      console.log("usahawan", res);
+      this.usahawan = res;
+     
+    });
   }
 
 

@@ -18,7 +18,7 @@
 
   <div class="bg-white">
 
-    <div class="gambar_produk" style="height: 30%; width:100%; background-image: url('{{gambar_url}}');">
+    <div class="gambar_produk" style="height: 30%; width:100%; background-image: url('{{katalog.gambar_url}}');">
       <!-- <img src="assets/img/pic1.jpeg" alt="" > -->
     </div>
 
@@ -28,23 +28,23 @@
         <ion-row>
           <ion-col size="8">
             <h4 class="bold no-margin dark-green">
-              Secretlab OMEGA 2020 Series
+              {{katalog.nama_produk}}
             </h4>
 
             <ion-text color="success" class="bold no-margin">
-              Baki Stok: 301
+              {{katalog.baki_stok}}
             </ion-text>
             <br>
             <ion-text color="medium" class="bold no-margin">
               <small>
-                Berat: 15KG
+                Berat: {{katalog.berat_produk}}KG
               </small>
             </ion-text>
           </ion-col>
           <ion-col size="4">
             <ion-text color="success" class="bold no-margin">
               <h5 class="bold no-margin">
-                RM 599.90
+                RM {{katalog.harga_produk}}
               </h5>
             </ion-text>
 
@@ -57,10 +57,7 @@
             </ion-text>
             <ion-text color="medium" class="no-margin">
               <p class="nunito font-15" style=" text-align: justify; text-justify: inter-word;">
-                Feel comfort for endless hours regardless of what you’re doing with this flagship best-seller. With
-                marked
-                improvements to comfort, support, and reliability, the 2020 update to the multi-award winning Secretlab
-                OMEGA delivers an unparalleled sitting experience that is hailed as the gold standard of gaming chairs.
+                {{katalog.keterangan_produk}}
               </p>
             </ion-text>
 
@@ -73,8 +70,7 @@
             </ion-text>
             <ion-text color="medium" class="no-margin">
               <p class="nunito font-15" style=" text-align: justify; text-justify: inter-word;">
-                1x Secretlab Signature Memory Foam Head Pillow 
-                1x Secretlab Signature Memory Foam Lumbar Pillow 
+                {{katalog.kandungan_produk}}
               </p>
             </ion-text>
 
@@ -86,7 +82,7 @@
   </div>
   <div style="height:15%; display: flex; align-items:center; justify-content:space-around">
     <ion-button (click)="dismiss()" fill="default" class="ion-text-uppercase bold font-11" style="color: #D30F0F;">Batal</ion-button>
-    <ion-button fill="default" class="ion-text-uppercase bold font-11" style="color: #00A651;">Sahkan</ion-button>
+    <ion-button (click)="pengesahan()" fill="default" class="ion-text-uppercase bold font-11" style="color: #00A651;">Sahkan</ion-button>
   </div>
 
   <!-- <div class="kmi nunitosans-extra-bold-te-papa-green-18px">Maklumat<br />Insentif</div>

@@ -9,7 +9,7 @@
     <ion-text color="success">
       <h1>
         <strong>
-           PROFIL
+           PROFIL PERNIAGAAN
         </strong>
       </h1>
     </ion-text>
@@ -71,7 +71,7 @@
 
     <form [formGroup]="form" class="ion-padding form-control" (ngSubmit)="logForm()">
 
-      <ion-row>
+      <ion-row style="background-color: #00A651; color:white">
         <ion-col>
           <strong>Maklumat Perniagaan</strong>
         </ion-col>
@@ -82,96 +82,131 @@
 
       <ion-row>
         <ion-col>
-
           <ion-label>JENIS PERNIAGAAN</ion-label>
-          <ion-input value="{{perniagaan.jenisperniagaan}}" formControlName="jenisperniagaan"></ion-input>
-
+          <!-- <ion-input formControlName="jenisperniagaan"></ion-input> -->
+          <ion-select formControlName="jenisperniagaan" style="width:100%,">
+            <ion-select-option *ngFor="let jenis_perniagaan of jenis_perniagaan" value="{{jenis_perniagaan.id}}" style="word-wrap:break-word">{{jenis_perniagaan.name}}</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label>KLUSTER PERNIAGAAN</ion-label>
-          <ion-input value="{{perniagaan.klusterperniagaan}}" formControlName="klusterperniagaan"></ion-input>
+          <!-- <ion-input formControlName="klusterperniagaan"></ion-input> -->
+          <ion-select formControlName="klusterperniagaan" style="width:100%,">
+            <ion-select-option *ngFor="let klusterPerniagaan of klusterPerniagaan" value="{{klusterPerniagaan.id}}" style="word-wrap:break-word">{{klusterPerniagaan.name}}</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label>SUB KLUSTER PERNIAGAAN</ion-label>
-          <ion-input value="{{perniagaan.subkluster}}" formControlName="subkluster"></ion-input>
+          <ion-input formControlName="subkluster"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> ALAMAT 1 (BARIS 1)</ion-label>
-          <ion-input value="{{perniagaan.alamat1}}" formControlName="alamat1" ></ion-input>
+          <ion-input formControlName="alamat1" ></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> ALAMAT 2 (BARIS 2)</ion-label>
-          <ion-input value="{{perniagaan.alamat2}}" formControlName="alamat2"></ion-input>
+          <ion-input formControlName="alamat2"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> ALAMAT 3 (BARIS 3)</ion-label>
-          <ion-input value="{{perniagaan.alamat3}}" formControlName="alamat3"></ion-input>
+          <ion-input formControlName="alamat3"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> BANDAR</ion-label>
-          <ion-input value="{{perniagaan.bandar}}" formControlName="bandar"></ion-input>
+          <ion-input formControlName="bandar"></ion-input>
         </ion-col>
         <ion-col>
           <ion-label> POSKOD</ion-label>
-          <ion-input value="{{perniagaan.poskod}}" formControlName="poskod"></ion-input>
+          <ion-input type="Number" formControlName="poskod"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> NEGERI</ion-label>
-          <ion-input value="{{perniagaan.U_Negeri_ID}}" formControlName="U_Negeri_ID"></ion-input>
+          <!-- <ion-input formControlName="U_Negeri_ID"></ion-input> -->
+          <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah($event)">
+            <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">
+              {{negeri.Negeri}}</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> DAERAH</ion-label>
-          <ion-input value="{{perniagaan.U_Daerah_ID}}" formControlName="U_Daerah_ID"></ion-input>
+          <!-- <ion-input value="{{usahawan.U_Daerah_ID}}" formControlName="U_Daerah_ID"></ion-input> -->
+          <ion-select formControlName="U_Daerah_ID" (ionChange)="getMukim($event)">
+            <ion-select-option *ngFor="let daerah of daerah" value="{{daerah.U_Daerah_ID}}">{{daerah.Daerah}}
+            </ion-select-option>
+          </ion-select>
         </ion-col>
         <ion-col>
           <ion-label> MUKIM</ion-label>
-          <ion-input value="{{perniagaan.U_Mukim_ID}}" formControlName="U_Mukim_ID"></ion-input>
+          <!-- <ion-input  formControlName="U_Mukim_ID"></ion-input> -->
+          <ion-select formControlName="U_Mukim_ID" (ionChange)="getKampung($event); getSeksyen()">
+            <ion-select-option *ngFor="let mukim of mukim" value="{{mukim.U_Mukim_ID}}">{{mukim.Mukim}}
+            </ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> PARLIMEN</ion-label>
-          <ion-input value="{{perniagaan.U_Parlimen_ID}}" formControlName="U_Parlimen_ID"></ion-input>
+          <!-- <ion-input value="{{usahawan.U_Parlimen_ID}}" formControlName="U_Parlimen_ID"></ion-input> -->
+          <ion-select formControlName="U_Parlimen_ID" (ionChange)="getDun()">
+            <ion-select-option *ngFor="let parlimen of parlimen" value="{{parlimen.U_Parlimen_ID}}">
+              {{parlimen.Parlimen}}
+            </ion-select-option>
+          </ion-select>
         </ion-col>
         <ion-col>
           <ion-label> DUN</ion-label>
-          <ion-input value="{{perniagaan.U_Dun_ID}}" formControlName="U_Dun_ID"></ion-input>
+          <!-- <ion-input value="{{usahawan.U_Dun_ID}}" formControlName="U_Dun_ID"></ion-input> -->
+          <ion-select formControlName="U_Dun_ID">
+            <ion-select-option *ngFor="let dun of dun" value="{{dun.U_Dun_ID}}">{{dun.Dun}}
+            </ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> KAMPUNG</ion-label>
-          <ion-input value="{{perniagaan.U_Kampung_ID}}" formControlName="U_Kampung_ID"></ion-input>
+          <!-- <ion-input value="{{usahawan.U_Kampung_ID}}" formControlName="U_Kampung_ID"></ion-input> -->
+          <ion-select formControlName="U_Kampung_ID">
+            <ion-select-option *ngFor="let kampung of kampung" [value]="kampung.U_Kampung_ID"
+              selected="kampung.U_Kampung_ID == this.usahawan.U_Kampung_ID">{{kampung.Kampung}}
+            </ion-select-option>
+          </ion-select>
         </ion-col>
         <ion-col>
           <ion-label> SEKSYEN</ion-label>
-          <ion-input value="{{perniagaan.U_Seksyen_ID}}" formControlName="U_Seksyen_ID"></ion-input>
+          <!-- <ion-input value="{{usahawan.U_Seksyen_ID}}" formControlName="U_Seksyen_ID"></ion-input> -->
+          <ion-select formControlName="U_Seksyen_ID">
+            <ion-select-option *ngFor="let seksyen of seksyen" [value]="seksyen.U_Seksyen_ID"
+              selected="seksyen.U_Seksyen_ID == this.usahawan.U_Seksyen_ID">{{seksyen.Seksyen}}
+            </ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
@@ -192,7 +227,7 @@
       </ion-row>
 
       <br><br><br>
-      <ion-row>
+      <ion-row style="background-color: #00A651; color:white">
         <ion-col>
           <strong>Maklumat Media Sosial</strong>
         </ion-col>
@@ -204,30 +239,30 @@
       <ion-row>
         <ion-col>
           <ion-label> FACEBOOK </ion-label>
-          <ion-input value="{{perniagaan.facebook}}" formControlName="facebook"></ion-input>
+          <ion-input formControlName="facebook"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> INSTAGRAM</ion-label>
-          <ion-input value="{{perniagaan.instagram}}" formControlName="instagram"></ion-input>
+          <ion-input formControlName="instagram"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> TWITTER</ion-label>
-          <ion-input value="{{perniagaan.twitter}}" formControlName="twitter"></ion-input>
+          <ion-input  formControlName="twitter"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> LAMAN WEB</ion-label>
-          <ion-input value="{{perniagaan.lamanweb}}" formControlName="lamanweb"></ion-input>
+          <ion-input  formControlName="lamanweb"></ion-input>
         </ion-col>
       </ion-row>
 
       <br><br><br>
-      <ion-row>
+      <ion-row style="background-color: #00A651; color:white">
         <ion-col>
           <strong>Maklumat Pemasaran</strong>
         </ion-col>
@@ -239,48 +274,48 @@
       <ion-row>
         <ion-col>
           <ion-label> DROPSHIP</ion-label>
-          <ion-input value="{{perniagaan.dropship}}" formControlName="dropship"></ion-input>
+          <ion-input type="Number" formControlName="dropship"></ion-input>
         </ion-col>
         <ion-col>
           <ion-label> EJEN</ion-label>
-          <ion-input value="{{perniagaan.ejen}}" formControlName="ejen"></ion-input>
+          <ion-input type="Number" formControlName="ejen"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> STOKIS</ion-label>
-          <ion-input value="{{perniagaan.stokis}}" formControlName="stokis"></ion-input>
+          <ion-input type="Number" formControlName="stokis"></ion-input>
         </ion-col>
         <ion-col>
           <ion-label> OUTLET</ion-label>
-          <ion-input value="{{perniagaan.outlet}}" formControlName="outlet"></ion-input>
+          <ion-input type="Number" formControlName="outlet"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> PASARAN DOMESTIK</ion-label>
-          <ion-input value="{{perniagaan.domestik}}" formControlName="domestik"></ion-input>
+          <ion-input  formControlName="domestik"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> PASARAN LUAR NEGERA</ion-label>
-          <ion-input value="{{perniagaan.luarnegara}}" formControlName="luarnegara"></ion-input>
+          <ion-input  formControlName="luarnegara"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> PASARAN ONLINE</ion-label>
-          <ion-input value="{{perniagaan.pasaranonline}}" formControlName="pasaranonline"></ion-input>
+          <ion-input formControlName="pasaranonline"></ion-input>
         </ion-col>
       </ion-row>
 
 
 
       <br><br><br>
-      <ion-row>
+      <ion-row style="background-color: #00A651; color:white">
         <ion-col>
           <strong>Maklumat Pendapatan</strong>
         </ion-col>
@@ -292,28 +327,36 @@
       <ion-row>
         <ion-col>
           <ion-label> PURATA JUALAN BULANAN</ion-label>
-          <ion-input value="{{perniagaan.purata_jualan_bulanan}}" formControlName="purata_jualan_bulanan"></ion-input>
+          <ion-input type="Number" formControlName="purata_jualan_bulanan"></ion-input>
         </ion-col>
+        <!-- <ion-col>
+          <ion-label> PERATUS KENAIKAN</ion-label> 
+          <ion-input type="Number" formControlName="peratus_kenaikan"></ion-input>
+        </ion-col> -->
+      </ion-row>
+
+      <ion-row>
+        <!-- <ion-col>
+          <ion-label> PURATA JUALAN BULANAN</ion-label>
+          <ion-input type="Number" formControlName="purata_jualan_bulanan"></ion-input>
+        </ion-col> -->
         <ion-col>
-          <ion-label> PERATUS KENAIKAN</ion-label>
-          <ion-input value="{{perniagaan.peratus_kenaikan}}" ></ion-input>
+          <ion-label> PERATUS KENAIKAN</ion-label> 
+          <ion-input type="Number" formControlName="peratus_kenaikan"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> HASIL JUALAN TAHUNAN</ion-label>
-          <ion-input value="{{perniagaan.hasil_jualan_tahunan}}" formControlName="hasil_jualan_tahunan"></ion-input>
+          <ion-input type="Number" formControlName="hasil_jualan_tahunan"></ion-input>
         </ion-col>
-        <ion-col>
-          <!-- <ion-label> OUTLET</ion-label>
-          <ion-input value="{{perniagaan.}}" ></ion-input> -->
-        </ion-col>
+        
       </ion-row>
 
 
       <br><br><br>
-      <ion-row>
+      <ion-row style="background-color: #00A651; color:white">
         <ion-col>
           <strong>Maklumat Produk</strong>
         </ion-col>

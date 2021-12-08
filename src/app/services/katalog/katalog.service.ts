@@ -31,4 +31,14 @@ export class KatalogService {
       `${this.url}/${aliran_id}`
     );
   }
+
+  url2 : string = environment.baseUrl + "api/katalogPegawai";
+  getKatalogPegawai(id): Observable<any> {
+    return this.http.get<any>(`${this.url2}` + "/" + id);
+  }
+
+  url3 : string = environment.baseUrl + "api/pengesahanPegawai";
+  pengesahanPegawai(id): Observable<any> {
+    return this.http.get<any>(`${this.url3}` + "/" + id);
+  }
 }

@@ -33,4 +33,7 @@ export class SyarikatModel {
     public createdby_kod_PT: Number;
     public modifiedby_id: Number;
     public modifiedby_kod_PT: Number;
+  id: any;
+  Kod_PT: any;
+  syarikat_id: any;
 }

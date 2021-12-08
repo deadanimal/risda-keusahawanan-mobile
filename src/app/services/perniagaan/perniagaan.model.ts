@@ -48,4 +48,5 @@ export class PerniagaanModel {
     public createdby_kod_PT: Number;
     public modifiedby_id: Number;
     public modifiedby_kod_PT: Number;
+  peratus_kenaikan: any;
 }

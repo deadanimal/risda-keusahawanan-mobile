@@ -25,8 +25,8 @@ export class SyarikatService {
   //   return this.http.post<SyarikatModel>(`${this.url}`,user);
   // }
 
-  show(id): Observable<SyarikatModel> {
-    return this.http.get<SyarikatModel>(`${this.url}` + "/" + id);
+  show(id): Observable<any> {
+    return this.http.get<any>(`${this.url}` + "/" + id);
   }
 
 

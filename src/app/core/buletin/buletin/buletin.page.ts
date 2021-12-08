@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { BuletinService } from 'src/app/services/buletin/buletin.service';
 import { KemaskiniBuletinPage } from '../kemaskini-buletin/kemaskini-buletin.page';
 import { TambahBuletinPage } from '../tambah-buletin/tambah-buletin.page';
 
@@ -10,28 +11,27 @@ import { TambahBuletinPage } from '../tambah-buletin/tambah-buletin.page';
 })
 export class BuletinPage implements OnInit {
 
-  constructor(public modalController: ModalController,) { }
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
+  user_id = window.sessionStorage.getItem("user_id");
+
+  buletin: any;
+
+  constructor(
+    public modalController: ModalController,
+    private buletinService: BuletinService
+  ) { }
 
   ngOnInit() {
+    this.getBuletin();
   }
 
-  katalog = [
-    { nama_produk: "Tajuk Buletin", status_katalog: "publish", created_date:"12/12/2021"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "publish", created_date:"1/2/2020"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "pending", created_date:"5/10/2021"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "pending", created_date:"22/6/2020"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "publish", created_date:"3/2/2020"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "publish", created_date:"12/12/2021"},
-    { nama_produk: "Tajuk Buletin ", status_katalog: "publish", created_date:"1/2/2020"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "pending", created_date:"5/10/2021"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "pending", created_date:"22/6/2020"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "publish", created_date:"3/2/2020"},
-    { nama_produk: "Tajuk Buletin ", status_katalog: "publish", created_date:"12/12/2021"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "publish", created_date:"1/2/2020"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "pending", created_date:"5/10/2021"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "pending", created_date:"22/6/2020"},
-    { nama_produk: "Tajuk Buletin", status_katalog: "publish", created_date:"3/2/2020"},
-  ]
+  getBuletin() {
+    this.buletinService.get(this.pegawai_id).subscribe((res) => {
+      console.log("res", res);
+
+      this.buletin = res;
+    });
+  }
 
   async tambahBuletin() {
     console.log("Tambah Dokumen");
@@ -42,10 +42,11 @@ export class BuletinPage implements OnInit {
     return await modal.present();
   }
 
-  async kemaskiniBuletin() {
+  async kemaskiniBuletin(buletin) {
     console.log("Tambah Dokumen");
     const modal = await this.modalController.create({
       component: KemaskiniBuletinPage,
+      componentProps: { buletin },
       cssClass: 'my-custom-class'
     });
     return await modal.present();

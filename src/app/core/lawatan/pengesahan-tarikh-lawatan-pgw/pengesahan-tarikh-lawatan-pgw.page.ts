@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, Input, OnInit } from '@angular/core';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 
 
 @Component({
@@ -12,27 +13,48 @@ import { Router } from '@angular/router';
 })
 export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
-  private tunai_masuk: FormGroup;
+  @Input() lawatan: any;
 
+  private form: FormGroup;
+
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
   usahawan_id = window.sessionStorage.getItem("usahawan_id");
   user_id = window.sessionStorage.getItem("user_id");
 
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private router: Router
+    public loadingController: LoadingController,
+    public alertController: AlertController,
+    private router: Router,
+    private lawatanService: LawatanService,
   ) {
-    this.tunai_masuk = this.formBuilder.group({
-      id_pengguna: [''],
-      id_kategori_aliran: ['', Validators.required],
-      tarikh_aliran: ['', Validators.required],
-      keterangan_aliran: ['', Validators.required],
-      jumlah_aliran: ['', Validators.required],
-      dokumen_lampiran: [''],
+    this.form = this.formBuilder.group({
+      namausahawan: ['',],
+      nama_pegawai: ['',],
+      tarikh_lawatan: ['', Validators.required],
+      masa_lawatan: ['', Validators.required],
+      status_lawatan: ['',],
     });
   }
 
   ngOnInit() {
+    console.log(this.lawatan)
+
+    this.setFormValues();
+  }
+
+  setFormValues() {
+
+    this.form.setValue({
+      namausahawan: this.lawatan.namausahawan,
+      nama_pegawai: this.lawatan.nama_pegawai,
+      tarikh_lawatan: this.lawatan.tarikh_lawatan,
+      masa_lawatan: this.lawatan.masa_lawatan,
+      status_lawatan: this.lawatan.status_lawatan,
+    });
+
+    this.form.updateValueAndValidity();
   }
 
   dismiss() {
@@ -45,12 +67,35 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
   logForm() {
 
-    this.tunai_masuk.value.id_pengguna = this.user_id;
-    console.log(this.tunai_masuk.value)
+    if (this.pegawai_id == null) {
+      //usahawan
+      this.form.value.status_lawatan = "pegawai"
+    } else {
+      //pegawai
+      this.form.value.status_lawatan = "usahawan"
+    }
+    console.log(this.form.value)
+    this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
+      console.log("res", res);
 
+      this.dismiss();
 
+      window.location.reload();
+    });
   }
 
+  sahkan() {
 
-  
+    this.form.value.status_lawatan = "disahkan"
+
+    console.log(this.form.value)
+    this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
+      console.log("res", res);
+
+      this.dismiss();
+
+      window.location.reload();
+    });
+  }
+
 }

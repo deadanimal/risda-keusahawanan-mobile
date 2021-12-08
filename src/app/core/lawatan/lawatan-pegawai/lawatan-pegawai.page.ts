@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { map } from 'rxjs/operators';
+import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 import { PengesahanTarikhLawatanPgwPageModule } from '../pengesahan-tarikh-lawatan-pgw/pengesahan-tarikh-lawatan-pgw.module';
 import { PengesahanTarikhLawatanPgwPage } from '../pengesahan-tarikh-lawatan-pgw/pengesahan-tarikh-lawatan-pgw.page';
 import { TambahLaporanPage } from '../tambah-laporan/tambah-laporan.page';
@@ -12,28 +14,21 @@ import { TarikhLawatanPgwPage } from '../tarikh-lawatan-pgw/tarikh-lawatan-pgw.p
 })
 export class LawatanPegawaiPage implements OnInit {
 
-  constructor(public modalController: ModalController,) { }
+
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
+  user_id = window.sessionStorage.getItem("user_id");
+
+  lawatan : any;
+  laporan: any;
+
+  constructor(
+    public modalController: ModalController,
+    private lawatanService: LawatanService,
+    ) { }
 
   ngOnInit() {
+    this.getLawatan();
   }
-
-  katalog = [
-    { nama_produk: "Nama Usahawan", status_katalog: "publish", created_date:"12/12/2021"},
-    { nama_produk: "Nama Usahawan", status_katalog: "draft", created_date:"1/2/2020"},
-    { nama_produk: "Nama Usahawan", status_katalog: "pending", created_date:"5/10/2021"},
-    { nama_produk: "Nama Usahawan", status_katalog: "pending", created_date:"22/6/2020"},
-    { nama_produk: "Nama Usahawan", status_katalog: "publish", created_date:"3/2/2020"},
-    { nama_produk: "Nama Usahawan", status_katalog: "publish", created_date:"12/12/2021"},
-    { nama_produk: "Nama Usahawan", status_katalog: "draft", created_date:"1/2/2020"},
-    { nama_produk: "Nama Usahawan", status_katalog: "pending", created_date:"5/10/2021"},
-    { nama_produk: "Nama Usahawan", status_katalog: "pending", created_date:"22/6/2020"},
-    { nama_produk: "Nama Usahawan", status_katalog: "publish", created_date:"3/2/2020"},
-    { nama_produk: "Nama Usahawan", status_katalog: "publish", created_date:"12/12/2021"},
-    { nama_produk: "Nama Usahawan", status_katalog: "draft", created_date:"1/2/2020"},
-    { nama_produk: "Nama Usahawan", status_katalog: "pending", created_date:"5/10/2021"},
-    { nama_produk: "Nama Usahawan", status_katalog: "pending", created_date:"22/6/2020"},
-    { nama_produk: "Nama Usahawan", status_katalog: "publish", created_date:"3/2/2020"},
-  ]
 
   async addLawatan() {
     console.log("tambah lawatan");
@@ -44,40 +39,44 @@ export class LawatanPegawaiPage implements OnInit {
     return await modal.present();
   }
 
-  async pengesahanLawatan() {
+  async pengesahanLawatan(lawatan) {
     console.log("pengesahan lawatan");
     const modal = await this.modalController.create({
       component: PengesahanTarikhLawatanPgwPage,
+      componentProps: { lawatan },
       cssClass: 'my-custom-class'
     });
     return await modal.present();
   }
 
-  pelanggan = [
-    { nama_pelanggan: "Kamal", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_pelanggan: "amin", status_katalog: "draft", created_date: "1/2/2020" },
-    { nama_pelanggan: "zainur", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_pelanggan: "amir", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_pelanggan: "azri", status_katalog: "publish", created_date: "3/2/2020" },
-    { nama_pelanggan: "niena", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_pelanggan: "tasha", status_katalog: "draft", created_date: "1/2/2020" },
-    { nama_pelanggan: "umie", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_pelanggan: "boi", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_pelanggan: "afiq", status_katalog: "publish", created_date: "3/2/2020" },
-    { nama_pelanggan: "Alya", status_katalog: "publish", created_date: "12/12/2021" },
-    { nama_pelanggan: "zainoor", status_katalog: "draft", created_date: "1/2/2020" },
-    { nama_pelanggan: "hadi", status_katalog: "pending", created_date: "5/10/2021" },
-    { nama_pelanggan: "ali", status_katalog: "pending", created_date: "22/6/2020" },
-    { nama_pelanggan: "jemah", status_katalog: "publish", created_date: "3/2/2020" },
-  ]
-
-  async tambahLawatan() {
+  async tambahLaporan(laporan) {
     console.log("pengesahan lawatan");
     const modal = await this.modalController.create({
       component: TambahLaporanPage,
+      componentProps: { laporan },
       cssClass: 'my-custom-class'
     });
     return await modal.present();
+  }
+
+  getLawatan(){
+
+    this.lawatanService.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan != "selesai"))).subscribe((res) => {
+      console.log("res", res);
+
+      this.lawatan = res;
+      // window.location.reload();
+      // this.lawatan
+    });
+
+    this.lawatanService.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan == "selesai"))).subscribe((res) => {
+      console.log("res2", res);
+
+      this.laporan = res;
+      // window.location.reload();
+      // this.lawatan
+    });
+
   }
 
 }
