@@ -43,7 +43,7 @@ export class ProfilePage implements OnInit {
   user_id = window.sessionStorage.getItem("user_id");
 
   negeri: any;
-  daerah:any;
+  daerah: any;
   mukim: any;
 
   jantina = [
@@ -72,10 +72,10 @@ export class ProfilePage implements OnInit {
   ];
 
   tahapPendidikan = [
-    { id:1,	name: "Tidak Bersekolah"},
-    { id:2,	name: "Sekolah Rendah / Setara"},
-    { id:3,	name: "Sekolah Menengah / Setara"},
-    { id:4,	name: "Kolej / Universiti / Setara"},
+    { id: 1, name: "Tidak Bersekolah" },
+    { id: 2, name: "Sekolah Rendah / Setara" },
+    { id: 3, name: "Sekolah Menengah / Setara" },
+    { id: 4, name: "Kolej / Universiti / Setara" },
   ];
   parlimen: any;
   dun: any;
@@ -124,10 +124,10 @@ export class ProfilePage implements OnInit {
       U_Mukim_ID: ['', Validators.required],
       U_Parlimen_ID: ['', Validators.required],
       U_Dun_ID: ['', Validators.required],
-      U_Kampung_ID: ['', ],
-      U_Seksyen_ID: ['', ],
+      U_Kampung_ID: ['',],
+      U_Seksyen_ID: ['',],
       id_kategori_usahawan: ['', Validators.required],
-      gambar_url:  ['',],
+      gambar_url: ['',],
       notelefon: ['', Validators.required],
       nohp: ['', Validators.required],
       email: ['', Validators.required],
@@ -144,16 +144,7 @@ export class ProfilePage implements OnInit {
     this.getUsahawan();
     this.getUser();
 
-    this.getPT()
 
-    this.getNegeri();
-    this.getDaerah(this.usahawan.U_Negeri_ID)
-    this.getMukim(this.usahawan.U_Daerah_ID);
-    this.getParlimen()
-    this.getDun()
-    this.getKampung()
-    this.getSeksyen()
-    this.getKategoriUsahawan()
   }
 
   setFormValues() {
@@ -179,7 +170,7 @@ export class ProfilePage implements OnInit {
       U_Kampung_ID: this.usahawan.U_Kampung_ID,
       U_Seksyen_ID: this.usahawan.U_Seksyen_ID,
       id_kategori_usahawan: this.usahawan.id_kategori_usahawan,
-      gambar_url:  this.usahawan.gambar_url,
+      gambar_url: this.usahawan.gambar_url,
       notelefon: this.usahawan.notelefon,
       nohp: this.usahawan.nohp,
       email: this.usahawan.email,
@@ -201,7 +192,16 @@ export class ProfilePage implements OnInit {
 
         console.log("profile usahawan success")
         this.getPT()
-        
+
+        this.getNegeri();
+        this.getDaerah(this.usahawan.U_Negeri_ID)
+        this.getMukim(this.usahawan.U_Daerah_ID);
+        this.getParlimen()
+        this.getDun()
+        this.getKampung()
+        this.getSeksyen()
+        this.getKategoriUsahawan()
+
 
       }
     });
@@ -239,8 +239,8 @@ export class ProfilePage implements OnInit {
     });
 
   }
-  
-  getNegeri(){
+
+  getNegeri() {
     this.negeriService.get().subscribe((res) => {
       console.log("negeri", res);
       this.negeri = res
