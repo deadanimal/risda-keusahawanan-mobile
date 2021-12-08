@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -37,11 +38,14 @@ export class AppComponent {
   // constructor(private http: HttpClient) {
   //   // http.get('http://127.0.0.1:8000/api/user').subscribe(console.log)
   // }
-  constructor(){
+  constructor(
+    private router: Router
+  ){
     console.log("role", this.role)
   }
 
   logout() {
     sessionStorage.clear();
+    this.router.navigate(['/']);
   }
 }
