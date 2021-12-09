@@ -80,7 +80,7 @@
       <br>
 
 
-      <ion-row *ngIf="usahawan.gambar_url != null" class="ion-justify-content-center" style="height: 120px;">
+      <ion-row class="ion-justify-content-center" style="height: 120px;">
         <ion-col></ion-col>
 
         <ion-col class="ion-justify-content-center">
@@ -107,7 +107,11 @@
       <ion-row>
         <ion-col>
           <ion-label>NEGERI PREMIS PERNIAGAAN</ion-label>
-          <ion-input readonly></ion-input>
+          <!-- <ion-input readonly></ion-input> -->
+          <ion-select formControlName="negeri_perniagaan" disabled>
+            <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">
+              {{negeri.Negeri}}</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
@@ -122,7 +126,7 @@
         <ion-col>
 
           <ion-label>NO. USAHAWAN</ion-label>
-          <ion-input readonly></ion-input>
+          <ion-input formControlName="usahawanid" readonly></ion-input>
 
         </ion-col>
       </ion-row>
@@ -242,7 +246,7 @@
         <ion-col>
           <ion-label> NEGERI</ion-label>
           <!-- <ion-input formControlName="U_Negeri_ID"></ion-input> -->
-          <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah($event)">
+          <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah(); getParlimen()">
             <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">
               {{negeri.Negeri}}</ion-select-option>
           </ion-select>
@@ -253,7 +257,7 @@
         <ion-col>
           <ion-label> DAERAH</ion-label>
           <!-- <ion-input value="{{usahawan.U_Daerah_ID}}" formControlName="U_Daerah_ID"></ion-input> -->
-          <ion-select formControlName="U_Daerah_ID" (ionChange)="getMukim($event)">
+          <ion-select formControlName="U_Daerah_ID" (ionChange)="getMukim()">
             <ion-select-option *ngFor="let daerah of daerah" value="{{daerah.U_Daerah_ID}}">{{daerah.Daerah}}
             </ion-select-option>
           </ion-select>
@@ -321,7 +325,13 @@
         <ion-col>
 
           <ion-label>HUBUNGAN USAHAWAN DAN PEKEBUN</ion-label>
-          <ion-input></ion-input>
+          <ion-select formControlName="status_daftar_usahawan" >
+            <ion-select-option *ngFor="let statusDaftarUsahawan of statusDaftarUsahawan"
+              value="{{statusDaftarUsahawan.id}}"
+              >
+              {{statusDaftarUsahawan.name}}
+            </ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
 
@@ -331,7 +341,7 @@
           <!-- <ion-input value="{{usahawan.id_kategori_usahawan}}" formControlName="id_kategori_usahawan"></ion-input> -->
 
 
-          <ion-select formControlName="id_kategori_usahawan">
+          <ion-select formControlName="id_kategori_usahawan" disabled>
             <ion-select-option *ngFor="let kategoriUsahawan of kategoriUsahawan"
               [value]="kategoriUsahawan.id_kategori_usahawan"
               selected="kategoriUsahawan.id_kategori_usahawan == this.usahawan.id_kategori_usahawan">

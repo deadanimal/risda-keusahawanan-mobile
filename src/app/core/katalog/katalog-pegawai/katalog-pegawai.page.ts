@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { map } from 'rxjs/operators';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import { MaklumatProdukPage } from '../maklumat-produk/maklumat-produk.page';
 
@@ -11,6 +12,7 @@ import { MaklumatProdukPage } from '../maklumat-produk/maklumat-produk.page';
 export class KatalogPegawaiPage implements OnInit {
 
   user_id = window.sessionStorage.getItem("user_id");
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
 
   katalog = [
 
@@ -37,7 +39,7 @@ export class KatalogPegawaiPage implements OnInit {
 
   getKatalog() {
     console.log("this.user_id", this.user_id);
-    this.katalogService.getKatalogPegawai(4).subscribe((res) => {
+    this.katalogService.getKatalogPegawai(this.pegawai_id).pipe(map(x => x.filter(i => i.status_katalog != "draft"))).subscribe((res) => {
       console.log("katalog", res);
 
       this.katalog = res

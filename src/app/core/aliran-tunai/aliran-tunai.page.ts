@@ -72,7 +72,7 @@ export class AliranTunaiPage implements OnInit {
 
   getAliran() {
 
-    this.aliranService.get().subscribe((res) => {
+    this.aliranService.get(this.user_id).subscribe((res) => {
       console.log("aliran", res);
 
       let temp = [];

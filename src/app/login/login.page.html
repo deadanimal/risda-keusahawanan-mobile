@@ -31,10 +31,12 @@
 
     <!-- <h1 class="welcome-backnats-regular-normal-log-cabin-26px ion-text-center">Log Masuk Kali Pertama</h1> -->
 
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="login()">
       <ion-item style="border-radius: 50px;">
         <!-- <ion-label position="floating"></ion-label> -->
-        <ion-input type="number" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp'></ion-input>
+        <ion-input type="text" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp'
+        (keypress)="numericOnly($event)"
+        ></ion-input>
       </ion-item>
       <br>
 
@@ -49,7 +51,7 @@
       </a>
       <br>
 
-      <ion-button expand="block" color="success" (click)="login()" [disabled]="form.invalid">Log masuk</ion-button>
+      <ion-button expand="block" color="success" type="submit" [disabled]="form.invalid">Log masuk</ion-button>
     </form>
 
 

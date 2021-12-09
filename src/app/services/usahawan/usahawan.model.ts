@@ -36,4 +36,7 @@ export class UsahawanModel {
     public createdby_kod_PT: Number;
     public modifiedby_id: Number;
     public modifiedby_kod_PT: Number;
+  status_daftar_usahawan: any;
+  usahawanid: any;
+  negeri_perniagaan: any;
 }

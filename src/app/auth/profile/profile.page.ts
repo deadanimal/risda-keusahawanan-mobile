@@ -22,6 +22,7 @@ import { KampungService } from 'src/app/services/kampung/kampung.service';
 import { SeksyenService } from 'src/app/services/seksyen/seksyen.service';
 import { KategoriUsahawanService } from 'src/app/services/ketegori-usahawan/kategori-usahawan.service';
 import { PusatTanggungjawabService } from 'src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service';
+import { AliranService } from 'src/app/services/Aliran/aliran.service';
 
 interface LocalFile {
   name: string;
@@ -59,7 +60,7 @@ export class ProfilePage implements OnInit {
     { id: 4, name: "Bumiputera Sarawak" },
     { id: 5, name: "Cina" },
     { id: 6, name: "India" },
-    { id: 7, name: "Lain-lain}" },
+    { id: 7, name: "Lain-lain" },
   ];
 
   statusperkahwinan = [
@@ -77,6 +78,14 @@ export class ProfilePage implements OnInit {
     { id: 3, name: "Sekolah Menengah / Setara" },
     { id: 4, name: "Kolej / Universiti / Setara" },
   ];
+
+  statusDaftarUsahawan = [
+    { id: "KP01", name:"PEKEBUN KECIL"},
+    { id: "KP02", name:"SUAMI PEKEBUN KECIL"},
+    { id: "KP03", name:"ISTERI PEKEBUN KECIL"},
+    { id: "KP04", name:"ANAK PEKEBUN KECIL"},
+  ]
+
   parlimen: any;
   dun: any;
   kampung: any;
@@ -102,7 +111,8 @@ export class ProfilePage implements OnInit {
     private kampungService: KampungService,
     private seksyenService: SeksyenService,
     private kategoriUsahawanService: KategoriUsahawanService,
-    private ptService: PusatTanggungjawabService
+    private ptService: PusatTanggungjawabService,
+    private aliranService: AliranService
   ) {
 
     this.form = this.formBuilder.group({
@@ -131,7 +141,9 @@ export class ProfilePage implements OnInit {
       notelefon: ['', Validators.required],
       nohp: ['', Validators.required],
       email: ['', Validators.required],
-
+      status_daftar_usahawan: ['', ],
+      usahawanid: ['', ],
+      negeri_perniagaan: ['', ],
     })
   }
 
@@ -142,9 +154,17 @@ export class ProfilePage implements OnInit {
     console.log("usahawan id", this.usahawan_id);
     console.log("user id", this.user_id);
     this.getUsahawan();
+
     this.getUser();
 
-
+    this.getNegeri();
+    this.getDaerah()
+    this.getMukim();
+    this.getParlimen()
+    this.getDun()
+    this.getKampung()
+    this.getSeksyen()
+    this.getKategoriUsahawan()
   }
 
   setFormValues() {
@@ -174,7 +194,12 @@ export class ProfilePage implements OnInit {
       notelefon: this.usahawan.notelefon,
       nohp: this.usahawan.nohp,
       email: this.usahawan.email,
+      status_daftar_usahawan: this.usahawan.status_daftar_usahawan,
+      usahawanid: this.usahawan.usahawanid,
+      negeri_perniagaan: this.usahawan.negeri_perniagaan,
     })
+
+    
   }
 
 
@@ -193,15 +218,7 @@ export class ProfilePage implements OnInit {
         console.log("profile usahawan success")
         this.getPT()
 
-        this.getNegeri();
-        this.getDaerah(this.usahawan.U_Negeri_ID)
-        this.getMukim(this.usahawan.U_Daerah_ID);
-        this.getParlimen()
-        this.getDun()
-        this.getKampung()
-        this.getSeksyen()
-        this.getKategoriUsahawan()
-
+       
 
       }
     });
@@ -220,8 +237,9 @@ export class ProfilePage implements OnInit {
         this.user = res;
         console.log("user info", this.user)
         console.log("profile usahawan success")
-
       }
+
+      this.getAliranJualan()
     });
 
   }
@@ -235,7 +253,9 @@ export class ProfilePage implements OnInit {
       this.pusatTanggungjawab = res[0].keterangan;
       console.log("pt", this.pusatTanggungjawab);
 
+      
       this.setFormValues()
+
     });
 
   }
@@ -249,22 +269,26 @@ export class ProfilePage implements OnInit {
 
   }
 
-  getDaerah(event) {
+  getDaerah() {
 
-    this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
+    this.usahawan.U_Negeri_ID = this.form.value.U_Negeri_ID
+
+    this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.usahawan.U_Negeri_ID))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
 
       console.log("Daerah", res);
       this.daerah = res;
 
-      this.getParlimen();
+      // this.getParlimen();
     });
 
   }
 
-  getMukim(event) {
+  getMukim() {
 
-    this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.form.value.U_Daerah_ID))).subscribe((res) => {
+    this.usahawan.U_Negeri_ID = this.form.value.U_Daerah_ID
+
+    this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.usahawan.U_Daerah_ID))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
 
       console.log("mukim", res);
@@ -274,7 +298,9 @@ export class ProfilePage implements OnInit {
 
   getParlimen() {
 
-    this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
+    this.usahawan.U_Negeri_ID = this.form.value.U_Negeri_ID
+
+    this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.usahawan.U_Negeri_ID))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
 
       console.log("parlimen", res);
@@ -284,8 +310,9 @@ export class ProfilePage implements OnInit {
   }
 
   getDun() {
+    this.usahawan.U_Parlimen_ID = this.form.value.U_Parlimen_ID
 
-    this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.form.value.U_Parlimen_ID))).subscribe((res) => {
+    this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.usahawan.U_Parlimen_ID))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
 
       console.log("dun", res);
@@ -294,8 +321,8 @@ export class ProfilePage implements OnInit {
   }
 
   getKampung() {
-
-    this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.form.value.U_Mukim_ID))).subscribe((res) => {
+    this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
+    this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.usahawan.U_Mukim_ID))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
 
       console.log("kampung", res);
@@ -304,8 +331,8 @@ export class ProfilePage implements OnInit {
   }
 
   getSeksyen() {
-
-    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.form.value.U_Mukim_ID))).subscribe((res) => {
+    this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
+    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.usahawan.U_Mukim_ID))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
 
       console.log("seksyen", res);
@@ -320,6 +347,48 @@ export class ProfilePage implements OnInit {
 
       console.log("kategori usahawan", res);
       this.kategoriUsahawan = res;
+    });
+  }
+
+  getAliranJualan() {
+
+    this.aliranService.get(this.user_id).pipe(map(x => x.filter(i => i.kategori_aliran == "JUALAN/PEROLEHAN"))).subscribe((res) => {
+      // this.daerahService.get().subscribe((res) => {
+
+      console.log("aliran", res);
+      
+      let sum = 0;
+      res.forEach(element => {
+        sum+= element.jumlah_aliran;
+      });
+
+      if(sum < 60000){
+        //pico
+        this.form.patchValue({
+          id_kategori_usahawan: "KU01"
+        })
+      } else if(sum >= 60000 && sum < 150000){
+        // nano
+        this.form.patchValue({
+          id_kategori_usahawan: "KU02"
+        })
+      } else if(sum >= 150000 && sum < 300000){
+        //micro
+        this.form.patchValue({
+          id_kategori_usahawan: "KU03"
+        })
+      } else if(sum >= 300000 && sum < 15000000	){
+        //kecil
+        this.form.patchValue({
+          id_kategori_usahawan: "KU04"
+        })
+      } else if(sum >= 300000 && sum < 15000000	){
+        // sederhana
+        this.form.patchValue({
+          id_kategori_usahawan: "KU05"
+        })
+      }
+      console.log("sum", sum)
     });
   }
 

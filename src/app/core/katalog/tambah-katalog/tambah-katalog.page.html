@@ -34,12 +34,13 @@
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
+          <!-- <br> -->
           <ion-label>BERAT (kg)</ion-label>
-          <ion-input placeholder="0.0" class="ion-text-right" type="number" formControlName="berat_produk">
+          <ion-input placeholder="0.0" type="number" formControlName="berat_produk">
           </ion-input>
         </ion-col>
         <ion-col class="form-control">
-          <ion-label>HARGA JUALAN</ion-label>
+          <ion-label style="padding-right: 0px;">HARGA JUALAN(RM)</ion-label>
           <ion-input type="number" formControlName="harga_produk"></ion-input>
         </ion-col>
       </ion-row>
@@ -47,7 +48,7 @@
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>UNIT PRODUCTION</ion-label>
-          <ion-input type="text" formControlName="unit_production" (change)="updateBakiStok()"></ion-input>
+          <ion-input type="number" formControlName="unit_production" (change)="updateBakiStok()"></ion-input>
         </ion-col>
         <ion-col class="form-control">
           <ion-label>BAKI STOK</ion-label>

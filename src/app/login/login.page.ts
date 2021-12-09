@@ -36,6 +36,8 @@ export class LoginPage implements OnInit {
     //   })
     // );
 
+    
+
     this.form = new FormGroup({
       no_kp: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),
@@ -80,6 +82,12 @@ export class LoginPage implements OnInit {
 
     });
 
+  }
+
+  numericOnly(event): boolean {
+    let pattern = /^([0-9])$/;
+    let result = pattern.test(event.key);
+    return result;
   }
 
 }

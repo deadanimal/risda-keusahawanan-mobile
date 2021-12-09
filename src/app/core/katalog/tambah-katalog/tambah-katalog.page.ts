@@ -67,6 +67,7 @@ export class TambahKatalogPage implements OnInit {
       console.log("res", res);
 
       this.dismiss();
+      window.location.reload();
     });
   }
 

@@ -16,8 +16,8 @@ export class AliranService {
     return this.http.post<any>(`${this.url}`, data);
   }
 
-  get(): Observable<any> {
-    return this.http.get<any>(`${this.url}`);
+  get(id): Observable<any> {
+    return this.http.get<any>(`${this.url}`+'/'+id);
   }
 
   update(aliran: any, aliran_id: number,): Observable<any> {

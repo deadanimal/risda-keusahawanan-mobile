@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { PegawaiService } from './services/pegawai/pegawai.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -9,9 +10,11 @@ import { Router } from '@angular/router';
 export class AppComponent {
 
   usahawan_id = window.sessionStorage.getItem("usahawan_id");
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
   user_id = window.sessionStorage.getItem("user_id");
   role = window.sessionStorage.getItem("role");
 
+  pegawai: any;
 
   public appPages = [
     { title: 'Aliran Tunai', url: '/aliran-tunai', icon: 'assets/icon/ALIRAN-TUNAI-icon.png' },
@@ -31,7 +34,7 @@ export class AppComponent {
     { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/icon/katalog.png' },
     { title: 'Buletin', url: '/buletin', icon: 'assets/icon/buletin.png' },
     // { title: 'Log Keluar', url: '#', icon: 'assets/icon/log-out-button.png' },
-    
+
   ];
   // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
@@ -39,13 +42,41 @@ export class AppComponent {
   //   // http.get('http://127.0.0.1:8000/api/user').subscribe(console.log)
   // }
   constructor(
-    private router: Router
-  ){
+    private router: Router,
+    private pegawaiService: PegawaiService
+  ) {
+
+  }
+
+  ngOnInit() {
     console.log("role", this.role)
+    console.log("usahawan_id", this.usahawan_id)
+    console.log("pegawai_id", this.pegawai_id)
+
+    if (this.usahawan_id == null && this.pegawai_id != null) {
+      this.getpegawai();
+    }
+
+
   }
 
   logout() {
     sessionStorage.clear();
-    this.router.navigate(['/']);
+    this.router.navigate(['/'])
+      .then(() => {
+        window.location.reload();
+      });
   }
+
+
+  getpegawai() {
+    this.pegawaiService.get(this.pegawai_id).subscribe((res) => {
+      console.log("res", res);
+      this.pegawai = res.nama;
+    });
+  }
+
+  // profile() {
+  //   this.router.navigate(['/profile']);
+  // }
 }

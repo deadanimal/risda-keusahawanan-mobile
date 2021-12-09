@@ -109,6 +109,7 @@ export class TambahJanaDokumenPage implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+    window.location.reload();
   }
 
   logForm() {

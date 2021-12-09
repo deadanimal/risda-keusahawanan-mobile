@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { BuletinService } from 'src/app/services/buletin/buletin.service';
+import * as moment from 'moment';
 
 
 interface LocalFile {
@@ -53,6 +54,9 @@ export class TambahBuletinPage implements OnInit {
   logForm() {
     this.form.value.id_pegawai = this.pegawai_id;
     this.form.value.gambar_buletin = this.images[0].data;
+
+    this.form.value.tarikh = moment(this.form.value.tarikh).format('YYYY-MM-DD');
+
     console.log(this.form.value)
 
     this.buletinService.post(this.form.value).subscribe((res) => {
