@@ -218,7 +218,7 @@ export class ProfilePage implements OnInit {
         console.log("profile usahawan success")
         this.getPT()
 
-       
+        // this.calcBirthDate()
 
       }
     });
@@ -392,6 +392,22 @@ export class ProfilePage implements OnInit {
     });
   }
 
+  // calcBirthDate(){
+
+  //   let year = this.usahawan.nokadpengenalan.substring(0,2);
+  //   let month = this.usahawan.nokadpengenalan.substring(2,4);
+  //   let date = this.usahawan.nokadpengenalan.substring(4,6);
+
+  //   if(Number(year) > 40){
+  //     year = 19+year;
+  //   } else {
+  //     year = 20+year;
+  //   }
+  //   let birthday = date +'/'+month+'/'+year
+
+  //   this.usahawan.tarikhlahir = birthday
+  // }
+
   async logForm() {
     const loading = await this.loadingController.create({ message: 'Loading ...' });
     loading.present();
@@ -399,7 +415,7 @@ export class ProfilePage implements OnInit {
     this.form.value.gambar_url = this.usahawan.gambar_url;
     console.log(this.form.value)
 
-    this.usahawanService.update(Number(this.usahawan_id), this.form.value).subscribe((res) => {
+    this.usahawanService.update(this.usahawan_id, this.form.value).subscribe((res) => {
       console.log(res);
 
       loading.dismiss();

@@ -33,7 +33,7 @@ export class UsahawanService {
 
   // update()
 
-  update(usahawan_id: number, usahawan: any): Observable<any> {
+  update(usahawan_id, usahawan: any): Observable<any> {
     return this.http.put<any>(
       `${this.url}/${usahawan_id}`, usahawan
     );

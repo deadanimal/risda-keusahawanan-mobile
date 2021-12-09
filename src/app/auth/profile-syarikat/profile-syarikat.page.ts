@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { SyarikatModel } from 'src/app/services/syarikat/syarikat.model';
 import { SyarikatService } from 'src/app/services/syarikat/syarikat.service';
 import { AlertController, LoadingController } from '@ionic/angular';
+import * as moment from 'moment';
 
 interface LocalFile {
   name: string;
@@ -129,10 +130,15 @@ export class ProfileSyarikatPage implements OnInit {
     loading.present();
 
     this.form.value.logo_syarikat = this.syarikat.logo_syarikat;
+    this.form.value.tahunmulaoperasi = moment(this.form.value.tahunmulaoperasi).format('YYYY');
+
+    this.form.value.tarikh_mula_mof = moment(this.form.value.tarikh_mula_mof).format('YYYY-MM-DD');
+    this.form.value.tarikh_tamat_mof = moment(this.form.value.tarikh_tamat_mof).format('YYYY-MM-DD');
+
     console.log(this.form.value)
     // console.log(this.form.value)
 
-    this.syarikatService.update(this.form.value, Number(this.usahawan_id)).subscribe((res) => {
+    this.syarikatService.update(this.form.value, this.usahawan_id).subscribe((res) => {
       console.log("updated data", res);
 
 

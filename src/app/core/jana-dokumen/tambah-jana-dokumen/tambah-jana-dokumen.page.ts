@@ -136,9 +136,8 @@ export class TambahJanaDokumenPage implements OnInit {
         });
       }
 
-
-      this.dismiss();
-      this.presentAlert()
+      // this.dismiss();
+      // this.presentAlert()
 
     });
   }

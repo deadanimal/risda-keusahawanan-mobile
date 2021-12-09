@@ -343,7 +343,7 @@ export class ProfilePerniagaanPage implements OnInit {
     loading.present();
     console.log(this.form.value)
 
-    this.perniagaanService.update(this.form.value, Number(this.usahawan_id)).subscribe((res) => {
+    this.perniagaanService.update(this.form.value, this.usahawan_id).subscribe((res) => {
       console.log("updated data",res);
 
 

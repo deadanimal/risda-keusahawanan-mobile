@@ -31,7 +31,7 @@ export class PerniagaanService {
   }
 
 
-  update(perniagaan: any, usahawan_id: number,): Observable<any> {
+  update(perniagaan: any, usahawan_id): Observable<any> {
     return this.http.put<any>(
       `${this.url}/${usahawan_id}`, perniagaan
     );
