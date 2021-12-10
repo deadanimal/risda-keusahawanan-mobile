@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { PelangganService } from 'src/app/services/pelanggan/pelanggan.service';
 import { KemaskiniDokumenPage } from '../kemaskini-dokumen/kemaskini-dokumen.page';
 import { TambahJanaDokumenPage } from '../tambah-jana-dokumen/tambah-jana-dokumen.page';
@@ -16,9 +16,11 @@ export class JanaDokumenPage implements OnInit {
   user_id = window.sessionStorage.getItem("user_id");
 
 
+
   constructor(
     public modalController: ModalController,
     private pelangganService: PelangganService,
+    private loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
@@ -47,12 +49,17 @@ export class JanaDokumenPage implements OnInit {
     return await modal.present();
   }
 
-  getPelanggan() {
+  async getPelanggan() {
 
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
+    
     this.pelangganService.get(this.user_id).subscribe((res) => {
       console.log("res pelanggan", res);
 
       this.pelanggan = res;
+
+      loading.dismiss();
     });
   }
 

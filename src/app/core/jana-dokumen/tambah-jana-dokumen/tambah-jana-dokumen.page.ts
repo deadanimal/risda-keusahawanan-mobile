@@ -109,7 +109,7 @@ export class TambahJanaDokumenPage implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
-    window.location.reload();
+    // window.location.reload();
   }
 
   logForm() {
@@ -119,6 +119,7 @@ export class TambahJanaDokumenPage implements OnInit {
     let prodTempLength = prodTemp.length;
 
     console.log("prodTemp", prodTemp[1])
+    
 
     this.pelangganService.post(this.form1.value).subscribe((res) => {
       console.log("res pelanggan", res);
@@ -136,8 +137,8 @@ export class TambahJanaDokumenPage implements OnInit {
         });
       }
 
-      // this.dismiss();
-      // this.presentAlert()
+      this.dismiss();
+      this.presentAlert()
 
     });
   }

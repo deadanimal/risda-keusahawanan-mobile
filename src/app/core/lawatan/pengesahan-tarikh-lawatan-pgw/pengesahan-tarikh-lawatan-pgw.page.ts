@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -74,6 +75,10 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
       //pegawai
       this.form.value.status_lawatan = "usahawan"
     }
+
+    this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
+    this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('HH:mm');
+    
     console.log(this.form.value)
     this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
       console.log("res", res);
