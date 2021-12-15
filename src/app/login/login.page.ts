@@ -25,18 +25,6 @@ export class LoginPage implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    // const loading = await this.loadingCtrl.create({message:'Loading...'});
-    // loading.present();
-
-    // this.users$ = this.loginService.getUser().pipe(
-    //   tap((users)=>{
-    //     // loading.dismiss();
-    //     console.log(users);
-    //     return users;
-    //   })
-    // );
-
-    
 
     this.form = new FormGroup({
       no_kp: new FormControl(null, [Validators.required]),
@@ -63,7 +51,7 @@ export class LoginPage implements OnInit {
         if (res.type == 1) {
           // console.log("pegawai")
           var setsession_pegawai_id = window.sessionStorage.setItem("pegawai_id", res.idpegawai);
-
+          var setsession_perananpegawai = window.sessionStorage.setItem("peranan_pegawai", res.role);
           // console.log(window.sessionStorage.getItem("pegawai_id"))
         }
         else if (res.type == 2) {

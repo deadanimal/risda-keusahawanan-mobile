@@ -52,7 +52,7 @@
           <ion-item lines="none" class="form-control" style="border: none;">
             <ion-label class="padding" position="stacked">TARIKH</ion-label>
             <!-- <ion-input type="date" formControlName="title"></ion-input> -->
-            <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tarikh_lawatan" style="background-color: #f5f5f5;">
+            <ion-datetime  displayFormat="DD-MM-YYYY" presentation="date"  formControlName="tarikh_lawatan" style="background-color: #f5f5f5;">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -60,7 +60,7 @@
           <ion-item lines="none" class="form-control" style="border: none;">
             <ion-label class="padding" position="stacked">MASA </ion-label>
             <!-- <ion-input type="date" formControlName="title"></ion-input> -->
-            <ion-datetime displayFormat="HH:mm" formControlName="masa_lawatan" style="background-color: #f5f5f5;">
+            <ion-datetime displayFormat="HH:mm" presentation="time" formControlName="masa_lawatan" style="background-color: #f5f5f5;">
             </ion-datetime>
           </ion-item>
         </ion-col>

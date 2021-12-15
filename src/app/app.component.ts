@@ -13,6 +13,7 @@ export class AppComponent {
   pegawai_id = window.sessionStorage.getItem("pegawai_id");
   user_id = window.sessionStorage.getItem("user_id");
   role = window.sessionStorage.getItem("role");
+  peranan_pegawai= window.sessionStorage.getItem("peranan_pegawai");
 
   pegawai: any;
 
@@ -34,13 +35,10 @@ export class AppComponent {
     { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/icon/katalog.png' },
     { title: 'Buletin', url: '/buletin', icon: 'assets/icon/buletin.png' },
     // { title: 'Log Keluar', url: '#', icon: 'assets/icon/log-out-button.png' },
-
   ];
-  // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  
 
-  // constructor(private http: HttpClient) {
-  //   // http.get('http://127.0.0.1:8000/api/user').subscribe(console.log)
-  // }
+
   constructor(
     private router: Router,
     private pegawaiService: PegawaiService
@@ -52,9 +50,18 @@ export class AppComponent {
     console.log("role", this.role)
     console.log("usahawan_id", this.usahawan_id)
     console.log("pegawai_id", this.pegawai_id)
+    console.log("peranan_pegawai", this.peranan_pegawai)
 
     if (this.usahawan_id == null && this.pegawai_id != null) {
       this.getpegawai();
+    }
+
+    if (this.peranan_pegawai == "7") {
+      this.appPagesPegawai[1].url = "/lawatan-pegawai";
+      console.log("peranan_pegawai success", this.appPagesPegawai[1])
+    } else {
+      this.appPagesPegawai[1].url = "/senarai-laporan-pegawai";
+      console.log("peranan_pegawai success", this.appPagesPegawai[1])
     }
 
 

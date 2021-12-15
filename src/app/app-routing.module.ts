@@ -150,6 +150,10 @@ const routes: Routes = [
   {
     path: 'notifikasi',
     loadChildren: () => import('./core/notifikasi/notifikasi.module').then( m => m.NotifikasiPageModule)
+  },
+  {
+    path: 'senarai-laporan-pegawai',
+    loadChildren: () => import('./core/lawatan/senarai-laporan-pegawai/senarai-laporan-pegawai.module').then( m => m.SenaraiLaporanPegawaiPageModule)
   }
 ];
 

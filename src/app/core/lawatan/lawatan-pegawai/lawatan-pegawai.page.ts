@@ -18,6 +18,8 @@ export class LawatanPegawaiPage implements OnInit {
   pegawai_id = window.sessionStorage.getItem("pegawai_id");
   user_id = window.sessionStorage.getItem("user_id");
 
+  peranan_pegawai= window.sessionStorage.getItem("peranan_pegawai");
+
   lawatan : any;
   laporan: any;
 
@@ -28,6 +30,9 @@ export class LawatanPegawaiPage implements OnInit {
 
   ngOnInit() {
     this.getLawatan();
+    
+    document.getElementById("1").click();
+    console.log("peranan_pegawai",this.peranan_pegawai)
   }
 
   async addLawatan() {
