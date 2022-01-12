@@ -71,7 +71,7 @@ export class TambahLaporanPage implements OnInit {
     if (this.peranan_pegawai == "1" || this.peranan_pegawai == "2"){
       this.getNegeri();
       this.getPT()
-      
+      this.getTindakanLawatan();
     } else {
 
       this.getNegeriPt()
