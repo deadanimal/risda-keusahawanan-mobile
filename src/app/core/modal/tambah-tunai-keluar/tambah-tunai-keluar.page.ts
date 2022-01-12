@@ -35,6 +35,7 @@ export class TambahTunaiKeluarPage implements OnInit {
       tarikh_aliran:['', Validators.required],
       keterangan_aliran: ['', Validators.required],
       jumlah_aliran:['', Validators.required],
+      nama_dokumen: [''],
       dokumen_lampiran:[''],
     });
   }
@@ -55,14 +56,27 @@ export class TambahTunaiKeluarPage implements OnInit {
 
     this.form.value.id_pengguna = this.user_id;
     this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
-    
+    if(this.file != null){
+      this.form.value.nama_dokumen = this.file.name;
+    }
+
     console.log(this.form.value)
 
     this.aliranService.post(this.form.value).subscribe((res) => {
       console.log("res", res);
 
-      this.refresh();
-      this.dismiss();
+      let formdata = new FormData();
+
+      formdata.append('dokumen_lampiran', this.form.value.dokumen_lampiran);
+
+      this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
+        console.log("resDoc", resDoc);
+
+        this.refresh();
+        this.dismiss();
+      })
+   
+     
     });
   }
 
@@ -80,6 +94,18 @@ export class TambahTunaiKeluarPage implements OnInit {
 
   refresh(): void {
     window.location.reload();
+  }
+
+  file: any;
+  selectedFile(event) {
+    this.file = event.target.files[0];
+    console.log(this.file)
+
+    this.form.value.dokumen_lampiran = this.file;
+    console.log(this.form.value.dokumen_lampiran);
+
+    (document.getElementById('nama_fail') as HTMLIonTextElement).innerHTML = this.file.name;
+
   }
 
 }

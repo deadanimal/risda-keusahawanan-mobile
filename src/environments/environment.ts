@@ -5,12 +5,11 @@
 export const environment = {
   production: false,
   
-  baseUrl : 'http://127.0.0.1:8000/'
+  // baseUrl : 'http://127.0.0.1:8000/'
 
-  // baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
+  baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
 };
 
-// const baseurl = 'http://127.0.0.1:8001/';
 
 /*
  * For easier debugging in development mode, you can import the following file

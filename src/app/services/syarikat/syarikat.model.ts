@@ -36,4 +36,6 @@ export class SyarikatModel {
   id: any;
   Kod_PT: any;
   syarikat_id: any;
+  nama_akaun_bank: any;
+  no_akaun_bank: any;
 }

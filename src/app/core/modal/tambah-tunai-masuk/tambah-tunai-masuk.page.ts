@@ -6,6 +6,7 @@ import { KategoriAliranService } from 'src/app/services/kategoriAliran/kategori-
 import { map } from 'rxjs/operators';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';
 // import swal from 'sweetalert';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
@@ -30,7 +31,8 @@ export class TambahTunaiMasukPage implements OnInit {
     private formBuilder: FormBuilder,
     private kategoriAliranService: KategoriAliranService,
     private aliranService: AliranService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.tunai_masuk = this.formBuilder.group({
       id_pengguna: [''],
@@ -38,12 +40,20 @@ export class TambahTunaiMasukPage implements OnInit {
       tarikh_aliran: ['', Validators.required],
       keterangan_aliran: ['', Validators.required],
       jumlah_aliran: ['', Validators.required],
+      nama_dokumen: [''],
       dokumen_lampiran: [''],
     });
   }
 
   ngOnInit() {
     this.getKategoriAliran();
+
+    let formData = new FormData();
+
+    formData.append('username', 'Chris');
+
+    console.log("FORMMMMM", formData);
+
   }
 
   dismiss() {
@@ -58,14 +68,30 @@ export class TambahTunaiMasukPage implements OnInit {
 
     this.tunai_masuk.value.id_pengguna = this.user_id;
     this.tunai_masuk.value.tarikh_aliran = moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD');
+    if(this.file != null){
+      this.tunai_masuk.value.nama_dokumen = this.file.name;
+    }
     
+
     console.log(this.tunai_masuk.value)
 
     this.aliranService.post(this.tunai_masuk.value).subscribe((res) => {
       console.log("res", res);
 
-      this.refresh();
-      this.dismiss();
+      // let i=1;
+
+      let formdata = new FormData();
+
+      formdata.append('dokumen_lampiran', this.tunai_masuk.value.dokumen_lampiran);
+
+      this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
+        console.log("resDoc", resDoc);
+
+        this.refresh();
+        this.dismiss();
+      })
+
+      // console.log(formdata);
     });
 
   }
@@ -86,24 +112,18 @@ export class TambahTunaiMasukPage implements OnInit {
     window.location.reload();
   }
 
+  file: any;
+  selectedFile(event) {
+    this.file = event.target.files[0];
+    console.log(this.file)
 
-  doSomething() {
-    console.log(this.tunai_masuk.value.tarikh_aliran);
-    console.log('date', moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD')); // 2019-04-22
+    this.tunai_masuk.value.dokumen_lampiran = this.file;
+    console.log(this.tunai_masuk.value.dokumen_lampiran);
 
-    // this.tunai_masuk.value.tarikh_aliran = moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD');
+    // document.getElementById("nama_fail").innerHTML(this.file)
+    (document.getElementById('nama_fail') as HTMLIonTextElement).innerHTML = this.file.name;
+
   }
 
-  // userDetails: any;
-  // handleFileInput(event) {
-  //   console.log(event);
-  //   this.userDetails.profilePic = event.target.files[0];
-  // }
-
-  // openmodal()
-  // {
-  //   console.log("success")
-  //   swal("Hello world!");
-  // }
 
 }

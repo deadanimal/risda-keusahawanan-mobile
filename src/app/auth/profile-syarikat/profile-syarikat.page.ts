@@ -65,6 +65,8 @@ export class ProfileSyarikatPage implements OnInit {
       status_bumiputera: ['', Validators.required],
       prefix_id: ['', Validators.required],
       notelefon: ['', Validators.required],
+      nama_akaun_bank: ['', Validators.required],
+      no_akaun_bank: ['', Validators.required],
       no_hp: ['', Validators.required],
       email: ['', Validators.required],
 
@@ -119,6 +121,8 @@ export class ProfileSyarikatPage implements OnInit {
       tarikh_tamat_mof: this.syarikat.tarikh_tamat_mof,
       status_bumiputera: this.syarikat.status_bumiputera,
       prefix_id: this.syarikat.prefix_id,
+      nama_akaun_bank: this.syarikat.nama_akaun_bank,
+      no_akaun_bank: this.syarikat.no_akaun_bank,
       notelefon: this.syarikat.notelefon,
       no_hp: this.syarikat.no_hp,
       email: this.syarikat.email,
@@ -130,7 +134,7 @@ export class ProfileSyarikatPage implements OnInit {
     loading.present();
 
     this.form.value.logo_syarikat = this.syarikat.logo_syarikat;
-    this.form.value.tahunmulaoperasi = moment(this.form.value.tahunmulaoperasi).format('YYYY');
+    // this.form.value.tahunmulaoperasi = moment(this.form.value.tahunmulaoperasi).format('YYYY');
 
     this.form.value.tarikh_mula_mof = moment(this.form.value.tarikh_mula_mof).format('YYYY-MM-DD');
     this.form.value.tarikh_tamat_mof = moment(this.form.value.tarikh_tamat_mof).format('YYYY-MM-DD');

@@ -154,6 +154,10 @@ const routes: Routes = [
   {
     path: 'senarai-laporan-pegawai',
     loadChildren: () => import('./core/lawatan/senarai-laporan-pegawai/senarai-laporan-pegawai.module').then( m => m.SenaraiLaporanPegawaiPageModule)
+  },
+  {
+    path: 'kemaskini-laporan',
+    loadChildren: () => import('./core/lawatan/kemaskini-laporan/kemaskini-laporan.module').then( m => m.KemaskiniLaporanPageModule)
   }
 ];
 

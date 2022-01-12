@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-kemaskini-tunai-keluar',
@@ -19,6 +20,7 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
   @Input() tunai_keluar: any;
 
   data: any;
+  url: string;
 
   private form: FormGroup;
 
@@ -37,12 +39,15 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
       tarikh_aliran: ['', Validators.required],
       keterangan_aliran: ['', Validators.required],
       jumlah_aliran: ['', Validators.required],
+      nama_dokumen: [''],
       dokumen_lampiran: [''],
     });
   }
 
   ngOnInit() {
     console.log("tunai_keluar", this.tunai_keluar)
+
+    this.url = environment.baseUrl + "storage/" + this.tunai_keluar.dokumen_lampiran;
 
     this.getKategoriAliran();
   }
@@ -55,13 +60,13 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
     });
   }
 
-  kategori_aliran_masuk: any;
+  kategori_aliran_keluar: any;
   getKategoriAliran() {
 
     this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_keluar"))).subscribe((res) => {
       console.log("kategori aliran", res);
-      this.kategori_aliran_masuk = res;
-      console.log("kategori aliran", this.kategori_aliran_masuk);
+      this.kategori_aliran_keluar = res;
+     
 
       this.setFormValues();
     });
@@ -79,6 +84,7 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
       tarikh_aliran: this.tunai_keluar.tarikh_aliran,
       keterangan_aliran: this.tunai_keluar.keterangan_aliran,
       jumlah_aliran: this.tunai_keluar.jumlah_aliran,
+      nama_dokumen: this.tunai_keluar.nama_dokumen,
       dokumen_lampiran: this.tunai_keluar.dokumen_lampiran,
     });
 
@@ -123,6 +129,10 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
 
   async logForm(){
     this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
+    if(this.file != null){
+      this.form.value.nama_dokumen = this.file.name;
+    }
+   
 
     const loading = await this.loadingController.create({message:'Loading ...'});
     loading.present();
@@ -130,8 +140,20 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
 
     this.aliranService.update(this.form.value, Number(this.tunai_keluar.id)).subscribe((res) => {
       console.log("updated data",res);
-      loading.dismiss();
-      this.presentAlert()
+
+
+      let formdata = new FormData();
+
+      formdata.append('dokumen_lampiran', this.file);
+      this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
+        console.log("resDoc", resDoc);
+
+        loading.dismiss();
+        this.presentAlert()
+      })
+
+      // loading.dismiss();
+      // this.presentAlert()
     });
   }
 
@@ -144,6 +166,19 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
       loading.dismiss();
       this.presentAlert2()
     });
+  }
+
+  file: any;
+  selectedFile(event) {
+    this.file = event.target.files[0];
+    console.log(this.file)
+
+    this.form.value.dokumen_lampiran = this.file;
+    console.log(this.form.value.dokumen_lampiran);
+
+    // document.getElementById("nama_fail").innerHTML(this.file)
+    (document.getElementById('nama_fail') as HTMLIonTextElement).innerHTML = this.file.name;
+
   }
 
 }

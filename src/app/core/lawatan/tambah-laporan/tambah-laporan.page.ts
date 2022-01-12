@@ -4,6 +4,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 import { map } from 'rxjs/operators';
+import { NegeriService } from 'src/app/services/negeri/negeri.service';
+import { PusatTanggungjawabService } from 'src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service';
+import { UsahawanService } from 'src/app/services/usahawan/usahawan.service';
+import * as moment from 'moment';
 
 
 interface LocalFile {
@@ -21,54 +25,61 @@ export class TambahLaporanPage implements OnInit {
 
   @Input() laporan: any;
 
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
+  peranan_pegawai= window.sessionStorage.getItem("peranan_pegawai");
 
-  url: any ;
-  
+  url: any = "assets/icon/image-not-available.png";
+
   private form: FormGroup;
+  negeri: any;
+
+  negeriValue: any = null;
+  ptValue: any = null;
+
+  pt: any;
+  usahawan: any[];
+
 
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private lawatanService : LawatanService,
+    private lawatanService: LawatanService,
+    private negeriService: NegeriService,
+    private ptService: PusatTanggungjawabService,
+    private usahawanService: UsahawanService,
+    
   ) {
     this.form = this.formBuilder.group({
-      namausahawan: ['', Validators.required],
-      tarikh_lawatan: [''],
-      masa_lawatan: [''],
+      // negeri: ['', Validators.required],
+      // pt: ['', Validators.required],
+      id_pegawai : ['',],
+      id_pengguna: ['', Validators.required],
+      tarikh_lawatan: ['', Validators.required],
+      masa_lawatan: ['', Validators.required],
       id_tindakan_lawatan: ['', Validators.required],
       komen: ['', Validators.required],
       jenis_lawatan: ['', Validators.required],
-      gambar_lawatan: ['', ],
+      gambar_lawatan: ['',],
     });
   }
 
   ngOnInit() {
+    console.log("peranan", this.peranan_pegawai);
     console.log("laporan", this.laporan);
 
-    if(this.laporan.gambar_lawatan == null){
-      this.url = 'assets/icon/image-not-available.png';
-    } else{
-      this.url = this.laporan.gambar_lawatan;
+
+    if (this.peranan_pegawai == "1" || this.peranan_pegawai == "2"){
+      this.getNegeri();
+      this.getPT()
+      
+    } else {
+
+      this.getNegeriPt()
+      this.getTindakanLawatan();
     }
-
-    
-    this.getTindakanLawatan();
+   
   }
 
-  setFormValues() {
-
-    this.form.patchValue({
-      namausahawan: this.laporan.namausahawan,
-      tarikh_lawatan: this.laporan.tarikh_lawatan,
-      masa_lawatan: this.laporan.masa_lawatan,
-      id_tindakan_lawatan: this.laporan.id_tindakan_lawatan,
-      komen: this.laporan.komen,
-      jenis_lawatan: this.laporan.jenis_lawatan,
-      // gambar_lawatan: this.laporan.gambar_lawatan,
-    });
-
-    this.form.updateValueAndValidity();
-  }
 
   dismiss() {
     // using the injected ModalController this page
@@ -78,36 +89,77 @@ export class TambahLaporanPage implements OnInit {
     });
   }
 
-  tindakanLawatan :any;
-  getTindakanLawatan(){
+  tindakanLawatan: any;
+  getTindakanLawatan() {
     this.lawatanService.getTindakanLawatan().pipe(map(x => x.filter(i => i.status_tindakan_lawatan == "aktif"))).subscribe((res) => {
       console.log("tindakan lawatan", res);
 
       this.tindakanLawatan = res;
 
-      this.setFormValues();
     });
+  }
+
+  getNegeri() {
+    this.negeriService.get().subscribe((res) => {
+      console.log("negeri", res);
+
+      this.negeri = res;
+
+    });
+  }
+
+  getPT() {
+    this.ptService.get().pipe(map(x => x.filter(i => i.Negeri_Rkod == this.negeriValue))).subscribe((res) => {
+      console.log("pt", res);
+
+      this.pt = res;
+
+    });
+  }
+
+  getNegeriPt(){
+    this.ptService.getNegeriPt(this.pegawai_id).subscribe((res) => {
+      console.log("pt", res);
+
+      this.pt = res;
+
+    });
+  }
+
+  getUsahawan() {
+    console.log("ptValue", this.ptValue);
+
+    this.usahawanService.get().pipe(map(x => x.filter(i => i.Kod_PT == this.ptValue))).subscribe((res) => {
+      console.log("usahawan", res);
+
+      this.usahawan = res;
+    });
+
   }
 
   logForm() {
 
-    if (this.images.length > 0){
+    if (this.images.length > 0) {
       this.form.value.gambar_lawatan = this.images[0].data;
     } else {
       this.form.value.gambar_lawatan = this.laporan.gambar_lawatan;
     }
-    
-    console.log(this.form.value.gambar_url)
 
-    this.lawatanService.updateLaporan(this.form.value, this.laporan.lawatan_id).subscribe((res) => {
-      console.log("updated", res);
+    this.form.value.id_pegawai = this.pegawai_id;
+    this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
+    this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('HH:mm');
+    
+    console.log(this.form.value)
+
+    this.lawatanService.tambahLaporan(this.form.value).subscribe((res) => {
+      console.log("laporan baru", res);
 
       this.dismiss();
       window.location.reload();
     });
   }
 
-  
+
   //image
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
@@ -144,7 +196,7 @@ export class TambahLaporanPage implements OnInit {
       data: `${base64Data}`,
     });
 
-    console.log("AAAA",this.images);
+    console.log("AAAA", this.images);
   }
 
   // https://ionicframework.com/docs/angular/your-first-app/3-saving-photos

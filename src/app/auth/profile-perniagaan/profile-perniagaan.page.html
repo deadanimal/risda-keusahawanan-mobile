@@ -9,7 +9,7 @@
     <ion-text color="success">
       <h1>
         <strong>
-           PROFIL PERNIAGAAN
+          PROFIL PERNIAGAAN
         </strong>
       </h1>
     </ion-text>
@@ -85,7 +85,8 @@
           <ion-label>JENIS PERNIAGAAN</ion-label>
           <!-- <ion-input formControlName="jenisperniagaan"></ion-input> -->
           <ion-select formControlName="jenisperniagaan" style="width:100%,">
-            <ion-select-option *ngFor="let jenis_perniagaan of jenis_perniagaan" value="{{jenis_perniagaan.id}}" style="word-wrap:break-word">{{jenis_perniagaan.name}}</ion-select-option>
+            <ion-select-option *ngFor="let jenis_perniagaan of jenis_perniagaan" value="{{jenis_perniagaan.id}}"
+              style="word-wrap:break-word">{{jenis_perniagaan.name}}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -95,7 +96,8 @@
           <ion-label>KLUSTER PERNIAGAAN</ion-label>
           <!-- <ion-input formControlName="klusterperniagaan"></ion-input> -->
           <ion-select formControlName="klusterperniagaan" style="width:100%,">
-            <ion-select-option *ngFor="let klusterPerniagaan of klusterPerniagaan" value="{{klusterPerniagaan.id}}" style="word-wrap:break-word">{{klusterPerniagaan.name}}</ion-select-option>
+            <ion-select-option *ngFor="let klusterPerniagaan of klusterPerniagaan" value="{{klusterPerniagaan.id}}"
+              style="word-wrap:break-word">{{klusterPerniagaan.name}}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -110,7 +112,7 @@
       <ion-row>
         <ion-col>
           <ion-label> ALAMAT 1 (BARIS 1)</ion-label>
-          <ion-input formControlName="alamat1" ></ion-input>
+          <ion-input formControlName="alamat1"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -143,7 +145,7 @@
         <ion-col>
           <ion-label> NEGERI</ion-label>
           <!-- <ion-input formControlName="U_Negeri_ID"></ion-input> -->
-          <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah($event)">
+          <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah($event); reset()">
             <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">
               {{negeri.Negeri}}</ion-select-option>
           </ion-select>
@@ -162,7 +164,7 @@
         <ion-col>
           <ion-label> MUKIM</ion-label>
           <!-- <ion-input  formControlName="U_Mukim_ID"></ion-input> -->
-          <ion-select formControlName="U_Mukim_ID" (ionChange)="getKampung($event); getSeksyen()">
+          <ion-select formControlName="U_Mukim_ID" (ionChange)="getKampung($event); getSeksyen(); reset2()">
             <ion-select-option *ngFor="let mukim of mukim" value="{{mukim.U_Mukim_ID}}">{{mukim.Mukim}}
             </ion-select-option>
           </ion-select>
@@ -251,13 +253,13 @@
       <ion-row>
         <ion-col>
           <ion-label> TWITTER</ion-label>
-          <ion-input  formControlName="twitter"></ion-input>
+          <ion-input formControlName="twitter"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> LAMAN WEB</ion-label>
-          <ion-input  formControlName="lamanweb"></ion-input>
+          <ion-input formControlName="lamanweb"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -295,13 +297,13 @@
       <ion-row>
         <ion-col>
           <ion-label> PASARAN DOMESTIK</ion-label>
-          <ion-input  formControlName="domestik"></ion-input>
+          <ion-input formControlName="domestik"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> PASARAN LUAR NEGERA</ion-label>
-          <ion-input  formControlName="luarnegara"></ion-input>
+          <ion-input formControlName="luarnegara"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -329,19 +331,11 @@
           <ion-label> PURATA JUALAN BULANAN</ion-label>
           <ion-input type="Number" formControlName="purata_jualan_bulanan"></ion-input>
         </ion-col>
-        <!-- <ion-col>
-          <ion-label> PERATUS KENAIKAN</ion-label> 
-          <ion-input type="Number" formControlName="peratus_kenaikan"></ion-input>
-        </ion-col> -->
       </ion-row>
 
       <ion-row>
-        <!-- <ion-col>
-          <ion-label> PURATA JUALAN BULANAN</ion-label>
-          <ion-input type="Number" formControlName="purata_jualan_bulanan"></ion-input>
-        </ion-col> -->
         <ion-col>
-          <ion-label> PERATUS KENAIKAN</ion-label> 
+          <ion-label> PERATUS KENAIKAN</ion-label>
           <ion-input type="Number" formControlName="peratus_kenaikan"></ion-input>
         </ion-col>
       </ion-row>
@@ -351,7 +345,7 @@
           <ion-label> HASIL JUALAN TAHUNAN</ion-label>
           <ion-input type="Number" formControlName="hasil_jualan_tahunan"></ion-input>
         </ion-col>
-        
+
       </ion-row>
 
 
@@ -364,44 +358,59 @@
       <br>
 
       <br>
-      <div *ngFor="let group of groups">
-        <ion-row>
-          <ion-col>
-            <ion-label> JENAMA PRODUK </ion-label>
-            <ion-input value="" ></ion-input>
-          </ion-col>
-        </ion-row>
+      <div formArrayName="produk">
+        <div *ngFor="let produk of getProdukArray.controls; let i=index" [formGroupName]="i">
+          <!-- <div *ngFor="let group of groups"> -->
+          <ion-row>
+            <ion-col>
+              <ion-label> JENAMA PRODUK </ion-label>
+              <ion-input value="" formControlName="jenamaproduk"></ion-input>
+            </ion-col>
+          </ion-row>
 
-        <ion-row>
-          <ion-col>
-            <ion-label> UNIT MATRIK</ion-label>
-            <ion-input type="number" value="" ></ion-input>
-          </ion-col>
-          <ion-col>
-            <ion-label> HARGA PER UNIT</ion-label>
-            <ion-input type="number" value="" ></ion-input>
-          </ion-col>
-        </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label> UNIT MATRIK</ion-label>
+              <ion-input type="number" formControlName="unitmatrik"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label> HARGA PER UNIT</ion-label>
+              <ion-input type="number" formControlName="hargaperunit"></ion-input>
+            </ion-col>
+          </ion-row>
 
-        <ion-row>
-          <ion-col>
-            <ion-label> KAPASITI MAKSIMUM</ion-label>
-            <ion-input type="number" value="" ></ion-input>
-          </ion-col>
-          <ion-col>
-            <ion-label> KAPASITI SEMASA</ion-label>
-            <ion-input type="number" value="" ></ion-input>
-          </ion-col>
-        </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label> KAPASITI MAKSIMUM</ion-label>
+              <ion-input type="number" formControlName="kapasitimaksimum"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label> KAPASITI SEMASA</ion-label>
+              <ion-input type="number" formControlName="kapasitisemasa"></ion-input>
+            </ion-col>
+          </ion-row>
 
-        <ion-row>
-          <ion-icon name="trash-outline" (click)="removeItem()"></ion-icon>
-          <ion-icon name="duplicate-outline" (click)="addGroupItem()"></ion-icon>
-        </ion-row>
+          <ion-row style="margin-bottom: 20px;">
+            <ion-col class="form-control">
+              <div style="width:100%; display:flex; justify-content:flex-end;">
+
+                <div class="ion-text-center" (click)="deleteProduk(i)">
+                  <img src="/assets/icon/trash-icon.png" alt="" height="30" width="30">
+                  <br>
+                </div>
+
+                <div *ngIf="i == (productLength-1)" class="ion-text-center" (click)="addProduk()">
+                  <img src="/assets/icon/add-item-icon.png" alt="" height="30" width="30">
+                  <br>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
       </div>
 
 
-      <br><br><br>
+      <!-- <br><br><br>
       <ion-row>
         <ion-col>
           <strong>LAMPIRAN</strong>
@@ -417,9 +426,9 @@
 
       <ion-row>
         <ion-col>
-          <ion-button expand="block" type="file" value="" >PILIH DOKUMEN</ion-button>
+          <ion-button expand="block" type="file" value="">PILIH DOKUMEN</ion-button>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
 
       <ion-row>

@@ -45,9 +45,11 @@ export class KemaskiniBuletinPage implements OnInit {
 
   setFormValues() {
 
+    let date = moment(this.buletin.tarikh).format('YYYY-MM-DD');
+
     this.form.patchValue({
       tajuk: this.buletin.tajuk,
-      tarikh: this.buletin.tarikh,
+      tarikh: date,
       keterangan_lain: this.buletin.keterangan_lain,
       status: this.buletin.status,
       gambar_buletin: this.buletin.gambar_buletin,

@@ -77,7 +77,7 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
     }
 
     this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
-    this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('HH:mm');
+    // this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('hh:mm:ss[.nnnnnnn]');
     
     console.log(this.form.value)
     this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {

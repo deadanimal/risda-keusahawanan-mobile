@@ -7,6 +7,7 @@ import { AliranService } from 'src/app/services/Aliran/aliran.service';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: 'app-kemaskini-tunai-masuk',
@@ -22,7 +23,8 @@ export class KemaskiniTunaiMasukPage implements OnInit {
   private form: FormGroup;
 
   //test var
-  selectedValue: any ="";
+  selectedValue: any = "";
+  url: string;
 
   constructor(
     private modalController: ModalController,
@@ -39,13 +41,16 @@ export class KemaskiniTunaiMasukPage implements OnInit {
       tarikh_aliran: ['', Validators.required],
       keterangan_aliran: ['', Validators.required],
       jumlah_aliran: ['', Validators.required],
+      nama_dokumen: [''],
       dokumen_lampiran: [''],
     });
-   }
+  }
 
   ngOnInit() {
     console.log("tunai masuk", this.tunai_masuk);
 
+    this.url = environment.baseUrl + "storage/" + this.tunai_masuk.dokumen_lampiran;
+    console.log("url", this.url)
     // this.data = this.tunai_masuk
 
     this.getKategoriAliran();
@@ -79,16 +84,17 @@ export class KemaskiniTunaiMasukPage implements OnInit {
     window.location.reload();
   }
 
-  setFormValues(){
+  setFormValues() {
 
     this.selectedValue = "selected ";
-    
+
     this.form.setValue({
       id_pengguna: this.tunai_masuk.id_pengguna,
       id_kategori_aliran: this.tunai_masuk.id_kategori_aliran,
       tarikh_aliran: this.tunai_masuk.tarikh_aliran,
       keterangan_aliran: this.tunai_masuk.keterangan_aliran,
       jumlah_aliran: this.tunai_masuk.jumlah_aliran,
+      nama_dokumen: this.tunai_masuk.nama_dokumen,
       dokumen_lampiran: this.tunai_masuk.dokumen_lampiran,
     });
 
@@ -131,29 +137,56 @@ export class KemaskiniTunaiMasukPage implements OnInit {
     this.refresh();
   }
 
-  async logForm(){
-    this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
+  async logForm() {
 
-    const loading = await this.loadingController.create({message:'Loading ...'});
+    this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
+    // this.form.value.nama_dokumen = this.file.name;
+    if(this.file != null){
+      this.form.value.nama_dokumen = this.file.name;
+    }
+
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
     loading.present();
     console.log(this.form.value)
 
     this.aliranService.update(this.form.value, Number(this.tunai_masuk.id)).subscribe((res) => {
-      console.log("updated data",res);
-      loading.dismiss();
-      this.presentAlert()
+      console.log("updated data", res);
+
+      let formdata = new FormData();
+
+      formdata.append('dokumen_lampiran', this.file);
+      this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
+        console.log("resDoc", resDoc);
+
+        loading.dismiss();
+        this.presentAlert()
+      })
+
     });
   }
 
-  async onDelete(){
-    const loading = await this.loadingController.create({message:'Deleting ...'});
+  async onDelete() {
+    const loading = await this.loadingController.create({ message: 'Deleting ...' });
     loading.present();
-    
+
     this.aliranService.delete(this.tunai_masuk.id).subscribe((res) => {
-      console.log("deleted",res);
+      console.log("deleted", res);
       loading.dismiss();
       this.presentAlert2()
     });
+  }
+
+  file: any;
+  selectedFile(event) {
+    this.file = event.target.files[0];
+    console.log(this.file)
+
+    this.form.value.dokumen_lampiran = this.file;
+    console.log(this.form.value.dokumen_lampiran);
+
+    // document.getElementById("nama_fail").innerHTML(this.file)
+    (document.getElementById('nama_fail') as HTMLIonTextElement).innerHTML = this.file.name;
+
   }
 
 }

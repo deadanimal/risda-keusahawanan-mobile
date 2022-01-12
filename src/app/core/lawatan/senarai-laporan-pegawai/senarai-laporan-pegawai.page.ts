@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { map } from 'rxjs/operators';
+import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 import { TambahLaporanPage } from '../tambah-laporan/tambah-laporan.page';
 
 @Component({
@@ -9,11 +11,16 @@ import { TambahLaporanPage } from '../tambah-laporan/tambah-laporan.page';
 })
 export class SenaraiLaporanPegawaiPage implements OnInit {
 
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
+  laporan: any;
+
   constructor(
     public modalController: ModalController,
+    private lawatanServicce : LawatanService
   ) { }
 
   ngOnInit() {
+    this.getLaporan()
   }
 
 
@@ -25,5 +32,15 @@ export class SenaraiLaporanPegawaiPage implements OnInit {
       cssClass: 'my-custom-class'
     });
     return await modal.present();
+  }
+
+
+  getLaporan() {
+    this.lawatanServicce.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan == '4'))).subscribe((res) => {
+      console.log("laporan", res);
+
+      this.laporan = res;
+
+    });
   }
 }

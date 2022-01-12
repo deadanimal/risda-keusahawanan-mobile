@@ -60,7 +60,7 @@
               <ion-grid class="rectangle-279">
                 <ion-row *ngFor="let lawatan of lawatan"
                   style="margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;"
-                  (click)="lawatan.status_lawatan=='usahawan'  ? pengesahanLawatan(lawatan):null;">
+                  (click)="lawatan.status_lawatan=='1'  ? pengesahanLawatan(lawatan):null;">
                   <ion-col>
                     <div class=" bold" style="font-family: 'Nunito Sans';">
                       <ion-grid style="padding: 0%;">
@@ -76,11 +76,11 @@
                             </ion-text>
                           </ion-col>
                           <ion-col size="4" style="padding: 0%; display:flex; justify-content:flex-end">
-                            <img *ngIf="lawatan.status_lawatan == 'pegawai'" src="assets/icon/pending.png" alt="pending"
+                            <img *ngIf="lawatan.status_lawatan == '2'" src="assets/icon/pending.png" alt="pending"
                               height="50px">
-                            <img *ngIf="lawatan.status_lawatan == 'disahkan'" src="assets/icon/publish-icon.png"
+                            <img *ngIf="lawatan.status_lawatan == '3'" src="assets/icon/publish-icon.png"
                               alt="publish" height="50px%">
-                            <img *ngIf="lawatan.status_lawatan == 'usahawan'" src="assets/icon/draft-icon.png" alt="draft"
+                            <img *ngIf="lawatan.status_lawatan == '1'" src="assets/icon/draft-icon.png" alt="draft"
                               height="50px%">
                           </ion-col>
                         </ion-row>
@@ -137,7 +137,9 @@
                           </ion-col>
                           <ion-col size="4"
                             style="padding: 0%; display:flex; justify-content:flex-end; align-items:center">
-                            <img src="assets/icon/DOWNLOAD.png" alt="pending" height="25px" style="margin-left: 20px;">
+                            <a (click)="download_laporan(laporan.lawatan_id)">
+                              <img src="assets/icon/DOWNLOAD.png" alt="pending" height="25px" style="margin-left: 20px;">
+                            </a>
                           </ion-col>
                         </ion-row>
                       </ion-grid>

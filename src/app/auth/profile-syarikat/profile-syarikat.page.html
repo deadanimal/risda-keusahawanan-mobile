@@ -156,8 +156,8 @@
         <ion-col>
           <ion-label>TAHUN MULA OPERASI</ion-label>
           <!-- <ion-input value="{{syarikat.tahunmulaoperasi}}" formControlName="tahunmulaoperasi"></ion-input> -->
-          <ion-datetime displayFormat="YYYY" formControlName="tahunmulaoperasi" 
-            style="background-color: #f5f5f5;"></ion-datetime>
+          <ion-input type="number" displayFormat="YYYY" formControlName="tahunmulaoperasi" 
+            style="background-color: #f5f5f5;"></ion-input>
         </ion-col>
         <ion-col>
           <br>
@@ -191,7 +191,7 @@
         <ion-col>
           <ion-label> TARIKH MULA MOF</ion-label>
           <!-- <ion-input value="{{syarikat.tarikh_mula_mof}}" formControlName="tarikh_mula_mof"></ion-input> -->
-          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tarikh_mula_mof" 
+          <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikh_mula_mof" 
             style="background-color: #f5f5f5;"></ion-datetime>
         </ion-col>
       </ion-row>
@@ -200,7 +200,7 @@
         <ion-col>
           <ion-label> TARIKH TAMAT MOF</ion-label>
           <!-- <ion-input value="{{syarikat.tarikh_tamat_mof}}" formControlName="tarikh_tamat_mof"></ion-input> -->
-          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tarikh_tamat_mof" 
+          <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikh_tamat_mof" 
             style="background-color: #f5f5f5;"></ion-datetime>
         </ion-col>
       </ion-row>
@@ -216,6 +216,20 @@
         <ion-col>
           <ion-label>PREFIX ID</ion-label>
           <ion-input value="{{syarikat.prefix_id}}" formControlName="prefix_id"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>NAMA AKAUN BANK</ion-label>
+          <ion-input  formControlName="nama_akaun_bank"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>NO. AKAUN BANK</ion-label>
+          <ion-input type="number" formControlName="no_akaun_bank"></ion-input>
         </ion-col>
       </ion-row>
 

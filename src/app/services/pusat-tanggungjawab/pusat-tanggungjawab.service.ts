@@ -20,4 +20,8 @@ export class PusatTanggungjawabService {
   get(): Observable<any> {
     return this.http.get<any>(`${this.url}`);
   }
+
+  getNegeriPt(id): Observable<any> {
+    return this.http.get<any>(`${this.url}` + '/senarai_pt_pun_pud/' + id);
+  }
 }

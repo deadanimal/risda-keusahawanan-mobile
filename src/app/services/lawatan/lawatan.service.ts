@@ -25,17 +25,9 @@ export class LawatanService {
     return this.http.get<any>(`${this.url2}`+'/'+id_pengguna);
   }
 
-  update(data: any, id: number,): Observable<any> {
-    return this.http.put<any>(
-      `${this.url}/${id}`, data
-    );
+  update(data: any, id): Observable<any> {
+    return this.http.put<any>(`${this.url}` +'/'+id, data);
   }
-
-  // delete(aliran_id: number): Observable<any> {
-  //   return this.http.delete<any>(
-  //     `${this.url}/${aliran_id}`
-  //   );
-  // }
 
   url3 : string = environment.baseUrl + "api/tindakanLawatan";
   getTindakanLawatan(): Observable<any> {
@@ -52,6 +44,15 @@ export class LawatanService {
   url5 : string = environment.baseUrl + "api/lawatan/senaraiUsahawan"
   getsenaraiusahawan(id_pegawai): Observable<any> {
     return this.http.get<any>(`${this.url5}`+'/'+id_pegawai);
+  }
+
+
+  tambahLaporan(data: any): Observable<any> {
+    return this.http.post<any>(`${this.url}`+'/laporanBaru', data);
+  }
+
+  janaLaporan(id): Observable<any> {
+    return this.http.get<any>(`${this.url}`+'/janaDokumenLawatan/'+id);
   }
 
 }

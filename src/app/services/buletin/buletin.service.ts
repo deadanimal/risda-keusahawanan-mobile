@@ -20,6 +20,10 @@ export class BuletinService {
     return this.http.get<any>(`${this.url}` + "/" + pegawai_id);
   }
 
+  getAll(): Observable<any> {
+    return this.http.get<any>(`${this.url}`);
+  }
+
   update(data: any, id): Observable<any> {
     return this.http.put<any>(
       `${this.url}/${id}`, data

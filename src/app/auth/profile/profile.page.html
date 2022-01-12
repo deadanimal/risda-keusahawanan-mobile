@@ -117,7 +117,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label>PUSAT TANGGUNGJAWAP</ion-label>
+          <ion-label>PUSAT TANGGUNGJAWAB</ion-label>
           <ion-input value={{pusatTanggungjawab}} readonly></ion-input>
         </ion-col>
       </ion-row>
@@ -150,7 +150,7 @@
           <!-- <ion-item lines="none" style="border: none; padding:0px !important"> -->
           <ion-label class="padding" position="stacked">TARIKH LAHIR </ion-label>
           <!-- <ion-input formControlName="tarikhlahir" readonly></ion-input> -->
-          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tarikhlahir" readonly
+          <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikhlahir" readonly
             style="background-color: #f5f5f5;"></ion-datetime>
           <!-- </ion-item> -->
         </ion-col>
@@ -177,6 +177,21 @@
           </ion-select>
         </ion-col>
 
+      </ion-row>
+      <ion-row>
+        <ion-col>
+
+          <br>
+          <ion-label> ETNIK</ion-label>
+          <!-- <ion-input value="{{usahawan.statusperkahwinan}}" formControlName="statusperkahwinan"></ion-input> -->
+          <ion-select formControlName="U_Etnik_ID">
+            <ion-select-option *ngFor="let etnik of etnik" value="{{etnik.U_Etnik_ID}}">
+              {{etnik.Etnik}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
 
 
@@ -196,6 +211,18 @@
           <ion-select formControlName="U_Pendidikan_ID">
             <ion-select-option *ngFor="let tahapPendidikan of tahapPendidikan" [value]="tahapPendidikan.id"
               selected="tahapPendidikan.id == this.usahawan.U_Pendidikan_ID">{{tahapPendidikan.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label> TARAF KELULUSAN TERTINGGI</ion-label>
+          <!-- <ion-input formControlName="U_Pendidikan_ID"></ion-input> -->
+          <ion-select formControlName="U_Taraf_Pendidikan_Tertinggi_ID">
+            <ion-select-option *ngFor="let taraf_kelulusan_tertinggi of taraf_kelulusan_tertinggi" [value]="taraf_kelulusan_tertinggi.U_Taraf_Kelulusan_Tertinggi_ID"
+              selected="taraf_kelulusan_tertinggi.U_Taraf_Kelulusan_Tertinggi_ID == this.usahawan.taraf_kelulusan_tertinggi">{{taraf_kelulusan_tertinggi.Jenis_Kelulusan}}
             </ion-select-option>
           </ion-select>
         </ion-col>
@@ -365,7 +392,7 @@
       <ion-row>
         <ion-col>
           <ion-label> EMAIL</ion-label>
-          <ion-input value="{{usahawan.email}}" formControlName="email"></ion-input>
+          <ion-input value="{{usahawan.email}}" formControlName="email" style="text-transform: none !important;"></ion-input>
         </ion-col>
       </ion-row>
 

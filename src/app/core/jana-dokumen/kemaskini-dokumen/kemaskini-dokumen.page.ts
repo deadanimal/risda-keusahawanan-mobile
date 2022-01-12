@@ -41,6 +41,7 @@ export class KemaskiniDokumenPage implements OnInit {
     private pelangganService: PelangganService,
   ) {
     this.form = this.formBuilder.group({
+      tajuk: ['', Validators.required],
       nama_pelanggan: ['', Validators.required],
       alamat1: ['', Validators.required],
       alamat2: ['', Validators.required],
@@ -50,6 +51,10 @@ export class KemaskiniDokumenPage implements OnInit {
       U_Daerah_ID: ['', Validators.required],
       no_telefon: ['', Validators.required],
       no_fax: ['', Validators.required],
+
+      diskaun: ['', Validators.required],
+      kos_penghantaran: ['', Validators.required],
+      cukai_sst: ['', Validators.required],
 
       produk: this.formBuilder.array([]),
     });
@@ -101,7 +106,7 @@ export class KemaskiniDokumenPage implements OnInit {
 
     this.getNegeri();
     this.getKatalog();
-    this.getDaerah(this.pelanggan.U_Negeri_ID)
+    this.getDaerah(this.pelanggan.U_Negeri_ID);
     this.getStok(this.pelanggan.id_pelanggan);
 
   }
@@ -109,6 +114,7 @@ export class KemaskiniDokumenPage implements OnInit {
   setFormValues() {
 
     this.form.patchValue({
+      tajuk: this.pelanggan.tajuk,
       nama_pelanggan: this.pelanggan.nama_pelanggan,
       alamat1: this.pelanggan.alamat1,
       alamat2: this.pelanggan.alamat2,
@@ -118,6 +124,10 @@ export class KemaskiniDokumenPage implements OnInit {
       U_Daerah_ID: this.pelanggan.U_Daerah_ID,
       no_telefon: this.pelanggan.no_telefon,
       no_fax: this.pelanggan.no_fax,
+
+      diskaun: this.pelanggan.diskaun,
+      kos_penghantaran: this.pelanggan.kos_penghantaran,
+      cukai_sst: this.pelanggan.cukai_sst,
     });
 
     this.form.updateValueAndValidity();
@@ -237,7 +247,7 @@ export class KemaskiniDokumenPage implements OnInit {
   getKatalog() {
     console.log("this.user_id", this.user_id);
 
-    this.katalogService.get(this.user_id).pipe(map(x => x.filter(i => i.status_katalog == "publish"))).subscribe((res) => {
+    this.katalogService.get(this.user_id).subscribe((res) => {
       console.log("katalog", res);
 
       this.katalog = res

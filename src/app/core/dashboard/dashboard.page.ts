@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
+import { map } from 'rxjs/operators';
+import { BuletinService } from 'src/app/services/buletin/buletin.service';
+import { KatalogService } from 'src/app/services/katalog/katalog.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,8 +10,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  katalog: any;
+  buletin: any;
 
-  constructor() { }
+  constructor(
+    private loadingController : LoadingController,
+    private katalogService: KatalogService,
+    private buletinService: BuletinService,
+  ) { }
 
   ngOnInit() {
     // this.refresh();
@@ -18,15 +28,33 @@ export class DashboardPage implements OnInit {
     } else {
       localStorage.removeItem('key')
     }
+
+    this.getKatalog();
+    this.getBuletin();
   }
 
-  img_info = [
-    { url:"/assets/img/pic1.jpeg", name:"pic 1" },
-    { url:"/assets/img/pic2.jpeg", name:"pic 2" },
-    { url:"/assets/img/pic3.jpeg", name:"pic 3" },
-    { url:"/assets/img/pic4.jpeg", name:"pic 4" },
-    { url:"/assets/img/pic5.jpeg", name:"pic 5" },
-  ]
+  getKatalog() {
+
+
+    this.katalogService.getAll().pipe(map(x => x.filter(i => i.status_katalog == "publish"))).subscribe((res) => {
+      // this.daerahService.get().subscribe((res) => {
+      console.log("res", res.slice(0,5));
+      this.katalog = res.slice(0,5);
+      
+    });
+
+  }
+
+  getBuletin() {
+
+    this.buletinService.getAll().pipe(map(x => x.filter(i => i.status == "aktif"))).subscribe((res) => {
+      // this.daerahService.get().subscribe((res) => {
+      console.log("res", res);
+      this.buletin = res.slice(0,3);
+      
+    });
+
+  }
 
   // refresh(): void {
   //   window.location.reload();

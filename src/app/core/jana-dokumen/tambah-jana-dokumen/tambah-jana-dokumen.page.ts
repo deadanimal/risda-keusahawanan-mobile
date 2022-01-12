@@ -42,6 +42,8 @@ export class TambahJanaDokumenPage implements OnInit {
   ) {
 
     this.form1 = this.formBuilder.group({
+      tajuk:['', Validators.required],
+
       nama_pelanggan: ['', Validators.required],
       alamat1: ['', Validators.required],
       alamat2: ['', Validators.required],
@@ -51,6 +53,10 @@ export class TambahJanaDokumenPage implements OnInit {
       U_Daerah_ID: ['', Validators.required],
       no_telefon: ['', Validators.required],
       no_fax: ['', Validators.required],
+
+      diskaun: ['', Validators.required],
+      kos_penghantaran: ['', Validators.required],
+      cukai_sst: ['', Validators.required],
 
       produk: this.formBuilder.array([]),
       //maklumat produk
@@ -171,7 +177,7 @@ export class TambahJanaDokumenPage implements OnInit {
   getKatalog() {
     console.log("this.user_id", this.user_id);
 
-    this.katalogService.get(this.user_id).pipe(map(x => x.filter(i => i.status_katalog == "publish"))).subscribe((res) => {
+    this.katalogService.get(this.user_id).subscribe((res) => {
       console.log("katalog", res);
 
       this.katalog = res

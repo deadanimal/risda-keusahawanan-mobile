@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TambahTunaiMasukPageRoutingModule } from './tambah-tunai-masuk-routing.module';
 
 import { TambahTunaiMasukPage } from './tambah-tunai-masuk.page';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { TambahTunaiMasukPage } from './tambah-tunai-masuk.page';
     IonicModule,
     TambahTunaiMasukPageRoutingModule,
     ReactiveFormsModule,
-    
+    HttpClientModule
   ],
   declarations: [TambahTunaiMasukPage]
 })

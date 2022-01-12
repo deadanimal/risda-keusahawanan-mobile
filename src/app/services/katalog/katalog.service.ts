@@ -16,6 +16,10 @@ export class KatalogService {
     return this.http.post<any>(`${this.url}`, data);
   }
 
+  getAll(): Observable<any> {
+    return this.http.get<any>(`${this.url}`);
+  }
+
   get(user_id): Observable<any> {
     return this.http.get<any>(`${this.url}` + "/" + user_id);
   }

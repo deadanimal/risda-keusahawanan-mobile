@@ -19,16 +19,16 @@ export class UsahawanService {
 
   constructor(private http: HttpClient) { }
 
-  // getUser(): Observable<UsahawanModel[]> {
-  //   return this.http.get<UsahawanModel[]>(`${this.url}`);
-  // }
+  get(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}`);
+  }
 
   // check1user( user : UsahawanModel): Observable<UsahawanModel>{
   //   return this.http.post<UsahawanModel>(`${this.url}`,user);
   // }
 
-  show(id): Observable<UsahawanModel> {
-    return this.http.get<UsahawanModel>(`${this.url}` + "/" + id);
+  show(id): Observable<any> {
+    return this.http.get<any>(`${this.url}` + "/" + id);
   }
 
   // update()

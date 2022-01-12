@@ -31,4 +31,10 @@ export class AliranService {
       `${this.url}/${aliran_id}`
     );
   }
+
+  uploadDoc(data: any, id): Observable<any> {
+    return this.http.post<any>(
+      `${this.url}` + "/uploadDoc/" + id, data
+    );
+  }
 }

@@ -50,7 +50,6 @@ export class ProfilePage implements OnInit {
   jantina = [
     { name: "Lelaki", id: 1 },
     { name: "Perempuan", id: 2 },
-    { name: "Ragu", id: 3 },
   ];
 
   bangsa = [
@@ -79,12 +78,109 @@ export class ProfilePage implements OnInit {
     { id: 4, name: "Kolej / Universiti / Setara" },
   ];
 
-  statusDaftarUsahawan = [
-    { id: "KP01", name:"PEKEBUN KECIL"},
-    { id: "KP02", name:"SUAMI PEKEBUN KECIL"},
-    { id: "KP03", name:"ISTERI PEKEBUN KECIL"},
-    { id: "KP04", name:"ANAK PEKEBUN KECIL"},
+  taraf_kelulusan_tertinggi = [
+    { U_Taraf_Kelulusan_Tertinggi_ID: "1", Jenis_Kelulusan: "UPSR/PSRA/Setaraf" },
+    { U_Taraf_Kelulusan_Tertinggi_ID: "2", Jenis_Kelulusan: "PMR/SRP/LCE/Setaraf" },
+    { U_Taraf_Kelulusan_Tertinggi_ID: "3", Jenis_Kelulusan: "SPM/MCE/Setaraf" },
+    { U_Taraf_Kelulusan_Tertinggi_ID: "4", Jenis_Kelulusan: "STPM/Diploma/Setaraf" },
+    { U_Taraf_Kelulusan_Tertinggi_ID: "5", Jenis_Kelulusan: "Ijazah Pertama/Ke Atas" },
+    { U_Taraf_Kelulusan_Tertinggi_ID: "6", Jenis_Kelulusan: "Tiada" },
   ]
+
+  statusDaftarUsahawan = [
+    { id: "KP01", name: "PEKEBUN KECIL" },
+    { id: "KP02", name: "PASANGAN PEKEBUN KECIL" },
+    { id: "KP03", name: "ANAK PEKEBUN KECIL" },
+  ]
+
+  etnik = [
+    { U_Etnik_ID: "1100", Etnik: "Melayu", U_Bangsa_ID: "1" },
+    { U_Etnik_ID: "2111", Etnik: "Negrito - Bateq", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2112", Etnik: "Negrito - Jahai", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2113", Etnik: "Negrito - Kensiu", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2114", Etnik: "Negrito - Kintak", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2115", Etnik: "Negrito - Ianoh", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2116", Etnik: "Negrito - Mendriq", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2121", Etnik: "Senoi - Che Wong", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2122", Etnik: "Senoi - Jahut", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2123", Etnik: "Senoi - Mah Meri", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2124", Etnik: "Senoi - Semai", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2125", Etnik: "Senoi - Semoq Beri", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2126", Etnik: "Senoi - Temiar", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2131", Etnik: "Melayu Asli - Jakun", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2132", Etnik: "Melayu Asli - Prang Kanaq", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2133", Etnik: "Melayu Asli - Orang Kuala", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2134", Etnik: "Melayu Asli - Orang Seletar", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2135", Etnik: "Melayu Asli - Semalai", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "2136", Etnik: "Melayu Asli - Temuan", U_Bangsa_ID: "2" },
+    { U_Etnik_ID: "3110", Etnik: "Bajau", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3120", Etnik: "Balbak/Molbog", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3130", Etnik: "Bisaya/Bisayah", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3140", Etnik: "Bulongan", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3150", Etnik: "Dusun", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3160", Etnik: "Idahan/Ida'an", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3170", Etnik: "Iranun/Ilanun", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3180", Etnik: "Kadayan/Kedayan", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3190", Etnik: "Kadazan", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3200", Etnik: "Lundayuh/Lundayeh", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3210", Etnik: "Melayu Brunei", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3220", Etnik: "Murut", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3230", Etnik: "Orang Sungai/Sungoi", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3240", Etnik: "Rungus", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3250", Etnik: "Suluk", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3260", Etnik: "Tidung", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "3998", Etnik: "Bumiputera Sabah Lain", U_Bangsa_ID: "3" },
+    { U_Etnik_ID: "4110", Etnik: "Bidayuh", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4120", Etnik: "Bisayah (Sarawak)", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4130", Etnik: "Bukitan", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4140", Etnik: "Iban", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4150", Etnik: "Kadayan (Sarawak)", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4160", Etnik: "Kajang", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4170", Etnik: "Kanowit", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4180", Etnik: "Kayan", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4190", Etnik: "Kejaman", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4200", Etnik: "Kalabit", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4210", Etnik: "Kenyah", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4220", Etnik: "Iahanan", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4230", Etnik: "Lisum", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4240", Etnik: "Lugat", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4250", Etnik: "Lun Bawang/Murut (Sarawak)", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4260", Etnik: "Melanau", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4270", Etnik: "Penan", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4280", Etnik: "Punan", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4290", Etnik: "Sabup", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4300", Etnik: "Sekapan", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4310", Etnik: "Sian", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4320", Etnik: "Sipeng", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4330", Etnik: "Tabun", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4340", Etnik: "Tagal", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4350", Etnik: "Tanjong", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4360", Etnik: "Ukit", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "4998", Etnik: "Bumiputera Sarawak Lain", U_Bangsa_ID: "4" },
+    { U_Etnik_ID: "5110", Etnik: "Foochow", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5120", Etnik: "Hainan", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5130", Etnik: "Henghua", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5140", Etnik: "Hokchia", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5150", Etnik: "Hokchiu", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5160", Etnik: "Hookien", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5170", Etnik: "Kantonis", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5180", Etnik: "Khek (Hakka)", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5190", Etnik: "Kwongsai", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5200", Etnik: "Teochew", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "5998", Etnik: "Orang Cina Lain", U_Bangsa_ID: "5" },
+    { U_Etnik_ID: "6110", Etnik: "India Muslim/Malabari", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "6120", Etnik: "Malayali", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "6130", Etnik: "Punjabi (Kecuali Sikh)", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "6140", Etnik: "Sikh", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "6150", Etnik: "Sinhala", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "6160", Etnik: "Tamil India", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "6170", Etnik: "Tamil Sri Lanka", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "6180", Etnik: "Telugu", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "6998", Etnik: "Orang India Lain", U_Bangsa_ID: "6" },
+    { U_Etnik_ID: "7000", Etnik: "Lain-Lain", U_Bangsa_ID: "7" },
+  ]
+
+
 
   parlimen: any;
   dun: any;
@@ -122,8 +218,10 @@ export class ProfilePage implements OnInit {
       tarikhlahir: ['',],
       U_Jantina_ID: ['', Validators.required],
       U_Bangsa_ID: ['', Validators.required],
+      U_Etnik_ID: ['', Validators.required],
       statusperkahwinan: ['', Validators.required],
       U_Pendidikan_ID: ['', Validators.required],
+      U_Taraf_Pendidikan_Tertinggi_ID: ['', Validators.required],
       alamat1: ['', Validators.required],
       alamat2: ['', Validators.required],
       alamat3: ['', Validators.required],
@@ -141,9 +239,9 @@ export class ProfilePage implements OnInit {
       notelefon: ['', Validators.required],
       nohp: ['', Validators.required],
       email: ['', Validators.required],
-      status_daftar_usahawan: ['', ],
-      usahawanid: ['', ],
-      negeri_perniagaan: ['', ],
+      status_daftar_usahawan: ['',],
+      usahawanid: ['',],
+      negeri_perniagaan: ['',],
     })
   }
 
@@ -155,16 +253,7 @@ export class ProfilePage implements OnInit {
     console.log("user id", this.user_id);
     this.getUsahawan();
 
-    this.getUser();
 
-    this.getNegeri();
-    this.getDaerah()
-    this.getMukim();
-    this.getParlimen()
-    this.getDun()
-    this.getKampung()
-    this.getSeksyen()
-    this.getKategoriUsahawan()
   }
 
   setFormValues() {
@@ -175,8 +264,10 @@ export class ProfilePage implements OnInit {
       tarikhlahir: this.usahawan.tarikhlahir,
       U_Jantina_ID: this.usahawan.U_Jantina_ID,
       U_Bangsa_ID: this.usahawan.U_Bangsa_ID,
+      U_Etnik_ID: this.usahawan.U_Etnik_ID,
       statusperkahwinan: this.usahawan.statusperkahwinan,
       U_Pendidikan_ID: this.usahawan.U_Pendidikan_ID,
+      U_Taraf_Pendidikan_Tertinggi_ID: this.usahawan.U_Taraf_Pendidikan_Tertinggi_ID,
       alamat1: this.usahawan.alamat1,
       alamat2: this.usahawan.alamat2,
       alamat3: this.usahawan.alamat3,
@@ -199,7 +290,7 @@ export class ProfilePage implements OnInit {
       negeri_perniagaan: this.usahawan.negeri_perniagaan,
     })
 
-    
+
   }
 
 
@@ -219,6 +310,19 @@ export class ProfilePage implements OnInit {
         this.getPT()
 
         // this.calcBirthDate()
+
+        this.getUser();
+
+        this.getNegeri();
+        this.getDaerah()
+        this.getMukim();
+        this.getParlimen()
+        this.getDun()
+        this.getKampung()
+        this.getSeksyen()
+        this.getKategoriUsahawan()
+
+        this.setFormValues()
 
       }
     });
@@ -253,8 +357,6 @@ export class ProfilePage implements OnInit {
       this.pusatTanggungjawab = res[0].keterangan;
       console.log("pt", this.pusatTanggungjawab);
 
-      
-      this.setFormValues()
 
     });
 
@@ -332,6 +434,7 @@ export class ProfilePage implements OnInit {
 
   getSeksyen() {
     this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
+    console.log("Mukimmmmmmmmmmm", this.usahawan.U_Mukim_ID)
     this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.usahawan.U_Mukim_ID))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
 
@@ -356,33 +459,33 @@ export class ProfilePage implements OnInit {
       // this.daerahService.get().subscribe((res) => {
 
       console.log("aliran", res);
-      
+
       let sum = 0;
       res.forEach(element => {
-        sum+= element.jumlah_aliran;
+        sum += element.jumlah_aliran;
       });
 
-      if(sum < 60000){
+      if (sum < 60000) {
         //pico
         this.form.patchValue({
           id_kategori_usahawan: "KU01"
         })
-      } else if(sum >= 60000 && sum < 150000){
+      } else if (sum >= 60000 && sum < 150000) {
         // nano
         this.form.patchValue({
           id_kategori_usahawan: "KU02"
         })
-      } else if(sum >= 150000 && sum < 300000){
+      } else if (sum >= 150000 && sum < 300000) {
         //micro
         this.form.patchValue({
           id_kategori_usahawan: "KU03"
         })
-      } else if(sum >= 300000 && sum < 15000000	){
+      } else if (sum >= 300000 && sum < 15000000) {
         //kecil
         this.form.patchValue({
           id_kategori_usahawan: "KU04"
         })
-      } else if(sum >= 300000 && sum < 15000000	){
+      } else if (sum >= 300000 && sum < 15000000) {
         // sederhana
         this.form.patchValue({
           id_kategori_usahawan: "KU05"
@@ -391,6 +494,7 @@ export class ProfilePage implements OnInit {
       console.log("sum", sum)
     });
   }
+
 
   // calcBirthDate(){
 

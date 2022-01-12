@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
+import { KemaskiniLaporanPage } from '../kemaskini-laporan/kemaskini-laporan.page';
 import { PengesahanTarikhLawatanPgwPageModule } from '../pengesahan-tarikh-lawatan-pgw/pengesahan-tarikh-lawatan-pgw.module';
 import { PengesahanTarikhLawatanPgwPage } from '../pengesahan-tarikh-lawatan-pgw/pengesahan-tarikh-lawatan-pgw.page';
 import { TambahLaporanPage } from '../tambah-laporan/tambah-laporan.page';
@@ -57,7 +58,7 @@ export class LawatanPegawaiPage implements OnInit {
   async tambahLaporan(laporan) {
     console.log("pengesahan lawatan");
     const modal = await this.modalController.create({
-      component: TambahLaporanPage,
+      component: KemaskiniLaporanPage,
       componentProps: { laporan },
       cssClass: 'my-custom-class'
     });
@@ -66,7 +67,7 @@ export class LawatanPegawaiPage implements OnInit {
 
   getLawatan(){
 
-    this.lawatanService.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan != "selesai"))).subscribe((res) => {
+    this.lawatanService.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan != "4"))).subscribe((res) => {
       console.log("res", res);
 
       this.lawatan = res;
@@ -74,7 +75,7 @@ export class LawatanPegawaiPage implements OnInit {
       // this.lawatan
     });
 
-    this.lawatanService.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan == "selesai"))).subscribe((res) => {
+    this.lawatanService.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan == "4"))).subscribe((res) => {
       console.log("res2", res);
 
       this.laporan = res;

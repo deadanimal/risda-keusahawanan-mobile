@@ -22,19 +22,20 @@
           Katalog
         </ion-col>
         <ion-col style="display: flex; justify-content:flex-end">
-          <img src="assets/icon/arrow-down--(greeny)-icon.png" alt="" height="20px">
-
+          <a href="/dashboard/senarai-katalog">
+            <img src="assets/icon/arrow-down--(greeny)-icon.png" alt="" height="20px">
+          </a>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
 
   <div class="scrolling-wrapper">
-    <div *ngFor="let img_info of img_info" class="card">
+    <div *ngFor="let katalog of katalog" class="card">
       <ion-card class="no-padding" style="width: 200px;">
 
         <ion-card-content class="no-padding" style="width: 200px;">
-          <div style="background-image: url('{{img_info.url}}');
+          <div style="background-image: url('{{katalog.gambar_url}}');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
@@ -45,7 +46,7 @@
         justify-content:flex-end;
         ">
 
-            <img src="/assets/icon/fav--no-fill-icon.png" alt="" height="50px">
+            <!-- <img src="/assets/icon/fav--no-fill-icon.png" alt="" height="50px"> -->
           </div>
 
         </ion-card-content>
@@ -54,6 +55,7 @@
     </div>
 
   </div>
+  <!-- {{ '1234567.897766867' | number:'1.2-2':'en-US' }} -->
 
   <div class="ion-margin-top ion-padding bold" style="width: 100%; padding-bottom:0px !important">
 
@@ -63,26 +65,27 @@
           Berita Terkini
         </ion-col>
         <ion-col style="display: flex; justify-content:flex-end">
-          <img src="assets/icon/arrow-down--(greeny)-icon.png" alt="" height="20px">
+          <a href="/dashboard/senarai-buletin">
+            <img src="assets/icon/arrow-down--(greeny)-icon.png" alt="" height="20px">
+          </a>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
 
   <div class="ion-padding" style="margin-right: 30px;">
-    <ion-card style="width: 100%; margin-bottom:20px !important">
-      <img src="/assets/img/pic2.jpeg" />
+    <ion-card *ngFor="let buletin of buletin" style="width: 100%; margin-bottom:20px !important">
+      <img src="{{buletin.gambar_buletin}}" />
       <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
+        <!-- <ion-card-subtitle>Destination</ion-card-subtitle> -->
+        <ion-card-title>{{ buletin.tajuk }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-        Wisconsin Territory in 1836.
+        {{ buletin.keterangan_lain}}
       </ion-card-content>
     </ion-card>
 
-    <ion-card style="width: 100%;">
+    <!-- <ion-card style="width: 100%;">
       <img src="/assets/img/bg1.jpg" />
       <ion-card-header>
         <ion-card-subtitle>Destination</ion-card-subtitle>
@@ -92,7 +95,7 @@
         Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
         Wisconsin Territory in 1836.
       </ion-card-content>
-    </ion-card>
+    </ion-card> -->
   </div>
 
 

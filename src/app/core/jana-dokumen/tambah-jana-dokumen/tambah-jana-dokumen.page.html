@@ -25,6 +25,14 @@
 
         </ion-col>
       </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>TAJUK</ion-label>
+          <ion-input type="text" formControlName="tajuk"></ion-input>
+        </ion-col>
+      </ion-row>
+      
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>NAMA PELANGGAN</ion-label>
@@ -144,18 +152,26 @@
 
       </div>
 
-      <!-- <ion-row style="margin-bottom: 20px;">
+      <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <div style="width:100%; display:flex; justify-content:flex-end;">
-
-            <div class="ion-text-center" (click)="addProduk()">
-              <img src="/assets/icon/add-item-icon.png" alt="" height="40" width="40">
-              <br>
-            </div>
-
-          </div>
+          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN)</ion-label>
+          <ion-input type="number" formControlName="diskaun"></ion-input>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN)</ion-label>
+          <ion-input type="number" formControlName="kos_penghantaran"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
+        <ion-col class="form-control">
+          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN)</ion-label>
+          <ion-input type="number" formControlName="cukai_sst"></ion-input>
+        </ion-col>
+      </ion-row>
 
 
 
