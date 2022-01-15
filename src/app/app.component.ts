@@ -83,6 +83,10 @@ export class AppComponent {
     });
   }
 
+
+  profil(){
+    this.router.navigate(['/profile'])
+  }
   // profile() {
   //   this.router.navigate(['/profile']);
   // }

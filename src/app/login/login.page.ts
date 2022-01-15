@@ -78,4 +78,7 @@ export class LoginPage implements OnInit {
     return result;
   }
 
+  forget_password(){
+    this.router.navigate(['/forgot-password'])
+  }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import { ShowKatalogPage } from '../show-katalog/show-katalog.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-senarai-katalog',
@@ -15,17 +16,25 @@ export class SenaraiKatalogPage implements OnInit {
   constructor(
     private katalogService : KatalogService,
     public modalController: ModalController,
+    public loadingController: LoadingController,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.getKatalog()
   }
 
-  getKatalog() {
+  async getKatalog() {
+
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
+
     this.katalogService.getAll().pipe(map(x => x.filter(i => i.status_katalog == "publish"))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
       console.log("res", res);
       this.katalog = res;
+
+      loading.dismiss();
       
     });
 
@@ -39,6 +48,10 @@ export class SenaraiKatalogPage implements OnInit {
       cssClass: 'my-custom-class'
     });
     return await modal.present();
+  }
+
+  dashboard(){
+    this.router.navigate(['/dashboard'])
   }
 
 }

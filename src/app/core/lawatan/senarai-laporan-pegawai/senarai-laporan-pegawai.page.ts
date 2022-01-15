@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 import { TambahLaporanPage } from '../tambah-laporan/tambah-laporan.page';
+import { Router } from '@angular/router';
+import { KemaskiniLaporanPage } from '../kemaskini-laporan/kemaskini-laporan.page';
 
 @Component({
   selector: 'app-senarai-laporan-pegawai',
@@ -16,7 +18,9 @@ export class SenaraiLaporanPegawaiPage implements OnInit {
 
   constructor(
     public modalController: ModalController,
-    private lawatanServicce : LawatanService
+    private lawatanServicce : LawatanService,
+    private router: Router,
+    public loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
@@ -35,12 +39,33 @@ export class SenaraiLaporanPegawaiPage implements OnInit {
   }
 
 
-  getLaporan() {
+  async getLaporan() {
+
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
+
+
     this.lawatanServicce.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan == '4'))).subscribe((res) => {
       console.log("laporan", res);
 
       this.laporan = res;
 
+      loading.dismiss();
+
     });
+  }
+
+  async kemaskiniLaporan(laporan) {
+    console.log("pengesahan lawatan");
+    const modal = await this.modalController.create({
+      component: KemaskiniLaporanPage,
+      componentProps: { laporan },
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
+  dashboard(){
+    this.router.navigate(['/dashboard'])
   }
 }

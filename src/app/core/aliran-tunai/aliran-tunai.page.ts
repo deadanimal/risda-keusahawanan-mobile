@@ -5,6 +5,7 @@ import { KemaskiniTunaiMasukPage } from '../modal/kemaskini-tunai-masuk/kemaskin
 import { TambahTunaiKeluarPage } from '../modal/tambah-tunai-keluar/tambah-tunai-keluar.page';
 import { TambahTunaiMasukPage } from '../modal/tambah-tunai-masuk/tambah-tunai-masuk.page';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
+import { Router } from '@angular/router';
 // import { KemaskiniTunaiMasukComponent } from './kemaskini-tunai-masuk/kemaskini-tunai-masuk.component';
 @Component({
   selector: 'app-aliran-tunai',
@@ -21,7 +22,8 @@ export class AliranTunaiPage implements OnInit {
 
   constructor(
     public modalController: ModalController,
-    private aliranService: AliranService
+    private aliranService: AliranService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -91,6 +93,10 @@ export class AliranTunaiPage implements OnInit {
       this.tunai_keluar = temp2;
     });
 
+  }
+
+  dashboard(){
+    this.router.navigate(['/dashboard'])
   }
 
 }

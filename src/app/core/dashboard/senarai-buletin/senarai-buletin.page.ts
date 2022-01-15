@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { BuletinService } from 'src/app/services/buletin/buletin.service';
 import { ShowBuletinPage } from '../show-buletin/show-buletin.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-senarai-buletin',
@@ -16,6 +17,8 @@ export class SenaraiBuletinPage implements OnInit {
   constructor(
     private buletinService : BuletinService,
     public modalController: ModalController,
+    private router: Router,
+    public loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
@@ -33,7 +36,7 @@ export class SenaraiBuletinPage implements OnInit {
   }
 
   async lihatBuletin(buletin: any) {
-    console.log("kemaskini Katalog");
+    // console.log("kemaskini Katalog");
     const modal = await this.modalController.create({
       component: ShowBuletinPage,
       componentProps: { buletin },
@@ -42,4 +45,7 @@ export class SenaraiBuletinPage implements OnInit {
     return await modal.present();
   }
 
+  dashboard(){
+    this.router.navigate(['/dashboard'])
+  }
 }

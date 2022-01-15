@@ -32,7 +32,7 @@
           <ion-input type="text" formControlName="tajuk"></ion-input>
         </ion-col>
       </ion-row>
-      
+
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>NAMA PELANGGAN</ion-label>
@@ -175,7 +175,8 @@
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-button type="submit" color="success" expand="block">KEMASKINI</ion-button>
-          <ion-button color="danger" expand="block" (click)="onDelete()">HAPUS</ion-button>
+          <!-- <ion-button color="danger" expand="block" (click)="onDelete()">HAPUS</ion-button> -->
+          <ion-button color="danger" expand="block" (click)="presentAlertConfirmDelete()">HAPUS</ion-button>
         </ion-col>
       </ion-row>
     </form>

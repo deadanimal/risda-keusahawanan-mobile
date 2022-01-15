@@ -16,6 +16,7 @@ import { NegeriService } from 'src/app/services/negeri/negeri.service';
 import { ParlimenService } from 'src/app/services/parlimen/parlimen.service';
 import { SeksyenService } from 'src/app/services/seksyen/seksyen.service';
 import { ProdukService } from 'src/app/services/produk/produk.service';
+import { AliranService } from 'src/app/services/Aliran/aliran.service';
 
 @Component({
   selector: 'app-profile-perniagaan',
@@ -136,7 +137,8 @@ export class ProfilePerniagaanPage implements OnInit {
     private dunService: DunService,
     private kampungService: KampungService,
     private seksyenService: SeksyenService,
-    private produkService: ProdukService
+    private produkService: ProdukService,
+    private aliranService:AliranService,
   ) {
     this.form = this.formBuilder.group({
       jenisperniagaan: ['', Validators.required],
@@ -463,6 +465,38 @@ export class ProfilePerniagaanPage implements OnInit {
       U_Kampung_ID: null,
       U_Seksyen_ID: null,
     })
+  }
+
+  calcMaklumatPendapatan(){
+
+    let purata_jualan_bulanan = this.form.value.purata_jualan_bulanan;
+
+    console.log(purata_jualan_bulanan);
+
+    this.aliranService.getTotalYear(this.user_id).subscribe((res) => {
+      console.log("jumlah tahunan", res);
+
+      this.form.patchValue({
+        hasil_jualan_tahunan: res,
+  
+      })
+
+    });
+
+    this.aliranService.getTotalMonth(this.user_id).subscribe((res) => {
+      console.log("jumlah bulanan", res);
+
+      let total = ((res - purata_jualan_bulanan)/ (res + purata_jualan_bulanan))*100;
+
+      console.log("total", total);
+
+      this.form.patchValue({
+        peratus_kenaikan: total.toFixed(2),
+  
+      })
+    });
+
+
   }
 
 

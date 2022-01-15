@@ -38,7 +38,7 @@ export class InsentifPage implements OnInit {
   insentif: any;
 
   getInsentif() {
-    this.insentifService.get(this.user_id).subscribe((res) => {
+    this.insentifService.get(this.usahawan_id).subscribe((res) => {
       console.log("insentif", res);
 
       this.insentif = res;

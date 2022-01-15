@@ -31,4 +31,8 @@ export class PelangganService {
       `${this.url}/${id}`
     );
   }
+
+  janaDokumen(id): Observable<any> {
+    return this.http.get<any>(`${this.url}`+'/janaDokumen/'+id);
+  }
 }

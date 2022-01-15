@@ -96,7 +96,7 @@ export class KemaskiniKatalogPage implements OnInit {
 
   setFormValues() {
 
-    this.form.setValue({
+    this.form.patchValue({
       id_pengguna: this.katalog.id_pengguna,
       nama_produk: this.katalog.nama_produk,
       kandungan_produk: this.katalog.kandungan_produk,
@@ -107,10 +107,22 @@ export class KemaskiniKatalogPage implements OnInit {
       baki_stok: this.katalog.unit_production,
       unit_production: this.katalog.unit_production,
 
-      status_katalog: this.katalog.status_katalog,
+      // status_katalog: this.katalog.status_katalog,
       gambar_url: this.katalog.gambar_url,
       modified_by: this.katalog.modified_by,
     });
+
+    if (this.katalog.status_katalog == "publish"){
+      this.form.patchValue({
+        status_katalog: "pending"
+        
+      });
+    } else {
+      this.form.patchValue({
+        status_katalog: this.katalog.status_katalog
+        
+      });
+    }
 
     this.form.updateValueAndValidity();
   }
@@ -118,6 +130,8 @@ export class KemaskiniKatalogPage implements OnInit {
   async logForm() {
 
     this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
+
+    // this.form.value.status_katalog 
 
     const loading = await this.loadingController.create({message:'Loading ...'});
     loading.present();

@@ -44,14 +44,14 @@
         <ion-col class="form-control">
           <ion-item lines="none" class="form-control" style="border: none;">
             <ion-label class="padding" position="stacked">TARIKH </ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" formControlName="tarikh_lawatan" readonly style="background-color: #f5f5f5;">
+            <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikh_lawatan" readonly style="background-color: #f5f5f5;">
             </ion-datetime>
           </ion-item>
         </ion-col>
         <ion-col class="form-control">
           <ion-item lines="none" class="form-control" style="border: none;">
             <ion-label class="padding" position="stacked">MASA </ion-label>
-            <ion-datetime displayFormat="HHmm" formControlName="masa_lawatan" readonly style="background-color: #f5f5f5;">
+            <ion-datetime presentation="time" displayFormat="HHmm" formControlName="masa_lawatan" readonly style="background-color: #f5f5f5;">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -113,7 +113,7 @@
         <ion-col class="form-control">
           
           <ion-button color="success" expand="block" [disabled]="form.invalid" type="submit">KEMASKINI LAPORAN</ion-button>
-          <ion-button color="success" expand="block">CETAK LAPORAN</ion-button>
+          <ion-button color="success" expand="block" (click)="download_laporan(laporan.lawatan_id)">CETAK LAPORAN</ion-button>
         </ion-col>
       </ion-row>
 

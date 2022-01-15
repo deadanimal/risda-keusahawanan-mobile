@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { PelangganService } from 'src/app/services/pelanggan/pelanggan.service';
+import { environment } from 'src/environments/environment';
 import { KemaskiniDokumenPage } from '../kemaskini-dokumen/kemaskini-dokumen.page';
 import { TambahJanaDokumenPage } from '../tambah-jana-dokumen/tambah-jana-dokumen.page';
 
@@ -60,6 +61,22 @@ export class JanaDokumenPage implements OnInit {
       this.pelanggan = res;
 
       loading.dismiss();
+    });
+  }
+
+
+  jana_Dokumen(id) {
+
+    console.log(id);
+    this.pelangganService.janaDokumen(id).subscribe((res) => {
+      console.log("res3", res);
+
+      let url = environment.baseUrl + 'storage/' + res;
+
+      console.log(url);
+      window.open(url, "_blank");
+
+
     });
   }
 

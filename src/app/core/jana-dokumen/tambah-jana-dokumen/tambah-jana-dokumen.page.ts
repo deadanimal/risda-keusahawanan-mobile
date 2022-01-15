@@ -207,4 +207,6 @@ export class TambahJanaDokumenPage implements OnInit {
     window.location.reload();
   }
 
+  
+
 }

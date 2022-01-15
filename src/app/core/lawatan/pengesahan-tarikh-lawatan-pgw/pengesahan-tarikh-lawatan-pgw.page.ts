@@ -70,10 +70,10 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
     if (this.pegawai_id == null) {
       //usahawan
-      this.form.value.status_lawatan = "pegawai"
+      this.form.value.status_lawatan = "2"
     } else {
       //pegawai
-      this.form.value.status_lawatan = "usahawan"
+      this.form.value.status_lawatan = "1"
     }
 
     this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
@@ -91,7 +91,7 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
   sahkan() {
 
-    this.form.value.status_lawatan = "disahkan"
+    this.form.value.status_lawatan = "3"
 
     console.log(this.form.value)
     this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {

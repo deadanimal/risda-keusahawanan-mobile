@@ -329,21 +329,21 @@
       <ion-row>
         <ion-col>
           <ion-label> PURATA JUALAN BULANAN</ion-label>
-          <ion-input type="Number" formControlName="purata_jualan_bulanan"></ion-input>
+          <ion-input type="Number" formControlName="purata_jualan_bulanan" (ionChange)="calcMaklumatPendapatan()"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> PERATUS KENAIKAN</ion-label>
-          <ion-input type="Number" formControlName="peratus_kenaikan"></ion-input>
+          <ion-input type="Number" formControlName="peratus_kenaikan" readonly></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> HASIL JUALAN TAHUNAN</ion-label>
-          <ion-input type="Number" formControlName="hasil_jualan_tahunan"></ion-input>
+          <ion-input type="Number" formControlName="hasil_jualan_tahunan" readonly></ion-input>
         </ion-col>
 
       </ion-row>

@@ -34,21 +34,25 @@
     <form [formGroup]="form" (ngSubmit)="login()">
       <ion-item style="border-radius: 50px;">
         <!-- <ion-label position="floating"></ion-label> -->
-        <ion-input type="text" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp'
-        (keypress)="numericOnly($event)"
-        ></ion-input>
+        <ion-input type="number" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp'
+          style="text-transform: none !important;" (keypress)="numericOnly($event)"></ion-input>
       </ion-item>
       <br>
 
       <ion-item style="border-radius: 50px;">
         <!-- <ion-label position="floating">Kata Laluan</ion-label> -->
-        <ion-input type="password" placeholder="Kata Laluan" name="password" formControlName='password'>
+        <ion-input type="password" placeholder="Kata Laluan" name="password" formControlName='password'
+          style="text-transform: none !important;">
         </ion-input>
       </ion-item>
       <br>
-      <a href="/forgot-password" style="text-decoration: none;">
-        <div class="forget-password nunitosans-extra-bold-green-haze-12px">Lupa Kata Laluan?</div>
-      </a>
+
+      <div style="display: flex; justify-content:flex-end">
+        <a  class="forget-password nunitosans-extra-bold-green-haze-12px" (click)="forget_password()" style="text-decoration: none;">
+          Lupa Kata Laluan?
+        </a>
+      </div>
+
       <br>
 
       <ion-button expand="block" color="success" type="submit" [disabled]="form.invalid">Log masuk</ion-button>

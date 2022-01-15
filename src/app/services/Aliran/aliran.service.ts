@@ -37,4 +37,16 @@ export class AliranService {
       `${this.url}` + "/uploadDoc/" + id, data
     );
   }
+
+  getTotalYear(id): Observable<any> {
+    return this.http.get<any>(
+      `${this.url}` + "/getYear/" + id
+    );
+  }
+
+  getTotalMonth(id): Observable<any> {
+    return this.http.get<any>(
+      `${this.url}` + "/getMonth/" + id
+    );
+  }
 }

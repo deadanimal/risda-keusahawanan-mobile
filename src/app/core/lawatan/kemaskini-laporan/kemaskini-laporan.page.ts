@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 interface LocalFile {
   name: string;
@@ -21,14 +22,14 @@ export class KemaskiniLaporanPage implements OnInit {
   @Input() laporan: any;
 
 
-  url: any ;
-  
+  url: any;
+
   private form: FormGroup;
 
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private lawatanService : LawatanService,
+    private lawatanService: LawatanService,
   ) {
     this.form = this.formBuilder.group({
       namausahawan: ['', Validators.required],
@@ -37,20 +38,20 @@ export class KemaskiniLaporanPage implements OnInit {
       id_tindakan_lawatan: ['', Validators.required],
       komen: ['', Validators.required],
       jenis_lawatan: ['', Validators.required],
-      gambar_lawatan: ['', ],
+      gambar_lawatan: ['',],
     });
   }
 
   ngOnInit() {
     console.log("laporan", this.laporan);
 
-    if(this.laporan.gambar_lawatan == null){
+    if (this.laporan.gambar_lawatan == null) {
       this.url = 'assets/icon/image-not-available.png';
-    } else{
+    } else {
       this.url = this.laporan.gambar_lawatan;
     }
 
-    
+
     this.getTindakanLawatan();
   }
 
@@ -77,8 +78,8 @@ export class KemaskiniLaporanPage implements OnInit {
     });
   }
 
-  tindakanLawatan :any;
-  getTindakanLawatan(){
+  tindakanLawatan: any;
+  getTindakanLawatan() {
     this.lawatanService.getTindakanLawatan().pipe(map(x => x.filter(i => i.status_tindakan_lawatan == "aktif"))).subscribe((res) => {
       console.log("tindakan lawatan", res);
 
@@ -90,12 +91,12 @@ export class KemaskiniLaporanPage implements OnInit {
 
   logForm() {
 
-    if (this.images.length > 0){
+    if (this.images.length > 0) {
       this.form.value.gambar_lawatan = this.images[0].data;
     } else {
       this.form.value.gambar_lawatan = this.laporan.gambar_lawatan;
     }
-    
+
     console.log(this.form.value.gambar_url)
 
     this.lawatanService.updateLaporan(this.form.value, this.laporan.lawatan_id).subscribe((res) => {
@@ -106,7 +107,7 @@ export class KemaskiniLaporanPage implements OnInit {
     });
   }
 
-  
+
   //image
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
@@ -143,7 +144,7 @@ export class KemaskiniLaporanPage implements OnInit {
       data: `${base64Data}`,
     });
 
-    console.log("AAAA",this.images);
+    console.log("AAAA", this.images);
   }
 
   // https://ionicframework.com/docs/angular/your-first-app/3-saving-photos
@@ -164,6 +165,23 @@ export class KemaskiniLaporanPage implements OnInit {
       };
       reader.readAsDataURL(blob);
     });
+
+
+
+  download_laporan(id) {
+
+    console.log(id);
+    this.lawatanService.janaLaporan(id).subscribe((res) => {
+      console.log("res3", res);
+
+      let url = environment.baseUrl + 'storage/' + res;
+
+      console.log(url);
+      window.open(url, "_blank");
+
+
+    });
+  }
 
 
 }

@@ -22,7 +22,7 @@
           Katalog
         </ion-col>
         <ion-col style="display: flex; justify-content:flex-end">
-          <a href="/dashboard/senarai-katalog">
+          <a (click)="SenaraiKatalog()">
             <img src="assets/icon/arrow-down--(greeny)-icon.png" alt="" height="20px">
           </a>
         </ion-col>
@@ -31,7 +31,7 @@
   </div>
 
   <div class="scrolling-wrapper">
-    <div *ngFor="let katalog of katalog" class="card">
+    <div *ngFor="let katalog of katalog" class="card" (click)="lihatKatalog(katalog)">
       <ion-card class="no-padding" style="width: 200px;">
 
         <ion-card-content class="no-padding" style="width: 200px;">
@@ -65,7 +65,7 @@
           Berita Terkini
         </ion-col>
         <ion-col style="display: flex; justify-content:flex-end">
-          <a href="/dashboard/senarai-buletin">
+          <a (click)="SenaraiBuletin()">
             <img src="assets/icon/arrow-down--(greeny)-icon.png" alt="" height="20px">
           </a>
         </ion-col>
@@ -78,24 +78,21 @@
       <img src="{{buletin.gambar_buletin}}" />
       <ion-card-header>
         <!-- <ion-card-subtitle>Destination</ion-card-subtitle> -->
+      
         <ion-card-title>{{ buletin.tajuk }}</ion-card-title>
+
+       
       </ion-card-header>
-      <ion-card-content>
-        {{ buletin.keterangan_lain}}
+      <ion-card-content style="display:flex; justify-content: flex-end;">
+        <!-- {{ buletin.keterangan_lain}} -->
+        <ion-button size="small" (click)="lihatBuletin(buletin)">
+          Selanjutnya
+        </ion-button>
+        
       </ion-card-content>
     </ion-card>
 
-    <!-- <ion-card style="width: 100%;">
-      <img src="/assets/img/bg1.jpg" />
-      <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-        Wisconsin Territory in 1836.
-      </ion-card-content>
-    </ion-card> -->
+   
   </div>
 
 

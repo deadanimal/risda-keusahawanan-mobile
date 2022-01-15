@@ -33,13 +33,13 @@
     <div style="height: 70%; width:100%; overflow: scroll; display:flex; justify-content:center">
 
       <ion-grid class="rectangle-279">
-        <ion-row *ngFor="let pelanggan of pelanggan" (click)="kemaskiniDokumen(pelanggan)"
+        <ion-row *ngFor="let pelanggan of pelanggan" 
           style="margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;">
-          <ion-col>
+          <ion-col >
             <div class=" bold" style="font-family: 'Nunito Sans';">
               <ion-grid style="padding: 0%;">
                 <ion-row style="padding: 0%;">
-                  <ion-col size="8">
+                  <ion-col size="8" (click)="kemaskiniDokumen(pelanggan)">
                     <ion-text>
                       <h6 class="bold no-padding">
                         {{pelanggan.nama_pelanggan}}
@@ -52,7 +52,7 @@
                     </ion-text>
                   </ion-col>
                   <ion-col size="4" style="padding: 0%; display:flex; justify-content:flex-end; align-items:center">
-                    <img src="assets/icon/DOWNLOAD.png" alt="pending" height="25px" style="margin-left: 20px;">
+                    <img (click)="jana_Dokumen(pelanggan.id)" src="assets/icon/DOWNLOAD.png" alt="pending" height="25px" style="margin-left: 20px;">
                   </ion-col>
                 </ion-row>
               </ion-grid>

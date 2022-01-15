@@ -304,24 +304,25 @@ export class KemaskiniDokumenPage implements OnInit {
     this.refresh();
   }
 
-  async presentAlertConfirm(i) {
+  async presentAlertConfirmDelete() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Confirm!',
-      message: 'Message <strong>text</strong>!!!',
+      header: 'Maklumat akan dihapus!',
+      message: 'Adakah anda pasti?',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Batal',
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
           }
         }, {
-          text: 'Okay',
+          text: 'Ya',
           handler: () => {
             console.log('Confirm Okay');
-            console.log(i);
+            // console.log(i);
+            this.onDelete();
           }
         }
       ]
