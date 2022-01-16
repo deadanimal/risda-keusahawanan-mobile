@@ -65,10 +65,15 @@ export class JanaDokumenPage implements OnInit {
   }
 
 
-  jana_Dokumen(id) {
+  jana_Dokumen(id_pelanggan) {
 
-    console.log(id);
-    this.pelangganService.janaDokumen(id).subscribe((res) => {
+    console.log(id_pelanggan);
+
+    let formdata = new FormData();
+
+    formdata.append('id_pengguna', this.user_id);
+
+    this.pelangganService.janaDokumen(id_pelanggan, formdata).subscribe((res) => {
       console.log("res3", res);
 
       let url = environment.baseUrl + 'storage/' + res;

@@ -32,7 +32,7 @@ export class PelangganService {
     );
   }
 
-  janaDokumen(id): Observable<any> {
-    return this.http.get<any>(`${this.url}`+'/janaDokumen/'+id);
+  janaDokumen(id_pelanggan, id_pengguna): Observable<any> {
+    return this.http.post<any>(`${this.url}`+'/janaDokumen/'+id_pelanggan, id_pengguna);
   }
 }

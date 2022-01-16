@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
@@ -26,6 +26,7 @@ export class TambahKatalogPage implements OnInit {
     public modalController: ModalController,
     private formBuilder: FormBuilder,
     private katalogService: KatalogService,
+    private loadingController: LoadingController,
   ) {
     this.form = this.formBuilder.group({
       id_pengguna: ['',],
@@ -56,16 +57,19 @@ export class TambahKatalogPage implements OnInit {
     });
   }
 
-  logForm() {
+  async logForm() {
 
     this.form.value.gambar_url = this.images[0].data;
 
     console.log(this.form.value)
     
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
 
     this.katalogService.post(this.form.value).subscribe((res) => {
       console.log("res", res);
 
+      loading.dismiss();
       this.dismiss();
       window.location.reload();
     });
