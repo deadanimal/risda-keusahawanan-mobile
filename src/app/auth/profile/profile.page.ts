@@ -522,6 +522,8 @@ export class ProfilePage implements OnInit {
     this.usahawanService.update(this.usahawan_id, this.form.value).subscribe((res) => {
       console.log(res);
 
+      this.getUser();
+
       loading.dismiss();
 
       this.presentAlert()
@@ -603,4 +605,38 @@ export class ProfilePage implements OnInit {
       reader.readAsDataURL(blob);
     });
 
+
+
+  async presentAlertUpdateProfile() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Ralat',
+      // subHeader: 'Subtitle',
+      message: 'Sila kamaskini profil anda terlebih dahulu',
+      buttons: [
+        {
+          text: 'Okay',
+          // id: 'confirm-button',
+          handler: () => {
+            // this.router.navigate(['/dashboard'])
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+  back() {
+
+    if (this.user.profile_status == 0) {
+      this.presentAlertUpdateProfile();
+    } else {
+      this.router.navigate(['/dashboard']);
+    }
+
+  }
 }

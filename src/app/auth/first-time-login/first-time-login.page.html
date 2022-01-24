@@ -17,12 +17,6 @@
 
     <div class="element-logo"></div>
 
-    <!-- <ion-text >
-      <h1 class="welcome-back nunitosans-extra-bold-green-haze-36px">Selamat Datang</h1>
-    </ion-text> -->
-    <!-- <ion-text class="welcome-back">
-      <h1>Selamat Datang</h1>
-    </ion-text> -->
 
     <ion-text style="text-align: center;">
       <h2>Log Masuk Kali Pertama</h2>
@@ -30,31 +24,26 @@
 
 
     <br><br><br>
-    <!-- <h1 class="welcome-backnats-regular-normal-log-cabin-26px ion-text-center">Log Masuk Kali Pertama</h1> -->
 
-    <form action="">
+    <form action="" [formGroup]="form" (ngSubmit)="logForm()">
       <ion-item style="border-radius: 50px;">
-        <!-- <ion-label position="floating"></ion-label> -->
-        <ion-input placeholder="Email"></ion-input>
+        <ion-input type="email" email placeholder="Email" formControlName="email" style="text-transform: none !important;"></ion-input>
       </ion-item>
       <br>
 
       <ion-item style="border-radius: 50px;">
-        <!-- <ion-label position="floating">Kata Laluan</ion-label> -->
-        <ion-input type="password" placeholder="Kata Laluan Baru"></ion-input>
+        <ion-input type="password" formControlName="password" placeholder="Kata Laluan Baru" style="text-transform: none !important;"></ion-input>
       </ion-item>
       <br>
       <ion-item style="border-radius: 50px;">
-        <!-- <ion-label position="floating">Kata Laluan</ion-label> -->
-        <ion-input type="password" placeholder="Ulang Kata Laluan Baru"></ion-input>
+        <ion-input type="password" formControlName="confirm_password" placeholder="Ulang Kata Laluan Baru" style="text-transform: none !important;"></ion-input>
       </ion-item>
 
       <br>
-      <!-- <div class="forget-password nunitosans-extra-bold-green-haze-12px">Lupa Kata Laluan?</div> -->
 
       <br>
 
-      <ion-button type="submit" expand="block" color="success" (click)="presentAlertConfirm()">Log masuk</ion-button>
+      <ion-button type="submit" expand="block" color="success" [disabled]="form.invalid">Log masuk</ion-button>
     </form>
     
   </div>

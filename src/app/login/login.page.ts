@@ -60,7 +60,14 @@ export class LoginPage implements OnInit {
         }
 
         console.log("login success")
-        this.router.navigate(['/dashboard']);
+        // this.router.navigate(['/dashboard']);
+
+        if (res.profile_status == 0) {
+          this.router.navigate(['/first-time-login']);
+        }
+        else if (res.profile_status == 1) {
+          this.router.navigate(['/dashboard']);
+        }
 
       }
     });

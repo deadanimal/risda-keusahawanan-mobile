@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
@@ -27,6 +27,7 @@ export class TambahKatalogPage implements OnInit {
     private formBuilder: FormBuilder,
     private katalogService: KatalogService,
     private loadingController: LoadingController,
+    public alertController: AlertController,
   ) {
     this.form = this.formBuilder.group({
       id_pengguna: ['',],
@@ -62,7 +63,7 @@ export class TambahKatalogPage implements OnInit {
     this.form.value.gambar_url = this.images[0].data;
 
     console.log(this.form.value)
-    
+
     const loading = await this.loadingController.create({ message: 'Loading ...' });
     loading.present();
 
@@ -96,6 +97,12 @@ export class TambahKatalogPage implements OnInit {
 
   url: any = 'assets/icon/image-not-available.png';
   onSelectFile(event) {
+
+    const test = event.target.files[0];
+    console.log('size', test.size);
+    console.log('type', test.type);
+
+
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
@@ -107,6 +114,18 @@ export class TambahKatalogPage implements OnInit {
 
       this.fileEvent(event);
     }
+
+    // if (test.size > 1000000) {
+    //   console.log("size file lebih")
+
+    //   this.presentAlert();
+    // } else {
+
+     
+
+    // }
+
+
   }
 
   // Convert the base64 to blob data
@@ -130,7 +149,8 @@ export class TambahKatalogPage implements OnInit {
       data: `${base64Data}`,
     });
 
-    console.log("AAAA",this.images);
+    console.log("AAAA", this.images);
+
   }
 
   // https://ionicframework.com/docs/angular/your-first-app/3-saving-photos
@@ -152,5 +172,20 @@ export class TambahKatalogPage implements OnInit {
       reader.readAsDataURL(blob);
     });
 
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Ralat',
+      subHeader: 'Saiz Gambar tidak boleh melebihi 1MB',
+      message: '',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
 
 }

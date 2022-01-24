@@ -13,4 +13,5 @@ export class LoginModel {
     public usahawanid: Number;
     public idpegawai: Number;
     public status_pengguna: boolean;
+  profile_status: any;
 }

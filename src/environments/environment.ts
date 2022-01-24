@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   
-  baseUrl : 'http://127.0.0.1:8000/'
+  // baseUrl : 'http://127.0.0.1:8000/'
 
-  // baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
+  baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
 };
 
 
