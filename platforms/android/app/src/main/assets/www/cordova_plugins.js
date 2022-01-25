@@ -373,6 +373,28 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "cordova.plugin.http"
       ]
+    },
+    {
+      "id": "cordova-plugin-geolocation.geolocation",
+      "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+      "pluginId": "cordova-plugin-geolocation",
+      "clobbers": [
+        "navigator.geolocation"
+      ]
+    },
+    {
+      "id": "cordova-plugin-geolocation.PositionError",
+      "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+      "pluginId": "cordova-plugin-geolocation",
+      "runs": true
+    },
+    {
+      "id": "cordova-plugin-nativegeocoder.NativeGeocoder",
+      "file": "plugins/cordova-plugin-nativegeocoder/www/NativeGeocoder.js",
+      "pluginId": "cordova-plugin-nativegeocoder",
+      "clobbers": [
+        "nativegeocoder"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -388,6 +410,9 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-file": "4.3.3",
     "cordova-plugin-camera": "2.4.1",
     "cordova-plugin-file-transfer": "1.7.1",
-    "cordova-plugin-advanced-http": "3.2.2"
+    "cordova-plugin-advanced-http": "3.2.2",
+    "cordova-plugin-geolocation": "4.1.0",
+    "cordova-plugin-add-swift-support": "2.0.2",
+    "cordova-plugin-nativegeocoder": "3.4.1"
   };
 });

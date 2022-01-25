@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
@@ -24,19 +24,20 @@ export class TambahTunaiKeluarPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private aliranService:AliranService,
-    private kategoriAliranService:KategoriAliranService,
-    private router: Router
-    
+    private aliranService: AliranService,
+    private kategoriAliranService: KategoriAliranService,
+    private router: Router,
+    public alertController: AlertController
+
   ) {
     this.form = this.formBuilder.group({
       id_pengguna: [''],
       id_kategori_aliran: ['', Validators.required],
-      tarikh_aliran:['', Validators.required],
+      tarikh_aliran: ['', Validators.required],
       keterangan_aliran: ['', Validators.required],
-      jumlah_aliran:['', Validators.required],
+      jumlah_aliran: ['', Validators.required],
       nama_dokumen: [''],
-      dokumen_lampiran:[''],
+      dokumen_lampiran: [''],
     });
   }
 
@@ -52,42 +53,64 @@ export class TambahTunaiKeluarPage implements OnInit {
     });
   }
 
-  logForm(){
+  async logForm() {
 
-    this.form.value.id_pengguna = this.user_id;
-    this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
-    if(this.file != null){
-      this.form.value.nama_dokumen = this.file.name;
-    }
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan maklumat ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: () => {
+            console.log('Confirm Okay');
 
-    console.log(this.form.value)
+            this.form.value.id_pengguna = this.user_id;
+            this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
+            if (this.file != null) {
+              this.form.value.nama_dokumen = this.file.name;
+            }
 
-    this.aliranService.post(this.form.value).subscribe((res) => {
-      console.log("res", res);
+            console.log(this.form.value)
 
-      let formdata = new FormData();
+            this.aliranService.post(this.form.value).subscribe((res) => {
+              console.log("res", res);
 
-      formdata.append('dokumen_lampiran', this.form.value.dokumen_lampiran);
+              let formdata = new FormData();
 
-      this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
-        console.log("resDoc", resDoc);
+              formdata.append('dokumen_lampiran', this.form.value.dokumen_lampiran);
 
-        this.refresh();
-        this.dismiss();
-      })
-   
-     
+              this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
+                console.log("resDoc", resDoc);
+                
+
+                this.refresh();
+                this.dismiss();
+              })
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
 
-  kategori_aliran :any;
+  kategori_aliran: any;
 
   getKategoriAliran() {
 
     this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_keluar"))).subscribe((res) => {
-      console.log("kategori aliran",res);
+      console.log("kategori aliran", res);
       this.kategori_aliran = res;
-      console.log("kategori aliran",this.kategori_aliran);
+      console.log("kategori aliran", this.kategori_aliran);
     });
 
   }

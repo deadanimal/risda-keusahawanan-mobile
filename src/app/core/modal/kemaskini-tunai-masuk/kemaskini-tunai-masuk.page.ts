@@ -139,41 +139,88 @@ export class KemaskiniTunaiMasukPage implements OnInit {
 
   async logForm() {
 
-    this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
-    // this.form.value.nama_dokumen = this.file.name;
-    if(this.file != null){
-      this.form.value.nama_dokumen = this.file.name;
-    }
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
 
-    const loading = await this.loadingController.create({ message: 'Loading ...' });
-    loading.present();
-    console.log(this.form.value)
+            this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
+            // this.form.value.nama_dokumen = this.file.name;
+            if (this.file != null) {
+              this.form.value.nama_dokumen = this.file.name;
+            }
 
-    this.aliranService.update(this.form.value, Number(this.tunai_masuk.id)).subscribe((res) => {
-      console.log("updated data", res);
+            const loading = await this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+            console.log(this.form.value)
 
-      let formdata = new FormData();
+            this.aliranService.update(this.form.value, Number(this.tunai_masuk.id)).subscribe((res) => {
+              console.log("updated data", res);
 
-      formdata.append('dokumen_lampiran', this.file);
-      this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
-        console.log("resDoc", resDoc);
+              let formdata = new FormData();
 
-        loading.dismiss();
-        this.presentAlert()
-      })
+              formdata.append('dokumen_lampiran', this.file);
+              this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
+                console.log("resDoc", resDoc);
 
+                loading.dismiss();
+                this.presentAlert()
+              })
+
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
 
   async onDelete() {
-    const loading = await this.loadingController.create({ message: 'Deleting ...' });
-    loading.present();
 
-    this.aliranService.delete(this.tunai_masuk.id).subscribe((res) => {
-      console.log("deleted", res);
-      loading.dismiss();
-      this.presentAlert2()
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk memadam maklumat ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
+
+            const loading = await this.loadingController.create({ message: 'Deleting ...' });
+            loading.present();
+
+            this.aliranService.delete(this.tunai_masuk.id).subscribe((res) => {
+              console.log("deleted", res);
+              loading.dismiss();
+              this.presentAlert2()
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
 
   file: any;

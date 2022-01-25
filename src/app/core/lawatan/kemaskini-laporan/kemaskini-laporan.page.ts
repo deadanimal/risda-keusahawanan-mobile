@@ -67,6 +67,12 @@ export class KemaskiniLaporanPage implements OnInit {
       // gambar_lawatan: this.laporan.gambar_lawatan,
     });
 
+    if (this.laporan.jenis_lawatan == null){
+      this.form.patchValue({
+        jenis_lawatan: "janji temu"
+      });
+    }
+
     this.form.updateValueAndValidity();
   }
 

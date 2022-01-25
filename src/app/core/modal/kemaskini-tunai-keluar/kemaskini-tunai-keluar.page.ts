@@ -53,8 +53,6 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
   }
 
   dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
       'dismissed': true
     });
@@ -66,7 +64,7 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
     this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_keluar"))).subscribe((res) => {
       console.log("kategori aliran", res);
       this.kategori_aliran_keluar = res;
-     
+
 
       this.setFormValues();
     });
@@ -77,7 +75,7 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
     window.location.reload();
   }
 
-  setFormValues(){
+  setFormValues() {
     this.form.setValue({
       id_pengguna: this.tunai_keluar.id_pengguna,
       id_kategori_aliran: this.tunai_keluar.id_kategori_aliran,
@@ -127,45 +125,93 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
     this.refresh();
   }
 
-  async logForm(){
-    this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
-    if(this.file != null){
-      this.form.value.nama_dokumen = this.file.name;
-    }
-   
+  async logForm() {
 
-    const loading = await this.loadingController.create({message:'Loading ...'});
-    loading.present();
-    console.log(this.form.value)
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
 
-    this.aliranService.update(this.form.value, Number(this.tunai_keluar.id)).subscribe((res) => {
-      console.log("updated data",res);
+            this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
+            if (this.file != null) {
+              this.form.value.nama_dokumen = this.file.name;
+            }
 
 
-      let formdata = new FormData();
+            const loading = await this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+            console.log(this.form.value)
 
-      formdata.append('dokumen_lampiran', this.file);
-      this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
-        console.log("resDoc", resDoc);
+            this.aliranService.update(this.form.value, Number(this.tunai_keluar.id)).subscribe((res) => {
+              console.log("updated data", res);
 
-        loading.dismiss();
-        this.presentAlert()
-      })
 
-      // loading.dismiss();
-      // this.presentAlert()
+              let formdata = new FormData();
+
+              formdata.append('dokumen_lampiran', this.file);
+              this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
+                console.log("resDoc", resDoc);
+
+                loading.dismiss();
+                this.presentAlert()
+              })
+
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
   }
 
-  async onDelete(){
-    const loading = await this.loadingController.create({message:'Deleting ...'});
-    loading.present();
-    
-    this.aliranService.delete(this.tunai_keluar.id).subscribe((res) => {
-      console.log("deleted",res);
-      loading.dismiss();
-      this.presentAlert2()
+  async onDelete() {
+
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk memadam maklumat ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
+
+            const loading = await this.loadingController.create({ message: 'Deleting ...' });
+            loading.present();
+
+            this.aliranService.delete(this.tunai_keluar.id).subscribe((res) => {
+              console.log("deleted", res);
+              loading.dismiss();
+              this.presentAlert2()
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
   }
 
   file: any;
@@ -180,5 +226,9 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
     (document.getElementById('nama_fail') as HTMLIonTextElement).innerHTML = this.file.name;
 
   }
+
+
+
+
 
 }

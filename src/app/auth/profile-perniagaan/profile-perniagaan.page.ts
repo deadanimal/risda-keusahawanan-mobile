@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { LoginModel } from 'src/app/services/login/login.model';
@@ -17,6 +17,8 @@ import { ParlimenService } from 'src/app/services/parlimen/parlimen.service';
 import { SeksyenService } from 'src/app/services/seksyen/seksyen.service';
 import { ProdukService } from 'src/app/services/produk/produk.service';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
+
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-profile-perniagaan',
@@ -138,7 +140,9 @@ export class ProfilePerniagaanPage implements OnInit {
     private kampungService: KampungService,
     private seksyenService: SeksyenService,
     private produkService: ProdukService,
-    private aliranService:AliranService,
+    private aliranService: AliranService,
+    private geolocation: Geolocation
+    // private geolocation: Geolocation
   ) {
     this.form = this.formBuilder.group({
       jenisperniagaan: ['', Validators.required],
@@ -239,7 +243,21 @@ export class ProfilePerniagaanPage implements OnInit {
     console.log("user id", this.user_id);
 
     this.getPerniagaan();
-    
+
+    // this.geolocation.getCurrentPosition().then((resp) => {
+    //   // resp.coords.latitude
+    //   // resp.coords.longitude
+    //  }).catch((error) => {
+    //    console.log('Error getting location', error);
+    //  });
+
+    //  let watch = this.geolocation.watchPosition();
+    //  watch.subscribe((data) => {
+    //   // data can be a set of coordinates, or an error (if an error occurred).
+    //   // data.coords.latitude
+    //   // data.coords.longitude
+    //  });
+
 
   }
 
@@ -391,44 +409,71 @@ export class ProfilePerniagaanPage implements OnInit {
   }
 
   async logForm() {
-    const loading = await this.loadingController.create({ message: 'Loading ...' });
-    loading.present();
-    console.log(this.form.value)
 
-    let prodTemp = this.form.value.produk;
-    let prodTempLength = prodTemp.length;
 
-    console.log("prodTemp", prodTemp)
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
 
-    this.perniagaanService.update(this.form.value, this.usahawan_id).subscribe((res) => {
-      console.log("updated data", res);
 
-      for (let i = 0; i < prodTempLength; i++) {
+            const loading = await this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+            console.log(this.form.value)
 
-        console.log(prodTemp[i]);
+            let prodTemp = this.form.value.produk;
+            let prodTempLength = prodTemp.length;
 
-        prodTemp[i].perniagaanid = res.id
-        prodTemp[i].modified_by = this.usahawan_id;
+            console.log("prodTemp", prodTemp)
 
-        if (prodTemp[i].id == '') {
-          this.produkService.post(prodTemp[i]).subscribe((prodRes) => {
-            console.log("prodRes", prodRes);
+            this.perniagaanService.update(this.form.value, this.usahawan_id).subscribe((res) => {
+              console.log("updated data", res);
 
-          });
-        } else {
-          this.produkService.update(prodTemp[i], prodTemp[i].id).subscribe((prodRes) => {
-            console.log("prodRes", prodRes);
+              for (let i = 0; i < prodTempLength; i++) {
 
-          });
+                console.log(prodTemp[i]);
+
+                prodTemp[i].perniagaanid = res.id
+                prodTemp[i].modified_by = this.usahawan_id;
+
+                if (prodTemp[i].id == '') {
+                  this.produkService.post(prodTemp[i]).subscribe((prodRes) => {
+                    console.log("prodRes", prodRes);
+
+                  });
+                } else {
+                  this.produkService.update(prodTemp[i], prodTemp[i].id).subscribe((prodRes) => {
+                    console.log("prodRes", prodRes);
+
+                  });
+                }
+
+              }
+
+
+              loading.dismiss();
+
+              this.presentAlert()
+            });
+          }
         }
-
-      }
-
-
-      loading.dismiss();
-
-      this.presentAlert()
+      ]
     });
+
+    await alert.present();
+
   }
 
 
@@ -467,7 +512,7 @@ export class ProfilePerniagaanPage implements OnInit {
     })
   }
 
-  calcMaklumatPendapatan(){
+  calcMaklumatPendapatan() {
 
     let purata_jualan_bulanan = this.form.value.purata_jualan_bulanan;
 
@@ -478,7 +523,7 @@ export class ProfilePerniagaanPage implements OnInit {
 
       this.form.patchValue({
         hasil_jualan_tahunan: res,
-  
+
       })
 
     });
@@ -486,13 +531,13 @@ export class ProfilePerniagaanPage implements OnInit {
     this.aliranService.getTotalMonth(this.user_id).subscribe((res) => {
       console.log("jumlah bulanan", res);
 
-      let total = ((res - purata_jualan_bulanan)/ (res + purata_jualan_bulanan))*100;
+      let total = ((res - purata_jualan_bulanan) / (res + purata_jualan_bulanan)) * 100;
 
       console.log("total", total);
 
       this.form.patchValue({
         peratus_kenaikan: total.toFixed(2),
-  
+
       })
     });
 
@@ -500,5 +545,34 @@ export class ProfilePerniagaanPage implements OnInit {
   }
 
 
+
+  latitude: any = 0; //latitude
+  longitude: any = 0; //longitude
+
+  options = {
+    timeout: 10000,
+    enableHighAccuracy: true,
+    maximumAge: 3600
+  };
+
+  // use geolocation to get user's device coordinates
+  getCurrentCoordinates() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
+
+      this.form.patchValue({
+        latitud: this.latitude,
+        logitud: this.longitude
+      })
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
+
+
+    console.log(" this.latitude", this.latitude);
+    console.log(" this.longitude", this.longitude);
+  }
 
 }

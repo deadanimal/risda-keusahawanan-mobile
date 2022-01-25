@@ -72,10 +72,18 @@ export class TambahLaporanPage implements OnInit {
       this.getNegeri();
       this.getPT()
       this.getTindakanLawatan();
+
+      this.form.patchValue({
+        jenis_lawatan: "datang terus"
+      })
     } else {
 
       this.getNegeriPt()
       this.getTindakanLawatan();
+
+      this.form.patchValue({
+        jenis_lawatan: "janji temu"
+      })
     }
    
   }

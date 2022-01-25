@@ -55,6 +55,6 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>Use geocoder service</string>
 </dict>
 </plist>

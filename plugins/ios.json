@@ -42,10 +42,21 @@
     "cordova-plugin-advanced-http": {
       "ANDROIDBLACKLISTSECURESOCKETPROTOCOLS": "SSLv3,TLSv1",
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-geolocation": {
+      "GPS_REQUIRED": "true",
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-nativegeocoder": {
+      "LOCATION_WHEN_IN_USE_DESCRIPTION": "Use geocoder service",
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-compat": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-add-swift-support": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   }

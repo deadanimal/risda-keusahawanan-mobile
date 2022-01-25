@@ -29,10 +29,10 @@ export class ProfileSyarikatPage implements OnInit {
   user_id = window.sessionStorage.getItem("user_id");
 
   jenis_milikan = [
-    { id:"JPP01", name:"PEMILIKAN TUNGGAL"},
-    { id:"JPP02", name:"PERKONGSIAN"},
-    { id:"JPP03", name:"SYARIKAT SDN BHD"},
-    { id:"JPP04", name:"PERKONGSIAN LIABILITI TERHAD"},
+    { id: "JPP01", name: "PEMILIKAN TUNGGAL" },
+    { id: "JPP02", name: "PERKONGSIAN" },
+    { id: "JPP03", name: "SYARIKAT SDN BHD" },
+    { id: "JPP04", name: "PERKONGSIAN LIABILITI TERHAD" },
   ];
 
   constructor(
@@ -130,26 +130,53 @@ export class ProfileSyarikatPage implements OnInit {
   }
 
   async logForm() {
-    const loading = await this.loadingController.create({ message: 'Loading ...' });
-    loading.present();
-
-    this.form.value.logo_syarikat = this.syarikat.logo_syarikat;
-    // this.form.value.tahunmulaoperasi = moment(this.form.value.tahunmulaoperasi).format('YYYY');
-
-    this.form.value.tarikh_mula_mof = moment(this.form.value.tarikh_mula_mof).format('YYYY-MM-DD');
-    this.form.value.tarikh_tamat_mof = moment(this.form.value.tarikh_tamat_mof).format('YYYY-MM-DD');
-
-    console.log(this.form.value)
-    // console.log(this.form.value)
-
-    this.syarikatService.update(this.form.value, this.usahawan_id).subscribe((res) => {
-      console.log("updated data", res);
 
 
-      loading.dismiss();
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
 
-      this.presentAlert()
+            const loading = await this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+
+            this.form.value.logo_syarikat = this.syarikat.logo_syarikat;
+            // this.form.value.tahunmulaoperasi = moment(this.form.value.tahunmulaoperasi).format('YYYY');
+
+            this.form.value.tarikh_mula_mof = moment(this.form.value.tarikh_mula_mof).format('YYYY-MM-DD');
+            this.form.value.tarikh_tamat_mof = moment(this.form.value.tarikh_tamat_mof).format('YYYY-MM-DD');
+
+            console.log(this.form.value)
+            // console.log(this.form.value)
+
+            this.syarikatService.update(this.form.value, this.usahawan_id).subscribe((res) => {
+              console.log("updated data", res);
+
+
+              loading.dismiss();
+
+              this.presentAlert()
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
+
   }
 
   async presentAlert() {

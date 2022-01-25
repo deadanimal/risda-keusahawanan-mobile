@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-show-katalog',
@@ -66,5 +67,22 @@ export class ShowKatalogPage implements OnInit {
   refresh(): void {
     window.location.reload();
   }
+
+
+  download(id) {
+
+    console.log(id);
+    this.katalogService.katalogPdf(id).subscribe((res) => {
+      console.log("res3", res);
+
+      let url = environment.baseUrl + 'storage/' + res;
+
+      console.log(url);
+      window.open(url, "_blank");
+
+
+    });
+  }
+
 
 }

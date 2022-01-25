@@ -172,7 +172,7 @@
           <br>
           <ion-label> BANGSA</ion-label>
           <!-- <ion-input formControlName="U_Bangsa_ID"></ion-input> -->
-          <ion-select formControlName="U_Bangsa_ID">
+          <ion-select formControlName="U_Bangsa_ID" (ionChange)="filterEtnik()">
             <ion-select-option *ngFor="let bangsa of bangsa" value="{{bangsa.id}}">{{bangsa.name}}</ion-select-option>
           </ion-select>
         </ion-col>
@@ -185,7 +185,7 @@
           <ion-label> ETNIK</ion-label>
           <!-- <ion-input value="{{usahawan.statusperkahwinan}}" formControlName="statusperkahwinan"></ion-input> -->
           <ion-select formControlName="U_Etnik_ID">
-            <ion-select-option *ngFor="let etnik of etnik" value="{{etnik.U_Etnik_ID}}">
+            <ion-select-option *ngFor="let etnik of etnikTemp" value="{{etnik.U_Etnik_ID}}">
               {{etnik.Etnik}}</ion-select-option>
           </ion-select>
         </ion-col>
@@ -273,7 +273,7 @@
         <ion-col>
           <ion-label> NEGERI</ion-label>
           <!-- <ion-input formControlName="U_Negeri_ID"></ion-input> -->
-          <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah(); getParlimen()">
+          <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah(); getParlimen(); reset();">
             <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">
               {{negeri.Negeri}}</ion-select-option>
           </ion-select>
@@ -292,7 +292,7 @@
         <ion-col>
           <ion-label> MUKIM</ion-label>
           <!-- <ion-input  formControlName="U_Mukim_ID"></ion-input> -->
-          <ion-select formControlName="U_Mukim_ID" (ionChange)="getKampung($event); getSeksyen()">
+          <ion-select formControlName="U_Mukim_ID" (ionChange)="getKampung($event); getSeksyen(); reset2()">
             <ion-select-option *ngFor="let mukim of mukim" value="{{mukim.U_Mukim_ID}}">{{mukim.Mukim}}
             </ion-select-option>
           </ion-select>

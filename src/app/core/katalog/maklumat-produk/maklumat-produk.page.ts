@@ -66,4 +66,7 @@ export class MaklumatProdukPage implements OnInit {
   refresh(): void {
     window.location.reload();
   }
+
+
+  
 }

@@ -252,6 +252,8 @@ export class ProfilePage implements OnInit {
     console.log("usahawan id", this.usahawan_id);
     console.log("user id", this.user_id);
     this.getUsahawan();
+    this.etnikTemp = this.etnik
+    console.log("etnik", this.etnikTemp);
 
 
   }
@@ -290,10 +292,37 @@ export class ProfilePage implements OnInit {
       negeri_perniagaan: this.usahawan.negeri_perniagaan,
     })
 
+    this.getNegeri();
+    this.getDaerah()
+    this.getMukim();
+    this.getParlimen()
+    this.getDun()
+    this.getKampung()
+    this.getSeksyen()
+
 
   }
 
 
+  etnikTemp = [];
+  filterEtnik() {
+
+    this.form.patchValue({
+      U_Etnik_ID: ""
+    });
+
+    this.etnikTemp = [];
+    this.etnik.forEach(element => {
+
+      if (element.U_Bangsa_ID == this.form.value.U_Bangsa_ID) {
+        this.etnikTemp.push(element);
+      }
+
+    });
+
+    console.log("etnik", this.etnikTemp);
+
+  }
 
   getUsahawan() {
     // console.log(this.form.value);
@@ -313,13 +342,7 @@ export class ProfilePage implements OnInit {
 
         this.getUser();
 
-        this.getNegeri();
-        this.getDaerah()
-        this.getMukim();
-        this.getParlimen()
-        this.getDun()
-        this.getKampung()
-        this.getSeksyen()
+
         this.getKategoriUsahawan()
 
         this.setFormValues()
@@ -351,7 +374,7 @@ export class ProfilePage implements OnInit {
   getPT() {
 
     this.ptService.get().pipe(map(x => x.filter(i => i.Kod_PT == this.usahawan.Kod_PT))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+
 
       // console.log("pt", res);
       this.pusatTanggungjawab = res[0].keterangan;
@@ -373,10 +396,10 @@ export class ProfilePage implements OnInit {
 
   getDaerah() {
 
-    this.usahawan.U_Negeri_ID = this.form.value.U_Negeri_ID
+    // this.usahawan.U_Negeri_ID = 
 
-    this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.usahawan.U_Negeri_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+    this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
+
 
       console.log("Daerah", res);
       this.daerah = res;
@@ -388,10 +411,10 @@ export class ProfilePage implements OnInit {
 
   getMukim() {
 
-    this.usahawan.U_Negeri_ID = this.form.value.U_Daerah_ID
+    // this.usahawan.U_Negeri_ID = this.form.value.U_Daerah_ID
 
-    this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.usahawan.U_Daerah_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+    this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.form.value.U_Daerah_ID))).subscribe((res) => {
+
 
       console.log("mukim", res);
       this.mukim = res;
@@ -400,10 +423,10 @@ export class ProfilePage implements OnInit {
 
   getParlimen() {
 
-    this.usahawan.U_Negeri_ID = this.form.value.U_Negeri_ID
+    // this.usahawan.U_Negeri_ID = this.form.value.U_Negeri_ID
 
-    this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.usahawan.U_Negeri_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+    this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
+
 
       console.log("parlimen", res);
       this.parlimen = res;
@@ -412,10 +435,10 @@ export class ProfilePage implements OnInit {
   }
 
   getDun() {
-    this.usahawan.U_Parlimen_ID = this.form.value.U_Parlimen_ID
+    // this.usahawan.U_Parlimen_ID = this.form.value.U_Parlimen_ID
 
-    this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.usahawan.U_Parlimen_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+    this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.form.value.U_Parlimen_ID))).subscribe((res) => {
+
 
       console.log("dun", res);
       this.dun = res;
@@ -423,9 +446,9 @@ export class ProfilePage implements OnInit {
   }
 
   getKampung() {
-    this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
-    this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.usahawan.U_Mukim_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+    // this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
+    this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.form.value.U_Mukim_ID))).subscribe((res) => {
+
 
       console.log("kampung", res);
       this.kampung = res;
@@ -433,10 +456,10 @@ export class ProfilePage implements OnInit {
   }
 
   getSeksyen() {
-    this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
-    console.log("Mukimmmmmmmmmmm", this.usahawan.U_Mukim_ID)
-    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.usahawan.U_Mukim_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+    // this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
+    // console.log("Mukimmmmmmmmmmm", this.form.value.U_Mukim_ID)
+    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.form.value.U_Mukim_ID))).subscribe((res) => {
+
 
       console.log("seksyen", res);
       this.seksyen = res;
@@ -446,7 +469,7 @@ export class ProfilePage implements OnInit {
   getKategoriUsahawan() {
 
     this.kategoriUsahawanService.get().subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+
 
       console.log("kategori usahawan", res);
       this.kategoriUsahawan = res;
@@ -456,7 +479,7 @@ export class ProfilePage implements OnInit {
   getAliranJualan() {
 
     this.aliranService.get(this.user_id).pipe(map(x => x.filter(i => i.kategori_aliran == "JUALAN/PEROLEHAN"))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+
 
       console.log("aliran", res);
 
@@ -513,22 +536,47 @@ export class ProfilePage implements OnInit {
   // }
 
   async logForm() {
-    const loading = await this.loadingController.create({ message: 'Loading ...' });
-    loading.present();
 
-    this.form.value.gambar_url = this.usahawan.gambar_url;
-    console.log(this.form.value)
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '!',
+      message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
 
-    this.usahawanService.update(this.usahawan_id, this.form.value).subscribe((res) => {
-      console.log(res);
+            const loading = await this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
 
-      this.getUser();
+            this.form.value.gambar_url = this.usahawan.gambar_url;
+            console.log(this.form.value)
 
-      loading.dismiss();
+            this.usahawanService.update(this.usahawan_id, this.form.value).subscribe((res) => {
+              console.log("updated",res);
 
-      this.presentAlert()
+              this.getUser();
+
+              loading.dismiss();
+
+              this.presentAlert()
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
+
 
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -628,6 +676,26 @@ export class ProfilePage implements OnInit {
 
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
+  }
+
+
+  reset() {
+    this.form.patchValue({
+      U_Daerah_ID: null,
+      U_Mukim_ID: null,
+      U_Parlimen_ID: null,
+      U_Dun_ID: null,
+      U_Kampung_ID: null,
+      U_Seksyen_ID: null,
+
+    })
+  }
+
+  reset2() {
+    this.form.patchValue({
+      U_Kampung_ID: null,
+      U_Seksyen_ID: null,
+    })
   }
 
   back() {

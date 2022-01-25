@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { LoginModel } from '../services/login/login.model';
 // import { AuthService } from '../services/auth.service';
@@ -22,7 +22,8 @@ export class LoginPage implements OnInit {
   constructor(
     private loginService: LoginService,
     private loadingCtrl: LoadingController,
-    private router: Router) { }
+    private router: Router,
+    public alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -35,6 +36,21 @@ export class LoginPage implements OnInit {
 
   }
 
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Ralat',
+      subHeader: '',
+      message: 'No Kad Pengenalan Atau Kata Laluan Tidak Sah',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
   login() {
     console.log(this.form.value);
     this.loginService.check1user(this.form.value).subscribe((res) => {
@@ -42,6 +58,8 @@ export class LoginPage implements OnInit {
 
       if (Object.keys(res).length === 0) {
         console.log("failed")
+
+        this.presentAlert();
       }
       else {
 
@@ -68,7 +86,6 @@ export class LoginPage implements OnInit {
         else if (res.profile_status == 1) {
           this.router.navigate(['/dashboard']);
         }
-
       }
     });
 
@@ -85,7 +102,7 @@ export class LoginPage implements OnInit {
     return result;
   }
 
-  forget_password(){
+  forget_password() {
     this.router.navigate(['/forgot-password'])
   }
 }

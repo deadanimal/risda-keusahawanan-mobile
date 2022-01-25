@@ -117,7 +117,7 @@ export class RingkasanLejarPage implements OnInit {
     this.form.value.tahun = this.date.getFullYear();
     console.log(this.form.value)
 
-    this.pdfExcelService.pnlExcel(this.form.value).subscribe((res) => {
+    this.pdfExcelService.lejarExcel(this.form.value).subscribe((res) => {
       console.log("res", res);
 
       let url = environment.baseUrl + 'storage/' + res;

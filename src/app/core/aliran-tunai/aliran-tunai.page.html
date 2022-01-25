@@ -78,7 +78,7 @@
                               <ion-text color="success" class="ion-text-center">
                                 <p class="jumlah no-padding"> RM {{tunai_masuk.jumlah_aliran | number:'1.2-2':'en-US'}}</p>
 
-                                <p class="tarikh no-padding">{{tunai_masuk.tarikh_aliran}}</p>
+                                <p class="tarikh no-padding">{{tunai_masuk.tarikh_aliran  | date:'dd/MM/yyyy'}}</p>
                               </ion-text>
                             </div>
                           </ion-col>
@@ -131,7 +131,7 @@
                         <ion-row style="padding: 0%;">
                           <ion-col size="8">
                             <ion-text>
-                              <h6 class="bold no-padding ion-text-lowercase">
+                              <h6 class="bold no-padding ion-text-uppercase">
                                 {{tunai_keluar.kategori_aliran}}
                               </h6>
                             </ion-text>
@@ -143,9 +143,9 @@
                             <div class="content-box"
                               style="height: 100%; display:flex; align-items:center; background-color:#EDEDED; display:flex; justify-content:center">
                               <ion-text color="danger" class="ion-text-center">
-                                <p class="jumlah no-padding"> RM {{tunai_keluar.jumlah_aliran}}</p>
+                                <p class="jumlah no-padding"> RM {{tunai_keluar.jumlah_aliran | number:'1.2-2':'en-US'}}</p>
 
-                                <p class="tarikh no-padding">{{tunai_keluar.tarikh_aliran}}</p>
+                                <p class="tarikh no-padding">{{tunai_keluar.tarikh_aliran | date:'dd/MM/yyyy'}}</p>
                               </ion-text>
                             </div>
                           </ion-col>

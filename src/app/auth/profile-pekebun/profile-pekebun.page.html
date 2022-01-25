@@ -9,7 +9,7 @@
     <ion-text color="success">
       <h1>
         <strong>
-           PROFIL
+           PROFIL PEKEBUN
         </strong>
       </h1>
     </ion-text>
@@ -73,7 +73,7 @@
   <ion-grid [fixed]="true">
 
 
-    <form action="" class="ion-padding form-control">
+    <form [formGroup]="form" class="ion-padding form-control">
 
       <ion-row>
         <ion-col>
@@ -87,7 +87,7 @@
         <ion-col>
 
           <ion-label>NO. KAD PENGENALAN</ion-label>
-          <ion-input value = {{pekebun.No_KP}} ></ion-input>
+          <ion-input formControlName="no_kp" readonly></ion-input>
 
         </ion-col>
       </ion-row>

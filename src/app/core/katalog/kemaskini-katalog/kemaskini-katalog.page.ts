@@ -70,7 +70,7 @@ export class KemaskiniKatalogPage implements OnInit {
 
     this.stokService.getStokKatalog().pipe(map(x => x.filter(i => i.id_katalog == this.katalog.id))).subscribe((res) => {
       console.log("stok", res);
-      
+
       let totalStok = 0;
       res.forEach(element => {
         totalStok += Number(element.stok_dijual);
@@ -85,12 +85,12 @@ export class KemaskiniKatalogPage implements OnInit {
 
         baki_stok: bakiStok
         // unit_production: this.form.value.unit_production,
-  
+
       });
 
     });
 
-    
+
 
   }
 
@@ -112,15 +112,15 @@ export class KemaskiniKatalogPage implements OnInit {
       modified_by: this.katalog.modified_by,
     });
 
-    if (this.katalog.status_katalog == "publish"){
+    if (this.katalog.status_katalog == "publish") {
       this.form.patchValue({
         status_katalog: "pending"
-        
+
       });
     } else {
       this.form.patchValue({
         status_katalog: this.katalog.status_katalog
-        
+
       });
     }
 
@@ -129,30 +129,81 @@ export class KemaskiniKatalogPage implements OnInit {
 
   async logForm() {
 
-    this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
 
-    // this.form.value.status_katalog 
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
 
-    const loading = await this.loadingController.create({message:'Loading ...'});
-    loading.present();
-    console.log(this.form.value)
+            this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
 
-    this.katalogService.update(this.form.value, Number(this.katalog.id)).subscribe((res) => {
-      console.log("updated data",res);
-      loading.dismiss();
-      this.presentAlert()
+            // this.form.value.status_katalog 
+
+            const loading = await this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+            console.log(this.form.value)
+
+            this.katalogService.update(this.form.value, Number(this.katalog.id)).subscribe((res) => {
+              console.log("updated data", res);
+              loading.dismiss();
+              this.presentAlert()
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
   }
 
-  async onDelete(){
-    const loading = await this.loadingController.create({message:'Deleting ...'});
-    loading.present();
-    
-    this.katalogService.delete(this.katalog.id).subscribe((res) => {
-      console.log("deleted",res);
-      loading.dismiss();
-      this.presentAlert2()
+  async onDelete() {
+
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk memadam maklumat ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
+
+            const loading = await this.loadingController.create({ message: 'Deleting ...' });
+            loading.present();
+        
+            this.katalogService.delete(this.katalog.id).subscribe((res) => {
+              console.log("deleted", res);
+              loading.dismiss();
+              this.presentAlert2()
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
+
   }
 
   async presentAlert() {

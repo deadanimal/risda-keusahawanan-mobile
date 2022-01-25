@@ -158,61 +158,110 @@ export class KemaskiniDokumenPage implements OnInit {
     });
   }
 
-  logForm() {
-    console.log(this.form.value)
+  async logForm() {
 
-    let prodTemp = this.form.value.produk;
-    let prodTempLength = prodTemp.length;
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: () => {
+            console.log('Confirm Okay');
 
-    console.log("prodTemp", prodTemp[1])
+            console.log(this.form.value)
 
-    this.pelangganService.update(this.form.value, this.pelanggan.id).subscribe((res) => {
-      console.log("res pelanggan", res);
+            let prodTemp = this.form.value.produk;
+            let prodTempLength = prodTemp.length;
 
-      let pelanggan = res;
+            console.log("prodTemp", prodTemp[1])
 
-      for (let i = 0; i < prodTempLength; i++) {
+            this.pelangganService.update(this.form.value, this.pelanggan.id).subscribe((res) => {
+              console.log("res pelanggan", res);
 
-        prodTemp[i].id_pelanggan = pelanggan.id;
-        prodTemp[i].modified_by = this.user_id;
+              let pelanggan = res;
 
-        console.log(prodTemp[i]);
+              for (let i = 0; i < prodTempLength; i++) {
 
-        if (prodTemp[i].id == '') {
-          this.stokService.post(prodTemp[i]).subscribe((res) => {
-            console.log("res stok", res);
+                prodTemp[i].id_pelanggan = pelanggan.id;
+                prodTemp[i].modified_by = this.user_id;
 
-          });
-        } else {
-          this.stokService.update(prodTemp[i], prodTemp[i].id).subscribe((res) => {
-            console.log("res stok", res);
+                console.log(prodTemp[i]);
 
-          });
+                if (prodTemp[i].id == '') {
+                  this.stokService.post(prodTemp[i]).subscribe((res) => {
+                    console.log("res stok", res);
+
+                  });
+                } else {
+                  this.stokService.update(prodTemp[i], prodTemp[i].id).subscribe((res) => {
+                    console.log("res stok", res);
+
+                  });
+                }
+
+              }
+
+              // this.dismiss();
+              this.presentAlert()
+
+            });
+          }
         }
-
-      }
-
-      // this.dismiss();
-      this.presentAlert()
-
+      ]
     });
+
+    await alert.present();
+
   }
 
   async onDelete() {
-    const loading = await this.loadingController.create({ message: 'Deleting ...' });
-    loading.present();
 
-    this.pelangganService.delete(this.pelanggan.id_pelanggan).subscribe((res) => {
-      console.log("deleted", res);
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk memadam maklumat ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
+            console.log('Confirm Okay');
 
-      this.stokService.deleteMany(this.pelanggan.id_pelanggan).subscribe((res) => {
-        console.log("deleted stok", res);
+            const loading = await this.loadingController.create({ message: 'Deleting ...' });
+            loading.present();
+
+            this.pelangganService.delete(this.pelanggan.id_pelanggan).subscribe((res) => {
+              console.log("deleted", res);
+
+              this.stokService.deleteMany(this.pelanggan.id_pelanggan).subscribe((res) => {
+                console.log("deleted stok", res);
 
 
-        loading.dismiss();
-        this.presentAlert2()
-      });
+                loading.dismiss();
+                this.presentAlert2()
+              });
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
 
 
   }
@@ -337,4 +386,10 @@ export class KemaskiniDokumenPage implements OnInit {
     window.location.reload();
   }
 
+
+  numericOnly(event): boolean {
+    let pattern = /^([0-9])$/;
+    let result = pattern.test(event.key);
+    return result;
+  }
 }

@@ -17,15 +17,18 @@ export class PekebunService {
 
   constructor(private http: HttpClient) { }
 
-  // getUser(): Observable<PekebunModel[]> {
-  //   return this.http.get<PekebunModel[]>(`${this.url}`);
-  // }
+  show(id): Observable<any> {
+    return this.http.get<any>(`${this.url}` + "/" + id);
+  }
 
-  // check1user( user : PekebunModel): Observable<PekebunModel>{
-  //   return this.http.post<PekebunModel>(`${this.url}`,user);
-  // }
+  update(data: any, id): Observable<any> {
+    return this.http.put<any>(
+      `${this.url}/${id}`, data
+    );
+  }
 
-  show(id): Observable<PekebunModel> {
-    return this.http.get<PekebunModel>(`${this.url}` + "/" + id);
+
+  getPekebunEpek(nokp): Observable<PekebunModel> {
+    return this.http.get<any>(`${this.url}` + "/getPekebunEspek/" + nokp);
   }
 }

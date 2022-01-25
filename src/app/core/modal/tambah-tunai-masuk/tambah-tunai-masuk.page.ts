@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KategoriAliranService } from 'src/app/services/kategoriAliran/kategori-aliran.service';
@@ -32,7 +32,8 @@ export class TambahTunaiMasukPage implements OnInit {
     private kategoriAliranService: KategoriAliranService,
     private aliranService: AliranService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    public alertController: AlertController
   ) {
     this.tunai_masuk = this.formBuilder.group({
       id_pengguna: [''],
@@ -64,35 +65,58 @@ export class TambahTunaiMasukPage implements OnInit {
     });
   }
 
-  logForm() {
+  async logForm() {
 
-    this.tunai_masuk.value.id_pengguna = this.user_id;
-    this.tunai_masuk.value.tarikh_aliran = moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD');
-    if(this.file != null){
-      this.tunai_masuk.value.nama_dokumen = this.file.name;
-    }
-    
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan maklumat ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          handler: () => {
+            console.log('Confirm Okay');
 
-    console.log(this.tunai_masuk.value)
+            this.tunai_masuk.value.id_pengguna = this.user_id;
+            this.tunai_masuk.value.tarikh_aliran = moment(this.tunai_masuk.value.tarikh_aliran).format('YYYY-MM-DD');
+            if (this.file != null) {
+              this.tunai_masuk.value.nama_dokumen = this.file.name;
+            }
 
-    this.aliranService.post(this.tunai_masuk.value).subscribe((res) => {
-      console.log("res", res);
 
-      // let i=1;
+            console.log(this.tunai_masuk.value)
 
-      let formdata = new FormData();
+            this.aliranService.post(this.tunai_masuk.value).subscribe((res) => {
+              console.log("res", res);
 
-      formdata.append('dokumen_lampiran', this.tunai_masuk.value.dokumen_lampiran);
+              // let i=1;
 
-      this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
-        console.log("resDoc", resDoc);
+              let formdata = new FormData();
 
-        this.refresh();
-        this.dismiss();
-      })
+              formdata.append('dokumen_lampiran', this.tunai_masuk.value.dokumen_lampiran);
 
-      // console.log(formdata);
+              this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
+                console.log("resDoc", resDoc);
+
+                this.refresh();
+                this.dismiss();
+              })
+
+              // console.log(formdata);
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
 
   }
 

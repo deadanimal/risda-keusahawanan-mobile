@@ -86,14 +86,14 @@
         </ion-col>
         <ion-col class="form-control">
           <ion-label>NO. TELEFON</ion-label>
-          <ion-input type="number" formControlName="no_telefon"></ion-input>
+          <ion-input type="text" formControlName="no_telefon" (keypress)="numericOnly($event)"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>NO. FAKS</ion-label>
-          <ion-input type="number" formControlName="no_fax"></ion-input>
+          <ion-input type="text" formControlName="no_fax" (keypress)="numericOnly($event)"></ion-input>
         </ion-col>
       </ion-row>
 

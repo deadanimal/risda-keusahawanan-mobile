@@ -215,7 +215,7 @@
       <ion-row>
         <ion-col>
           <ion-label>LATITUD</ion-label>
-          <ion-input value="{{perniagaan.latitud}}" formControlName="latitud"></ion-input>
+          <ion-input formControlName="latitud"></ion-input>
         </ion-col>
 
       </ion-row>
@@ -224,9 +224,12 @@
 
         <ion-col>
           <ion-label> LONGITUD</ion-label>
-          <ion-input value="{{perniagaan.logitud}}" formControlName="logitud"></ion-input>
+          <ion-input formControlName="logitud"></ion-input>
         </ion-col>
       </ion-row>
+      <ion-button (click)="getCurrentCoordinates()" expand="block">
+        Get Location
+      </ion-button>
 
       <br><br><br>
       <ion-row style="background-color: #00A651; color:white">

@@ -209,4 +209,9 @@ export class TambahJanaDokumenPage implements OnInit {
 
   
 
+  numericOnly(event): boolean {
+    let pattern = /^([0-9])$/;
+    let result = pattern.test(event.key);
+    return result;
+  }
 }

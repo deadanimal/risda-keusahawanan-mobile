@@ -49,6 +49,8 @@
 		A52AECAE4909443ABE95552E /* SDNetworkActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = ECCCED59DC5A4B6D83F7A16E /* SDNetworkActivityIndicator.m */; };
 		903CC472A2334F48A9AEE22B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A21089E9944B88B6D4E135 /* Security.framework */; };
 		2DFFA7854A8A4F5FBA895F4E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFDDF279709472CA36071F3 /* SystemConfiguration.framework */; };
+		205915CF43004C55B438A02D /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EE948259964E46239DACD340 /* CDVLocation.m */; };
+		5A4A863F6C74400480223685 /* NativeGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAEC8CA3B03440381C97354 /* NativeGeocoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +164,10 @@
 		A5F2ADBB6902453884D0C055 /* SDNetworkActivityIndicator.h */ = {isa = PBXFileReference; name = "SDNetworkActivityIndicator.h"; path = "cordova-plugin-advanced-http/SDNetworkActivityIndicator.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		90A21089E9944B88B6D4E135 /* Security.framework */ = {isa = PBXFileReference; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		7EFDDF279709472CA36071F3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		EE948259964E46239DACD340 /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		AFFD9E83E4AE4069B5202CEB /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		0CAEC8CA3B03440381C97354 /* NativeGeocoder.swift */ = {isa = PBXFileReference; name = "NativeGeocoder.swift"; path = "cordova-plugin-nativegeocoder/NativeGeocoder.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		48A85A570D694C6392EB5366 /* NativeGeocoder-Bridging-Header.h */ = {isa = PBXFileReference; name = "NativeGeocoder-Bridging-Header.h"; path = "cordova-plugin-nativegeocoder/NativeGeocoder-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +344,10 @@
 				4A52DDF1F7BF4B80B705F85B /* SM_AFURLResponseSerialization.h */,
 				43C96DCCB6BE4BB4A415DB8F /* SM_AFURLSessionManager.h */,
 				A5F2ADBB6902453884D0C055 /* SDNetworkActivityIndicator.h */,
+				EE948259964E46239DACD340 /* CDVLocation.m */,
+				AFFD9E83E4AE4069B5202CEB /* CDVLocation.h */,
+				0CAEC8CA3B03440381C97354 /* NativeGeocoder.swift */,
+				48A85A570D694C6392EB5366 /* NativeGeocoder-Bridging-Header.h */,
 			);
 			name = Plugins;
 			path = "MyApp/Plugins";
@@ -495,6 +505,8 @@
 				814B22FC54024CF69914A651 /* SM_AFURLResponseSerialization.m in Sources */,
 				051B55E478C04755BD9D6DD5 /* SM_AFURLSessionManager.m in Sources */,
 				A52AECAE4909443ABE95552E /* SDNetworkActivityIndicator.m in Sources */,
+				205915CF43004C55B438A02D /* CDVLocation.m in Sources */,
+				5A4A863F6C74400480223685 /* NativeGeocoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +543,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -554,6 +570,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -598,6 +617,10 @@
 				SKIP_INSTALL = NO;
 				WK_WEB_VIEW_ONLY = 1;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -640,6 +663,9 @@
 				SKIP_INSTALL = NO;
 				WK_WEB_VIEW_ONLY = 1;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

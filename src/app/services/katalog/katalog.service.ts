@@ -45,4 +45,9 @@ export class KatalogService {
   pengesahanPegawai(id): Observable<any> {
     return this.http.get<any>(`${this.url3}` + "/" + id);
   }
+
+
+  katalogPdf(id): Observable<any> {
+    return this.http.get<any>(`${this.url}`+'/katalogPdf/'+id);
+  }
 }
