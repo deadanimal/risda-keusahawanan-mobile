@@ -244,20 +244,6 @@ export class ProfilePerniagaanPage implements OnInit {
 
     this.getPerniagaan();
 
-    // this.geolocation.getCurrentPosition().then((resp) => {
-    //   // resp.coords.latitude
-    //   // resp.coords.longitude
-    //  }).catch((error) => {
-    //    console.log('Error getting location', error);
-    //  });
-
-    //  let watch = this.geolocation.watchPosition();
-    //  watch.subscribe((data) => {
-    //   // data can be a set of coordinates, or an error (if an error occurred).
-    //   // data.coords.latitude
-    //   // data.coords.longitude
-    //  });
-
 
   }
 
@@ -281,7 +267,7 @@ export class ProfilePerniagaanPage implements OnInit {
           }
 
           this.setFormValues();
-          this.setProdukVAlue()
+          
 
         });
 
@@ -332,6 +318,7 @@ export class ProfilePerniagaanPage implements OnInit {
     this.getDun()
     this.getKampung()
     this.getSeksyen()
+    this.setProdukVAlue()
   }
 
   getNegeri() {
@@ -422,6 +409,7 @@ export class ProfilePerniagaanPage implements OnInit {
           cssClass: 'secondary',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
+            this.setFormValues()
           }
         }, {
           text: 'Ya',

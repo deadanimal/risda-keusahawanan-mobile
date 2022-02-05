@@ -115,15 +115,6 @@ export class TambahKatalogPage implements OnInit {
       this.fileEvent(event);
     }
 
-    // if (test.size > 1000000) {
-    //   console.log("size file lebih")
-
-    //   this.presentAlert();
-    // } else {
-
-     
-
-    // }
 
 
   }
@@ -151,6 +142,9 @@ export class TambahKatalogPage implements OnInit {
 
     console.log("AAAA", this.images);
 
+    this.form.patchValue({
+      gambar_url:this.images[0].data
+    })
   }
 
   // https://ionicframework.com/docs/angular/your-first-app/3-saving-photos

@@ -90,16 +90,33 @@
     }
 }
 
-
 .alert-radio-label.sc-ion-alert-md {
     white-space: pre-line !important;
     height: fit-content;
- }
- 
- .alert-radio-label.sc-ion-alert-ios {
-     white-space: pre-line !important;
-     height: fit-content;
- }
+}
 
+.alert-radio-label.sc-ion-alert-ios {
+    white-space: pre-line !important;
+    height: fit-content;
+}
 
- ion-input { text-transform: uppercase; }
+ion-input {
+    text-transform: uppercase;
+}
+
+// .custom-popover{
+//     --max-height:100px;
+//     --ion-backdrop-opacity:0.5;
+//     &::part(backdrop){
+
+//     }
+
+//     &::part(arrow){
+//         --background:red;
+//     }
+
+//     &::part(content){
+//         font-weight: 600;
+//         padding: 50px;
+//     }
+// }

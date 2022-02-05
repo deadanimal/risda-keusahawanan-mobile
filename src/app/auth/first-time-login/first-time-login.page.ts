@@ -13,8 +13,10 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class FirstTimeLoginPage implements OnInit {
 
   private form: FormGroup;
+  private form2: FormGroup;
 
   user_id = window.sessionStorage.getItem("user_id");
+  profile_status = window.sessionStorage.getItem("profile_status");
 
   constructor(
     private router: Router,
@@ -28,9 +30,16 @@ export class FirstTimeLoginPage implements OnInit {
       password: ['', Validators.required,],
       confirm_password: ['', Validators.required,],
     });
+
+
+    this.form2 = this.formBuilder.group({
+      password: ['', Validators.required,],
+      confirm_password: ['', Validators.required,],
+    });
   }
 
   ngOnInit() {
+    console.log("profile_status",this.profile_status)
   }
 
   async presentAlertConfirm() {
@@ -123,6 +132,29 @@ export class FirstTimeLoginPage implements OnInit {
 
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
+  }
+
+  async logForm2() {
+
+    console.log(this.form2.value);
+
+    if (this.form2.value.password == this.form2.value.confirm_password) {
+      console.log("berjaya");
+
+      const loading = await this.loadingController.create({ message: 'Loading ...' });
+      loading.present();
+
+      this.forgotPassService.updatePassword(this.form2.value, this.user_id).subscribe((res) => {
+        console.log("res", res);
+
+        
+        loading.dismiss();
+        this.presentAlertUpdatesucces()
+      });
+    } else {
+      this.presentAlertFailed()
+    }
+
   }
 
 }

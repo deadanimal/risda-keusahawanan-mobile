@@ -53,19 +53,7 @@
     </ion-fab-list>
   </ion-fab>
 
-  <!-- <ion-button (click)="presentAlert()">click</ion-button> -->
-
-
-
-  <!-- <ion-item-divider class="ion-padding" color="light">
-    <ion-text color="success">
-
-      <h1><strong>
-          <ion-icon name="chevron-back-outline"></ion-icon> PROFIL
-        </strong></h1>
-    </ion-text>
-
-  </ion-item-divider> -->
+  <!-- <ion-button (click)="openPopOver($event)">open popover</ion-button> -->
 
 
   <ion-grid [fixed]="true">
@@ -214,7 +202,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label>PREFIX ID</ion-label>
+          <ion-label (click)="openPopOver($event)" >PREFIX ID <ion-icon name="alert-circle-outline" style="font-size: large; margin-top:2px; color: blue"></ion-icon></ion-label>
           <ion-input value="{{syarikat.prefix_id}}" formControlName="prefix_id"></ion-input>
         </ion-col>
       </ion-row>

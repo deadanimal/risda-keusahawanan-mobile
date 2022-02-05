@@ -19,8 +19,13 @@ export class MaklumatProdukPage implements OnInit {
     public alertController: AlertController,
   ) { }
 
+  usahawan = {
+    name:"",
+    namasyarikat:""
+  };
   ngOnInit() {
     console.log("katalog", this.katalog)
+    this.getMaklumatUsahawan();
   }
 
   gambar_url = "assets/img/pic1.jpeg";
@@ -31,6 +36,14 @@ export class MaklumatProdukPage implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+  }
+
+  getMaklumatUsahawan(){
+    this.katalogService.getMaklumatUsahawan(this.katalog.id_pengguna).subscribe((res) => {
+      console.log("usahawan",res);
+      this.usahawan = res
+    });
+
   }
 
   async pengesahan() {

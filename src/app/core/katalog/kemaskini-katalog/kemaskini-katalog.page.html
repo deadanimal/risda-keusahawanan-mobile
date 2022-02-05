@@ -34,10 +34,13 @@
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>BERAT (kg)</ion-label>
+          <ion-label>JUMLAH (kg/unit/orang/liter/ton/pcs)</ion-label>
           <ion-input placeholder="0.0" class="ion-text-right" type="number" formControlName="berat_produk">
           </ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label style="padding-right: 0px;">HARGA JUALAN (RM)</ion-label>
           <ion-input type="number" formControlName="harga_produk"></ion-input>
@@ -90,7 +93,7 @@
               <img [src]="katalog.gambar_url" class="border-radius-md" width="80" height="80"
                 id="upload-Preview" />
             </div>
-            <ion-input accept="image/*" (change)="onSelectFile($event)" formControlName="gambar_url"  type="file" name="gambar_profil" style="display: none"></ion-input>
+            <ion-input accept="image/*" (change)="onSelectFile($event)"  type="file" name="gambar_profil" style="display: none"></ion-input>
           </label>
 
         </ion-col>

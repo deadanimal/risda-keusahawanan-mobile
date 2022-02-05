@@ -9,7 +9,7 @@
     <ion-text color="success">
       <h1>
         <strong>
-           PROFIL PEKEBUN
+          PROFIL PEKEBUN
         </strong>
       </h1>
     </ion-text>
@@ -53,41 +53,24 @@
     </ion-fab-list>
   </ion-fab>
 
-  <!-- <ion-item-divider>
-    <ion-label>
-      Basic Item Divider
-    </ion-label>
-  </ion-item-divider> -->
-
-  <!-- <ion-item-divider class="ion-padding" color="light">
-    <ion-text color="success">
-
-      <h1><strong>
-          <ion-icon name="chevron-back-outline"></ion-icon> PROFIL
-        </strong></h1>
-    </ion-text>
-
-  </ion-item-divider> -->
-
 
   <ion-grid [fixed]="true">
 
 
-    <form [formGroup]="form" class="ion-padding form-control">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="ion-padding form-control">
 
-      <ion-row>
+      <ion-row style="background-color: #00A651; color:white">
         <ion-col>
           <strong>Maklumat Pekebun Kecil</strong>
         </ion-col>
       </ion-row>
       <br>
 
-
       <ion-row>
         <ion-col>
 
           <ion-label>NO. KAD PENGENALAN</ion-label>
-          <ion-input formControlName="no_kp" readonly></ion-input>
+          <ion-input formControlName="No_KP" readonly></ion-input>
 
         </ion-col>
       </ion-row>
@@ -96,7 +79,7 @@
         <ion-col>
 
           <ion-label>NAMA PEKEBUN KECIL</ion-label>
-          <ion-input value = {{pekebun.Nama_PK}} ></ion-input>
+          <ion-input formControlName="Nama_PK" readonly></ion-input>
         </ion-col>
       </ion-row>
 
@@ -104,92 +87,145 @@
         <ion-col>
 
           <ion-label>NO. TANAM SEMULA/SIC</ion-label>
-          <ion-input value = {{pekebun.Tsmohon_No}} ></ion-input>
+          <ion-input formControlName="noTS" readonly></ion-input>
         </ion-col>
       </ion-row>
 
       <br><br><br>
 
-      <ion-row>
-        <ion-col>
-          <strong>Maklumat Tanah</strong>
-        </ion-col>
-      </ion-row>
       <br>
 
-      <ion-row>
-        <ion-col>
-          <ion-label> NO.GERAN</ion-label>
-          <ion-input value = {{pekebun.No_Geran}} ></ion-input>
-        </ion-col>
-        <ion-col>
-          <ion-label> POSKOD</ion-label>
-          <ion-input  ></ion-input>
-        </ion-col>
-      </ion-row>
+      <div formArrayName="Tanah">
+        <div *ngFor="let tanah of tanahs().controls; let ti=index">
 
-      <ion-row>
-        <ion-col>
-          <ion-label> NEGERI</ion-label>
-          <ion-input value = {{pekebun.U_Negeri_ID}} ></ion-input>
-        </ion-col>
-      </ion-row>
+          <div [formGroupName]="ti">
 
-      <ion-row>
-        <ion-col>
-          <ion-label> DAERAH</ion-label>
-          <ion-input value = {{pekebun.U_Daerah_ID}} ></ion-input>
-        </ion-col>
-        <ion-col>
-          <ion-label> MUKIM</ion-label>
-          <ion-input value = {{pekebun.U_Mukim_ID}} ></ion-input>
-        </ion-col>
-      </ion-row>
+            <ion-row style="background-color: #00A651; color:white">
+              <ion-col>
+                <strong>Maklumat Tanah {{ ti+1 }}</strong>
+              </ion-col>
+            </ion-row>
 
-      <ion-row>
-        <ion-col>
-          <ion-label> PARLIMEN</ion-label>
-          <ion-input value = {{pekebun.U_Parlimen_ID}} ></ion-input>
-        </ion-col>
-        <ion-col>
-          <ion-label> DUN</ion-label>
-          <ion-input value = {{pekebun.U_Dun_ID}} ></ion-input>
-        </ion-col>
-      </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label> NO.GERAN</ion-label>
+                <ion-input formControlName="No_Geran" readonly></ion-input>
+              </ion-col>
+            </ion-row>
 
-      <ion-row>
-        <ion-col>
-          <ion-label> KAMPUNG</ion-label>
-          <ion-input value = {{pekebun.U_Kampung_ID}} ></ion-input>
-        </ion-col>
-      </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label> NEGERI</ion-label>
+                <!-- <ion-input formControlName="U_Negeri_ID" ></ion-input> -->
+                <ion-select formControlName="U_Negeri_ID">
+                  <ion-select-option *ngFor = "let negeri of negeri" value="{{negeri.U_Negeri_ID}}">{{negeri.Negeri}}</ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
 
-      <ion-row>
-        <ion-col>
-          <ion-label> SEKSYEN</ion-label>
-          <ion-input value = {{pekebun.U_Seksyen_ID}} ></ion-input>
-        </ion-col>
-      </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label> DAERAH</ion-label>
+                <!-- <ion-input formControlName="U_Daerah_ID"></ion-input> -->
+                <ion-select formControlName="U_Daerah_ID">
+                  <ion-select-option *ngFor = "let daerah of daerah" value="{{daerah.U_Daerah_ID}}">{{daerah.Daerah}}</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col>
+                <ion-label> MUKIM</ion-label>
+                <!-- <ion-input formControlName="U_Mukim_ID"></ion-input> -->
+                <ion-select formControlName="U_Mukim_ID">
+                  <ion-select-option *ngFor = "let mukim of mukim" value="{{mukim.U_Mukim_ID}}">{{mukim.Mukim}}</ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
 
-      <ion-row>
-        <ion-col>
-          <ion-label> KELUARAN HEKTAR</ion-label>
-          <ion-input value = {{pekebun.keluasan_hektar}} ></ion-input>
-        </ion-col>
-      </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label> PARLIMEN</ion-label>
+                <!-- <ion-input formControlName="U_Parlimen_ID"></ion-input> -->
+                <ion-select formControlName="U_Parlimen_ID">
+                  <ion-select-option *ngFor = "let parlimen of parlimen" value="{{parlimen.U_Parlimen_ID}}">{{parlimen.Parlimen}}</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col>
+                <ion-label> DUN</ion-label>
+                <ion-input formControlName="U_Dun_ID"></ion-input>
 
-      <ion-row>
-        <ion-col>
-          <ion-label> JENIS TANAMAN PEKEBUN</ion-label>
-          <ion-input value = {{pekebun.jenis_tanaman_kebun}} ></ion-input>
-        </ion-col>
-      </ion-row>
+                <!-- <ion-select formControlName="U_Dun_ID">
+                  <ion-select-option *ngFor = "let dun of dun" value="{{dun.U_Dun_ID}}">{{dun.Dun}}</ion-select-option>
+                </ion-select> -->
+              </ion-col>
+            </ion-row>
 
-      <br><br><br>
+            <ion-row>
+              <ion-col>
+                <ion-label> KAMPUNG</ion-label>
+                <ion-input formControlName="U_Kampung_ID"></ion-input>
+
+                <!-- <ion-select formControlName="U_Kampung_ID">
+                  <ion-select-option *ngFor = "let kampung of kampung" value="{{kampung.U_Kampung_ID}}">{{kampung.Kampung}}</ion-select-option>
+                </ion-select> -->
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-label> SEKSYEN</ion-label>
+                <ion-input formControlName="U_Seksyen_ID"></ion-input>
+
+                <!-- <ion-select formControlName="U_Seksyen_ID">
+                  <ion-select-option *ngFor = "let seksyen of seksyen" value="{{seksyen.U_Seksyen_ID}}">{{seksyen.Seksyen}}</ion-select-option>
+                </ion-select> -->
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-label> KELUARAN HEKTAR</ion-label>
+                <ion-input formControlName="Luas_Lot"></ion-input>
+              </ion-col>
+            </ion-row>
+
+            <ion-button (click)="openMyModal(tanah)">lokaliti</ion-button>
+
+
+            <ion-row>
+              <ion-col>
+                <strong>Maklumat Tanaman</strong>
+              </ion-col>
+            </ion-row>
+
+            <div formArrayName="Tanaman">
+
+              <div *ngFor="let tanaman of tanamans(ti).controls; let bi=index">
+
+                <div [formGroupName]="bi">
+
+                  <ion-row>
+                    <ion-col>
+                      <ion-label> JENIS TANAMAN PEKEBUN {{bi +1}}</ion-label>
+                      <ion-input formControlName="Jenis_Tanaman"></ion-input>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+          </div>
+
+        </div>
+      </div>
+
+      <br>
+
+
+      <br>
       <ion-row>
         <ion-col>
-          <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->
-          <ion-button expand="block" color="success">KEMASKINI</ion-button>
+
+          <ion-button expand="block" color="success" type="submit">KEMASKINI</ion-button>
         </ion-col>
       </ion-row>
 

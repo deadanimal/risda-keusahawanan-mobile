@@ -64,6 +64,7 @@ export class LoginPage implements OnInit {
       else {
 
         var setsession_user_id = window.sessionStorage.setItem("user_id", res.id);
+        var setsession_profile_status = window.sessionStorage.setItem("profile_status", res.profile_status);
         var setsession_role = window.sessionStorage.setItem("role", res.type);
 
         if (res.type == 1) {
@@ -80,7 +81,7 @@ export class LoginPage implements OnInit {
         console.log("login success")
         // this.router.navigate(['/dashboard']);
 
-        if (res.profile_status == 0) {
+        if (res.profile_status == 0 || res.profile_status == 2) {
           this.router.navigate(['/first-time-login']);
         }
         else if (res.profile_status == 1) {

@@ -7,8 +7,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { SyarikatModel } from 'src/app/services/syarikat/syarikat.model';
 import { SyarikatService } from 'src/app/services/syarikat/syarikat.service';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, PopoverController } from '@ionic/angular';
 import * as moment from 'moment';
+import { PopOverPage } from './pop-over/pop-over.page';
 
 interface LocalFile {
   name: string;
@@ -43,6 +44,7 @@ export class ProfileSyarikatPage implements OnInit {
     public alertController: AlertController,
     private loadingController: LoadingController,
     private formBuilder: FormBuilder,
+    private popoverCtrl:PopoverController
   ) {
     this.form = this.formBuilder.group({
       id: ['',],
@@ -143,6 +145,7 @@ export class ProfileSyarikatPage implements OnInit {
           cssClass: 'secondary',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
+            this.setFormValues()
           }
         }, {
           text: 'Ya',
@@ -252,4 +255,16 @@ export class ProfileSyarikatPage implements OnInit {
       };
       reader.readAsDataURL(blob);
     });
+
+
+
+  async openPopOver(ev: any){
+    const popover = await this.popoverCtrl.create({
+      component: PopOverPage,
+      event: ev,
+      cssClass: 'sustom-popover'
+    });
+
+    await popover.present();
+  }
 }

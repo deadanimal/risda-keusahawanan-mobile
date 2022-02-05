@@ -13,7 +13,7 @@
   <div id="overlay" style="position: absolute;"></div>
 
 
-  <div style="z-index: 4; margin: 3%; margin-top:20%; align-items:center">
+  <div *ngIf="profile_status == 0" style="z-index: 4; margin: 3%; margin-top:20%; align-items:center">
 
     <div class="element-logo"></div>
 
@@ -44,6 +44,37 @@
       <br>
 
       <ion-button type="submit" expand="block" color="success" [disabled]="form.invalid">Log masuk</ion-button>
+    </form>
+    
+  </div>
+
+
+  <div *ngIf="profile_status == 2" style="z-index: 4; margin: 3%; margin-top:20%; align-items:center">
+
+    <div class="element-logo"></div>
+
+
+    <ion-text style="text-align: center;">
+      <h2>Reset Kata Laluan</h2>
+    </ion-text>
+
+
+    <br><br><br>
+
+    <form action="" [formGroup]="form2" (ngSubmit)="logForm2()">
+      <ion-item style="border-radius: 50px;">
+        <ion-input type="password" formControlName="password" placeholder="Kata Laluan Baru" style="text-transform: none !important;"></ion-input>
+      </ion-item>
+      <br>
+      <ion-item style="border-radius: 50px;">
+        <ion-input type="password" formControlName="confirm_password" placeholder="Ulang Kata Laluan Baru" style="text-transform: none !important;"></ion-input>
+      </ion-item>
+
+      <br>
+
+      <br>
+
+      <ion-button type="submit" expand="block" color="success" [disabled]="form2.invalid">Log masuk</ion-button>
     </form>
     
   </div>

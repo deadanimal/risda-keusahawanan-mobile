@@ -21,4 +21,10 @@ export class ForgotPasswordService {
   firstTimeLogin(data: any, id): Observable<any> {
     return this.http.post<any>(`${this.url2}` + id, data);
   }
+
+  url3: string = environment.baseUrl + "api/updatePassword/";
+  updatePassword(data: any, id): Observable<any> {
+    return this.http.post<any>(`${this.url3}` + id, data);
+  }
+
 }

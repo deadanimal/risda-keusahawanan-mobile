@@ -24,5 +24,6 @@ export class PekebunModel {
     public U_Seksyen_ID: Number;
     public keluasan_hektar: Number;
     public jenis_tanaman_kebun: String;
+  id: any;
 
 }

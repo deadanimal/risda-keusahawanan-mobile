@@ -31,4 +31,39 @@ export class PekebunService {
   getPekebunEpek(nokp): Observable<PekebunModel> {
     return this.http.get<any>(`${this.url}` + "/getPekebunEspek/" + nokp);
   }
+
+  getNoTS(nokp): Observable<PekebunModel> {
+    return this.http.get<any>(`${this.url}` + "/getNoTS/" + nokp);
+  }
+
+
+
+  url2: string = environment.baseUrl + "api/tanah";
+
+  updateTanah(data: any, pekebun_id): Observable<any> {
+    return this.http.put<any>(
+      `${this.url2}/${pekebun_id}`, data
+    );
+  }
+
+  deleteTanah(pekebun_id): Observable<any> {
+    return this.http.delete<any>(
+      `${this.url2}/${pekebun_id}`
+    );
+  }
+
+
+  url3: string = environment.baseUrl + "api/tanaman";
+
+  updateTanaman(data: any, tanah_id): Observable<any> {
+    return this.http.put<any>(
+      `${this.url3}/${tanah_id}`, data
+    );
+  }
+
+  deleteTanaman(tanah_id): Observable<any> {
+    return this.http.delete<any>(
+      `${this.url3}/${tanah_id}`
+    );
+  }
 }

@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ProfilePekebunPage
+  },
+  {
+    path: 'lokaliti-tanah',
+    loadChildren: () => import('./lokaliti-tanah/lokaliti-tanah.module').then( m => m.LokalitiTanahPageModule)
   }
 ];
 

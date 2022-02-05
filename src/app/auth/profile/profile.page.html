@@ -147,12 +147,11 @@
 
       <ion-row>
         <ion-col class="form-control">
-          <!-- <ion-item lines="none" style="border: none; padding:0px !important"> -->
+         
           <ion-label class="padding" position="stacked">TARIKH LAHIR </ion-label>
-          <!-- <ion-input formControlName="tarikhlahir" readonly></ion-input> -->
-          <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikhlahir" readonly
-            style="background-color: #f5f5f5;"></ion-datetime>
-          <!-- </ion-item> -->
+          <ion-input [(ngModel)]="tarikhlahir" [ngModelOptions]="{standalone: true}" readonly></ion-input>
+          <!-- <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikhlahir" readonly
+            style="background-color: #f5f5f5;"></ion-datetime> -->
         </ion-col>
 
         <ion-col class="form-control">

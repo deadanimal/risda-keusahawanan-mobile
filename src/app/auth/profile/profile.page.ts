@@ -23,6 +23,8 @@ import { SeksyenService } from 'src/app/services/seksyen/seksyen.service';
 import { KategoriUsahawanService } from 'src/app/services/ketegori-usahawan/kategori-usahawan.service';
 import { PusatTanggungjawabService } from 'src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 interface LocalFile {
   name: string;
@@ -263,7 +265,7 @@ export class ProfilePage implements OnInit {
       Kod_PT: this.usahawan.Kod_PT,
       namausahawan: this.usahawan.namausahawan,
       nokadpengenalan: this.usahawan.nokadpengenalan,
-      tarikhlahir: this.usahawan.tarikhlahir,
+      // tarikhlahir: this.usahawan.tarikhlahir,
       U_Jantina_ID: this.usahawan.U_Jantina_ID,
       U_Bangsa_ID: this.usahawan.U_Bangsa_ID,
       U_Etnik_ID: this.usahawan.U_Etnik_ID,
@@ -299,6 +301,7 @@ export class ProfilePage implements OnInit {
     this.getDun()
     this.getKampung()
     this.getSeksyen()
+    this.calcBirthDate()
 
 
   }
@@ -518,28 +521,34 @@ export class ProfilePage implements OnInit {
     });
   }
 
+  tarikhlahir : any;
 
-  // calcBirthDate(){
+  calcBirthDate(){
 
-  //   let year = this.usahawan.nokadpengenalan.substring(0,2);
-  //   let month = this.usahawan.nokadpengenalan.substring(2,4);
-  //   let date = this.usahawan.nokadpengenalan.substring(4,6);
+    let year = this.usahawan.nokadpengenalan.substring(0,2);
+    let month = this.usahawan.nokadpengenalan.substring(2,4);
+    let date = this.usahawan.nokadpengenalan.substring(4,6);
 
-  //   if(Number(year) > 40){
-  //     year = 19+year;
-  //   } else {
-  //     year = 20+year;
-  //   }
-  //   let birthday = date +'/'+month+'/'+year
+    if(Number(year) > 40){
+      year = 19+year;
+    } else {
+      year = 20+year;
+    }
+    let birthday = date +'/'+month+'/'+year
 
-  //   this.usahawan.tarikhlahir = birthday
-  // }
+    console.log("birthday", birthday)
+    const datepipe: DatePipe = new DatePipe('en-US')
+    this.form.patchValue({
+      tarikhlahir: moment(birthday).format('YYYY-MM-DD')
+    }) ;
+    this.tarikhlahir = birthday;
+  }
 
   async logForm() {
 
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: '!',
+      header: '',
       message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
       buttons: [
         {
@@ -548,11 +557,14 @@ export class ProfilePage implements OnInit {
           cssClass: 'secondary',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
+            this.setFormValues();
+            
           }
         }, {
           text: 'Ya',
           handler: async () => {
             console.log('Confirm Okay');
+            console.log('Confirm Okay', this.form.value);
 
             const loading = await this.loadingController.create({ message: 'Loading ...' });
             loading.present();

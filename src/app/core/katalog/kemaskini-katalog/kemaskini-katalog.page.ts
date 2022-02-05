@@ -254,7 +254,7 @@ export class KemaskiniKatalogPage implements OnInit {
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result;
+        this.katalog.gambar_url = event.target.result;
       }
 
       this.fileEvent(event);
@@ -283,6 +283,10 @@ export class KemaskiniKatalogPage implements OnInit {
     });
 
     console.log("AAAA", this.images);
+    this.form.patchValue({
+      gambar_url:this.images[0].data
+    })
+
   }
 
   // https://ionicframework.com/docs/angular/your-first-app/3-saving-photos

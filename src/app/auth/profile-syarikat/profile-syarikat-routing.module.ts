@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ProfileSyarikatPage
+  },
+  {
+    path: 'pop-over',
+    loadChildren: () => import('./pop-over/pop-over.module').then( m => m.PopOverPageModule)
   }
 ];
 
