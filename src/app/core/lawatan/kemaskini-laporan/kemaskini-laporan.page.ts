@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { KatalogService } from 'src/app/services/katalog/katalog.service';
 
 interface LocalFile {
   name: string;
@@ -30,6 +31,8 @@ export class KemaskiniLaporanPage implements OnInit {
     public modalController: ModalController,
     private formBuilder: FormBuilder,
     private lawatanService: LawatanService,
+    public loadingController: LoadingController,
+    public alertController: AlertController,
   ) {
     this.form = this.formBuilder.group({
       namausahawan: ['', Validators.required],
@@ -95,22 +98,48 @@ export class KemaskiniLaporanPage implements OnInit {
     });
   }
 
-  logForm() {
+  async logForm() {
 
-    if (this.images.length > 0) {
-      this.form.value.gambar_lawatan = this.images[0].data;
-    } else {
-      this.form.value.gambar_lawatan = this.laporan.gambar_lawatan;
-    }
 
-    console.log(this.form.value.gambar_url)
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+            this.setFormValues()
+          }
+        }, {
+          text: 'Ya',
+          handler: async () => {
 
-    this.lawatanService.updateLaporan(this.form.value, this.laporan.lawatan_id).subscribe((res) => {
-      console.log("updated", res);
-
-      this.dismiss();
-      window.location.reload();
+            if (this.images.length > 0) {
+              this.form.value.gambar_lawatan = this.images[0].data;
+            } else {
+              this.form.value.gambar_lawatan = this.laporan.gambar_lawatan;
+            }
+        
+            console.log(this.form.value.gambar_url)
+        
+            this.lawatanService.updateLaporan(this.form.value, this.laporan.lawatan_id).subscribe((res) => {
+              console.log("updated", res);
+        
+              this.dismiss();
+              window.location.reload();
+            });
+            
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
   }
 
 

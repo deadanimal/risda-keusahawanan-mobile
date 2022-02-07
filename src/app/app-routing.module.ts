@@ -158,6 +158,10 @@ const routes: Routes = [
   {
     path: 'kemaskini-laporan',
     loadChildren: () => import('./core/lawatan/kemaskini-laporan/kemaskini-laporan.module').then( m => m.KemaskiniLaporanPageModule)
+  },
+  {
+    path: 'carian',
+    loadChildren: () => import('./core/carian/carian.module').then( m => m.CarianPageModule)
   }
 ];
 

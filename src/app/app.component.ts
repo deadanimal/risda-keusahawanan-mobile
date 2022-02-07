@@ -30,7 +30,7 @@ export class AppComponent {
   ];
 
   public appPagesPegawai = [
-    { title: 'Carian', url: '#', icon: 'assets/icon/search-button.png' },
+    { title: 'Carian', url: '/carian', icon: 'assets/icon/search-button.png' },
     { title: 'Lawatan', url: '/lawatan-pegawai', icon: 'assets/icon/lawatan-icon.png' },
     { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/icon/katalog.png' },
     { title: 'Buletin', url: '/buletin', icon: 'assets/icon/buletin.png' },
