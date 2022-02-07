@@ -28,38 +28,38 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>TAJUK</ion-label>
+          <ion-label>TAJUK <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="tajuk"></ion-input>
         </ion-col>
       </ion-row>
       
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NAMA PELANGGAN</ion-label>
+          <ion-label>NAMA PELANGGAN <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="nama_pelanggan"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>ALAMAT 1</ion-label>
+          <ion-label>No Rumah/ Lot/ Pintu <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat1"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>ALAMAT 2</ion-label>
+          <ion-label>Nama Jalan <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat2"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>ALAMAT 3</ion-label>
+          <ion-label>Kampung/ Taman <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat3"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NEGERI</ion-label>
+          <ion-label>NEGERI <span style="color: red;">*</span></ion-label>
           <!-- <ion-input type="text" formControlName="U_Negeri_ID"></ion-input> -->
           <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah($event)">
             <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">{{negeri.Negeri}}
@@ -67,7 +67,7 @@
           </ion-select>
         </ion-col>
         <ion-col class="form-control">
-          <ion-label>DAERAH</ion-label>
+          <ion-label>DAERAH <span style="color: red;">*</span></ion-label>
           <!-- <ion-input type="text" formControlName="U_Daerah_ID">
           </ion-input> -->
           <ion-select formControlName="U_Daerah_ID">
@@ -81,18 +81,18 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>POSKOD</ion-label>
+          <ion-label>POSKOD <span style="color: red;">*</span></ion-label>
           <ion-input type="number" formControlName="poskod"></ion-input>
         </ion-col>
         <ion-col class="form-control">
-          <ion-label>NO. TELEFON</ion-label>
+          <ion-label>NO. TELEFON <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="no_telefon" (keypress)="numericOnly($event)"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NO. FAKS</ion-label>
+          <ion-label>NO. FAKS <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="no_fax" (keypress)="numericOnly($event)"></ion-input>
         </ion-col>
       </ion-row>
@@ -154,21 +154,21 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN)</ion-label>
+          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN) <span style="color: red;">*</span></ion-label>
           <ion-input type="number" formControlName="diskaun"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN)</ion-label>
+          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN) <span style="color: red;">*</span></ion-label>
           <ion-input type="number" formControlName="kos_penghantaran"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN)</ion-label>
+          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN) <span style="color: red;">*</span></ion-label>
           <ion-input type="number" formControlName="cukai_sst"></ion-input>
         </ion-col>
       </ion-row>

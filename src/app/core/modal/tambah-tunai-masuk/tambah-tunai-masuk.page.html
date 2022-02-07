@@ -35,7 +35,7 @@
       <ion-row>
         <ion-col class="form-control">
           <ion-item lines="none" style="border: none;">
-            <ion-label class="padding" position="stacked">KATEGORI ALIRAN <span style="color: red;">*</span></ion-label>
+            <ion-label class="padding" style="margin-bottom: 5px;" position="stacked">KATEGORI ALIRAN <span style="color: red;">*</span></ion-label>
             <ion-select formControlName="id_kategori_aliran">
               <ion-select-option *ngFor="let aliran_masuk of kategori_aliran_masuk" value="{{aliran_masuk.id}}">
                 {{aliran_masuk.nama_kategori_aliran}}</ion-select-option>
@@ -58,7 +58,7 @@
         <ion-col class="form-control">
           <ion-item lines="none" class="form-control" style="border: none;">
             <ion-label class="padding" position="stacked">KETERANGAN <span style="color: red;">*</span></ion-label>
-            <ion-input type="text" formControlName="keterangan_aliran"></ion-input>
+            <ion-input type="text" formControlName="keterangan_aliran" style="text-transform: none !important;"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

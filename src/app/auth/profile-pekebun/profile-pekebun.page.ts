@@ -87,9 +87,6 @@ export class ProfilePekebunPage implements OnInit {
   }
 
 
-  removeTeacher(ti) {
-    this.tanahs().removeAt(ti);
-  }
 
   /** tanaman */
 
@@ -322,40 +319,51 @@ export class ProfilePekebunPage implements OnInit {
         console.log("resDaerah", resDaerah)
         this.daerah = resDaerah;
 
-        this.mukimService.get().subscribe((resMukim) => {
-          console.log("resMukim", resMukim)
-          this.mukim = resMukim;
+        // this.mukimService.get().subscribe((resMukim) => {
+        //   console.log("resMukim", resMukim)
+        //   this.mukim = resMukim;
 
-          this.parlimenService.get().subscribe((resParlimen) => {
-            console.log("resParlimen", resParlimen)
-            this.parlimen = resParlimen;
+        //   this.parlimenService.get().subscribe((resParlimen) => {
+        //     console.log("resParlimen", resParlimen)
+        //     this.parlimen = resParlimen;
 
-            this.dunService.get().subscribe((resDun) => {
-              console.log("resDun", resDun)
-              this.dun = resDun;
+        //     this.dunService.get().subscribe((resDun) => {
+        //       console.log("resDun", resDun)
+        //       this.dun = resDun;
 
-              this.kampungService.get().subscribe((resKampung) => {
-                console.log("resKampung", resKampung)
-                this.kampung = resKampung;
+        //       this.kampungService.get().subscribe((resKampung) => {
+        //         console.log("resKampung", resKampung)
+        //         this.kampung = resKampung;
 
-                this.seksyenService.get().subscribe((resSeksyen) => {
-                  console.log("resSeksyen", resSeksyen)
-                  this.seksyen = resSeksyen;
-                })
-              })
-            })
-          })
-        })
+        //         this.seksyenService.get().subscribe((resSeksyen) => {
+        //           console.log("resSeksyen", resSeksyen)
+        //           this.seksyen = resSeksyen;
+        //         })
+        //       })
+        //     })
+        //   })
+        // })
       })
     })
   }
 
-  async openMyModal(tanah) {
+  async openMyModal(tanah, index) {
+
+    let maklumatTanah = [
+      {"data" :tanah.value,
+      "index" : index}
+    ]
+
+    console.log ("maklumatTanah",maklumatTanah )
+
+    console.log("tanah",tanah.value);
+
+    // let data = tanah.value
     const myModal = await this.modalController.create({
       component: LokalitiTanahPage,
       backdropDismiss: true,
       cssClass: 'options_modal',
-      componentProps: {tanah}
+      componentProps: {maklumatTanah}
     });
     return await myModal.present();
   }

@@ -107,7 +107,6 @@
       <ion-row>
         <ion-col>
           <ion-label>NEGERI PREMIS PERNIAGAAN</ion-label>
-          <!-- <ion-input readonly></ion-input> -->
           <ion-select formControlName="negeri_perniagaan" disabled>
             <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">
               {{negeri.Negeri}}</ion-select-option>
@@ -118,7 +117,7 @@
       <ion-row>
         <ion-col>
           <ion-label>PUSAT TANGGUNGJAWAB</ion-label>
-          <ion-input value={{pusatTanggungjawab}} readonly></ion-input>
+          <ion-input class="read-only" value={{pusatTanggungjawab}} readonly></ion-input>
         </ion-col>
       </ion-row>
 
@@ -126,7 +125,7 @@
         <ion-col>
 
           <ion-label>NO. USAHAWAN</ion-label>
-          <ion-input formControlName="usahawanid" readonly></ion-input>
+          <ion-input class="read-only" formControlName="usahawanid" readonly></ion-input>
 
         </ion-col>
       </ion-row>
@@ -134,14 +133,14 @@
       <ion-row>
         <ion-col>
           <ion-label>NAMA PENUH</ion-label>
-          <ion-input formControlName="namausahawan" readonly></ion-input>
+          <ion-input class="read-only" formControlName="namausahawan" readonly></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label>NO. KAD PENGENALAN</ion-label>
-          <ion-input formControlName="nokadpengenalan" readonly></ion-input>
+          <ion-input class="read-only" formControlName="nokadpengenalan" readonly></ion-input>
         </ion-col>
       </ion-row>
 
@@ -149,27 +148,24 @@
         <ion-col class="form-control">
          
           <ion-label class="padding" position="stacked">TARIKH LAHIR </ion-label>
-          <ion-input [(ngModel)]="tarikhlahir" [ngModelOptions]="{standalone: true}" readonly></ion-input>
-          <!-- <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikhlahir" readonly
-            style="background-color: #f5f5f5;"></ion-datetime> -->
+          <ion-input class="read-only" [(ngModel)]="tarikhlahir" [ngModelOptions]="{standalone: true}" readonly></ion-input>
+         
         </ion-col>
 
         <ion-col class="form-control">
-          <!-- <ion-item lines="none" style="border: none;"> -->
-          <ion-label class="padding" position="stacked">JANTINA </ion-label>
-          <!-- <ion-input formControlName="U_Jantina_ID" readonly></ion-input> -->
+          <ion-label class="padding" position="stacked">JANTINA <span style="color: red;">*</span></ion-label>
           <ion-select formControlName="U_Jantina_ID">
             <ion-select-option *ngFor="let jantina of jantina" [value]="jantina.id"
               selected="jantina.id == this.usahawan.U_Jantina_ID">{{jantina.name}}</ion-select-option>
           </ion-select>
-          <!-- </ion-item> -->
+          
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <br>
-          <ion-label> BANGSA</ion-label>
+          <ion-label> BANGSA <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="U_Bangsa_ID"></ion-input> -->
           <ion-select formControlName="U_Bangsa_ID" (ionChange)="filterEtnik()">
             <ion-select-option *ngFor="let bangsa of bangsa" value="{{bangsa.id}}">{{bangsa.name}}</ion-select-option>
@@ -181,7 +177,7 @@
         <ion-col>
 
           <br>
-          <ion-label> ETNIK</ion-label>
+          <ion-label> ETNIK <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{usahawan.statusperkahwinan}}" formControlName="statusperkahwinan"></ion-input> -->
           <ion-select formControlName="U_Etnik_ID">
             <ion-select-option *ngFor="let etnik of etnikTemp" value="{{etnik.U_Etnik_ID}}">
@@ -194,7 +190,7 @@
         <ion-col>
 
 
-          <ion-label> STATUS PERKAHWINAN</ion-label>
+          <ion-label> STATUS PERKAHWINAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{usahawan.statusperkahwinan}}" formControlName="statusperkahwinan"></ion-input> -->
           <ion-select formControlName="statusperkahwinan">
             <ion-select-option *ngFor="let statusperkahwinan of statusperkahwinan" value="{{statusperkahwinan.id}}">
@@ -205,7 +201,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> TAHAP PENDIDIKAN</ion-label>
+          <ion-label> TAHAP PENDIDIKAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="U_Pendidikan_ID"></ion-input> -->
           <ion-select formControlName="U_Pendidikan_ID">
             <ion-select-option *ngFor="let tahapPendidikan of tahapPendidikan" [value]="tahapPendidikan.id"
@@ -217,7 +213,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> TARAF KELULUSAN TERTINGGI</ion-label>
+          <ion-label> TARAF KELULUSAN TERTINGGI <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="U_Pendidikan_ID"></ion-input> -->
           <ion-select formControlName="U_Taraf_Pendidikan_Tertinggi_ID">
             <ion-select-option *ngFor="let taraf_kelulusan_tertinggi of taraf_kelulusan_tertinggi" [value]="taraf_kelulusan_tertinggi.U_Taraf_Kelulusan_Tertinggi_ID"
@@ -238,39 +234,39 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> ALAMAT (BARIS 1)</ion-label>
+          <ion-label> NO RUMAH/LOT/PINTU <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="alamat1"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> ALAMAT (BARIS 2)</ion-label>
+          <ion-label> NAMA JALAN <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="alamat2"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> ALAMAT (BARIS 3)</ion-label>
+          <ion-label> KAMPUNG/TAMAN <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="alamat3"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> BANDAR</ion-label>
+          <ion-label> BANDAR <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="bandar"></ion-input>
         </ion-col>
         <ion-col>
-          <ion-label> POSKOD</ion-label>
+          <ion-label> POSKOD <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="poskod"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> NEGERI</ion-label>
+          <ion-label> NEGERI <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="U_Negeri_ID"></ion-input> -->
           <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah(); getParlimen(); reset();">
             <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">
@@ -281,7 +277,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> DAERAH</ion-label>
+          <ion-label> DAERAH <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{usahawan.U_Daerah_ID}}" formControlName="U_Daerah_ID"></ion-input> -->
           <ion-select formControlName="U_Daerah_ID" (ionChange)="getMukim()">
             <ion-select-option *ngFor="let daerah of daerah" value="{{daerah.U_Daerah_ID}}">{{daerah.Daerah}}
@@ -289,7 +285,7 @@
           </ion-select>
         </ion-col>
         <ion-col>
-          <ion-label> MUKIM</ion-label>
+          <ion-label> MUKIM <span style="color: red;">*</span></ion-label>
           <!-- <ion-input  formControlName="U_Mukim_ID"></ion-input> -->
           <ion-select formControlName="U_Mukim_ID" (ionChange)="getKampung($event); getSeksyen(); reset2()">
             <ion-select-option *ngFor="let mukim of mukim" value="{{mukim.U_Mukim_ID}}">{{mukim.Mukim}}
@@ -300,7 +296,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> PARLIMEN</ion-label>
+          <ion-label> PARLIMEN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{usahawan.U_Parlimen_ID}}" formControlName="U_Parlimen_ID"></ion-input> -->
           <ion-select formControlName="U_Parlimen_ID" (ionChange)="getDun()">
             <ion-select-option *ngFor="let parlimen of parlimen" value="{{parlimen.U_Parlimen_ID}}">
@@ -309,7 +305,7 @@
           </ion-select>
         </ion-col>
         <ion-col>
-          <ion-label> DUN</ion-label>
+          <ion-label> DUN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{usahawan.U_Dun_ID}}" formControlName="U_Dun_ID"></ion-input> -->
           <ion-select formControlName="U_Dun_ID">
             <ion-select-option *ngFor="let dun of dun" value="{{dun.U_Dun_ID}}">{{dun.Dun}}
@@ -379,18 +375,18 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> NO. TELEFON</ion-label>
+          <ion-label> NO. TELEFON <span style="color: red;">*</span></ion-label>
           <ion-input value="{{usahawan.notelefon}}" formControlName="notelefon"></ion-input>
         </ion-col>
         <ion-col>
-          <ion-label> NO. TELEFON (HP)</ion-label>
+          <ion-label> NO. TELEFON (HP) <span style="color: red;">*</span></ion-label>
           <ion-input value="{{usahawan.nohp}}" formControlName="nohp"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> EMAIL</ion-label>
+          <ion-label> EMAIL <span style="color: red;">*</span></ion-label>
           <ion-input value="{{usahawan.email}}" formControlName="email" style="text-transform: none !important;"></ion-input>
         </ion-col>
       </ion-row>

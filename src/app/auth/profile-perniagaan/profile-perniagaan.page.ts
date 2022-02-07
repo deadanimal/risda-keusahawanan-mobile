@@ -162,7 +162,7 @@ export class ProfilePerniagaanPage implements OnInit {
       U_Seksyen_ID: ['',],
       latitud: ['', Validators.required],
       logitud: ['', Validators.required],
-      facebook: ['', Validators.required],
+      facebook: ['',],
       instagram: ['',],
       twitter: ['',],
       lamanweb: ['',],
@@ -267,7 +267,7 @@ export class ProfilePerniagaanPage implements OnInit {
           }
 
           this.setFormValues();
-          
+
 
         });
 
@@ -502,32 +502,42 @@ export class ProfilePerniagaanPage implements OnInit {
 
   calcMaklumatPendapatan() {
 
-    let purata_jualan_bulanan = this.form.value.purata_jualan_bulanan;
+    let purata_tahunan_sebelum_bantuan = this.form.value.purata_jualan_bulanan;
 
-    console.log(purata_jualan_bulanan);
+    console.log(purata_tahunan_sebelum_bantuan);
 
     this.aliranService.getTotalYear(this.user_id).subscribe((res) => {
       console.log("jumlah tahunan", res);
+
+      let jualan_tahunan_semasa = res;
 
       this.form.patchValue({
         hasil_jualan_tahunan: res,
 
       })
 
-    });
-
-    this.aliranService.getTotalMonth(this.user_id).subscribe((res) => {
-      console.log("jumlah bulanan", res);
-
-      let total = ((res - purata_jualan_bulanan) / (res + purata_jualan_bulanan)) * 100;
-
-      console.log("total", total);
-
+      let peratus_kenaikan = ((jualan_tahunan_semasa - purata_tahunan_sebelum_bantuan) / purata_tahunan_sebelum_bantuan) * 100;
       this.form.patchValue({
-        peratus_kenaikan: total.toFixed(2),
+        peratus_kenaikan: peratus_kenaikan.toFixed(2),
 
       })
+
     });
+
+
+
+    // this.aliranService.getTotalMonth(this.user_id).subscribe((res) => {
+    //   console.log("jumlah bulanan", res);
+
+    //   let total = ((res - purata_jualan_bulanan) / (res + purata_jualan_bulanan)) * 100;
+
+    //   console.log("total", total);
+
+    //   this.form.patchValue({
+    //     peratus_kenaikan: total.toFixed(2),
+
+    //   })
+    // });
 
 
   }

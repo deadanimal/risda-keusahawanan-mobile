@@ -82,7 +82,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label>JENIS PERNIAGAAN</ion-label>
+          <ion-label>JENIS PERNIAGAAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="jenisperniagaan"></ion-input> -->
           <ion-select formControlName="jenisperniagaan" style="width:100%,">
             <ion-select-option *ngFor="let jenis_perniagaan of jenis_perniagaan" value="{{jenis_perniagaan.id}}"
@@ -93,7 +93,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label>KLUSTER PERNIAGAAN</ion-label>
+          <ion-label>KLUSTER PERNIAGAAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="klusterperniagaan"></ion-input> -->
           <ion-select formControlName="klusterperniagaan" style="width:100%,">
             <ion-select-option *ngFor="let klusterPerniagaan of klusterPerniagaan" value="{{klusterPerniagaan.id}}"
@@ -104,46 +104,46 @@
 
       <ion-row>
         <ion-col>
-          <ion-label>SUB KLUSTER PERNIAGAAN</ion-label>
+          <ion-label>SUB KLUSTER PERNIAGAAN <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="subkluster"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> ALAMAT 1 (BARIS 1)</ion-label>
+          <ion-label> NO RUMAH/LOT/PINTU <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="alamat1"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> ALAMAT 2 (BARIS 2)</ion-label>
+          <ion-label> NAMA JALAN <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="alamat2"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> ALAMAT 3 (BARIS 3)</ion-label>
+          <ion-label> KAMPUNG/TAMAN <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="alamat3"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> BANDAR</ion-label>
+          <ion-label> BANDAR <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="bandar"></ion-input>
         </ion-col>
         <ion-col>
-          <ion-label> POSKOD</ion-label>
+          <ion-label> POSKOD <span style="color: red;">*</span></ion-label>
           <ion-input type="Number" formControlName="poskod"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> NEGERI</ion-label>
+          <ion-label> NEGERI <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="U_Negeri_ID"></ion-input> -->
           <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah($event); reset()">
             <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">
@@ -154,7 +154,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> DAERAH</ion-label>
+          <ion-label> DAERAH <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{usahawan.U_Daerah_ID}}" formControlName="U_Daerah_ID"></ion-input> -->
           <ion-select formControlName="U_Daerah_ID" (ionChange)="getMukim($event)">
             <ion-select-option *ngFor="let daerah of daerah" value="{{daerah.U_Daerah_ID}}">{{daerah.Daerah}}
@@ -162,7 +162,7 @@
           </ion-select>
         </ion-col>
         <ion-col>
-          <ion-label> MUKIM</ion-label>
+          <ion-label> MUKIM <span style="color: red;">*</span></ion-label>
           <!-- <ion-input  formControlName="U_Mukim_ID"></ion-input> -->
           <ion-select formControlName="U_Mukim_ID" (ionChange)="getKampung($event); getSeksyen(); reset2()">
             <ion-select-option *ngFor="let mukim of mukim" value="{{mukim.U_Mukim_ID}}">{{mukim.Mukim}}
@@ -173,7 +173,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> PARLIMEN</ion-label>
+          <ion-label> PARLIMEN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{usahawan.U_Parlimen_ID}}" formControlName="U_Parlimen_ID"></ion-input> -->
           <ion-select formControlName="U_Parlimen_ID" (ionChange)="getDun()">
             <ion-select-option *ngFor="let parlimen of parlimen" value="{{parlimen.U_Parlimen_ID}}">
@@ -182,7 +182,7 @@
           </ion-select>
         </ion-col>
         <ion-col>
-          <ion-label> DUN</ion-label>
+          <ion-label> DUN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{usahawan.U_Dun_ID}}" formControlName="U_Dun_ID"></ion-input> -->
           <ion-select formControlName="U_Dun_ID">
             <ion-select-option *ngFor="let dun of dun" value="{{dun.U_Dun_ID}}">{{dun.Dun}}
@@ -214,7 +214,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label>LATITUD</ion-label>
+          <ion-label>LATITUD <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="latitud"></ion-input>
         </ion-col>
 
@@ -223,7 +223,7 @@
       <ion-row>
 
         <ion-col>
-          <ion-label> LONGITUD</ion-label>
+          <ion-label> LONGITUD <span style="color: red;">*</span></ion-label>
           <ion-input formControlName="logitud"></ion-input>
         </ion-col>
       </ion-row>
@@ -278,35 +278,35 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> DROPSHIP</ion-label>
+          <ion-label>BILANGAN DROPSHIP</ion-label>
           <ion-input type="Number" formControlName="dropship"></ion-input>
         </ion-col>
         <ion-col>
-          <ion-label> EJEN</ion-label>
+          <ion-label>BILANGAN EJEN</ion-label>
           <ion-input type="Number" formControlName="ejen"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> STOKIS</ion-label>
+          <ion-label>BILANGAN STOKIS</ion-label>
           <ion-input type="Number" formControlName="stokis"></ion-input>
         </ion-col>
         <ion-col>
-          <ion-label> OUTLET</ion-label>
+          <ion-label>BILANGAN OUTLET</ion-label>
           <ion-input type="Number" formControlName="outlet"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> PASARAN DOMESTIK</ion-label>
-          <ion-input formControlName="domestik"></ion-input>
+          <ion-input formControlName="domestik" placeholder="Nyatakan Daerah/Negeri"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> PASARAN LUAR NEGERA</ion-label>
-          <ion-input formControlName="luarnegara"></ion-input>
+          <ion-input formControlName="luarnegara" placeholder="Nyatakan Negara"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -331,24 +331,23 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> PURATA JUALAN BULANAN</ion-label>
+          <ion-label> Purata jualan tahunan tahun sebelum bantuan</ion-label>
           <ion-input type="Number" formControlName="purata_jualan_bulanan" (ionChange)="calcMaklumatPendapatan()"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> PERATUS KENAIKAN</ion-label>
-          <ion-input type="Number" formControlName="peratus_kenaikan" readonly></ion-input>
+          <ion-label> Jumlah jualan tahunan bagi tahun semasa</ion-label>
+          <ion-input type="Number" formControlName="hasil_jualan_tahunan" readonly></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> HASIL JUALAN TAHUNAN</ion-label>
-          <ion-input type="Number" formControlName="hasil_jualan_tahunan" readonly></ion-input>
+          <ion-label> Peratus kenaikan </ion-label>
+          <ion-input type="Number" formControlName="peratus_kenaikan" readonly></ion-input>
         </ion-col>
-
       </ion-row>
 
 
@@ -363,7 +362,7 @@
       <br>
       <div formArrayName="produk">
         <div *ngFor="let produk of getProdukArray.controls; let i=index" [formGroupName]="i">
-          <!-- <div *ngFor="let group of groups"> -->
+          
           <ion-row>
             <ion-col>
               <ion-label> JENAMA PRODUK </ion-label>
@@ -373,8 +372,8 @@
 
           <ion-row>
             <ion-col>
-              <ion-label> UNIT MATRIK</ion-label>
-              <ion-input type="number" formControlName="unitmatrik"></ion-input>
+              <ion-label> UNIT METRIK</ion-label>
+              <ion-input formControlName="unitmatrik" placeholder="10KG/ 5 UNIT/1.5L/2 KARTON"></ion-input>
             </ion-col>
             <ion-col>
               <ion-label> HARGA PER UNIT</ion-label>
@@ -397,7 +396,7 @@
             <ion-col class="form-control">
               <div style="width:100%; display:flex; justify-content:flex-end;">
 
-                <div class="ion-text-center" (click)="deleteProduk(i)">
+                <div *ngIf="i != 0" class="ion-text-center" (click)="deleteProduk(i)">
                   <img src="/assets/icon/trash-icon.png" alt="" height="30" width="30">
                   <br>
                 </div>
@@ -413,49 +412,13 @@
       </div>
 
 
-      <!-- <br><br><br>
-      <ion-row>
-        <ion-col>
-          <strong>LAMPIRAN</strong>
-        </ion-col>
-      </ion-row>
-      <br>
 
       <ion-row>
         <ion-col>
-          <ion-label> DOKUMEN LAMPIRAN </ion-label>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col>
-          <ion-button expand="block" type="file" value="">PILIH DOKUMEN</ion-button>
-        </ion-col>
-      </ion-row> -->
-
-
-      <ion-row>
-        <ion-col>
-          <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->
           <ion-button type="submit" expand="block" color="success">KEMASKINI</ion-button>
         </ion-col>
       </ion-row>
 
-      <!-- <p>
-        <button type="button" class="btn btn-primary btn-sm" >
-          Add Group Item
-        </button>
-
-        <button type="button" class="btn btn-primary btn-sm ms-3 ml-3" >Remove
-          Item
-        </button>
-      </p> -->
-
-      <!-- <accordion>
-        <accordion-group *ngFor="let group of groups" [heading]="group.title">
-          {{ group?.content }}
-        </accordion-group>
-      </accordion> -->
 
     </form>
 
