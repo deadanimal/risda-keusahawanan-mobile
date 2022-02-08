@@ -449,6 +449,7 @@ export class ProfilePerniagaanPage implements OnInit {
                 }
 
               }
+              this.getPerniagaan()
 
 
               loading.dismiss();

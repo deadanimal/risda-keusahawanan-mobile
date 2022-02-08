@@ -74,9 +74,9 @@ export class TambahJanaDokumenPage implements OnInit {
   productLength : any = 0;
   addProduk() {
     const produk = this.formBuilder.group({
-      id_katalog: ['',],
+      id_katalog: ['',  Validators.required],
       id_pelanggan: [''],
-      stok_dijual: ['',],
+      stok_dijual: ['',  Validators.required],
       modified_by: [''],
     });
     this.getProdukArray.push(produk);

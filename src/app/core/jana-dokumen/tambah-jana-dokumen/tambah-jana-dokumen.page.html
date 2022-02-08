@@ -41,19 +41,19 @@
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>No Rumah/ Lot/ Pintu <span style="color: red;">*</span></ion-label>
+          <ion-label>NO RUMAH/ LOT/ PINTU <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat1"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>Nama Jalan <span style="color: red;">*</span></ion-label>
+          <ion-label>NAMA JALAN <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat2"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>Kampung/ Taman <span style="color: red;">*</span></ion-label>
+          <ion-label>KAMPUNG/ TAMAN <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat3"></ion-input>
         </ion-col>
       </ion-row>
@@ -86,14 +86,14 @@
         </ion-col>
         <ion-col class="form-control">
           <ion-label>NO. TELEFON <span style="color: red;">*</span></ion-label>
-          <ion-input type="text" formControlName="no_telefon" (keypress)="numericOnly($event)"></ion-input>
+          <ion-input type="number" formControlName="no_telefon" (keypress)="numericOnly($event)"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
           <ion-label>NO. FAKS <span style="color: red;">*</span></ion-label>
-          <ion-input type="text" formControlName="no_fax" (keypress)="numericOnly($event)"></ion-input>
+          <ion-input type="number" formControlName="no_fax" (keypress)="numericOnly($event)"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -134,7 +134,7 @@
             <ion-col class="form-control">
               <div style="width:100%; display:flex; justify-content:flex-end;">
 
-                <div class="ion-text-center" (click)="deleteProduk(i)">
+                <div *ngIf="i != 0" class="ion-text-center" (click)="deleteProduk(i)">
                   <img src="/assets/icon/trash-icon.png" alt="" height="30" width="30">
                   <br>
                 </div>
@@ -178,7 +178,7 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button color="success" expand="block" type="submit">TAMBAH</ion-button>
+          <ion-button color="success" expand="block" type="submit" >TAMBAH</ion-button>
         </ion-col>
       </ion-row>
     </form>

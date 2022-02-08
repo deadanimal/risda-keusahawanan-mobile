@@ -170,6 +170,8 @@ export class ProfileSyarikatPage implements OnInit {
 
               loading.dismiss();
 
+              this.getSyarikat()
+
               this.presentAlert()
             });
           }

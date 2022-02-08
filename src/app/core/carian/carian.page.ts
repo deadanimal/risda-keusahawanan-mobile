@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CarianService } from 'src/app/services/carian/carian.service';
+import { JenisInsentifService } from 'src/app/services/jenis-insentif/jenis-insentif.service';
+import { PusatTanggungjawabService } from 'src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service';
 
 @Component({
   selector: 'app-carian',
@@ -7,9 +10,203 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarianPage implements OnInit {
 
-  constructor() { }
+  pusat_tanggungjawab: any;
+  jenis_insentif: any;
+
+  date = new Date();
+  listYear = [];
+  year: any;
+
+
+  constructor(
+    private ptService: PusatTanggungjawabService,
+    private jenisInsentifService: JenisInsentifService,
+    private carianService: CarianService
+  ) { }
 
   ngOnInit() {
+    this.getPT()
+    this.getJenisInsentif()
+
+    this.year = Number(this.date.getFullYear());
+    for (let i = 0; i <= 30; i++) {
+
+      this.listYear.push(this.year)
+      this.year = this.year - 1
+
+    }
   }
+
+  getPT() {
+    this.ptService.get().subscribe((res) => {
+      console.log("res", res)
+
+      this.pusat_tanggungjawab = res
+    });
+  }
+
+  getJenisInsentif() {
+    this.jenisInsentifService.get().subscribe((res) => {
+      console.log("res", res)
+
+      this.jenis_insentif = res
+    });
+  }
+
+  input_carian: any;
+  usahawan: any;
+  usahawanTemp: any;
+
+  kod_pt:any = null;
+  insentif:any = null;
+  tahun_terima:any = null;
+
+  getUsahawan() {
+    this.carianService.get(this.input_carian).subscribe((res) => {
+      console.log("maklumat usahawan", res)
+      this.usahawan = res
+      this.usahawanTemp = res
+    });
+  }
+
+
+  tapisan() {
+
+    let tempData = [];
+    if(this.kod_pt == null && this.insentif == null && this.tahun_terima != null){
+
+      this.usahawan.forEach(element => {
+
+
+        let insentif = element.insentif;
+        for (let i = 0; i < insentif.length; i++) {
+          // const element = array[index];
+
+          if(insentif[i].tahun_terima_insentif == this.tahun_terima){
+            console.log("tahun terima insentif",insentif);
+            tempData.push(element);
+            break
+          }
+          
+        }
+  
+      });
+
+    } else if(this.kod_pt == null && this.insentif != null && this.tahun_terima == null){
+
+      this.usahawan.forEach(element => {
+
+        let insentif = element.insentif;
+
+        for (let i = 0; i < insentif.length; i++) {
+          // const element = array[index];
+
+          if(insentif[i].id_jenis_insentif == this.insentif){
+            console.log("jenis insentif",insentif);
+            tempData.push(element);
+            break
+          }
+        }
+  
+      });
+
+    } else if(this.kod_pt == null && this.insentif != null && this.tahun_terima != null){
+
+      this.usahawan.forEach(element => {
+        
+        let insentif = element.insentif;
+
+        for (let i = 0; i < insentif.length; i++) {
+          // const element = array[index];
+
+          if(insentif[i].id_jenis_insentif == this.insentif && insentif[i].tahun_terima_insentif == this.tahun_terima){
+            console.log("jenis insentif",insentif);
+            tempData.push(element);
+            break
+          }
+        }
+  
+      });
+
+
+    } else if(this.kod_pt != null && this.insentif == null && this.tahun_terima == null){
+
+      this.usahawan.forEach(element => {
+          if(element.Kod_PT == this.kod_pt){
+            console.log("kod pt",element);
+            tempData.push(element);
+          }
+      });
+    } else if(this.kod_pt != null && this.insentif == null && this.tahun_terima != null){
+
+      this.usahawan.forEach(element => {
+
+        let insentif = element.insentif;
+
+        for (let i = 0; i < insentif.length; i++) {
+          // const element = array[index];
+
+          if(insentif[i].tahun_terima_insentif == this.tahun_terima && element.Kod_PT == this.kod_pt){
+            console.log("filtered",insentif);
+            tempData.push(element);
+            break
+          }
+        }
+
+      });
+    } else if(this.kod_pt != null && this.insentif != null && this.tahun_terima == null){
+
+      this.usahawan.forEach(element => {
+
+        let insentif = element.insentif;
+
+        for (let i = 0; i < insentif.length; i++) {
+          // const element = array[index];
+
+          if(insentif[i].id_jenis_insentif == this.insentif && element.Kod_PT == this.kod_pt){
+            console.log("filtered",insentif);
+            tempData.push(element);
+            break
+          }
+        }
+
+      });
+    } else if(this.kod_pt != null && this.insentif != null && this.tahun_terima != null){
+
+      this.usahawan.forEach(element => {
+
+        let insentif = element.insentif;
+
+        for (let i = 0; i < insentif.length; i++) {
+          // const element = array[index];
+
+          if(insentif[i].id_jenis_insentif == this.insentif && insentif[i].tahun_terima_insentif == this.tahun_terima && element.Kod_PT == this.kod_pt){
+            console.log("filtered",insentif);
+            tempData.push(element);
+            break
+          }
+        }
+
+      });
+    }
+
+
+    this.usahawanTemp = tempData;
+
+  }
+
+  reset(){
+    this.kod_pt = null;
+    this.insentif = null;
+    this.tahun_terima = null;
+
+    this.getUsahawan()
+  }
+
+  downloadFile(){
+
+    
+  }
+
 
 }
