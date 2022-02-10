@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarianService } from 'src/app/services/carian/carian.service';
 import { JenisInsentifService } from 'src/app/services/jenis-insentif/jenis-insentif.service';
 import { PusatTanggungjawabService } from 'src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-carian',
@@ -203,9 +204,19 @@ export class CarianPage implements OnInit {
     this.getUsahawan()
   }
 
-  downloadFile(){
-
+  downloadFile(usahawanid){
+    console.log(usahawanid);
     
+    this.carianService.downloadFile(usahawanid).subscribe((res) => {
+      console.log("res3", res);
+
+      let url = environment.baseUrl + 'storage/' + res;
+
+      console.log(url);
+      window.open(url, "_blank");
+
+
+    });
   }
 
 

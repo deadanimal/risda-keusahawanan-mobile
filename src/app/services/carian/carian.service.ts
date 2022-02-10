@@ -16,7 +16,7 @@ export class CarianService {
     return this.http.get<any>(`${this.url}`+'/'+input);
   }
 
-  url2: string = environment.baseUrl + "api/carian";
+  url2: string = environment.baseUrl + "api/downloadCarian";
 
   downloadFile(id): Observable<any> {
     return this.http.get<any>(`${this.url2}`+'/'+id);
