@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ForgotPasswordService } from 'src/app/services/forgot-password/forgot-password.service';
 import { LoginService } from 'src/app/services/login/login.service';
 
@@ -39,7 +41,7 @@ export class FirstTimeLoginPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("profile_status",this.profile_status)
+    console.log("profile_status", this.profile_status)
   }
 
   async presentAlertConfirm() {
@@ -70,14 +72,13 @@ export class FirstTimeLoginPage implements OnInit {
     await alert.present();
   }
 
-  
 
+  errorMsg: string;
   async logForm() {
 
     console.log(this.form.value);
 
     if (this.form.value.password == this.form.value.confirm_password) {
-      console.log("berjaya");
 
       const loading = await this.loadingController.create({ message: 'Loading ...' });
       loading.present();
@@ -85,9 +86,13 @@ export class FirstTimeLoginPage implements OnInit {
       this.forgotPassService.firstTimeLogin(this.form.value, this.user_id).subscribe((res) => {
         console.log("res", res);
 
-        
-        loading.dismiss();
-        this.presentAlertUpdatesucces()
+        if(res == 'email already exist'){
+          loading.dismiss();
+          this.presentAlertEmailFailed()
+        } else {
+          loading.dismiss();
+          this.presentAlertUpdatesucces()
+        }
       });
     } else {
       this.presentAlertFailed()
@@ -95,6 +100,20 @@ export class FirstTimeLoginPage implements OnInit {
 
   }
 
+  async presentAlertEmailFailed() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Harap Maaf',
+      // subHeader: 'Subtitle',
+      message: 'Email yang digunakan telah wujud',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
 
   async presentAlertFailed() {
     const alert = await this.alertController.create({
@@ -147,7 +166,7 @@ export class FirstTimeLoginPage implements OnInit {
       this.forgotPassService.updatePassword(this.form2.value, this.user_id).subscribe((res) => {
         console.log("res", res);
 
-        
+
         loading.dismiss();
         this.presentAlertUpdatesucces()
       });

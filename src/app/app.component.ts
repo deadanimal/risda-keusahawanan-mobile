@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { PegawaiService } from './services/pegawai/pegawai.service';
+import { UsahawanService } from './services/usahawan/usahawan.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -41,7 +42,8 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private pegawaiService: PegawaiService
+    private pegawaiService: PegawaiService,
+    private usahawanService: UsahawanService
   ) {
 
   }
@@ -54,6 +56,8 @@ export class AppComponent {
 
     if (this.usahawan_id == null && this.pegawai_id != null) {
       this.getpegawai();
+    } else {
+      this.getusahawan();
     }
 
     if (this.peranan_pegawai == "7") {
@@ -83,11 +87,19 @@ export class AppComponent {
     });
   }
 
+  // usahawan: any;
+  gambar_usahawan : any;
+  getusahawan(){
+    this.usahawanService.show(this.usahawan_id).subscribe((res) => {
+      console.log("AAAAAA", res);
+      this.gambar_usahawan = res.gambar_url
+    });
+  }
+
 
   profil(){
     this.router.navigate(['/profile'])
   }
-  // profile() {
-  //   this.router.navigate(['/profile']);
-  // }
+
+ 
 }
