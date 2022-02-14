@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotifikasiService } from 'src/app/services/notifikasi/notifikasi.service';
 
 @Component({
   selector: 'app-notifikasi',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotifikasiPage implements OnInit {
 
-  constructor() { }
+  usahawan_id = window.sessionStorage.getItem("usahawan_id");
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
+  user_id = window.sessionStorage.getItem("user_id");
+  role = window.sessionStorage.getItem("role");
+  peranan_pegawai= window.sessionStorage.getItem("peranan_pegawai");
+  
+  constructor(
+    private notiService : NotifikasiService
+  ) { }
 
   ngOnInit() {
+    console.log("user_id", this.user_id);
+
+    this.getNoti()
   }
 
   notifikasi = [
@@ -21,5 +33,13 @@ export class NotifikasiPage implements OnInit {
     { tajuk:"notifikasi6", keterangan:"fff", masa:""},
     { tajuk:"notifikasi7", keterangan:"ggg", masa:""},
   ]
+
+
+  getNoti(){
+    this.notiService.get(this.user_id).subscribe((res) => {
+      console.log("notification", res);
+
+    });
+  }
 
 }
