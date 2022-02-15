@@ -30,6 +30,7 @@ export class TarikhLawatanPgwPage implements OnInit {
       id_pegawai: ['',],
       tarikh_lawatan: ['', Validators.required],
       masa_lawatan: ['', Validators.required],
+     
     });
   }
 

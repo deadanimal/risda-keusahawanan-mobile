@@ -36,6 +36,9 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
       tarikh_lawatan: ['', Validators.required],
       masa_lawatan: ['', Validators.required],
       status_lawatan: ['',],
+      role: ['',],
+      id_pegawai: ['',],
+      id_pengguna: ['',],
     });
   }
 
@@ -47,7 +50,7 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
   setFormValues() {
 
-    this.form.setValue({
+    this.form.patchValue({
       namausahawan: this.lawatan.namausahawan,
       nama_pegawai: this.lawatan.nama_pegawai,
       tarikh_lawatan: this.lawatan.tarikh_lawatan,
@@ -68,18 +71,37 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
   logForm() {
 
-    if (this.pegawai_id == null) {
-      //usahawan
-      this.form.value.status_lawatan = "2"
-    } else {
-      //pegawai
-      this.form.value.status_lawatan = "1"
-    }
+    // if (this.pegawai_id == null) {
+    //   //usahawan
+    //   this.form.value.status_lawatan = "2"
+    // } else {
+    //   //pegawai
+    //   this.form.value.status_lawatan = "1"
+    // }
 
     this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
     // this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('hh:mm:ss[.nnnnnnn]');
-    
+
+
+    if (this.usahawan_id != null) {
+      this.form.patchValue({
+        role: "usahawan",
+        id_pengguna : this.user_id,
+        id_pegawai: this.pegawai_id,
+        status_lawatan: 2
+      });
+    } else {
+      this.form.patchValue({
+        role: "pegawai",
+        id_pegawai: this.pegawai_id,
+        id_pengguna : this.lawatan.usahawan_id,
+        status_lawatan: 1
+      });
+    }
     console.log(this.form.value)
+
+
+
     this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
       console.log("res", res);
 
@@ -91,7 +113,21 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
   sahkan() {
 
-    this.form.value.status_lawatan = "3"
+    // this.form.value.status_lawatan = "3"
+
+    if (this.usahawan_id != null) {
+      this.form.patchValue({
+        role: "usahawan",
+        id_pengguna : this.user_id,
+        status_lawatan: 3
+      });
+    } else {
+      this.form.patchValue({
+        role: "pegawai",
+        id_pegawai: this.pegawai_id,
+        status_lawatan: 3
+      });
+    }
 
     console.log(this.form.value)
     this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {

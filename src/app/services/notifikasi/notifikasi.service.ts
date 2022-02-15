@@ -18,4 +18,8 @@ export class NotifikasiService {
   get(id): Observable<any> {
     return this.http.get<any>(`${this.url}`+'/'+id);
   }
+
+  updateStatus(id): Observable<any> {
+    return this.http.get<any>(`${this.url}`+'/updateStatus/'+id);
+  }
 }

@@ -51,6 +51,21 @@ export class LoginPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
+  async presentAlert2() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      subHeader: '',
+      message: 'Akaun Tidak Aktif. Sila Minta Admin Aktifkan Akaun Anda Untuk Meneruskan ke Aplikasi',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
   login() {
     console.log(this.form.value);
     this.loginService.check1user(this.form.value).subscribe((res) => {
@@ -81,12 +96,19 @@ export class LoginPage implements OnInit {
         console.log("login success")
         // this.router.navigate(['/dashboard']);
 
-        if (res.profile_status == 0 || res.profile_status == 2) {
-          this.router.navigate(['/first-time-login']);
+        if (res.status_pengguna == 0) {
+          this.presentAlert2();
+        } else {
+
+          if (res.profile_status == 0 || res.profile_status == 2) {
+            this.router.navigate(['/first-time-login']);
+          }
+          else if (res.profile_status == 1) {
+            this.router.navigate(['/dashboard']);
+          }
         }
-        else if (res.profile_status == 1) {
-          this.router.navigate(['/dashboard']);
-        }
+
+
       }
     });
 

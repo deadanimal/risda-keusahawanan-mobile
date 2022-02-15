@@ -85,7 +85,6 @@ export class TambahLaporanPage implements OnInit {
         jenis_lawatan: "janji temu"
       })
     }
-   
   }
 
 

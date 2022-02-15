@@ -26,8 +26,8 @@
         <ion-row *ngFor="let notifikasi of notifikasi" style="padding-bottom: 10px;">
           <ion-col>
             
-            <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="kemaskiniTunaiMasuk()">
-              <span class="dot"></span>
+            <div class="content-box bold" style="font-family: 'Nunito Sans';" (click)="routing(notifikasi)">
+              <span *ngIf="notifikasi.readstatus == 0" class="dot"></span>
               <ion-grid style="padding: 0%;">
                 <ion-row style="padding: 0%;">
                   <ion-col size="10">

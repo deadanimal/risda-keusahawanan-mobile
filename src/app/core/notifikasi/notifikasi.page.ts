@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NotifikasiService } from 'src/app/services/notifikasi/notifikasi.service';
 
 @Component({
@@ -12,10 +13,11 @@ export class NotifikasiPage implements OnInit {
   pegawai_id = window.sessionStorage.getItem("pegawai_id");
   user_id = window.sessionStorage.getItem("user_id");
   role = window.sessionStorage.getItem("role");
-  peranan_pegawai= window.sessionStorage.getItem("peranan_pegawai");
-  
+  peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+
   constructor(
-    private notiService : NotifikasiService
+    private notiService: NotifikasiService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -24,22 +26,43 @@ export class NotifikasiPage implements OnInit {
     this.getNoti()
   }
 
-  notifikasi = [
-    { tajuk:"notifikasi1", keterangan:"aaa", masa:""},
-    { tajuk:"notifikasi2", keterangan:"bbb", masa:""},
-    { tajuk:"notifikasi3", keterangan:"ccc", masa:""},
-    { tajuk:"notifikasi4", keterangan:"ddd", masa:""},
-    { tajuk:"notifikasi5", keterangan:"eee", masa:""},
-    { tajuk:"notifikasi6", keterangan:"fff", masa:""},
-    { tajuk:"notifikasi7", keterangan:"ggg", masa:""},
-  ]
+  notifikasi: any;
 
 
-  getNoti(){
+  getNoti() {
     this.notiService.get(this.user_id).subscribe((res) => {
       console.log("notification", res);
+      this.notifikasi = res
+    });
+  }
+
+  routing(notifikasi) {
+
+    console.log(notifikasi)
+    this.notiService.updateStatus(notifikasi.id).subscribe((res) => {
+      console.log("updated status", res);
+
+      if (this.usahawan_id != null) {
+        if (notifikasi.modul == "katalog") {
+          
+          this.router.navigate(['/katalog'])
+        }  if (notifikasi.modul == "lawatan") {
+          
+          this.router.navigate(['/lawatan-usahawan'])
+        }
+
+      } else if (this.usahawan_id == null) {
+        console.log("pegi katalog")
+
+        if (notifikasi.modul == "katalog") {
+          
+          this.router.navigate(['/katalog-pegawai'])
+        }
+
+      }
 
     });
+
   }
 
 }
