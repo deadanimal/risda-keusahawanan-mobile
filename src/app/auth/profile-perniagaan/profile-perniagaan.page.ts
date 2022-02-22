@@ -19,6 +19,7 @@ import { ProdukService } from 'src/app/services/produk/produk.service';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { KlusterService } from 'src/app/services/kluster/kluster.service';
 
 @Component({
   selector: 'app-profile-perniagaan',
@@ -42,79 +43,80 @@ export class ProfilePerniagaanPage implements OnInit {
     { id: "E", name: "PERKHIDMATAN BUKAN PEMASARAN" },
   ]
 
-  klusterPerniagaan = [
-    { id: "A1", name: "KLUSTER MAKANAN RINGAN/SEGERA" },
-    { id: "A2", name: "KLUSTER MAKANAN TRADISIONAL" },
-    { id: "A3", name: "KLUSTER MAKANAN SEJUK BEKU" },
-    { id: "A4", name: "KLUSTER MAKANAN KEK/ROTI/BISKUT" },
-    { id: "A5", name: "KLUSTER MAKANAN REMPAH RATUS/BAHAN MASAKAN" },
-    { id: "A6", name: "KLUSTER MAKANAN PERENCAH/PENCICAH/SOS" },
-    { id: "A7", name: "KLUSTER MINUMAN/KORDIAL" },
-    { id: "B1", name: "KLUSTER PRODUK BERASASKAN KAYU/POKOK" },
-    { id: "B2", name: "KLUSTER PRODUK BERASASKAN LOGAM" },
-    { id: "B3", name: "KLUSTER PRODUK BERASASKAN TANAH LIAT/PASIR" },
-    { id: "B4", name: "KLSUTER PRODUK BERASASKAN BAHAN BINAAN" },
-    { id: "B5", name: "KLUSTER PRODUK BERASASKAN TEKSTIL/KEKABU" },
-    { id: "B6", name: "KLUSTER PRODUK BERASASKAN GETAH/SAWIT" },
-    { id: "B7", name: "KLUSTER PRODUK BERASASKAN BAHAN ORGANIK/TUMBUHAN/HAIWAN" },
-    { id: "C1", name: "KLUSTER TANAMAN" },
-    { id: "C2", name: "KLUSTER TERNAKAN" },
-    { id: "C3", name: "KLUSTER AKUAKULTUR" },
-    { id: "D1", name: "KLUSTER RAKAN STRATEGIK PEMASARAN" },
-    { id: "D2", name: "KLUSTER RAKAN PEMASARAN" },
-    { id: "D3", name: "KLUSTER PENGEDAR" },
-    { id: "D4", name: "KLUSTER STOKIS" },
-    { id: "D5", name: "KLUSTER AGEN" },
-    { id: "E1", name: "KLUSTER ANDAMAN & BUTIK" },
-    { id: "E2", name: "KLUSTER BENGKEL BAIKI KENDERAAN" },
-    { id: "E3", name: "KLUSTER BENGKEL CUCI KENDERAAN" },
-    { id: "E4", name: "KLUSTER BENGKEL JAHITAN" },
-    { id: "E5", name: "KLUSTER BENGKEL KIMPALAN/BESI/KACA" },
-    { id: "E6", name: "KLUSTER DOBI" },
-    { id: "E7", name: "KLUSTER FOTOGRAFI" },
-    { id: "E8", name: "KLUSTER HOMESTAY/RESORT" },
-    { id: "E9", name: "KLUSTER KATERING & KANOPI" },
-    { id: "E10", name: "KLUSTER KEDAI BAIKI BARANG ELEKTRIK/ELEKTRONIK" },
-    { id: "E11", name: "KLUSTER KEDAI GUNTING RAMBUT" },
-    { id: "E12", name: "KLUSTER KEDAI KRAFTANGAN/CENDERAHATI" },
-    { id: "E13", name: "KLUSTER KEDAI MAKAN/FOOD TRUCK/KIOSK" },
-    { id: "E14", name: "KLUSTER KEDAI PAKAIAN/KASUT/BEG" },
-    { id: "E15", name: "KLUSTER KEDAI RUNCIT/BARANG BASAH" },
-    { id: "E16", name: "KLUSTER KONTRAKTOR BINAAN" },
-    { id: "E17", name: "KLUSTER LOGISTIK & PENGANGKUTAN" },
-    { id: "E18", name: "KLUSTER NURSERI" },
-    { id: "E19", name: "KLUSTER ONLINE SERVIS/CYBERCAFE" },
-    { id: "E20", name: "KLUSTER PENDAWAIAN ELEKTRIK" },
-    { id: "E21", name: "KLUSTER PENYELENGGARAAN KEBUN" },
-    { id: "E22", name: "KLUSTER PERCETAKAN DAN PENGIKLANAN" },
-    { id: "E23", name: "KLUSTER PROSES AYAM" },
-    { id: "E24", name: "KLUSTER PROSES BAJA" },
-    { id: "E25", name: "KLUSTER PROSES SANTAN" },
-    { id: "E26", name: "KLUSTER SEWA BOT" },
-    { id: "E27", name: "KLUSTER SEWA KANOPI" },
-    { id: "E28", name: "KLUSTER SEWA KERETA KUDA" },
-    { id: "E29", name: "KLUSTER SEWA AUDIO VISUAL SISTEM/ALAT SIARAYA/DJ" },
-    { id: "E30", name: "KLUSTER SPA KECANTIKAN/KESIHATAN" },
-    { id: "E31", name: "KLUSTER TASKA" },
-    { id: "E32", name: "KLUSTER URUTAN/REFLEKSOLOGI" },
-    { id: "E33", name: "KLUSTER KLINIK HAIWAN" },
-    { id: "E34", name: "KLUSTER KEDAI PERKAKAS/PERALATAN/MAKANAN HAIWAN" },
-    { id: "E35", name: "KLUSTER KEDAI BAIKI PERABOT/KUSYEN/KANVAS" },
-    { id: "E36", name: "KLUSTER KEDAI BAIKI PERALATAN KEJURUTERAAN/MESIN" },
-    { id: "E37", name: "KLUSTER KEDAI KELENGKAPAN IBU & ANAK" },
-    { id: "E38", name: "KLUSTER PENGURUS MAJLIS/ACARA/PERANCANG PERKAHWINAN" },
-    { id: "E39", name: "KLUSTER TUKANG KASUT" },
-    { id: "E40", name: "KLUSTER TUKANG KUNCI" },
-    { id: "E41", name: "KLUSTER PUSAT TUSYEN/LATIHAN" },
-    { id: "E42", name: "KLUSTER PELUKIS/MURAL/KALIGRAFI" },
-    { id: "E43", name: "KLUSTER PENYEMBUR RACUN SERANGGA" },
-    { id: "E44", name: "KLUSTER PEMBEKAL GAS LPG" },
-    { id: "E45", name: "KLUSTER PEMASANGAN GIGI PALSU" },
-    { id: "E46", name: "KLUSTER STUDIO & PRODUKSI" },
-    { id: "E47", name: "KLUSTER PEMBUNGKUSAN MAKANAN" },
-    { id: "E48", name: "KLUSTER DEPO GETAH/URUSNIAGA GETAH" },
-    { id: "F", name: "LAIN-LAIN" },
-  ]
+  klusterPerniagaan: any;
+  // klusterPerniagaan = [
+  //   { id: "A1", name: "KLUSTER MAKANAN RINGAN/SEGERA" },
+  //   { id: "A2", name: "KLUSTER MAKANAN TRADISIONAL" },
+  //   { id: "A3", name: "KLUSTER MAKANAN SEJUK BEKU" },
+  //   { id: "A4", name: "KLUSTER MAKANAN KEK/ROTI/BISKUT" },
+  //   { id: "A5", name: "KLUSTER MAKANAN REMPAH RATUS/BAHAN MASAKAN" },
+  //   { id: "A6", name: "KLUSTER MAKANAN PERENCAH/PENCICAH/SOS" },
+  //   { id: "A7", name: "KLUSTER MINUMAN/KORDIAL" },
+  //   { id: "B1", name: "KLUSTER PRODUK BERASASKAN KAYU/POKOK" },
+  //   { id: "B2", name: "KLUSTER PRODUK BERASASKAN LOGAM" },
+  //   { id: "B3", name: "KLUSTER PRODUK BERASASKAN TANAH LIAT/PASIR" },
+  //   { id: "B4", name: "KLSUTER PRODUK BERASASKAN BAHAN BINAAN" },
+  //   { id: "B5", name: "KLUSTER PRODUK BERASASKAN TEKSTIL/KEKABU" },
+  //   { id: "B6", name: "KLUSTER PRODUK BERASASKAN GETAH/SAWIT" },
+  //   { id: "B7", name: "KLUSTER PRODUK BERASASKAN BAHAN ORGANIK/TUMBUHAN/HAIWAN" },
+  //   { id: "C1", name: "KLUSTER TANAMAN" },
+  //   { id: "C2", name: "KLUSTER TERNAKAN" },
+  //   { id: "C3", name: "KLUSTER AKUAKULTUR" },
+  //   { id: "D1", name: "KLUSTER RAKAN STRATEGIK PEMASARAN" },
+  //   { id: "D2", name: "KLUSTER RAKAN PEMASARAN" },
+  //   { id: "D3", name: "KLUSTER PENGEDAR" },
+  //   { id: "D4", name: "KLUSTER STOKIS" },
+  //   { id: "D5", name: "KLUSTER AGEN" },
+  //   { id: "E1", name: "KLUSTER ANDAMAN & BUTIK" },
+  //   { id: "E2", name: "KLUSTER BENGKEL BAIKI KENDERAAN" },
+  //   { id: "E3", name: "KLUSTER BENGKEL CUCI KENDERAAN" },
+  //   { id: "E4", name: "KLUSTER BENGKEL JAHITAN" },
+  //   { id: "E5", name: "KLUSTER BENGKEL KIMPALAN/BESI/KACA" },
+  //   { id: "E6", name: "KLUSTER DOBI" },
+  //   { id: "E7", name: "KLUSTER FOTOGRAFI" },
+  //   { id: "E8", name: "KLUSTER HOMESTAY/RESORT" },
+  //   { id: "E9", name: "KLUSTER KATERING & KANOPI" },
+  //   { id: "E10", name: "KLUSTER KEDAI BAIKI BARANG ELEKTRIK/ELEKTRONIK" },
+  //   { id: "E11", name: "KLUSTER KEDAI GUNTING RAMBUT" },
+  //   { id: "E12", name: "KLUSTER KEDAI KRAFTANGAN/CENDERAHATI" },
+  //   { id: "E13", name: "KLUSTER KEDAI MAKAN/FOOD TRUCK/KIOSK" },
+  //   { id: "E14", name: "KLUSTER KEDAI PAKAIAN/KASUT/BEG" },
+  //   { id: "E15", name: "KLUSTER KEDAI RUNCIT/BARANG BASAH" },
+  //   { id: "E16", name: "KLUSTER KONTRAKTOR BINAAN" },
+  //   { id: "E17", name: "KLUSTER LOGISTIK & PENGANGKUTAN" },
+  //   { id: "E18", name: "KLUSTER NURSERI" },
+  //   { id: "E19", name: "KLUSTER ONLINE SERVIS/CYBERCAFE" },
+  //   { id: "E20", name: "KLUSTER PENDAWAIAN ELEKTRIK" },
+  //   { id: "E21", name: "KLUSTER PENYELENGGARAAN KEBUN" },
+  //   { id: "E22", name: "KLUSTER PERCETAKAN DAN PENGIKLANAN" },
+  //   { id: "E23", name: "KLUSTER PROSES AYAM" },
+  //   { id: "E24", name: "KLUSTER PROSES BAJA" },
+  //   { id: "E25", name: "KLUSTER PROSES SANTAN" },
+  //   { id: "E26", name: "KLUSTER SEWA BOT" },
+  //   { id: "E27", name: "KLUSTER SEWA KANOPI" },
+  //   { id: "E28", name: "KLUSTER SEWA KERETA KUDA" },
+  //   { id: "E29", name: "KLUSTER SEWA AUDIO VISUAL SISTEM/ALAT SIARAYA/DJ" },
+  //   { id: "E30", name: "KLUSTER SPA KECANTIKAN/KESIHATAN" },
+  //   { id: "E31", name: "KLUSTER TASKA" },
+  //   { id: "E32", name: "KLUSTER URUTAN/REFLEKSOLOGI" },
+  //   { id: "E33", name: "KLUSTER KLINIK HAIWAN" },
+  //   { id: "E34", name: "KLUSTER KEDAI PERKAKAS/PERALATAN/MAKANAN HAIWAN" },
+  //   { id: "E35", name: "KLUSTER KEDAI BAIKI PERABOT/KUSYEN/KANVAS" },
+  //   { id: "E36", name: "KLUSTER KEDAI BAIKI PERALATAN KEJURUTERAAN/MESIN" },
+  //   { id: "E37", name: "KLUSTER KEDAI KELENGKAPAN IBU & ANAK" },
+  //   { id: "E38", name: "KLUSTER PENGURUS MAJLIS/ACARA/PERANCANG PERKAHWINAN" },
+  //   { id: "E39", name: "KLUSTER TUKANG KASUT" },
+  //   { id: "E40", name: "KLUSTER TUKANG KUNCI" },
+  //   { id: "E41", name: "KLUSTER PUSAT TUSYEN/LATIHAN" },
+  //   { id: "E42", name: "KLUSTER PELUKIS/MURAL/KALIGRAFI" },
+  //   { id: "E43", name: "KLUSTER PENYEMBUR RACUN SERANGGA" },
+  //   { id: "E44", name: "KLUSTER PEMBEKAL GAS LPG" },
+  //   { id: "E45", name: "KLUSTER PEMASANGAN GIGI PALSU" },
+  //   { id: "E46", name: "KLUSTER STUDIO & PRODUKSI" },
+  //   { id: "E47", name: "KLUSTER PEMBUNGKUSAN MAKANAN" },
+  //   { id: "E48", name: "KLUSTER DEPO GETAH/URUSNIAGA GETAH" },
+  //   { id: "F", name: "LAIN-LAIN" },
+  // ]
 
   negeri: any;
   daerah: any;
@@ -141,7 +143,8 @@ export class ProfilePerniagaanPage implements OnInit {
     private seksyenService: SeksyenService,
     private produkService: ProdukService,
     private aliranService: AliranService,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private klusterService: KlusterService
     // private geolocation: Geolocation
   ) {
     this.form = this.formBuilder.group({
@@ -188,10 +191,10 @@ export class ProfilePerniagaanPage implements OnInit {
       id: ['',],
       perniagaanid: ['',],
       jenamaproduk: ['',],
-      unitmatrik: [''],
+      unitmatrik: ['',],
       hargaperunit: ['',],
-      kapasitimaksimum: [''],
-      kapasitisemasa: [''],
+      kapasitimaksimum: ['',],
+      kapasitisemasa: ['', ],
       modified_by: [''],
     });
     this.getProdukArray.push(produk);
@@ -266,8 +269,48 @@ export class ProfilePerniagaanPage implements OnInit {
             this.addProduk();
           }
 
-          this.setFormValues();
 
+          this.negeriService.get().subscribe((resNegeri) => {
+            console.log("Negeri", resNegeri)
+            this.negeri = resNegeri;
+  
+            this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.perniagaan.U_Negeri_ID))).subscribe((resDaerah) => {
+              console.log("resDaerah", resDaerah)
+              this.daerah = resDaerah;
+  
+              this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.perniagaan.U_Daerah_ID))).subscribe((resMukim) => {
+                console.log("resMukim", resMukim)
+                this.mukim = resMukim;
+  
+                this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.perniagaan.U_Negeri_ID))).subscribe((resParlimen) => {
+                  console.log("resParlimen", resParlimen)
+                  this.parlimen = resParlimen;
+  
+                  this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.perniagaan.U_Parlimen_ID))).subscribe((resDun) => {
+                    console.log("resDun", resDun)
+                    this.dun = resDun;
+  
+                    this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.perniagaan.U_Mukim_ID))).subscribe((resKampung) => {
+                      console.log("resKampung", resKampung)
+                      this.kampung = resKampung;
+  
+  
+                      let mukimStr = this.perniagaan.U_Mukim_ID;
+                      let mukimInt = parseInt(mukimStr.toString())
+                   
+                      this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukimInt ))).subscribe((resSeksyen) => {
+                        console.log("resSeksyen", resSeksyen)
+                        this.seksyen = resSeksyen;
+  
+                        this.setFormValues()
+  
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
 
         });
 
@@ -311,14 +354,17 @@ export class ProfilePerniagaanPage implements OnInit {
       hasil_jualan_tahunan: this.perniagaan.hasil_jualan_tahunan
     })
 
-    this.getNegeri();
-    this.getDaerah(this.perniagaan.U_Negeri_ID)
-    this.getMukim(this.perniagaan.U_Daerah_ID);
-    this.getParlimen()
-    this.getDun()
-    this.getKampung()
-    this.getSeksyen()
     this.setProdukVAlue()
+  }
+
+  getKluster() {
+
+    this.klusterService.get().pipe(map(x => x.filter(i => i.jenis_kluster == this.form.value.jenisperniagaan))).subscribe((res) => {
+      console.log("kluster", res);
+      this.klusterPerniagaan = res
+
+    });
+
   }
 
   getNegeri() {
@@ -333,7 +379,6 @@ export class ProfilePerniagaanPage implements OnInit {
   getDaerah(event) {
 
     this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
 
       console.log("Daerah", res);
       this.daerah = res;
@@ -347,7 +392,6 @@ export class ProfilePerniagaanPage implements OnInit {
   getMukim(event) {
 
     this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.form.value.U_Daerah_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
 
       console.log("mukim", res);
       this.mukim = res;
@@ -357,18 +401,15 @@ export class ProfilePerniagaanPage implements OnInit {
   getParlimen() {
 
     this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
 
       console.log("parlimen", res);
       this.parlimen = res;
-
     });
   }
 
   getDun() {
 
     this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.form.value.U_Parlimen_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
 
       console.log("dun", res);
       this.dun = res;
@@ -378,7 +419,6 @@ export class ProfilePerniagaanPage implements OnInit {
   getKampung() {
 
     this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.form.value.U_Mukim_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
 
       console.log("kampung", res);
       this.kampung = res;
@@ -386,9 +426,10 @@ export class ProfilePerniagaanPage implements OnInit {
   }
 
   getSeksyen() {
+    console.log(this.form.value.U_Mukim_ID)
+    let mukim = parseInt(this.form.value.U_Mukim_ID)
 
-    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.form.value.U_Mukim_ID))).subscribe((res) => {
-      // this.daerahService.get().subscribe((res) => {
+    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukim))).subscribe((res) => {
 
       console.log("seksyen", res);
       this.seksyen = res;

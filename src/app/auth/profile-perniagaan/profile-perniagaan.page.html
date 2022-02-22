@@ -53,19 +53,6 @@
     </ion-fab-list>
   </ion-fab>
 
-
-
-  <!-- <ion-item-divider class="ion-padding" color="light">
-    <ion-text color="success">
-
-      <h1><strong>
-          <ion-icon name="chevron-back-outline"></ion-icon> PROFIL
-        </strong></h1>
-    </ion-text>
-
-  </ion-item-divider> -->
-
-
   <ion-grid [fixed]="true">
 
 
@@ -84,7 +71,7 @@
         <ion-col>
           <ion-label>JENIS PERNIAGAAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="jenisperniagaan"></ion-input> -->
-          <ion-select formControlName="jenisperniagaan" style="width:100%,">
+          <ion-select formControlName="jenisperniagaan" style="width:100%," (ionChange)="getKluster();">
             <ion-select-option *ngFor="let jenis_perniagaan of jenis_perniagaan" value="{{jenis_perniagaan.id}}"
               style="word-wrap:break-word">{{jenis_perniagaan.name}}</ion-select-option>
           </ion-select>
@@ -96,8 +83,8 @@
           <ion-label>KLUSTER PERNIAGAAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="klusterperniagaan"></ion-input> -->
           <ion-select formControlName="klusterperniagaan" style="width:100%,">
-            <ion-select-option *ngFor="let klusterPerniagaan of klusterPerniagaan" value="{{klusterPerniagaan.id}}"
-              style="word-wrap:break-word">{{klusterPerniagaan.name}}</ion-select-option>
+            <ion-select-option *ngFor="let klusterPerniagaan of klusterPerniagaan" value="{{klusterPerniagaan.kluster_id}}"
+              style="word-wrap:break-word">{{klusterPerniagaan.nama_kluster}}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -244,25 +231,25 @@
       <ion-row>
         <ion-col>
           <ion-label> FACEBOOK </ion-label>
-          <ion-input formControlName="facebook"></ion-input>
+          <ion-input formControlName="facebook" style="text-transform: none;"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> INSTAGRAM</ion-label>
-          <ion-input formControlName="instagram"></ion-input>
+          <ion-input formControlName="instagram" style="text-transform: none;"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> TWITTER</ion-label>
-          <ion-input formControlName="twitter"></ion-input>
+          <ion-input formControlName="twitter" style="text-transform: none;"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-label> LAMAN WEB</ion-label>
-          <ion-input formControlName="lamanweb"></ion-input>
+          <ion-input formControlName="lamanweb" style="text-transform: none;"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -339,14 +326,14 @@
       <ion-row>
         <ion-col>
           <ion-label style="text-transform: uppercase;"> Jumlah jualan tahunan bagi tahun semasa</ion-label>
-          <ion-input type="Number" formControlName="hasil_jualan_tahunan" readonly></ion-input>
+          <ion-input class="read-only" type="Number" formControlName="hasil_jualan_tahunan" readonly></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label style="text-transform: uppercase;"> Peratus kenaikan </ion-label>
-          <ion-input type="Number" formControlName="peratus_kenaikan" readonly></ion-input>
+          <ion-input class="read-only" type="Number" formControlName="peratus_kenaikan" readonly></ion-input>
         </ion-col>
       </ion-row>
 
@@ -376,7 +363,7 @@
               <ion-input formControlName="unitmatrik" placeholder="10KG/ 5 UNIT/1.5L/2 KARTON"></ion-input>
             </ion-col>
             <ion-col>
-              <ion-label> HARGA PER UNIT</ion-label>
+              <ion-label> HARGA PER UNIT (RM)</ion-label>
               <ion-input type="number" formControlName="hargaperunit"></ion-input>
             </ion-col>
           </ion-row>
@@ -415,7 +402,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-button type="submit" expand="block" color="success">KEMASKINI</ion-button>
+          <ion-button type="submit" expand="block" color="success" [disabled]="form.invalid">KEMASKINI</ion-button>
         </ion-col>
       </ion-row>
 

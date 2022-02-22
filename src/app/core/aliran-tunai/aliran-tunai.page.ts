@@ -36,7 +36,13 @@ export class AliranTunaiPage implements OnInit {
       component: TambahTunaiMasukPage,
       cssClass: 'my-custom-class'
     });
-    return await modal.present();
+    await modal.present();
+
+    const { data: tunaimasuk } = await modal.onDidDismiss();
+    if (tunaimasuk) {
+      // TODO do something
+      this.getAliran()
+    }
   }
 
   async kemaskiniTunaiMasuk(tunai_masuk: any) {
@@ -47,8 +53,13 @@ export class AliranTunaiPage implements OnInit {
       // cssClass: 'my-custom-class'
     });
 
-    modal.present();
-    // return await modal.present();
+    await modal.present();
+
+    const { data: tunaimasuk } = await modal.onDidDismiss();
+    if (tunaimasuk) {
+      // TODO do something
+      this.getAliran()
+    }
   }
 
   async tambahTunaiKeluar() {
@@ -57,9 +68,13 @@ export class AliranTunaiPage implements OnInit {
       component: TambahTunaiKeluarPage,
       cssClass: 'my-custom-class'
     });
-    return await modal.present();
+    await modal.present();
 
-    // this.getAliran();
+    const { data: updatedTunaiKeluar } = await modal.onDidDismiss();
+    if (updatedTunaiKeluar) {
+      // TODO do something
+      this.getAliran()
+    }
   }
 
   async kemaskiniTunaiKeluar(tunai_keluar: any) {
@@ -69,7 +84,13 @@ export class AliranTunaiPage implements OnInit {
       componentProps: { tunai_keluar },
       // cssClass: 'my-custom-class'
     });
-    return await modal.present();
+    await modal.present();
+
+    const { data: updatedTunaiKeluar } = await modal.onDidDismiss();
+    if (updatedTunaiKeluar) {
+      // TODO do something
+      this.getAliran()
+    }
   }
 
   getAliran() {

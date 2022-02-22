@@ -9,7 +9,7 @@
     <ion-text color="success">
       <h1>
         <strong>
-           PROFIL SYARIKAT
+          PROFIL SYARIKAT
         </strong>
       </h1>
     </ion-text>
@@ -107,19 +107,19 @@
           <ion-label>JENIS MILIKAN PERNIAGAAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{syarikat.jenismilikanperniagaan}}" formControlName="jenismilikanperniagaan"></ion-input> -->
           <ion-select formControlName="jenismilikanperniagaan">
-            <ion-select-option *ngFor="let jenis_milikan of jenis_milikan" value="{{jenis_milikan.id}}"  
-              >{{jenis_milikan.name}}</ion-select-option>
+            <ion-select-option *ngFor="let jenis_milikan of jenis_milikan" value="{{jenis_milikan.id}}">
+              {{jenis_milikan.name}}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> NO. DAFTAR SSM <span style="color: red;">*</span></ion-label>
+          <ion-label> NO. DAFTAR SSM </ion-label>
           <ion-input value="{{syarikat.nodaftarssm}}" formControlName="nodaftarssm"></ion-input>
         </ion-col>
         <ion-col>
-          <ion-label> NO. DAFTAR PBT <span style="color: red;">*</span></ion-label>
+          <ion-label> NO. DAFTAR PBT </ion-label>
           <ion-input value="{{syarikat.nodaftarpbt}}" formControlName="nodaftarpbt"></ion-input>
         </ion-col>
       </ion-row>
@@ -127,7 +127,7 @@
       <ion-row>
         <ion-col>
 
-          <ion-label>NO. DAFTAR PERSIJILAN HALAL <span style="color: red;">*</span></ion-label>
+          <ion-label>NO. DAFTAR PERSIJILAN HALAL </ion-label>
 
           <ion-input value="{{syarikat.nodaftarpersijilanhalal}}" formControlName="nodaftarpersijilanhalal"></ion-input>
 
@@ -135,7 +135,7 @@
 
         <ion-col>
           <br>
-          <ion-label>NO. DAFTAR MESTI <span style="color: red;">*</span></ion-label>
+          <ion-label>NO. DAFTAR MESTI </ion-label>
           <ion-input value="{{syarikat.nodaftarmesti}}" formControlName="nodaftarmesti"></ion-input>
         </ion-col>
       </ion-row>
@@ -144,7 +144,7 @@
         <ion-col>
           <ion-label>TAHUN MULA OPERASI <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{syarikat.tahunmulaoperasi}}" formControlName="tahunmulaoperasi"></ion-input> -->
-          <ion-input type="number" displayFormat="YYYY" formControlName="tahunmulaoperasi" 
+          <ion-input type="number" displayFormat="YYYY" formControlName="tahunmulaoperasi"
             style="background-color: #f5f5f5;"></ion-input>
         </ion-col>
         <ion-col>
@@ -163,7 +163,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-label>  NAMA JALAN <span style="color: red;">*</span></ion-label>
+          <ion-label> NAMA JALAN <span style="color: red;">*</span></ion-label>
           <ion-input value="{{syarikat.alamat2_ssm}}" formControlName="alamat2_ssm"></ion-input>
         </ion-col>
       </ion-row>
@@ -179,7 +179,7 @@
         <ion-col>
           <ion-label> TARIKH MULA MOF <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{syarikat.tarikh_mula_mof}}" formControlName="tarikh_mula_mof"></ion-input> -->
-          <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikh_mula_mof" 
+          <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikh_mula_mof"
             style="background-color: #f5f5f5;"></ion-datetime>
         </ion-col>
       </ion-row>
@@ -188,21 +188,28 @@
         <ion-col>
           <ion-label> TARIKH TAMAT MOF <span style="color: red;">*</span></ion-label>
           <!-- <ion-input value="{{syarikat.tarikh_tamat_mof}}" formControlName="tarikh_tamat_mof"></ion-input> -->
-          <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikh_tamat_mof" 
+          <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikh_tamat_mof"
             style="background-color: #f5f5f5;"></ion-datetime>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label> STATUS BUMIPUTERA <span style="color: red;">*</span></ion-label>
-          <ion-input value="{{syarikat.status_bumiputera}}" formControlName="status_bumiputera"></ion-input>
+
+          <ion-label position="stacked">STATUS BUMIPUTERA <span style="color: red;">*</span></ion-label>
+          <ion-select formControlName="status_bumiputera" placeholder="SILA PILIH">
+            <ion-select-option value="ya">YA</ion-select-option>
+            <ion-select-option value="tidak">TIDAK</ion-select-option>
+          </ion-select>
+
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label (click)="openPopOver($event)" >PREFIX ID <span style="color: red;">*</span><ion-icon name="alert-circle-outline" style="font-size: large; margin-top:2px; color: blue"></ion-icon></ion-label>
+          <ion-label (click)="openPopOver($event)">PREFIX ID <span style="color: red;">*</span>
+            <ion-icon name="alert-circle-outline" style="font-size: large; margin-top:2px; color: blue"></ion-icon>
+          </ion-label>
           <ion-input value="{{syarikat.prefix_id}}" formControlName="prefix_id"></ion-input>
         </ion-col>
       </ion-row>
@@ -210,7 +217,7 @@
       <ion-row>
         <ion-col>
           <ion-label>NAMA AKAUN BANK <span style="color: red;">*</span></ion-label>
-          <ion-input  formControlName="nama_akaun_bank"></ion-input>
+          <ion-input formControlName="nama_akaun_bank"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -223,19 +230,21 @@
 
       <ion-row>
         <ion-col>
-          <ion-label> NO. TELEFON <span style="color: red;">*</span></ion-label>
-          <ion-input value="{{syarikat.notelefon}}" formControlName="notelefon"></ion-input>
+          <ion-label> NO. TELEFON (R) <span style="color: red;">*</span></ion-label>
+          <ion-input type="number" value="{{syarikat.notelefon}}" formControlName="notelefon" placeholder="Eg: 0342564022">
+          </ion-input>
         </ion-col>
         <ion-col>
           <ion-label> NO. TELEFON (HP) <span style="color: red;">*</span></ion-label>
-          <ion-input value="{{syarikat.no_hp}}" formControlName="no_hp"></ion-input>
+          <ion-input type="number" value="{{syarikat.no_hp}}" formControlName="no_hp" placeholder="Eg: 0191234567"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-label> EMAIL <span style="color: red;">*</span></ion-label>
-          <ion-input value="{{syarikat.email}}" formControlName="email" style="text-transform: none !important;"></ion-input>
+          <ion-input value="{{syarikat.email}}" formControlName="email" style="text-transform: none !important;">
+          </ion-input>
         </ion-col>
       </ion-row>
 

@@ -43,8 +43,19 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
       dokumen_lampiran: [''],
     });
   }
+  today: any
 
   ngOnInit() {
+
+    this.today = new Date();
+    var dd = String(this.today.getDate()).padStart(2, '0');
+    var mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = this.today.getFullYear();
+
+    this.today = yyyy + '-' + mm + '-' + dd;
+    console.log("today", this.today)
+
+
     console.log("tunai_keluar", this.tunai_keluar)
 
     this.url = environment.baseUrl + "storage/" + this.tunai_keluar.dokumen_lampiran;
@@ -53,9 +64,7 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
   }
 
   dismiss() {
-    this.modalController.dismiss({
-      'dismissed': true
-    });
+    this.modalController.dismiss(this.tunai_keluar);
   }
 
   kategori_aliran_keluar: any;
@@ -102,9 +111,6 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
 
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
-
-    this.dismiss();
-    this.refresh();
   }
 
   async presentAlert2() {
@@ -122,7 +128,7 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
 
     this.dismiss();
-    this.refresh();
+    // this.refresh();
   }
 
   async logForm() {
@@ -157,15 +163,18 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
             this.aliranService.update(this.form.value, Number(this.tunai_keluar.id)).subscribe((res) => {
               console.log("updated data", res);
 
-
               let formdata = new FormData();
 
               formdata.append('dokumen_lampiran', this.file);
               this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
                 console.log("resDoc", resDoc);
 
+                this.tunai_keluar = res
+
                 loading.dismiss();
-                this.presentAlert()
+                this.presentAlert();
+
+                this.dismiss();
               })
 
             });

@@ -22,6 +22,7 @@ export class KemaskiniTunaiMasukPage implements OnInit {
 
   private form: FormGroup;
 
+  today: any
   //test var
   selectedValue: any = "";
   url: string;
@@ -47,6 +48,16 @@ export class KemaskiniTunaiMasukPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.today = new Date();
+    var dd = String(this.today.getDate()).padStart(2, '0');
+    var mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = this.today.getFullYear();
+
+    this.today = yyyy + '-' + mm + '-' + dd;
+    console.log("today", this.today)
+
+
     console.log("tunai masuk", this.tunai_masuk);
 
     this.url = environment.baseUrl + "storage/" + this.tunai_masuk.dokumen_lampiran;
@@ -59,11 +70,7 @@ export class KemaskiniTunaiMasukPage implements OnInit {
   }
 
   dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    this.modalController.dismiss({
-      'dismissed': true
-    });
+    this.modalController.dismiss(this.tunai_masuk);
   }
 
 
@@ -116,7 +123,7 @@ export class KemaskiniTunaiMasukPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
 
     this.dismiss();
-    this.refresh();
+    
   }
 
   async presentAlert2() {
@@ -134,7 +141,7 @@ export class KemaskiniTunaiMasukPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
 
     this.dismiss();
-    this.refresh();
+    
   }
 
   async logForm() {

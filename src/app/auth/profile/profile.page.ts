@@ -291,18 +291,8 @@ export class ProfilePage implements OnInit {
       email: this.usahawan.email,
       status_daftar_usahawan: this.usahawan.status_daftar_usahawan,
       usahawanid: this.usahawan.usahawanid,
-      negeri_perniagaan: this.usahawan.negeri_perniagaan,
+      negeri_perniagaan: this.usahawan.perniagaan.negeri.Negeri,
     })
-
-    this.getNegeri();
-    this.getDaerah()
-    this.getMukim();
-    this.getParlimen()
-    this.getDun()
-    this.getKampung()
-    this.getSeksyen()
-    this.calcBirthDate()
-
 
   }
 
@@ -344,16 +334,56 @@ export class ProfilePage implements OnInit {
         // this.calcBirthDate()
 
         this.getUser();
-
-
         this.getKategoriUsahawan()
+        this.calcBirthDate()
 
-        this.setFormValues()
+        this.negeriService.get().subscribe((resNegeri) => {
+          console.log("Negeri", resNegeri)
+          this.negeri = resNegeri;
 
+          this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.usahawan.U_Negeri_ID))).subscribe((resDaerah) => {
+            console.log("resDaerah", resDaerah)
+            this.daerah = resDaerah;
+
+            this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.usahawan.U_Daerah_ID))).subscribe((resMukim) => {
+              console.log("resMukim", resMukim)
+              this.mukim = resMukim;
+
+              this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.usahawan.U_Negeri_ID))).subscribe((resParlimen) => {
+                console.log("resParlimen", resParlimen)
+                this.parlimen = resParlimen;
+
+                this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.usahawan.U_Parlimen_ID))).subscribe((resDun) => {
+                  console.log("resDun", resDun)
+                  this.dun = resDun;
+
+                  this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.usahawan.U_Mukim_ID))).subscribe((resKampung) => {
+                    console.log("resKampung", resKampung)
+                    this.kampung = resKampung;
+
+
+                    let mukimStr = this.usahawan.U_Mukim_ID;
+                    let mukimInt = parseInt(mukimStr.toString())
+                    // console.log("mukim temp", typeof mukimInt);
+                    // console.log("mukim temp", mukimInt);
+                    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukimInt ))).subscribe((resSeksyen) => {
+                      console.log("resSeksyen", resSeksyen)
+                      this.seksyen = resSeksyen;
+
+                      this.setFormValues()
+
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
       }
     });
 
   }
+
 
   getUser() {
     // console.log(this.form.value);
@@ -377,8 +407,6 @@ export class ProfilePage implements OnInit {
   getPT() {
 
     this.ptService.get().pipe(map(x => x.filter(i => i.Kod_PT == this.usahawan.Kod_PT))).subscribe((res) => {
-
-
       // console.log("pt", res);
       this.pusatTanggungjawab = res[0].keterangan;
       console.log("pt", this.pusatTanggungjawab);
@@ -399,26 +427,15 @@ export class ProfilePage implements OnInit {
 
   getDaerah() {
 
-    // this.usahawan.U_Negeri_ID = 
-
     this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
-
-
       console.log("Daerah", res);
       this.daerah = res;
-
-      // this.getParlimen();
     });
-
   }
 
   getMukim() {
 
-    // this.usahawan.U_Negeri_ID = this.form.value.U_Daerah_ID
-
     this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.form.value.U_Daerah_ID))).subscribe((res) => {
-
-
       console.log("mukim", res);
       this.mukim = res;
     });
@@ -426,43 +443,33 @@ export class ProfilePage implements OnInit {
 
   getParlimen() {
 
-    // this.usahawan.U_Negeri_ID = this.form.value.U_Negeri_ID
-
     this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.form.value.U_Negeri_ID))).subscribe((res) => {
-
-
       console.log("parlimen", res);
       this.parlimen = res;
-
     });
   }
 
   getDun() {
-    // this.usahawan.U_Parlimen_ID = this.form.value.U_Parlimen_ID
 
     this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.form.value.U_Parlimen_ID))).subscribe((res) => {
-
-
       console.log("dun", res);
       this.dun = res;
     });
   }
 
   getKampung() {
-    // this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
+
     this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.form.value.U_Mukim_ID))).subscribe((res) => {
-
-
       console.log("kampung", res);
       this.kampung = res;
     });
   }
 
   getSeksyen() {
-    // this.usahawan.U_Mukim_ID = this.form.value.U_Mukim_ID
-    // console.log("Mukimmmmmmmmmmm", this.form.value.U_Mukim_ID)
-    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.form.value.U_Mukim_ID))).subscribe((res) => {
-
+    console.log(this.form.value.U_Mukim_ID)
+    let mukim = parseInt(this.form.value.U_Mukim_ID)
+    // console.log("mukim temp",typeof this.form.value.U_Mukim_ID);
+    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukim))).subscribe((res) => {
 
       console.log("seksyen", res);
       this.seksyen = res;
@@ -473,7 +480,6 @@ export class ProfilePage implements OnInit {
 
     this.kategoriUsahawanService.get().subscribe((res) => {
 
-
       console.log("kategori usahawan", res);
       this.kategoriUsahawan = res;
     });
@@ -482,7 +488,6 @@ export class ProfilePage implements OnInit {
   getAliranJualan() {
 
     this.aliranService.get(this.user_id).pipe(map(x => x.filter(i => i.kategori_aliran == "JUALAN/PEROLEHAN"))).subscribe((res) => {
-
 
       console.log("aliran", res);
 
@@ -521,26 +526,26 @@ export class ProfilePage implements OnInit {
     });
   }
 
-  tarikhlahir : any;
+  tarikhlahir: any;
 
-  calcBirthDate(){
+  calcBirthDate() {
 
-    let year = this.usahawan.nokadpengenalan.substring(0,2);
-    let month = this.usahawan.nokadpengenalan.substring(2,4);
-    let date = this.usahawan.nokadpengenalan.substring(4,6);
+    let year = this.usahawan.nokadpengenalan.substring(0, 2);
+    let month = this.usahawan.nokadpengenalan.substring(2, 4);
+    let date = this.usahawan.nokadpengenalan.substring(4, 6);
 
-    if(Number(year) > 40){
-      year = 19+year;
+    if (Number(year) > 40) {
+      year = 19 + year;
     } else {
-      year = 20+year;
+      year = 20 + year;
     }
-    let birthday = date +'/'+month+'/'+year
+    let birthday = date + '/' + month + '/' + year
 
     console.log("birthday", birthday)
     const datepipe: DatePipe = new DatePipe('en-US')
     this.form.patchValue({
       tarikhlahir: moment(birthday).format('YYYY-MM-DD')
-    }) ;
+    });
     this.tarikhlahir = birthday;
   }
 
@@ -558,7 +563,7 @@ export class ProfilePage implements OnInit {
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
             this.setFormValues();
-            
+
           }
         }, {
           text: 'Ya',
@@ -573,7 +578,7 @@ export class ProfilePage implements OnInit {
             console.log(this.form.value)
 
             this.usahawanService.update(this.usahawan_id, this.form.value).subscribe((res) => {
-              console.log("updated",res);
+              console.log("updated", res);
 
               this.getUser();
 

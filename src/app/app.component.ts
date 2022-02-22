@@ -53,6 +53,7 @@ export class AppComponent {
     console.log("usahawan_id", this.usahawan_id)
     console.log("pegawai_id", this.pegawai_id)
     console.log("peranan_pegawai", this.peranan_pegawai)
+    console.log("user_id", this.user_id)
 
     if (this.usahawan_id == null && this.pegawai_id != null) {
       this.getpegawai();

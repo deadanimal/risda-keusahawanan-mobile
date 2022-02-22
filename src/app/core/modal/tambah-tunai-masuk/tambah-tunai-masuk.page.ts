@@ -26,6 +26,10 @@ export class TambahTunaiMasukPage implements OnInit {
   usahawan_id = window.sessionStorage.getItem("usahawan_id");
   user_id = window.sessionStorage.getItem("user_id");
 
+  today: any
+
+  tunaimasuk:any;
+
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
@@ -47,6 +51,16 @@ export class TambahTunaiMasukPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.today = new Date();
+    var dd = String(this.today.getDate()).padStart(2, '0');
+    var mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = this.today.getFullYear();
+
+    this.today = yyyy + '-' + mm + '-' + dd;
+    console.log("today", this.today)
+
+
     this.getKategoriAliran();
 
     let formData = new FormData();
@@ -58,11 +72,7 @@ export class TambahTunaiMasukPage implements OnInit {
   }
 
   dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    this.modalController.dismiss({
-      'dismissed': true
-    });
+    this.modalController.dismiss(this.tunaimasuk);
   }
 
   async logForm() {
@@ -105,7 +115,7 @@ export class TambahTunaiMasukPage implements OnInit {
               this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
                 console.log("resDoc", resDoc);
 
-                this.refresh();
+                this.tunaimasuk = res
                 this.dismiss();
               })
 

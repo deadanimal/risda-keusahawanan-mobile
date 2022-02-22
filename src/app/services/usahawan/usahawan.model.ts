@@ -42,4 +42,5 @@ export class UsahawanModel {
   U_Etnik_ID: any;
   U_Taraf_Kelulusan_Tertinggi_ID: any;
   U_Taraf_Pendidikan_Tertinggi_ID: any;
+  perniagaan: any;
 }
