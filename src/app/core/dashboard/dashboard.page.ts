@@ -6,6 +6,7 @@ import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import { ShowBuletinPage } from './show-buletin/show-buletin.page';
 import { ShowKatalogPage } from './show-katalog/show-katalog.page';
 import { Router } from '@angular/router';
+import { NotifikasiService } from 'src/app/services/notifikasi/notifikasi.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,12 +17,15 @@ export class DashboardPage implements OnInit {
   katalog: any;
   buletin: any;
 
+  user_id = window.sessionStorage.getItem("user_id");
+
   constructor(
     private loadingController : LoadingController,
     private katalogService: KatalogService,
     private buletinService: BuletinService,
     public modalController: ModalController,
-    private router: Router
+    private router: Router,
+    private notiService: NotifikasiService
   ) { }
 
   ngOnInit() {
@@ -36,6 +40,7 @@ export class DashboardPage implements OnInit {
 
     this.getKatalog();
     this.getBuletin();
+    // this.getnoti()
   }
 
   async getKatalog() {
@@ -43,7 +48,7 @@ export class DashboardPage implements OnInit {
     const loading = await this.loadingController.create({ message: 'Loading ...' });
     loading.present();
 
-    this.katalogService.getAll().pipe(map(x => x.filter(i => i.status_katalog == "publish"))).subscribe((res) => {
+    this.katalogService.katalogdashboard().pipe(map(x => x.filter(i => i.status_katalog == "publish"))).subscribe((res) => {
       // this.daerahService.get().subscribe((res) => {
       console.log("res", res.slice(0,5));
       this.katalog = res.slice(0,5);
@@ -99,6 +104,21 @@ export class DashboardPage implements OnInit {
 
   // refresh(): void {
   //   window.location.reload();
+  // }
+
+  // noti: boolean = false;
+  // getnoti() {
+  //   this.notiService.get(this.user_id).subscribe((res) => {
+  //     console.log("noti", res);
+
+  //     for (let i =0; i< res.length; i++){
+  //       // console.log(i)
+  //       if(res[i].readstatus == 0 ){
+  //         this.noti = true;
+  //         break
+  //       }
+  //     }
+  //   });
   // }
 
 }

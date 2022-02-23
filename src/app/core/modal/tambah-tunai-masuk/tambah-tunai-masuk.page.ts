@@ -134,7 +134,7 @@ export class TambahTunaiMasukPage implements OnInit {
 
   getKategoriAliran() {
 
-    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_masuk"))).subscribe((res) => {
+    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_masuk" && i.status_kategori_aliran =="aktif"))).subscribe((res) => {
       console.log("kategori aliran", res);
       this.kategori_aliran_masuk = res;
       console.log("kategori aliran", this.kategori_aliran_masuk);

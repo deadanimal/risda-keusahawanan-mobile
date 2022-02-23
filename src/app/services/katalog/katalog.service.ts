@@ -55,4 +55,9 @@ export class KatalogService {
   getMaklumatUsahawan(id): Observable<any> {
     return this.http.get<any>(`${this.url}`+'/showMaklumatUsahawan/'+id);
   }
+
+  url4 : string = environment.baseUrl + "api/katalogdashboard";
+  katalogdashboard(): Observable<any> {
+    return this.http.get<any>(`${this.url4}`);
+  }
 }

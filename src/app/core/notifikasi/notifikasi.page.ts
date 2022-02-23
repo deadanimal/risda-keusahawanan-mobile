@@ -44,10 +44,10 @@ export class NotifikasiPage implements OnInit {
 
       if (this.usahawan_id != null) {
         if (notifikasi.modul == "katalog") {
-          
+
           this.router.navigate(['/katalog'])
-        }  if (notifikasi.modul == "lawatan") {
-          
+        } else if (notifikasi.modul == "lawatan") {
+
           this.router.navigate(['/lawatan-usahawan'])
         }
 
@@ -55,8 +55,11 @@ export class NotifikasiPage implements OnInit {
         console.log("pegi katalog")
 
         if (notifikasi.modul == "katalog") {
-          
+
           this.router.navigate(['/katalog-pegawai'])
+        } else if (notifikasi.modul == "lawatan") {
+
+          this.router.navigate(['/lawatan-pegawai'])
         }
 
       }

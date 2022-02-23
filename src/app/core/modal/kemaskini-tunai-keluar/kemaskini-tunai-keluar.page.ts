@@ -70,7 +70,7 @@ export class KemaskiniTunaiKeluarPage implements OnInit {
   kategori_aliran_keluar: any;
   getKategoriAliran() {
 
-    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_keluar"))).subscribe((res) => {
+    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_keluar" && i.status_kategori_aliran =="aktif"))).subscribe((res) => {
       console.log("kategori aliran", res);
       this.kategori_aliran_keluar = res;
 

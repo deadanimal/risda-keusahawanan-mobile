@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { PegawaiService } from './services/pegawai/pegawai.service';
 import { UsahawanService } from './services/usahawan/usahawan.service';
+import { NotifikasiService } from './services/notifikasi/notifikasi.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -19,23 +20,24 @@ export class AppComponent {
   pegawai: any;
 
   public appPages = [
-    { title: 'Aliran Tunai', url: '/aliran-tunai', icon: 'assets/icon/ALIRAN-TUNAI-icon.png' },
-    { title: 'Buku tunai', url: '/buku-tunai', icon: 'assets/icon/buku-tunai-icon.png' },
-    { title: 'Insentif', url: '/insentif', icon: 'assets/icon/insentif-icon.png' },
-    { title: 'Lawatan', url: 'lawatan-usahawan', icon: 'assets/icon/lawatan-icon.png' },
-    { title: 'Penyata Untung Rugi', url: '/pnl', icon: 'assets/icon/penyata-untung-rugi.png' },
-    { title: 'Ringkasan lejar', url: '/ringkasan-lejar', icon: 'assets/icon/ringkasan-lejar.png' },
-    { title: 'Katalog', url: 'katalog', icon: 'assets/icon/katalog.png' },
-    { title: 'Jana Dokumen', url: '/jana-dokumen', icon: 'assets/icon/jana-dokumen.png' },
-    // { title: 'Log Keluar',  url: '#', icon: 'assets/icon/log-out-button.png' },
+    { title: 'Profil', url: '/profile', icon: 'assets/new-icon/Profil.png' },
+    { title: 'Insentif', url: '/insentif', icon: 'assets/new-icon/Insentif.png' },
+    { title: 'Aliran Tunai', url: '/aliran-tunai', icon: 'assets/new-icon/Aliran-Tunai.png' },
+    { title: 'Buku tunai', url: '/buku-tunai', icon: 'assets/new-icon/Buku-Tunai.png' },
+    { title: 'Ringkasan lejar', url: '/ringkasan-lejar', icon: 'assets/new-icon/Ringkasan-Lejar.png' },
+    { title: 'Penyata Untung Rugi', url: '/pnl', icon: 'assets/new-icon/Penyata-Untung-Rugi.png' },
+    { title: 'Katalog', url: 'katalog', icon: 'assets/new-icon/Katalog.png' },
+    { title: 'Jana Dokumen', url: '/jana-dokumen', icon: 'assets/new-icon/Jana-Dokumen.png' },
+    { title: 'Lawatan', url: 'lawatan-usahawan', icon: 'assets/new-icon/Lawatan.png' },
+    // { title: 'Log Keluar',  url: '#', icon: 'assets/new-icon/log-out-button.png' },
   ];
 
   public appPagesPegawai = [
-    { title: 'Carian', url: '/carian', icon: 'assets/icon/search-button.png' },
-    { title: 'Lawatan', url: '/lawatan-pegawai', icon: 'assets/icon/lawatan-icon.png' },
-    { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/icon/katalog.png' },
-    { title: 'Buletin', url: '/buletin', icon: 'assets/icon/buletin.png' },
-    // { title: 'Log Keluar', url: '#', icon: 'assets/icon/log-out-button.png' },
+    { title: 'Carian', url: '/carian', icon: 'assets/new-icon/Carian.png' },
+    { title: 'Lawatan', url: '/lawatan-pegawai', icon: 'assets/new-icon/Lawatan.png' },
+    { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-icon/Katalog.png' },
+    // { title: 'Buletin', url: '/buletin', icon: 'assets/new-icon/Buletin.png' },
+    // { title: 'Log Keluar', url: '#', icon: 'assets/new-icon/log-out-button.png' },
   ];
   
 
@@ -43,7 +45,8 @@ export class AppComponent {
   constructor(
     private router: Router,
     private pegawaiService: PegawaiService,
-    private usahawanService: UsahawanService
+    private usahawanService: UsahawanService,
+    private notiService: NotifikasiService
   ) {
 
   }
@@ -68,6 +71,13 @@ export class AppComponent {
       this.appPagesPegawai[1].url = "/senarai-laporan-pegawai";
       console.log("peranan_pegawai success", this.appPagesPegawai[1])
     }
+
+    if (this.peranan_pegawai == "1") {
+      this.appPagesPegawai.push(
+        { title: 'Buletin', url: '/buletin', icon: 'assets/new-icon/Buletin.png' },
+      )
+    } 
+
 
 
   }
@@ -96,6 +106,8 @@ export class AppComponent {
       this.gambar_usahawan = res.gambar_url
     });
   }
+
+  
 
 
   profil(){

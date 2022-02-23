@@ -63,20 +63,34 @@ export class PnlPage implements OnInit {
 
   }
 
-
-  // buku_tunai = [
-  //   { bulan: "Januari", tahun: "2020" },
-  //   { bulan: "February", tahun: "2020" },
-  //   { bulan: "March", tahun: "2020" },
-  //   { bulan: "April", tahun: "2020" },
-  //   { bulan: "May", tahun: "2020" },
-  //   { bulan: "June", tahun: "2020" },
-  //   { bulan: "July", tahun: "2020" },
-  // ]
-
-  logForm() {
+  pnl=[];
+  logform() {
     console.log(this.form.value)
+
+    this.form.value.id = this.user_id;
+    console.log(this.form.value)
+
+    this.pnl = [];
+    this.pdfExcelService.pnlInfo(this.form.value).subscribe((res) => {
+      console.log("res", res);
+      // this.pnl = res;
+      this.pnl.push(res);
+
+      console.log("pnl", this.pnl);
+    });
   }
+
+  // calcPnl() {
+
+  //   this.form.value.id = this.user_id;
+  //   console.log(this.form.value)
+
+  //   this.pdfExcelService.pnlInfo(this.form.value).subscribe((res) => {
+  //     console.log("res", res);
+
+
+  //   });
+  // }
 
   printExcelCustom() {
 

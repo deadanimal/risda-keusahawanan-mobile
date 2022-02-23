@@ -13,6 +13,7 @@ export class PdfExcelService {
   constructor(private http: HttpClient) { }
 
 
+  //buku tunai
   bukuTunaiExcel(data: any): Observable<any> {
     return this.http.post<any>(`${this.url}`+'/bukuTunaiExcel/', data);
   }
@@ -22,6 +23,7 @@ export class PdfExcelService {
   }
 
 
+  //pnl
   pnlExcel(data: any): Observable<any> {
     return this.http.post<any>(`${this.url}`+'/pnlExcel/', data);
   }
@@ -30,7 +32,12 @@ export class PdfExcelService {
     return this.http.post<any>(`${this.url}`+'/pnlPdf/', data);
   }
 
+  pnlInfo(data: any): Observable<any> {
+    return this.http.post<any>(`${this.url}`+'/calcPNL', data);
+  }
 
+
+  //lejar
   lejarExcel(data: any): Observable<any> {
     return this.http.post<any>(`${this.url}`+'/lejerExcel/', data);
   }
