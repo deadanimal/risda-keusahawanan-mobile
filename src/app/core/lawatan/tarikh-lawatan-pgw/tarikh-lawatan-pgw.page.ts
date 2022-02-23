@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { FormBuilder } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class TarikhLawatanPgwPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private lawatanService: LawatanService,
+    public alertController: AlertController
   ) {
     this.form = this.formBuilder.group({
       id_pengguna: ['', Validators.required],
@@ -46,7 +47,7 @@ export class TarikhLawatanPgwPage implements OnInit {
     });
   }
 
-  logForm() {
+  async logForm() {
     
     this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
     this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('HH:mm');
@@ -55,13 +56,40 @@ export class TarikhLawatanPgwPage implements OnInit {
 
     console.log(this.form.value) 
 
-    this.lawatanService.post(this.form.value).subscribe((res) => {
-      console.log("res", res);
+    let tempDate = moment(this.form.value.tarikh_lawatan).format('DD/MM/YYYY');
 
-      this.dismiss();
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda pasti untuk mencadangkan tarikh '+ tempDate +' untuk sesi lawatan?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
 
-      window.location.reload();
+            this.lawatanService.post(this.form.value).subscribe((res) => {
+              console.log("res", res);
+        
+              this.dismiss();
+        
+              window.location.reload();
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
 
 
   }

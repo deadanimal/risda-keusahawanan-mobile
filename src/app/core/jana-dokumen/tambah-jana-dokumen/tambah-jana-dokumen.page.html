@@ -86,21 +86,21 @@
         </ion-col>
         <ion-col class="form-control">
           <ion-label>NO. TELEFON <span style="color: red;">*</span></ion-label>
-          <ion-input type="number" formControlName="no_telefon" (keypress)="numericOnly($event)"></ion-input>
+          <ion-input type="number" formControlName="no_telefon" (keypress)="numericOnly($event)" placeholder="Eg: 0342564022"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NO. FAKS <span style="color: red;">*</span></ion-label>
-          <ion-input type="number" formControlName="no_fax" (keypress)="numericOnly($event)"></ion-input>
+          <ion-label>NO. FAKS </ion-label>
+          <ion-input type="number" formControlName="no_fax" (keypress)="numericOnly($event)" placeholder="Eg: 0342564022"></ion-input>
         </ion-col>
       </ion-row>
 
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <h5 class="form-header">Maklumat Pembelian</h5>
+          <h5 class="form-header">Maklumat Pembelian <ion-icon name="alert-circle-outline" style="font-size: large; margin-top:2px; color: blue" (click)="openPopOver($event)"></ion-icon></h5>
         </ion-col>
       </ion-row>
       <div formArrayName="produk">
@@ -109,7 +109,7 @@
           <ion-row style="margin-bottom: 10px;">
             <ion-col class="form-control">
               <!-- <ion-item lines="none" style="border: none;"> -->
-              <ion-label position="stacked">NAMA PRODUK</ion-label>
+              <ion-label position="stacked">NAMA PRODUK <span style="color: red;">*</span></ion-label>
               <!-- <ion-input formControlName="id_katalog"></ion-input> -->
               <ion-select formControlName="id_katalog">
                 <ion-select-option *ngFor="let katalog of katalog" value="{{katalog.id}}">{{katalog.nama_produk}}
@@ -123,7 +123,7 @@
           <ion-row style="margin-bottom: 20px;">
             <ion-col class="form-control">
               <!-- <ion-item lines="none" style="border: none;"> -->
-              <ion-label position="stacked">KUANTITI</ion-label>
+              <ion-label position="stacked">KUANTITI <span style="color: red;">*</span></ion-label>
               <ion-input type="number" formControlName="stok_dijual"></ion-input>
             </ion-col>
 
@@ -154,31 +154,30 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN) <span style="color: red;">*</span></ion-label>
+          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN) </ion-label>
           <ion-input type="number" formControlName="diskaun"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN) <span style="color: red;">*</span></ion-label>
+          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN)</ion-label>
           <ion-input type="number" formControlName="kos_penghantaran"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN) <span style="color: red;">*</span></ion-label>
+          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN)</ion-label>
           <ion-input type="number" formControlName="cukai_sst"></ion-input>
         </ion-col>
       </ion-row>
 
 
 
-
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button color="success" expand="block" type="submit" >TAMBAH</ion-button>
+          <ion-button color="success" expand="block" type="submit" [disabled]="form1.invalid">TAMBAH</ion-button>
         </ion-col>
       </ion-row>
     </form>

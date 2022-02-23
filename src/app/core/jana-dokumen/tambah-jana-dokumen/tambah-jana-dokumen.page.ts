@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { PelangganService } from 'src/app/services/pelanggan/pelanggan.service';
@@ -8,6 +8,7 @@ import { DaerahService } from 'src/app/services/daerah/daerah.service';
 import { map } from 'rxjs/operators';
 import { NegeriService } from 'src/app/services/negeri/negeri.service';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
+import { TooltipPage } from '../tooltip/tooltip.page';
 
 @Component({
   selector: 'app-tambah-jana-dokumen',
@@ -37,7 +38,7 @@ export class TambahJanaDokumenPage implements OnInit {
     private daerahService: DaerahService,
     private negeriService: NegeriService,
     private katalogService: KatalogService,
-
+    private popoverCtrl:PopoverController
 
   ) {
 
@@ -52,18 +53,14 @@ export class TambahJanaDokumenPage implements OnInit {
       U_Negeri_ID: ['', Validators.required],
       U_Daerah_ID: ['', Validators.required],
       no_telefon: ['', Validators.required],
-      no_fax: ['', Validators.required],
+      no_fax: ['', ],
 
-      diskaun: ['', Validators.required],
-      kos_penghantaran: ['', Validators.required],
-      cukai_sst: ['', Validators.required],
+      diskaun: ['', ],
+      kos_penghantaran: ['', ],
+      cukai_sst: ['', ],
 
       produk: this.formBuilder.array([]),
-      //maklumat produk
-      // id_katalog: ['',],
-      // id_pelanggan: [''],
-      // stok_dijual: ['',],
-      // modified_by: [''],
+      
     });
 
 
@@ -213,5 +210,16 @@ export class TambahJanaDokumenPage implements OnInit {
     let pattern = /^([0-9])$/;
     let result = pattern.test(event.key);
     return result;
+  }
+
+
+  async openPopOver(ev: any){
+    const popover = await this.popoverCtrl.create({
+      component: TooltipPage,
+      event: ev,
+      cssClass: 'sustom-popover'
+    });
+
+    await popover.present();
   }
 }

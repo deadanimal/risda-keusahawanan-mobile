@@ -39,7 +39,7 @@ export class KemaskiniLaporanPage implements OnInit {
       tarikh_lawatan: [''],
       masa_lawatan: [''],
       id_tindakan_lawatan: ['', Validators.required],
-      komen: ['', Validators.required],
+      komen: ['', ],
       jenis_lawatan: ['', Validators.required],
       gambar_lawatan: ['',],
     });

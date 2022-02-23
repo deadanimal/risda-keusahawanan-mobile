@@ -162,6 +162,10 @@ const routes: Routes = [
   {
     path: 'carian',
     loadChildren: () => import('./core/carian/carian.module').then( m => m.CarianPageModule)
+  },
+  {
+    path: 'tooltip',
+    loadChildren: () => import('./core/jana-dokumen/tooltip/tooltip.module').then( m => m.TooltipPageModule)
   }
 ];
 

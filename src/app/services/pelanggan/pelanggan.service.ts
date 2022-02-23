@@ -35,4 +35,16 @@ export class PelangganService {
   janaDokumen(id_pelanggan, id_pengguna): Observable<any> {
     return this.http.post<any>(`${this.url}`+'/janaDokumen/'+id_pelanggan, id_pengguna);
   }
+
+  janaQuotation(id_pelanggan, id_pengguna): Observable<any> {
+    return this.http.post<any>(`${this.url}`+'/janaQuotation/'+id_pelanggan, id_pengguna);
+  }
+
+  janaDO(id_pelanggan, id_pengguna): Observable<any> {
+    return this.http.post<any>(`${this.url}`+'/janaDO/'+id_pelanggan, id_pengguna);
+  }
+
+  janaInvoice(id_pelanggan, id_pengguna): Observable<any> {
+    return this.http.post<any>(`${this.url}`+'/janaInvoice/'+id_pelanggan, id_pengguna);
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
@@ -47,7 +47,7 @@ export class TambahLaporanPage implements OnInit {
     private negeriService: NegeriService,
     private ptService: PusatTanggungjawabService,
     private usahawanService: UsahawanService,
-    
+    private loadingController: LoadingController,
   ) {
     this.form = this.formBuilder.group({
       // negeri: ['', Validators.required],
@@ -57,7 +57,7 @@ export class TambahLaporanPage implements OnInit {
       tarikh_lawatan: ['', Validators.required],
       masa_lawatan: ['', Validators.required],
       id_tindakan_lawatan: ['', Validators.required],
-      komen: ['', Validators.required],
+      komen: ['', ],
       jenis_lawatan: ['', Validators.required],
       gambar_lawatan: ['',],
     });
@@ -133,13 +133,16 @@ export class TambahLaporanPage implements OnInit {
     });
   }
 
-  getUsahawan() {
+  async getUsahawan() {
     console.log("ptValue", this.ptValue);
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
 
     this.usahawanService.get().pipe(map(x => x.filter(i => i.Kod_PT == this.ptValue))).subscribe((res) => {
       console.log("usahawan", res);
 
       this.usahawan = res;
+      loading.dismiss();
     });
 
   }

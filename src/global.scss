@@ -124,3 +124,10 @@ ion-input {
 .alert-radio-label.sc-ion-alert-md{
     font-size: 11px;
 }
+
+
+.alert-tappable.sc-ion-alert-md {
+    position: relative;
+    height: 60px;
+    overflow: hidden;
+}

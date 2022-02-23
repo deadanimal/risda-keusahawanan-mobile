@@ -28,38 +28,38 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>TAJUK</ion-label>
+          <ion-label>TAJUK <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="tajuk"></ion-input>
         </ion-col>
       </ion-row>
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NAMA PELANGGAN</ion-label>
+          <ion-label>NAMA PELANGGAN <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="nama_pelanggan"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NO RUMAH/ LOT/ PINTU</ion-label>
+          <ion-label>NO RUMAH/ LOT/ PINTU <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat1"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NAMA JALAN</ion-label>
+          <ion-label>NAMA JALAN <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat2"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>KAMPUNG/ TAMAN</ion-label>
+          <ion-label>KAMPUNG/ TAMAN <span style="color: red;">*</span></ion-label>
           <ion-input type="text" formControlName="alamat3"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>NEGERI</ion-label>
+          <ion-label>NEGERI <span style="color: red;">*</span></ion-label>
           <!-- <ion-input type="text" formControlName="U_Negeri_ID"></ion-input> -->
           <ion-select formControlName="U_Negeri_ID" (ionChange)="getDaerah($event)">
             <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}">{{negeri.Negeri}}
@@ -67,7 +67,7 @@
           </ion-select>
         </ion-col>
         <ion-col class="form-control">
-          <ion-label>DAERAH</ion-label>
+          <ion-label>DAERAH <span style="color: red;">*</span></ion-label>
           <!-- <ion-input type="text" formControlName="U_Daerah_ID">
           </ion-input> -->
           <ion-select formControlName="U_Daerah_ID">
@@ -81,11 +81,11 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-label>POSKOD</ion-label>
+          <ion-label>POSKOD <span style="color: red;">*</span></ion-label>
           <ion-input type="number" formControlName="poskod"></ion-input>
         </ion-col>
         <ion-col class="form-control">
-          <ion-label>NO. TELEFON</ion-label>
+          <ion-label>NO. TELEFON <span style="color: red;">*</span></ion-label>
           <ion-input type="number" formControlName="no_telefon" (keypress)="numericOnly($event)"></ion-input>
         </ion-col>
       </ion-row>
@@ -100,7 +100,7 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <h5 class="form-header">Maklumat Pembelian</h5>
+          <h5 class="form-header">Maklumat Pembelian <ion-icon name="alert-circle-outline" style="font-size: large; margin-top:2px; color: blue" (click)="openPopOver($event)"></ion-icon></h5>
         </ion-col>
       </ion-row>
       <div formArrayName="produk">
@@ -109,7 +109,7 @@
           <ion-row style="margin-bottom: 10px;">
             <ion-col class="form-control">
               <!-- <ion-item lines="none" style="border: none;"> -->
-              <ion-label position="stacked">NAMA PRODUK</ion-label>
+              <ion-label position="stacked">NAMA PRODUK <span style="color: red;">*</span></ion-label>
               <!-- <ion-input formControlName="id_katalog"></ion-input> -->
               <ion-select formControlName="id_katalog">
                 <ion-select-option *ngFor="let katalog of katalog" [value]="katalog.id" selected="katalog.id == this.stok.id_katalog">{{katalog.nama_produk}}
@@ -123,7 +123,7 @@
           <ion-row style="margin-bottom: 20px;">
             <ion-col class="form-control">
               <!-- <ion-item lines="none" style="border: none;"> -->
-              <ion-label position="stacked">KUANTITI</ion-label>
+              <ion-label position="stacked">KUANTITI <span style="color: red;">*</span></ion-label>
               <ion-input type="number" formControlName="stok_dijual"></ion-input>
             </ion-col>
 
@@ -174,9 +174,9 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button type="submit" color="success" expand="block">KEMASKINI</ion-button>
+          <ion-button type="submit" color="success" expand="block" [disabled]="form.invalid">KEMASKINI</ion-button>
           <!-- <ion-button color="danger" expand="block" (click)="onDelete()">HAPUS</ion-button> -->
-          <ion-button color="danger" expand="block" (click)="presentAlertConfirmDelete()">HAPUS</ion-button>
+          <ion-button color="danger" expand="block" (click)="presentAlertConfirmDelete()" >HAPUS</ion-button>
         </ion-col>
       </ion-row>
     </form>

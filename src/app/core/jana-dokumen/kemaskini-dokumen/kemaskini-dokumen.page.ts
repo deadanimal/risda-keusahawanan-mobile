@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, PopoverController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { DaerahService } from 'src/app/services/daerah/daerah.service';
@@ -8,6 +8,7 @@ import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import { map } from 'rxjs/operators';
 import { StokService } from 'src/app/services/stok/stok.service';
 import { PelangganService } from 'src/app/services/pelanggan/pelanggan.service';
+import { TooltipPage } from '../tooltip/tooltip.page';
 
 @Component({
   selector: 'app-kemaskini-dokumen',
@@ -39,6 +40,7 @@ export class KemaskiniDokumenPage implements OnInit {
     private katalogService: KatalogService,
     private stokService: StokService,
     private pelangganService: PelangganService,
+    private popoverCtrl:PopoverController
   ) {
     this.form = this.formBuilder.group({
       tajuk: ['', Validators.required],
@@ -50,11 +52,11 @@ export class KemaskiniDokumenPage implements OnInit {
       U_Negeri_ID: ['', Validators.required],
       U_Daerah_ID: ['', Validators.required],
       no_telefon: ['', Validators.required],
-      no_fax: ['', Validators.required],
+      no_fax: ['', ],
 
-      diskaun: ['', Validators.required],
-      kos_penghantaran: ['', Validators.required],
-      cukai_sst: ['', Validators.required],
+      diskaun: ['', ],
+      kos_penghantaran: ['', ],
+      cukai_sst: ['', ],
 
       produk: this.formBuilder.array([]),
     });
@@ -66,9 +68,9 @@ export class KemaskiniDokumenPage implements OnInit {
 
     const produk = this.formBuilder.group({
       id: ['',],
-      id_katalog: ['',],
+      id_katalog: ['',  Validators.required],
       id_pelanggan: [''],
-      stok_dijual: ['',],
+      stok_dijual: ['',  Validators.required],
       modified_by: [''],
     });
     this.getProdukArray.push(produk);
@@ -391,5 +393,15 @@ export class KemaskiniDokumenPage implements OnInit {
     let pattern = /^([0-9])$/;
     let result = pattern.test(event.key);
     return result;
+  }
+
+  async openPopOver(ev: any){
+    const popover = await this.popoverCtrl.create({
+      component: TooltipPage,
+      event: ev,
+      cssClass: 'sustom-popover'
+    });
+
+    await popover.present();
   }
 }

@@ -69,7 +69,7 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
     });
   }
 
-  logForm() {
+  async logForm() {
 
     // if (this.pegawai_id == null) {
     //   //usahawan
@@ -86,57 +86,114 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
     if (this.usahawan_id != null) {
       this.form.patchValue({
         role: "usahawan",
-        id_pengguna : this.user_id,
-        id_pegawai: this.pegawai_id,
+        id_pengguna : this.lawatan.id_pengguna,
+        id_pegawai: this.lawatan.id_pegawai,
         status_lawatan: 2
       });
     } else {
       this.form.patchValue({
         role: "pegawai",
-        id_pegawai: this.pegawai_id,
-        id_pengguna : this.lawatan.usahawan_id,
+        id_pengguna : this.lawatan.id_pengguna,
+        id_pegawai: this.lawatan.id_pegawai,
         status_lawatan: 1
       });
     }
     console.log(this.form.value)
 
+    let tempDate = moment(this.form.value.tarikh_lawatan).format('DD/MM/YYYY');
 
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda pasti untuk mencadangkan tarikh '+ tempDate +' untuk sesi lawatan?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
 
-    this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
-      console.log("res", res);
-
-      this.dismiss();
-
-      window.location.reload();
+            this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
+              console.log("res", res);
+        
+              this.dismiss();
+        
+              window.location.reload();
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
+   
   }
 
-  sahkan() {
+  async sahkan() {
 
     // this.form.value.status_lawatan = "3"
 
     if (this.usahawan_id != null) {
       this.form.patchValue({
         role: "usahawan",
-        id_pengguna : this.user_id,
+        id_pengguna : this.lawatan.id_pengguna,
+        id_pegawai: this.lawatan.id_pegawai,
         status_lawatan: 3
       });
     } else {
       this.form.patchValue({
         role: "pegawai",
-        id_pegawai: this.pegawai_id,
+        id_pengguna : this.lawatan.id_pengguna,
+        id_pegawai: this.lawatan.id_pegawai,
         status_lawatan: 3
       });
     }
 
     console.log(this.form.value)
-    this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
-      console.log("res", res);
+    
 
-      this.dismiss();
+    let tempDate = moment(this.lawatan.tarikh_lawatan).format('DD/MM/YYYY');
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda pasti untuk mengesahkan tarikh '+tempDate+' untuk sesi lawatan?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
 
-      window.location.reload();
+            this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
+              console.log("res", res);
+        
+              this.dismiss();
+        
+              window.location.reload();
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
 
 }
