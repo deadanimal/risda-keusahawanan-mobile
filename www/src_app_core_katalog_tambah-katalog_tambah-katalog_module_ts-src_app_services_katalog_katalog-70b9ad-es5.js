@@ -114,7 +114,7 @@
 
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
-      80476);
+      19122);
       /* harmony import */
 
 
@@ -189,12 +189,20 @@
 
           this.http = http;
           this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalog";
+          this.url2 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalogPegawai";
+          this.url3 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/pengesahanPegawai";
+          this.url4 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalogdashboard";
         }
 
         _createClass(KatalogService, [{
           key: "post",
           value: function post(data) {
             return this.http.post("".concat(this.url), data);
+          }
+        }, {
+          key: "getAll",
+          value: function getAll() {
+            return this.http.get("".concat(this.url));
           }
         }, {
           key: "get",
@@ -210,6 +218,31 @@
           key: "delete",
           value: function _delete(aliran_id) {
             return this.http["delete"]("".concat(this.url, "/").concat(aliran_id));
+          }
+        }, {
+          key: "getKatalogPegawai",
+          value: function getKatalogPegawai(id) {
+            return this.http.get("".concat(this.url2) + "/" + id);
+          }
+        }, {
+          key: "pengesahanPegawai",
+          value: function pengesahanPegawai(id) {
+            return this.http.get("".concat(this.url3) + "/" + id);
+          }
+        }, {
+          key: "katalogPdf",
+          value: function katalogPdf(id) {
+            return this.http.get("".concat(this.url) + '/katalogPdf/' + id);
+          }
+        }, {
+          key: "getMaklumatUsahawan",
+          value: function getMaklumatUsahawan(id) {
+            return this.http.get("".concat(this.url) + '/showMaklumatUsahawan/' + id);
+          }
+        }, {
+          key: "katalogdashboard",
+          value: function katalogdashboard() {
+            return this.http.get("".concat(this.url4));
           }
         }]);
 

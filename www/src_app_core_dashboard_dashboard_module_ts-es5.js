@@ -53,6 +53,50 @@
       var routes = [{
         path: '',
         component: _dashboard_page__WEBPACK_IMPORTED_MODULE_0__.DashboardPage
+      }, {
+        path: 'senarai-katalog',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_dashboard_senarai-katalog_senarai-katalog_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./senarai-katalog/senarai-katalog.module */
+          33322)).then(function (m) {
+            return m.SenaraiKatalogPageModule;
+          });
+        }
+      }, {
+        path: 'show-katalog',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_dashboard_show-katalog_show-katalog_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./show-katalog/show-katalog.module */
+          10937)).then(function (m) {
+            return m.ShowKatalogPageModule;
+          });
+        }
+      }, {
+        path: 'senarai-buletin',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_dashboard_senarai-buletin_senarai-buletin_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./senarai-buletin/senarai-buletin.module */
+          35867)).then(function (m) {
+            return m.SenaraiBuletinPageModule;
+          });
+        }
+      }, {
+        path: 'show-buletin',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_dashboard_show-buletin_show-buletin_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./show-buletin/show-buletin.module */
+          33951)).then(function (m) {
+            return m.ShowBuletinPageModule;
+          });
+        }
       }];
 
       var _DashboardPageRoutingModule = function DashboardPageRoutingModule() {
@@ -114,7 +158,7 @@
 
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
-      80476);
+      19122);
       /* harmony import */
 
 
@@ -161,7 +205,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -179,30 +223,69 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! @angular/core */
       37716);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @ionic/angular */
+      19122);
+      /* harmony import */
+
+
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! rxjs/operators */
+      88002);
+      /* harmony import */
+
+
+      var src_app_services_buletin_buletin_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/buletin/buletin.service */
+      42101);
+      /* harmony import */
+
+
+      var src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/app/services/katalog/katalog.service */
+      89496);
+      /* harmony import */
+
+
+      var _show_buletin_show_buletin_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! ./show-buletin/show-buletin.page */
+      87586);
+      /* harmony import */
+
+
+      var _show_katalog_show_katalog_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ./show-katalog/show-katalog.page */
+      72070);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
+      /* harmony import */
+
+
+      var src_app_services_notifikasi_notifikasi_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! src/app/services/notifikasi/notifikasi.service */
+      29572);
 
       var _DashboardPage = /*#__PURE__*/function () {
-        function DashboardPage() {
+        function DashboardPage(loadingController, katalogService, buletinService, modalController, router, notiService) {
           _classCallCheck(this, DashboardPage);
 
-          this.img_info = [{
-            url: "/assets/img/pic1.jpeg",
-            name: "pic 1"
-          }, {
-            url: "/assets/img/pic2.jpeg",
-            name: "pic 2"
-          }, {
-            url: "/assets/img/pic3.jpeg",
-            name: "pic 3"
-          }, {
-            url: "/assets/img/pic4.jpeg",
-            name: "pic 4"
-          }, {
-            url: "/assets/img/pic5.jpeg",
-            name: "pic 5"
-          }];
+          this.loadingController = loadingController;
+          this.katalogService = katalogService;
+          this.buletinService = buletinService;
+          this.modalController = modalController;
+          this.router = router;
+          this.notiService = notiService;
+          this.user_id = window.sessionStorage.getItem("user_id");
         }
 
         _createClass(DashboardPage, [{
@@ -217,6 +300,164 @@
             } else {
               localStorage.removeItem('key');
             }
+
+            this.getKatalog();
+            this.getBuletin(); // this.getnoti()
+          }
+        }, {
+          key: "getKatalog",
+          value: function getKatalog() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this = this;
+
+              var loading;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.loadingController.create({
+                        message: 'Loading ...'
+                      });
+
+                    case 2:
+                      loading = _context.sent;
+                      loading.present();
+                      this.katalogService.katalogdashboard().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.map)(function (x) {
+                        return x.filter(function (i) {
+                          return i.status_katalog == "publish";
+                        });
+                      })).subscribe(function (res) {
+                        // this.daerahService.get().subscribe((res) => {
+                        console.log("res", res.slice(0, 5));
+                        _this.katalog = res.slice(0, 5);
+                        loading.dismiss();
+                      });
+
+                    case 5:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "getBuletin",
+          value: function getBuletin() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this2 = this;
+
+              var loading;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.loadingController.create({
+                        message: 'Loading ...'
+                      });
+
+                    case 2:
+                      loading = _context2.sent;
+                      loading.present();
+                      this.buletinService.getAll().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.map)(function (x) {
+                        return x.filter(function (i) {
+                          return i.status == "aktif";
+                        });
+                      })).subscribe(function (res) {
+                        // this.daerahService.get().subscribe((res) => {
+                        console.log("res", res);
+                        _this2.buletin = res.slice(0, 3);
+                        loading.dismiss();
+                      });
+
+                    case 5:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "lihatBuletin",
+          value: function lihatBuletin(buletin) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var modal;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.modalController.create({
+                        component: _show_buletin_show_buletin_page__WEBPACK_IMPORTED_MODULE_4__.ShowBuletinPage,
+                        componentProps: {
+                          buletin: buletin
+                        },
+                        cssClass: 'my-custom-class'
+                      });
+
+                    case 2:
+                      modal = _context3.sent;
+                      _context3.next = 5;
+                      return modal.present();
+
+                    case 5:
+                      return _context3.abrupt("return", _context3.sent);
+
+                    case 6:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
+          }
+        }, {
+          key: "lihatKatalog",
+          value: function lihatKatalog(katalog) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var modal;
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      console.log("kemaskini Katalog");
+                      _context4.next = 3;
+                      return this.modalController.create({
+                        component: _show_katalog_show_katalog_page__WEBPACK_IMPORTED_MODULE_5__.ShowKatalogPage,
+                        componentProps: {
+                          katalog: katalog
+                        },
+                        cssClass: 'my-custom-class'
+                      });
+
+                    case 3:
+                      modal = _context4.sent;
+                      _context4.next = 6;
+                      return modal.present();
+
+                    case 6:
+                      return _context4.abrupt("return", _context4.sent);
+
+                    case 7:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
+            }));
+          }
+        }, {
+          key: "SenaraiKatalog",
+          value: function SenaraiKatalog() {
+            this.router.navigate(['/dashboard/senarai-katalog']);
+          }
+        }, {
+          key: "SenaraiBuletin",
+          value: function SenaraiBuletin() {
+            this.router.navigate(['/dashboard/senarai-buletin']);
           }
         }]);
 
@@ -224,14 +465,549 @@
       }();
 
       _DashboardPage.ctorParameters = function () {
-        return [];
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.LoadingController
+        }, {
+          type: src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_3__.KatalogService
+        }, {
+          type: src_app_services_buletin_buletin_service__WEBPACK_IMPORTED_MODULE_2__.BuletinService
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.ModalController
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_10__.Router
+        }, {
+          type: src_app_services_notifikasi_notifikasi_service__WEBPACK_IMPORTED_MODULE_6__.NotifikasiService
+        }];
       };
 
-      _DashboardPage = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+      _DashboardPage = (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_11__.Component)({
         selector: 'app-dashboard',
         template: _raw_loader_dashboard_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_dashboard_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
       })], _DashboardPage);
+      /***/
+    },
+
+    /***/
+    87586: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "ShowBuletinPage": function ShowBuletinPage() {
+          return (
+            /* binding */
+            _ShowBuletinPage
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_show_buletin_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./show-buletin.page.html */
+      68576);
+      /* harmony import */
+
+
+      var _show_buletin_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./show-buletin.page.scss */
+      83379);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/angular */
+      19122);
+
+      var _ShowBuletinPage = /*#__PURE__*/function () {
+        function ShowBuletinPage(modalController, // private katalogService: KatalogService,
+        loadingController, alertController) {
+          _classCallCheck(this, ShowBuletinPage);
+
+          this.modalController = modalController;
+          this.loadingController = loadingController;
+          this.alertController = alertController;
+        }
+
+        _createClass(ShowBuletinPage, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            console.log("katalog", this.buletin);
+          }
+        }, {
+          key: "dismiss",
+          value: function dismiss() {
+            // using the injected ModalController this page
+            // can "dismiss" itself and optionally pass back data
+            this.modalController.dismiss({
+              'dismissed': true
+            });
+          }
+        }]);
+
+        return ShowBuletinPage;
+      }();
+
+      _ShowBuletinPage.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.ModalController
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.LoadingController
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.AlertController
+        }];
+      };
+
+      _ShowBuletinPage.propDecorators = {
+        buletin: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Input
+        }]
+      };
+      _ShowBuletinPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+        selector: 'app-show-buletin',
+        template: _raw_loader_show_buletin_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_show_buletin_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _ShowBuletinPage);
+      /***/
+    },
+
+    /***/
+    72070: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "ShowKatalogPage": function ShowKatalogPage() {
+          return (
+            /* binding */
+            _ShowKatalogPage
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_show_katalog_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./show-katalog.page.html */
+      87679);
+      /* harmony import */
+
+
+      var _show_katalog_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./show-katalog.page.scss */
+      33483);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @ionic/angular */
+      19122);
+      /* harmony import */
+
+
+      var src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/katalog/katalog.service */
+      89496);
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/environments/environment */
+      92340);
+
+      var _ShowKatalogPage = /*#__PURE__*/function () {
+        function ShowKatalogPage(modalController, katalogService, loadingController, alertController) {
+          _classCallCheck(this, ShowKatalogPage);
+
+          this.modalController = modalController;
+          this.katalogService = katalogService;
+          this.loadingController = loadingController;
+          this.alertController = alertController;
+          this.gambar_url = "assets/img/pic1.jpeg";
+        }
+
+        _createClass(ShowKatalogPage, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            console.log("katalog", this.katalog);
+          }
+        }, {
+          key: "dismiss",
+          value: function dismiss() {
+            // using the injected ModalController this page
+            // can "dismiss" itself and optionally pass back data
+            this.modalController.dismiss({
+              'dismissed': true
+            });
+          }
+        }, {
+          key: "pengesahan",
+          value: function pengesahan() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var _this3 = this;
+
+              var loading;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
+                      return this.loadingController.create({
+                        message: 'Disahkan ...'
+                      });
+
+                    case 2:
+                      loading = _context5.sent;
+                      loading.present();
+                      this.katalogService.pengesahanPegawai(this.katalog.katalog_id).subscribe(function (res) {
+                        console.log("updated", res);
+                        loading.dismiss();
+
+                        _this3.presentAlert2();
+                      });
+
+                    case 5:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5, this);
+            }));
+          }
+        }, {
+          key: "presentAlert2",
+          value: function presentAlert2() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+              var alert, _yield$alert$onDidDis, role;
+
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                while (1) {
+                  switch (_context6.prev = _context6.next) {
+                    case 0:
+                      _context6.next = 2;
+                      return this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        header: 'Berjaya Disahkan',
+                        subHeader: 'Katalog Telah Disahkan',
+                        message: '',
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context6.sent;
+                      _context6.next = 5;
+                      return alert.present();
+
+                    case 5:
+                      _context6.next = 7;
+                      return alert.onDidDismiss();
+
+                    case 7:
+                      _yield$alert$onDidDis = _context6.sent;
+                      role = _yield$alert$onDidDis.role;
+                      console.log('onDidDismiss resolved with role', role);
+                      this.dismiss();
+                      this.refresh();
+
+                    case 12:
+                    case "end":
+                      return _context6.stop();
+                  }
+                }
+              }, _callee6, this);
+            }));
+          }
+        }, {
+          key: "refresh",
+          value: function refresh() {
+            window.location.reload();
+          }
+        }, {
+          key: "download",
+          value: function download(id) {
+            console.log(id);
+            this.katalogService.katalogPdf(id).subscribe(function (res) {
+              console.log("res3", res);
+              var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
+              console.log(url);
+              window.open(url, "_blank");
+            });
+          }
+        }]);
+
+        return ShowKatalogPage;
+      }();
+
+      _ShowKatalogPage.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.ModalController
+        }, {
+          type: src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_2__.KatalogService
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.LoadingController
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.AlertController
+        }];
+      };
+
+      _ShowKatalogPage.propDecorators = {
+        katalog: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_6__.Input
+        }]
+      };
+      _ShowKatalogPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
+        selector: 'app-show-katalog',
+        template: _raw_loader_show_katalog_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_show_katalog_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _ShowKatalogPage);
+      /***/
+    },
+
+    /***/
+    42101: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "BuletinService": function BuletinService() {
+          return (
+            /* binding */
+            _BuletinService
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/common/http */
+      91841);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! src/environments/environment */
+      92340);
+
+      var _BuletinService = /*#__PURE__*/function () {
+        function BuletinService(http) {
+          _classCallCheck(this, BuletinService);
+
+          this.http = http;
+          this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/buletin";
+        }
+
+        _createClass(BuletinService, [{
+          key: "post",
+          value: function post(data) {
+            return this.http.post("".concat(this.url), data);
+          }
+        }, {
+          key: "get",
+          value: function get(pegawai_id) {
+            return this.http.get("".concat(this.url) + "/" + pegawai_id);
+          }
+        }, {
+          key: "getAll",
+          value: function getAll() {
+            return this.http.get("".concat(this.url));
+          }
+        }, {
+          key: "update",
+          value: function update(data, id) {
+            return this.http.put("".concat(this.url, "/").concat(id), data);
+          }
+        }]);
+
+        return BuletinService;
+      }();
+
+      _BuletinService.ctorParameters = function () {
+        return [{
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient
+        }];
+      };
+
+      _BuletinService = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
+        providedIn: 'root'
+      })], _BuletinService);
+      /***/
+    },
+
+    /***/
+    89496: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "KatalogService": function KatalogService() {
+          return (
+            /* binding */
+            _KatalogService
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/common/http */
+      91841);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! src/environments/environment */
+      92340);
+
+      var _KatalogService = /*#__PURE__*/function () {
+        function KatalogService(http) {
+          _classCallCheck(this, KatalogService);
+
+          this.http = http;
+          this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalog";
+          this.url2 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalogPegawai";
+          this.url3 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/pengesahanPegawai";
+          this.url4 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalogdashboard";
+        }
+
+        _createClass(KatalogService, [{
+          key: "post",
+          value: function post(data) {
+            return this.http.post("".concat(this.url), data);
+          }
+        }, {
+          key: "getAll",
+          value: function getAll() {
+            return this.http.get("".concat(this.url));
+          }
+        }, {
+          key: "get",
+          value: function get(user_id) {
+            return this.http.get("".concat(this.url) + "/" + user_id);
+          }
+        }, {
+          key: "update",
+          value: function update(aliran, aliran_id) {
+            return this.http.put("".concat(this.url, "/").concat(aliran_id), aliran);
+          }
+        }, {
+          key: "delete",
+          value: function _delete(aliran_id) {
+            return this.http["delete"]("".concat(this.url, "/").concat(aliran_id));
+          }
+        }, {
+          key: "getKatalogPegawai",
+          value: function getKatalogPegawai(id) {
+            return this.http.get("".concat(this.url2) + "/" + id);
+          }
+        }, {
+          key: "pengesahanPegawai",
+          value: function pengesahanPegawai(id) {
+            return this.http.get("".concat(this.url3) + "/" + id);
+          }
+        }, {
+          key: "katalogPdf",
+          value: function katalogPdf(id) {
+            return this.http.get("".concat(this.url) + '/katalogPdf/' + id);
+          }
+        }, {
+          key: "getMaklumatUsahawan",
+          value: function getMaklumatUsahawan(id) {
+            return this.http.get("".concat(this.url) + '/showMaklumatUsahawan/' + id);
+          }
+        }, {
+          key: "katalogdashboard",
+          value: function katalogdashboard() {
+            return this.http.get("".concat(this.url4));
+          }
+        }]);
+
+        return KatalogService;
+      }();
+
+      _KatalogService.ctorParameters = function () {
+        return [{
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient
+        }];
+      };
+
+      _KatalogService = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
+        providedIn: 'root'
+      })], _KatalogService);
       /***/
     },
 
@@ -248,6 +1024,30 @@
     },
 
     /***/
+    83379: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "@import url(\"https://fonts.googleapis.com/css?family=Nunito+Sans:600,800\");\n.bold,\nh1 {\n  font-weight: bold;\n  font-family: \"Nunito Sans\";\n}\n.nunito {\n  font-family: \"Nunito Sans\";\n}\n.font-15 {\n  font-size: 15px;\n}\n.font-11 {\n  font-size: 13px;\n}\n.no-padding {\n  padding: 0px !important;\n}\n.no-margin {\n  margin: 0px !important;\n}\n.dark-green {\n  color: #15493C;\n}\n.rectangle-280 {\n  background-color: #00a651;\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  z-index: -1;\n}\n.bg-white {\n  background-color: white;\n  height: 85%;\n  display: flex;\n  justify-content: center;\n  min-width: 100%;\n  border-radius: 0px 0px 40px 40px;\n  flex-wrap: wrap;\n}\n.gambar_produk {\n  background-image: url(\"/assets/img/pic2.jpeg\");\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-position: center;\n  border-radius: 0px 0px 30px 30px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNob3ctYnVsZXRpbi5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQVEsMEVBQUE7QUFFUjs7RUFFSSxpQkFBQTtFQUNBLDBCQUFBO0FBQUo7QUFHQTtFQUNJLDBCQUFBO0FBQUo7QUFHQTtFQUNJLGVBQUE7QUFBSjtBQUdBO0VBQ0ksZUFBQTtBQUFKO0FBR0E7RUFDSSx1QkFBQTtBQUFKO0FBR0E7RUFDSSxzQkFBQTtBQUFKO0FBR0E7RUFDSSxjQUFBO0FBQUo7QUFHQTtFQUVJLHlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7QUFESjtBQUlBO0VBQ0ksdUJBQUE7RUFDQSxXQUFBO0VBQ0EsYUFBQTtFQUNBLHVCQUFBO0VBQ0EsZUFBQTtFQUNBLGdDQUFBO0VBQ0EsZUFBQTtBQURKO0FBT0E7RUFFSSw4Q0FBQTtFQUNBLDRCQUFBO0VBQ0Esd0JBQUE7RUFDQSwyQkFBQTtFQUVBLGdDQUFBO0FBTkoiLCJmaWxlIjoic2hvdy1idWxldGluLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgdXJsKFwiaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PU51bml0bytTYW5zOjYwMCw4MDBcIik7XG5cbi5ib2xkLFxuaDEge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtZmFtaWx5OiBcIk51bml0byBTYW5zXCI7XG59XG5cbi5udW5pdG97XG4gICAgZm9udC1mYW1pbHk6ICdOdW5pdG8gU2Fucyc7XG59XG5cbi5mb250LTE1e1xuICAgIGZvbnQtc2l6ZTogMTVweDtcbn1cblxuLmZvbnQtMTF7XG4gICAgZm9udC1zaXplOiAxM3B4O1xufVxuXG4ubm8tcGFkZGluZyB7XG4gICAgcGFkZGluZzogMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5uby1tYXJnaW4ge1xuICAgIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5kYXJrLWdyZWVue1xuICAgIGNvbG9yOiAjMTU0OTNDO1xufVxuXG4ucmVjdGFuZ2xlLTI4MCB7XG4gICAgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwYTY1MTtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIHotaW5kZXg6IC0xO1xufVxuXG4uYmctd2hpdGUge1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIGhlaWdodDogODUlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgbWluLXdpZHRoOiAxMDAlO1xuICAgIGJvcmRlci1yYWRpdXM6IDBweCAwcHggNDBweCA0MHB4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICAvLyBhbGlnbi1pdGVtczogZmxleC1zdGFydDtcbiAgICAvLyBwYWRkaW5nOiAyMHB4O1xuICAgIC8vIG92ZXJmbG93OiBzY3JvbGw7XG59XG5cbi5nYW1iYXJfcHJvZHVrIHtcbiAgICAvLyBib3JkZXI6IDFweCBzb2xpZCBibGFjaztcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJy9hc3NldHMvaW1nL3BpYzIuanBlZycpO1xuICAgIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICAgIGJhY2tncm91bmQtcG9zaXRpb246IGNlbnRlcjtcbiAgICBcbiAgICBib3JkZXItcmFkaXVzOiAwcHggMHB4IDMwcHggMzBweDtcbiAgICBcbn1cbiJdfQ== */";
+      /***/
+    },
+
+    /***/
+    33483: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "@import url(\"https://fonts.googleapis.com/css?family=Nunito+Sans:600,800\");\n.bold,\nh1 {\n  font-weight: bold;\n  font-family: \"Nunito Sans\";\n}\n.nunito {\n  font-family: \"Nunito Sans\";\n}\n.font-15 {\n  font-size: 15px;\n}\n.font-11 {\n  font-size: 13px;\n}\n.no-padding {\n  padding: 0px !important;\n}\n.no-margin {\n  margin: 0px !important;\n}\n.dark-green {\n  color: #15493C;\n}\n.rectangle-280 {\n  background-color: #00a651;\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  z-index: -1;\n}\n.bg-white {\n  background-color: white;\n  height: 85%;\n  display: flex;\n  justify-content: center;\n  min-width: 100%;\n  border-radius: 0px 0px 40px 40px;\n  flex-wrap: wrap;\n}\n.gambar_produk {\n  background-image: url(\"/assets/img/pic2.jpeg\");\n  background-repeat: no-repeat;\n  background-size: contain;\n  background-position: center;\n  border-radius: 0px 0px 30px 30px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNob3cta2F0YWxvZy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQVEsMEVBQUE7QUFFUjs7RUFFSSxpQkFBQTtFQUNBLDBCQUFBO0FBQUo7QUFHQTtFQUNJLDBCQUFBO0FBQUo7QUFHQTtFQUNJLGVBQUE7QUFBSjtBQUdBO0VBQ0ksZUFBQTtBQUFKO0FBR0E7RUFDSSx1QkFBQTtBQUFKO0FBR0E7RUFDSSxzQkFBQTtBQUFKO0FBR0E7RUFDSSxjQUFBO0FBQUo7QUFHQTtFQUVJLHlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7QUFESjtBQUlBO0VBQ0ksdUJBQUE7RUFDQSxXQUFBO0VBQ0EsYUFBQTtFQUNBLHVCQUFBO0VBQ0EsZUFBQTtFQUNBLGdDQUFBO0VBQ0EsZUFBQTtBQURKO0FBT0E7RUFFSSw4Q0FBQTtFQUNBLDRCQUFBO0VBQ0Esd0JBQUE7RUFDQSwyQkFBQTtFQUVBLGdDQUFBO0FBTkoiLCJmaWxlIjoic2hvdy1rYXRhbG9nLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgdXJsKFwiaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PU51bml0bytTYW5zOjYwMCw4MDBcIik7XG5cbi5ib2xkLFxuaDEge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtZmFtaWx5OiBcIk51bml0byBTYW5zXCI7XG59XG5cbi5udW5pdG97XG4gICAgZm9udC1mYW1pbHk6ICdOdW5pdG8gU2Fucyc7XG59XG5cbi5mb250LTE1e1xuICAgIGZvbnQtc2l6ZTogMTVweDtcbn1cblxuLmZvbnQtMTF7XG4gICAgZm9udC1zaXplOiAxM3B4O1xufVxuXG4ubm8tcGFkZGluZyB7XG4gICAgcGFkZGluZzogMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5uby1tYXJnaW4ge1xuICAgIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5kYXJrLWdyZWVue1xuICAgIGNvbG9yOiAjMTU0OTNDO1xufVxuXG4ucmVjdGFuZ2xlLTI4MCB7XG4gICAgXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwYTY1MTtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIHotaW5kZXg6IC0xO1xufVxuXG4uYmctd2hpdGUge1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIGhlaWdodDogODUlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgbWluLXdpZHRoOiAxMDAlO1xuICAgIGJvcmRlci1yYWRpdXM6IDBweCAwcHggNDBweCA0MHB4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICAvLyBhbGlnbi1pdGVtczogZmxleC1zdGFydDtcbiAgICAvLyBwYWRkaW5nOiAyMHB4O1xuICAgIC8vIG92ZXJmbG93OiBzY3JvbGw7XG59XG5cbi5nYW1iYXJfcHJvZHVrIHtcbiAgICAvLyBib3JkZXI6IDFweCBzb2xpZCBibGFjaztcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJy9hc3NldHMvaW1nL3BpYzIuanBlZycpO1xuICAgIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICAgIGJhY2tncm91bmQtcG9zaXRpb246IGNlbnRlcjtcbiAgICBcbiAgICBib3JkZXItcmFkaXVzOiAwcHggMHB4IDMwcHggMzBweDtcbiAgICBcbn1cbiJdfQ== */";
+      /***/
+    },
+
+    /***/
     13977: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
@@ -255,7 +1055,31 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Dashboard</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button href=\"/notifikasi\">\n        <img src=\"assets/icon/NOTIFICATION-BELL.png\" alt=\"\" height=\"40px\">\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"ion-margin-top ion-padding bold\" style=\"width: 100%; padding-bottom:0px !important\">\n\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          Katalog\n        </ion-col>\n        <ion-col style=\"display: flex; justify-content:flex-end\">\n          <img src=\"assets/icon/arrow-down--(greeny)-icon.png\" alt=\"\" height=\"20px\">\n\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <div class=\"scrolling-wrapper\">\n    <div *ngFor=\"let img_info of img_info\" class=\"card\">\n      <ion-card class=\"no-padding\" style=\"width: 200px;\">\n\n        <ion-card-content class=\"no-padding\" style=\"width: 200px;\">\n          <div style=\"background-image: url('{{img_info.url}}');\n        background-size: cover;\n        background-repeat: no-repeat;\n        background-position: 50% 50%;\n        border-radius: 20px 20px 20px 20px;\n        height:230px;\n        color:black;\n        display:flex;\n        justify-content:flex-end;\n        \">\n\n            <img src=\"/assets/icon/fav--no-fill-icon.png\" alt=\"\" height=\"50px\">\n          </div>\n\n        </ion-card-content>\n      </ion-card>\n\n    </div>\n\n  </div>\n\n  <div class=\"ion-margin-top ion-padding bold\" style=\"width: 100%; padding-bottom:0px !important\">\n\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          Berita Terkini\n        </ion-col>\n        <ion-col style=\"display: flex; justify-content:flex-end\">\n          <img src=\"assets/icon/arrow-down--(greeny)-icon.png\" alt=\"\" height=\"20px\">\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <div class=\"ion-padding\" style=\"margin-right: 30px;\">\n    <ion-card style=\"width: 100%; margin-bottom:20px !important\">\n      <img src=\"/assets/img/pic2.jpeg\" />\n      <ion-card-header>\n        <ion-card-subtitle>Destination</ion-card-subtitle>\n        <ion-card-title>Madison, WI</ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the\n        Wisconsin Territory in 1836.\n      </ion-card-content>\n    </ion-card>\n\n    <ion-card style=\"width: 100%;\">\n      <img src=\"/assets/img/bg1.jpg\" />\n      <ion-card-header>\n        <ion-card-subtitle>Destination</ion-card-subtitle>\n        <ion-card-title>Madison, WI</ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the\n        Wisconsin Territory in 1836.\n      </ion-card-content>\n    </ion-card>\n  </div>\n\n\n  <!-- <ion-grid>\n    <ion-row class=\"itemrow\">\n      <ion-col>\n        <ion-card style=\"width: 10rem;\">\n          <ion-item>\n            <ion-icon name=\"pin\" slot=\"start\"></ion-icon>\n            <ion-label>ion-item in a card, icon left, button right</ion-label>\n            <ion-button fill=\"outline\" slot=\"end\">View</ion-button>\n          </ion-item>\n\n          <ion-card-content>\n            This is content, without any paragraph or header tags,\n            within an ion-card-content element.\n          </ion-card-content>\n        </ion-card>\n\n      </ion-col>\n      <ion-col>\n        <ion-card style=\"width: 10rem;\">\n          <ion-item href=\"#\" class=\"ion-activated\">\n            <ion-icon name=\"wifi\" slot=\"start\"></ion-icon>\n            <ion-label>Item 1</ion-label>\n          </ion-item>\n\n          <ion-item href=\"#\">\n            <ion-icon name=\"wine\" slot=\"start\"></ion-icon>\n            <ion-label>Item 2</ion-label>\n          </ion-item>\n\n          <ion-item class=\"ion-activated\">\n            <ion-icon name=\"warning\" slot=\"start\"></ion-icon>\n            <ion-label>Item 3</ion-label>\n          </ion-item>\n\n          <ion-item>\n            <ion-icon name=\"walk\" slot=\"start\"></ion-icon>\n            <ion-label>Item 4</ion-label>\n          </ion-item>\n        </ion-card>\n      </ion-col>\n      <ion-col>\n        ion-col\n      </ion-col>\n      <ion-col>\n        ion-col\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <ion-button shape=\"round\" (click)=\"ConnectWallet()\">Connect</ion-button>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Dashboard</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button href=\"/notifikasi\">\n        <img src=\"assets/icon/NOTIFICATION-BELL.png\" alt=\"\" height=\"40px\">\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"ion-margin-top ion-padding bold\" style=\"width: 100%; padding-bottom:0px !important\">\n\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          Katalog\n        </ion-col>\n        <ion-col style=\"display: flex; justify-content:flex-end\">\n          <a (click)=\"SenaraiKatalog()\">\n            <img src=\"assets/icon/arrow-down--(greeny)-icon.png\" alt=\"\" height=\"20px\">\n          </a>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <div class=\"scrolling-wrapper\">\n    <div *ngFor=\"let katalog of katalog\" class=\"card\" (click)=\"lihatKatalog(katalog)\">\n      <ion-card class=\"no-padding\" style=\"width: 200px;\">\n\n        <ion-card-content class=\"no-padding\" style=\"width: 200px;\">\n          <div style=\"background-image: url('{{katalog.gambar_url}}');\n        background-size: cover;\n        background-repeat: no-repeat;\n        background-position: 50% 50%;\n        border-radius: 20px 20px 20px 20px;\n        height:230px;\n        color:black;\n        display:flex;\n        justify-content:flex-end;\n        \">\n\n            <!-- <img src=\"/assets/icon/fav--no-fill-icon.png\" alt=\"\" height=\"50px\"> -->\n          </div>\n\n        </ion-card-content>\n      </ion-card>\n\n    </div>\n\n  </div>\n  <!-- {{ '1234567.897766867' | number:'1.2-2':'en-US' }} -->\n\n  <div class=\"ion-margin-top ion-padding bold\" style=\"width: 100%; padding-bottom:0px !important\">\n\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          Berita Terkini\n        </ion-col>\n        <ion-col style=\"display: flex; justify-content:flex-end\">\n          <a (click)=\"SenaraiBuletin()\">\n            <img src=\"assets/icon/arrow-down--(greeny)-icon.png\" alt=\"\" height=\"20px\">\n          </a>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <div class=\"ion-padding\" style=\"margin-right: 30px;\">\n    <ion-card *ngFor=\"let buletin of buletin\" style=\"width: 100%; margin-bottom:20px !important\">\n      <img src=\"{{buletin.gambar_buletin}}\" />\n      <ion-card-header>\n        <!-- <ion-card-subtitle>Destination</ion-card-subtitle> -->\n      \n        <ion-card-title>{{ buletin.tajuk }}</ion-card-title>\n\n       \n      </ion-card-header>\n      <ion-card-content style=\"display:flex; justify-content: flex-end;\">\n        <!-- {{ buletin.keterangan_lain}} -->\n        <ion-button size=\"small\" (click)=\"lihatBuletin(buletin)\">\n          Selanjutnya\n        </ion-button>\n        \n      </ion-card-content>\n    </ion-card>\n\n   \n  </div>\n\n\n  <!-- <ion-grid>\n    <ion-row class=\"itemrow\">\n      <ion-col>\n        <ion-card style=\"width: 10rem;\">\n          <ion-item>\n            <ion-icon name=\"pin\" slot=\"start\"></ion-icon>\n            <ion-label>ion-item in a card, icon left, button right</ion-label>\n            <ion-button fill=\"outline\" slot=\"end\">View</ion-button>\n          </ion-item>\n\n          <ion-card-content>\n            This is content, without any paragraph or header tags,\n            within an ion-card-content element.\n          </ion-card-content>\n        </ion-card>\n\n      </ion-col>\n      <ion-col>\n        <ion-card style=\"width: 10rem;\">\n          <ion-item href=\"#\" class=\"ion-activated\">\n            <ion-icon name=\"wifi\" slot=\"start\"></ion-icon>\n            <ion-label>Item 1</ion-label>\n          </ion-item>\n\n          <ion-item href=\"#\">\n            <ion-icon name=\"wine\" slot=\"start\"></ion-icon>\n            <ion-label>Item 2</ion-label>\n          </ion-item>\n\n          <ion-item class=\"ion-activated\">\n            <ion-icon name=\"warning\" slot=\"start\"></ion-icon>\n            <ion-label>Item 3</ion-label>\n          </ion-item>\n\n          <ion-item>\n            <ion-icon name=\"walk\" slot=\"start\"></ion-icon>\n            <ion-label>Item 4</ion-label>\n          </ion-item>\n        </ion-card>\n      </ion-col>\n      <ion-col>\n        ion-col\n      </ion-col>\n      <ion-col>\n        ion-col\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <ion-button shape=\"round\" (click)=\"ConnectWallet()\">Connect</ion-button>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n\n\n\n</ion-content>";
+      /***/
+    },
+
+    /***/
+    68576: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px; display:flex; justify-content:center; align-items:center\">\n\n    <ion-text style=\"display:flex; justify-content:center;\">\n      <h5 style=\"color: #15493C;\">\n        <!-- <strong class=\"ion-text-uppercase\"> -->\n        BULETIN\n        <!-- </strong> -->\n      </h5>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <div class=\"rectangle-280\"></div>\n\n  <div class=\"bg-white\">\n\n    <div class=\"gambar_produk\" style=\"height: 30%; width:100%; background-image: url('{{buletin.gambar_buletin}}');\">\n      <!-- <img src=\"assets/img/pic1.jpeg\" alt=\"\" > -->\n    </div>\n\n\n    <div style=\"display: flex; align-items:flex-start; width:100%; height:60%; overflow:scroll; margin:5%\">\n      <ion-grid>\n        <ion-row>\n          <ion-col size=\"8\">\n            <h4 class=\"bold no-margin dark-green\">\n              {{buletin.tajuk}}\n            </h4>\n\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p class=\"nunito font-15\" style=\" text-align: justify; text-justify: inter-word;\">\n                {{buletin.tarikh | date: 'dd/MM/YYYY'}}\n              </p>\n            </ion-text>\n          </ion-col>\n          \n        </ion-row>\n        <ion-row>\n          <ion-col>\n            <ion-text class=\"bold no-margin\">\n              <h6>Keterangan</h6>\n            </ion-text>\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p class=\"nunito font-15\" style=\" text-align: justify; text-justify: inter-word;\">\n                {{buletin.keterangan_lain}}\n              </p>\n            </ion-text>\n\n          </ion-col>\n        </ion-row>\n        \n      </ion-grid>\n    </div>\n\n  </div>\n  <div style=\"height:15%; display: flex; align-items:center; justify-content:space-around\">\n    <ion-button (click)=\"dismiss()\" fill=\"default\" class=\"ion-text-uppercase bold font-11\" >Kembali</ion-button>\n    <!-- <ion-button (click)=\"pengesahan()\" fill=\"default\" class=\"ion-text-uppercase bold font-11\" style=\"color: #00A651;\">Sahkan</ion-button> -->\n  </div>\n\n  <!-- <div class=\"kmi nunitosans-extra-bold-te-papa-green-18px\">Maklumat<br />Insentif</div>\n\n  <div class=\"body\">\n    <div class=\"maklumatnunitosans-extra-bold-te-papa-green-18px\">\n      <div class=\"kmi\">Maklumat<br />Insentif</div>\n      <div class=\"x2000\">Jumlah<br />Bantuan</div>\n    </div>\n\n  </div>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div>1 of 2</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 2</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div>1 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>3 of 3</div>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n\n\n\n\n</ion-content>";
+      /***/
+    },
+
+    /***/
+    87679: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px; display:flex; justify-content:center; align-items:center\">\n\n    <ion-text style=\"display:flex; justify-content:center;\">\n      <h5 style=\"color: #15493C;\">\n        <!-- <strong class=\"ion-text-uppercase\"> -->\n        Maklumat Produk\n        <!-- </strong> -->\n      </h5>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <div class=\"rectangle-280\"></div>\n\n  <div class=\"bg-white\">\n\n    <div class=\"gambar_produk\" style=\"height: 30%; width:100%; background-image: url('{{katalog.gambar_url}}');\">\n      <!-- <img src=\"assets/img/pic1.jpeg\" alt=\"\" > -->\n    </div>\n\n\n    <div style=\"display: flex; align-items:flex-start; width:100%; height:60%; overflow:scroll; margin:5%\">\n      <ion-grid>\n        <ion-row>\n          <ion-col size=\"8\">\n            <h4 class=\"bold no-margin dark-green\">\n              {{katalog.nama_produk}}\n            </h4>\n\n            <ion-text color=\"success\" class=\"bold no-margin\">\n              {{katalog.baki_stok}}\n            </ion-text>\n            <br>\n            <ion-text color=\"medium\" class=\"bold no-margin\">\n              <small>\n                Berat: {{katalog.berat_produk}}KG\n              </small>\n            </ion-text>\n          </ion-col>\n          <ion-col size=\"4\">\n            <ion-text color=\"success\" class=\"bold no-margin\">\n              <h5 class=\"bold no-margin\">\n                RM {{katalog.harga_produk}}\n              </h5>\n            </ion-text>\n\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col>\n            <ion-text class=\"bold no-margin\">\n              <h6>Keterangan</h6>\n            </ion-text>\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p class=\"nunito font-15\" style=\" text-align: justify; text-justify: inter-word;\">\n                {{katalog.keterangan_produk}}\n              </p>\n            </ion-text>\n\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col>\n            <ion-text class=\"bold no-margin\">\n              <h6>Kandungan Produk</h6>\n            </ion-text>\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p class=\"nunito font-15\" style=\" text-align: justify; text-justify: inter-word;\">\n                {{katalog.kandungan_produk}}\n              </p>\n            </ion-text>\n\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </div>\n\n  </div>\n  <div style=\"height:15%; display: flex; align-items:center; justify-content:space-around\">\n    <ion-button (click)=\"dismiss()\" fill=\"default\" class=\"ion-text-uppercase bold font-11\" >Kembali</ion-button>\n    <ion-button (click)=\"download(katalog.id)\" fill=\"default\" class=\"ion-text-uppercase bold font-11\" style=\"color: #00A651;\">Muat Turun</ion-button>\n  </div>\n\n  <!-- <div class=\"kmi nunitosans-extra-bold-te-papa-green-18px\">Maklumat<br />Insentif</div>\n\n  <div class=\"body\">\n    <div class=\"maklumatnunitosans-extra-bold-te-papa-green-18px\">\n      <div class=\"kmi\">Maklumat<br />Insentif</div>\n      <div class=\"x2000\">Jumlah<br />Bantuan</div>\n    </div>\n\n  </div>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div>1 of 2</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 2</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div>1 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>3 of 3</div>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n\n\n\n\n</ion-content>";
       /***/
     }
   }]);

@@ -90,11 +90,84 @@ body {
 body.backdrop-no-scroll {
   overflow: hidden;
 }
-html.ios ion-modal.modal-card .ion-page > ion-header > ion-toolbar:first-of-type {
-  padding-top: 0px;
+/**
+ * Card style modal needs additional padding on the
+ * top of the header. We accomplish this by targeting
+ * the first toolbar in the header.
+ * Footer also needs this. We do not adjust the bottom
+ * padding though because of the safe area.
+ */
+html.ios ion-modal.modal-card ion-header ion-toolbar:first-of-type,
+html.ios ion-modal.modal-sheet ion-header ion-toolbar:first-of-type,
+html.ios ion-modal ion-footer ion-toolbar:first-of-type {
+  padding-top: 6px;
 }
-html.ios ion-modal .ion-page {
-  border-radius: inherit;
+/**
+* Card style modal needs additional padding on the
+* bottom of the header. We accomplish this by targeting
+* the last toolbar in the header.
+*/
+html.ios ion-modal.modal-card ion-header ion-toolbar:last-of-type,
+html.ios ion-modal.modal-sheet ion-header ion-toolbar:last-of-type {
+  padding-bottom: 6px;
+}
+/**
+* Add padding on the left and right
+* of toolbars while accounting for
+* safe area values when in landscape.
+*/
+html.ios ion-modal ion-toolbar {
+  padding-right: calc(var(--ion-safe-area-right) + 8px);
+  padding-left: calc(var(--ion-safe-area-left) + 8px);
+}
+/**
+ * Card style modal on iPadOS
+ * should only have backdrop on first instance.
+ */
+@media screen and (min-width: 768px) {
+  html.ios ion-modal.modal-card:first-of-type {
+    --backdrop-opacity: 0.18;
+  }
+}
+/**
+ * Subsequent modals should not have a backdrop/box shadow
+ * as it will cause the screen to appear to get progressively
+ * darker. With Ionic 6, declarative modals made it
+ * possible to have multiple non-presented modals in the DOM,
+ * so we could no longer rely on ion-modal:first-of-type.
+ * Here we disable the opacity/box-shadow for every modal
+ * that comes after the first presented modal.
+ *
+ * Note: ion-modal:not(.overlay-hidden):first-of-type
+ * does not match the first modal to not have
+ * the .overlay-hidden class, it will match the
+ * first modal in general only if it does not
+ * have the .overlay-hidden class.
+ * The :nth-child() pseudo-class has support
+ * for selectors which would help us here. At the
+ * time of writing it does not have great cross browser
+ * support.
+ *
+ * Note 2: This should only apply to non-card and
+ * non-sheet modals. Card and sheet modals have their
+ * own criteria for displaying backdrops/box shadows.
+ */
+ion-modal.modal-default:not(.overlay-hidden) ~ ion-modal.modal-default {
+  --backdrop-opacity: 0;
+  --box-shadow: none;
+}
+/**
+ * This works around a bug in WebKit where the
+ * content will overflow outside of the bottom border
+ * radius when re-painting. As long as a single
+ * border radius value is set on .ion-page, this
+ * issue does not happen. We set the top left radius
+ * here because the top left corner will always have a
+ * radius no matter the platform.
+ * This behavior only applies to card modals.
+ */
+html.ios ion-modal.modal-card .ion-page {
+  border-top-left-radius: var(--border-radius);
 }
 .ion-color-primary {
   --ion-color-base: var(--ion-color-primary, #3880ff) !important;
@@ -255,6 +328,47 @@ ion-card-header.ion-color .ion-inherit-color {
 }
 .md .menu-content-push {
   box-shadow: 4px 0px 16px rgba(0, 0, 0, 0.18);
+}
+ion-accordion-group.accordion-group-expand-inset > ion-accordion:first-of-type {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+ion-accordion-group.accordion-group-expand-inset > ion-accordion:last-of-type {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+ion-accordion-group > ion-accordion:last-of-type ion-item {
+  --border-width: 0px;
+}
+ion-accordion.accordion-animated > [slot=header] .ion-accordion-toggle-icon {
+  transition: 300ms transform cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ion-accordion .ion-accordion-toggle-icon {
+    /* stylelint-disable declaration-no-important */
+    transition: none !important;
+  }
+}
+/**
+ * The > [slot="header"] selector ensures that we do
+ * not modify toggle icons for any nested accordions. The state
+ * of one accordion should not affect any accordions inside
+ * of a nested accordion group.
+ */
+ion-accordion.accordion-expanding > [slot=header] .ion-accordion-toggle-icon,
+ion-accordion.accordion-expanded > [slot=header] .ion-accordion-toggle-icon {
+  transform: rotate(180deg);
+}
+ion-accordion-group.accordion-group-expand-inset.md > ion-accordion.accordion-previous ion-item[slot=header] {
+  --border-width: 0px;
+  --inner-border-width: 0px;
+}
+ion-accordion-group.accordion-group-expand-inset.md > ion-accordion.accordion-expanding:first-of-type,
+ion-accordion-group.accordion-group-expand-inset.md > ion-accordion.accordion-expanded:first-of-type {
+  margin-top: 0;
+}
+ion-input input::-webkit-date-and-time-value {
+  text-align: start;
 }
 /* Basic CSS for apps built with Ionic */
 audio,
@@ -417,6 +531,9 @@ html {
 }
 html:not(.hydrated) body {
   display: none;
+}
+html.ion-ce body {
+  display: block;
 }
 html.plt-pwa {
   height: 100vh;
@@ -1215,8 +1332,42 @@ sub {
   box-shadow: 0 3px 2px rgba(233, 236, 239, 0.05) !important;
   line-height: 1.5 !important;
 }
+.form-control ion-datetime {
+  --background: #f5f5f5;
+  --padding-start: 0.75rem !important;
+  --padding-top: 0.625rem !important;
+  --placeholder-color: #8898aa;
+  --placeholder-font-weight: 400;
+  border: 1px solid #dee2e6 !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 3px 2px rgba(233, 236, 239, 0.05) !important;
+  line-height: 1.5 !important;
+}
 .form-control:focus {
   border-color: #5e72e4 !important;
+}
+.alert-radio-label.sc-ion-alert-md {
+  white-space: pre-line !important;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.alert-radio-label.sc-ion-alert-ios {
+  white-space: pre-line !important;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+ion-input {
+  text-transform: uppercase;
+}
+.alert-radio-label.sc-ion-alert-md {
+  font-size: 11px;
+}
+.alert-tappable.sc-ion-alert-md {
+  position: relative;
+  height: 60px;
+  overflow: hidden;
 }
 .swal2-popup.swal2-toast {
   box-sizing: border-box;
@@ -1501,7 +1652,7 @@ sub {
   max-width: 100%;
   margin: 0;
   padding: 0.8em 1em 0;
-  color: #595959;
+  color: inherit;
   font-size: 1.875em;
   font-weight: 600;
   text-align: center;
@@ -1557,36 +1708,36 @@ sub {
   border-radius: 0.25em;
   background: transparent none repeat 0 0 / auto auto padding-box border-box scroll;
   background: initial;
-  background-color: #7367f0;
+  background-color: #7066e0;
   color: #fff;
   font-size: 1em;
 }
 .swal2-styled.swal2-confirm:focus {
-  box-shadow: 0 0 0 3px rgba(115, 103, 240, 0.5);
+  box-shadow: 0 0 0 3px rgba(112, 102, 224, 0.5);
 }
 .swal2-styled.swal2-deny {
   border: 0;
   border-radius: 0.25em;
   background: transparent none repeat 0 0 / auto auto padding-box border-box scroll;
   background: initial;
-  background-color: #ea5455;
+  background-color: #dc3741;
   color: #fff;
   font-size: 1em;
 }
 .swal2-styled.swal2-deny:focus {
-  box-shadow: 0 0 0 3px rgba(234, 84, 85, 0.5);
+  box-shadow: 0 0 0 3px rgba(220, 55, 65, 0.5);
 }
 .swal2-styled.swal2-cancel {
   border: 0;
   border-radius: 0.25em;
   background: transparent none repeat 0 0 / auto auto padding-box border-box scroll;
   background: initial;
-  background-color: #6e7d88;
+  background-color: #6e7881;
   color: #fff;
   font-size: 1em;
 }
 .swal2-styled.swal2-cancel:focus {
-  box-shadow: 0 0 0 3px rgba(110, 125, 136, 0.5);
+  box-shadow: 0 0 0 3px rgba(110, 120, 129, 0.5);
 }
 .swal2-styled.swal2-default-outline:focus {
   box-shadow: 0 0 0 3px rgba(100, 150, 200, 0.5);
@@ -1602,7 +1753,7 @@ sub {
   margin: 1em 0 0;
   padding: 1em 1em 0;
   border-top: 1px solid #eee;
-  color: #545454;
+  color: inherit;
   font-size: 1em;
 }
 .swal2-timer-progress-bar-container {
@@ -1665,7 +1816,7 @@ sub {
   margin: 1em 1.6em 0.3em;
   padding: 0;
   overflow: auto;
-  color: #545454;
+  color: inherit;
   font-size: 1.125em;
   font-weight: normal;
   line-height: normal;
@@ -1679,7 +1830,7 @@ sub {
 .swal2-select,
 .swal2-radio,
 .swal2-checkbox {
-  margin: 1em 2em 0;
+  margin: 1em 2em 3px;
 }
 .swal2-input,
 .swal2-file,
@@ -1719,7 +1870,7 @@ sub {
   color: #ccc;
 }
 .swal2-range {
-  margin: 1em 2em 0;
+  margin: 1em 2em 3px;
   background: #fff;
 }
 .swal2-range input {
@@ -1868,13 +2019,37 @@ sub {
   border-color: #facea8;
   color: #f8bb86;
 }
+.swal2-icon.swal2-warning.swal2-icon-show {
+  -webkit-animation: swal2-animate-error-icon 0.5s;
+          animation: swal2-animate-error-icon 0.5s;
+}
+.swal2-icon.swal2-warning.swal2-icon-show .swal2-icon-content {
+  -webkit-animation: swal2-animate-i-mark 0.5s;
+          animation: swal2-animate-i-mark 0.5s;
+}
 .swal2-icon.swal2-info {
   border-color: #9de0f6;
   color: #3fc3ee;
 }
+.swal2-icon.swal2-info.swal2-icon-show {
+  -webkit-animation: swal2-animate-error-icon 0.5s;
+          animation: swal2-animate-error-icon 0.5s;
+}
+.swal2-icon.swal2-info.swal2-icon-show .swal2-icon-content {
+  -webkit-animation: swal2-animate-i-mark 0.8s;
+          animation: swal2-animate-i-mark 0.8s;
+}
 .swal2-icon.swal2-question {
   border-color: #c9dae1;
   color: #87adbd;
+}
+.swal2-icon.swal2-question.swal2-icon-show {
+  -webkit-animation: swal2-animate-error-icon 0.5s;
+          animation: swal2-animate-error-icon 0.5s;
+}
+.swal2-icon.swal2-question.swal2-icon-show .swal2-icon-content {
+  -webkit-animation: swal2-animate-question-mark 0.8s;
+          animation: swal2-animate-question-mark 0.8s;
 }
 .swal2-icon.swal2-success {
   border-color: #a5dc86;
@@ -2413,6 +2588,66 @@ sub {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes swal2-animate-question-mark {
+  0% {
+    transform: rotateY(-360deg);
+  }
+  100% {
+    transform: rotateY(0);
+  }
+}
+@keyframes swal2-animate-question-mark {
+  0% {
+    transform: rotateY(-360deg);
+  }
+  100% {
+    transform: rotateY(0);
+  }
+}
+@-webkit-keyframes swal2-animate-i-mark {
+  0% {
+    transform: rotateZ(45deg);
+    opacity: 0;
+  }
+  25% {
+    transform: rotateZ(-25deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: rotateZ(15deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: rotateZ(-5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+@keyframes swal2-animate-i-mark {
+  0% {
+    transform: rotateZ(45deg);
+    opacity: 0;
+  }
+  25% {
+    transform: rotateZ(-25deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: rotateZ(15deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: rotateZ(-5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(0);
+    opacity: 1;
   }
 }
 body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {

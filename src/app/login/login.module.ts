@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPageRoutingModule } from './login-routing.module';
 
+
 import { LoginPage } from './login.page';
 // import { FormsModule, Reacti } from '@angular/forms';
 // import { AuthService } from '../services/auth.service';
@@ -17,7 +18,7 @@ import { LoginPage } from './login.page';
     FormsModule,
     IonicModule,
     LoginPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [LoginPage],
 

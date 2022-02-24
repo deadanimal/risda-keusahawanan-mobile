@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _first_time_login_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./first-time-login-routing.module */ 28359);
 /* harmony import */ var _first_time_login_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./first-time-login.page */ 64995);
 
@@ -71,7 +71,8 @@ FirstTimeLoginPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
             _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule,
             _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule,
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule,
-            _first_time_login_routing_module__WEBPACK_IMPORTED_MODULE_0__.FirstTimeLoginPageRoutingModule
+            _first_time_login_routing_module__WEBPACK_IMPORTED_MODULE_0__.FirstTimeLoginPageRoutingModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule
         ],
         declarations: [_first_time_login_page__WEBPACK_IMPORTED_MODULE_1__.FirstTimeLoginPage]
     })
@@ -92,24 +93,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FirstTimeLoginPage": function() { return /* binding */ FirstTimeLoginPage; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_first_time_login_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./first-time-login.page.html */ 17669);
 /* harmony import */ var _first_time_login_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./first-time-login.page.scss */ 10091);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
+/* harmony import */ var src_app_services_forgot_password_forgot_password_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/forgot-password/forgot-password.service */ 90957);
+
+
+
 
 
 
 
 
 let FirstTimeLoginPage = class FirstTimeLoginPage {
-    constructor(alertController) {
+    constructor(router, formBuilder, forgotPassService, loadingController, alertController) {
+        this.router = router;
+        this.formBuilder = formBuilder;
+        this.forgotPassService = forgotPassService;
+        this.loadingController = loadingController;
         this.alertController = alertController;
+        this.user_id = window.sessionStorage.getItem("user_id");
+        this.profile_status = window.sessionStorage.getItem("profile_status");
+        this.form = this.formBuilder.group({
+            email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required,],
+            password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required,],
+            confirm_password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required,],
+        });
+        this.form2 = this.formBuilder.group({
+            password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required,],
+            confirm_password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required,],
+        });
     }
     ngOnInit() {
+        console.log("profile_status", this.profile_status);
     }
     presentAlertConfirm() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 cssClass: 'my-custom-class',
                 header: '',
@@ -127,7 +150,7 @@ let FirstTimeLoginPage = class FirstTimeLoginPage {
                         cssClass: "yes-custom",
                         handler: () => {
                             console.log('Confirm Okay');
-                            this.presentAlert();
+                            // this.presentAlert();
                         }
                     }
                 ]
@@ -135,13 +158,36 @@ let FirstTimeLoginPage = class FirstTimeLoginPage {
             yield alert.present();
         });
     }
-    presentAlert() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
+    logForm() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            console.log(this.form.value);
+            if (this.form.value.password == this.form.value.confirm_password) {
+                const loading = yield this.loadingController.create({ message: 'Loading ...' });
+                loading.present();
+                this.forgotPassService.firstTimeLogin(this.form.value, this.user_id).subscribe((res) => {
+                    console.log("res", res);
+                    if (res == 'email already exist') {
+                        loading.dismiss();
+                        this.presentAlertEmailFailed();
+                    }
+                    else {
+                        loading.dismiss();
+                        this.presentAlertUpdatesucces();
+                    }
+                });
+            }
+            else {
+                this.presentAlertFailed();
+            }
+        });
+    }
+    presentAlertEmailFailed() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 cssClass: 'my-custom-class',
-                header: 'Berjaya!',
+                header: 'Harap Maaf',
                 // subHeader: 'Subtitle',
-                message: 'Kemaskini telah berjaya',
+                message: 'Email yang digunakan telah wujud',
                 buttons: ['OK']
             });
             yield alert.present();
@@ -149,12 +195,70 @@ let FirstTimeLoginPage = class FirstTimeLoginPage {
             console.log('onDidDismiss resolved with role', role);
         });
     }
+    presentAlertFailed() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: 'Tidak Berjaya',
+                // subHeader: 'Subtitle',
+                message: 'Kata laluan tidak sepandan dengan pengesahan kata laluan',
+                buttons: ['OK']
+            });
+            yield alert.present();
+            const { role } = yield alert.onDidDismiss();
+            console.log('onDidDismiss resolved with role', role);
+        });
+    }
+    presentAlertUpdatesucces() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: 'Kemaskini Berjaya',
+                // subHeader: 'Subtitle',
+                message: 'Email dan kata laluan berjaya dikemaskini',
+                buttons: [
+                    {
+                        text: 'Okay',
+                        // id: 'confirm-button',
+                        handler: () => {
+                            this.router.navigate(['/dashboard']);
+                        }
+                    }
+                ]
+            });
+            yield alert.present();
+            const { role } = yield alert.onDidDismiss();
+            console.log('onDidDismiss resolved with role', role);
+        });
+    }
+    logForm2() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            console.log(this.form2.value);
+            if (this.form2.value.password == this.form2.value.confirm_password) {
+                console.log("berjaya");
+                const loading = yield this.loadingController.create({ message: 'Loading ...' });
+                loading.present();
+                this.forgotPassService.updatePassword(this.form2.value, this.user_id).subscribe((res) => {
+                    console.log("res", res);
+                    loading.dismiss();
+                    this.presentAlertUpdatesucces();
+                });
+            }
+            else {
+                this.presentAlertFailed();
+            }
+        });
+    }
 };
 FirstTimeLoginPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__.AlertController }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.Router },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder },
+    { type: src_app_services_forgot_password_forgot_password_service__WEBPACK_IMPORTED_MODULE_2__.ForgotPasswordService },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.AlertController }
 ];
-FirstTimeLoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+FirstTimeLoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
         selector: 'app-first-time-login',
         template: _raw_loader_first_time_login_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_first_time_login_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -185,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!-- <ion-header>\n  <ion-toolbar>\n    <ion-title>Log Masuk Kali Pertama</ion-title>\n  </ion-toolbar>\n</ion-header> -->\n\n<ion-content>\n\n  <div id=\"overlay\"\n    style=\"background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute\">\n\n  </div>\n  <div id=\"overlay\" style=\"position: absolute;\"></div>\n\n\n  <div style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center\">\n\n    <div class=\"element-logo\"></div>\n\n    <!-- <ion-text >\n      <h1 class=\"welcome-back nunitosans-extra-bold-green-haze-36px\">Selamat Datang</h1>\n    </ion-text> -->\n    <!-- <ion-text class=\"welcome-back\">\n      <h1>Selamat Datang</h1>\n    </ion-text> -->\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Log Masuk Kali Pertama</h2>\n    </ion-text>\n\n\n    <br><br><br>\n    <!-- <h1 class=\"welcome-backnats-regular-normal-log-cabin-26px ion-text-center\">Log Masuk Kali Pertama</h1> -->\n\n    <form action=\"\">\n      <ion-item style=\"border-radius: 50px;\">\n        <!-- <ion-label position=\"floating\"></ion-label> -->\n        <ion-input placeholder=\"Email\"></ion-input>\n      </ion-item>\n      <br>\n\n      <ion-item style=\"border-radius: 50px;\">\n        <!-- <ion-label position=\"floating\">Kata Laluan</ion-label> -->\n        <ion-input type=\"password\" placeholder=\"Kata Laluan Baru\"></ion-input>\n      </ion-item>\n      <br>\n      <ion-item style=\"border-radius: 50px;\">\n        <!-- <ion-label position=\"floating\">Kata Laluan</ion-label> -->\n        <ion-input type=\"password\" placeholder=\"Ulang Kata Laluan Baru\"></ion-input>\n      </ion-item>\n\n      <br>\n      <!-- <div class=\"forget-password nunitosans-extra-bold-green-haze-12px\">Lupa Kata Laluan?</div> -->\n\n      <br>\n\n      <ion-button type=\"submit\" expand=\"block\" color=\"success\" (click)=\"presentAlertConfirm()\">Log masuk</ion-button>\n    </form>\n    \n  </div>\n\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<!-- <ion-header>\n  <ion-toolbar>\n    <ion-title>Log Masuk Kali Pertama</ion-title>\n  </ion-toolbar>\n</ion-header> -->\n\n<ion-content>\n\n  <div id=\"overlay\"\n    style=\"background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute\">\n\n  </div>\n  <div id=\"overlay\" style=\"position: absolute;\"></div>\n\n\n  <div *ngIf=\"profile_status == 0\" style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center\">\n\n    <div class=\"element-logo\"></div>\n\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Log Masuk Kali Pertama</h2>\n    </ion-text>\n\n\n    <br><br><br>\n\n    <form action=\"\" [formGroup]=\"form\" (ngSubmit)=\"logForm()\">\n      <ion-item style=\"border-radius: 50px;\">\n        <ion-input type=\"text\" email placeholder=\"Email\" formControlName=\"email\" style=\"text-transform: none !important;\"></ion-input>\n      </ion-item>\n      <br>\n\n      <ion-item style=\"border-radius: 50px;\">\n        <ion-input type=\"password\" formControlName=\"password\" placeholder=\"Kata Laluan Baru\" style=\"text-transform: none !important;\"></ion-input>\n      </ion-item>\n      <br>\n      <ion-item style=\"border-radius: 50px;\">\n        <ion-input type=\"password\" formControlName=\"confirm_password\" placeholder=\"Ulang Kata Laluan Baru\" style=\"text-transform: none !important;\"></ion-input>\n      </ion-item>\n\n      <br>\n\n      <br>\n\n      <ion-button type=\"submit\" expand=\"block\" color=\"success\" [disabled]=\"form.invalid\">Log masuk</ion-button>\n    </form>\n    \n  </div>\n\n\n  <div *ngIf=\"profile_status == 2\" style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center\">\n\n    <div class=\"element-logo\"></div>\n\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Reset Kata Laluan</h2>\n    </ion-text>\n\n\n    <br><br><br>\n\n    <form action=\"\" [formGroup]=\"form2\" (ngSubmit)=\"logForm2()\">\n      <ion-item style=\"border-radius: 50px;\">\n        <ion-input type=\"password\" formControlName=\"password\" placeholder=\"Kata Laluan Baru\" style=\"text-transform: none !important;\"></ion-input>\n      </ion-item>\n      <br>\n      <ion-item style=\"border-radius: 50px;\">\n        <ion-input type=\"password\" formControlName=\"confirm_password\" placeholder=\"Ulang Kata Laluan Baru\" style=\"text-transform: none !important;\"></ion-input>\n      </ion-item>\n\n      <br>\n\n      <br>\n\n      <ion-button type=\"submit\" expand=\"block\" color=\"success\" [disabled]=\"form2.invalid\">Log masuk</ion-button>\n    </form>\n    \n  </div>\n\n\n</ion-content>");
 
 /***/ })
 

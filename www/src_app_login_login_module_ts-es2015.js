@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _login_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login-routing.module */ 45393);
 /* harmony import */ var _login_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./login.page */ 66825);
 
@@ -74,7 +74,7 @@ LoginPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
             _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule,
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule,
             _login_routing_module__WEBPACK_IMPORTED_MODULE_0__.LoginPageRoutingModule,
-            _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule,
         ],
         declarations: [_login_page__WEBPACK_IMPORTED_MODULE_1__.LoginPage],
     })
@@ -95,14 +95,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LoginPage": function() { return /* binding */ LoginPage; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./login.page.html */ 76770);
 /* harmony import */ var _login_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./login.page.scss */ 21339);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _services_login_login_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/login/login.service */ 58762);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage-angular */ 61628);
 
 
 
@@ -112,26 +113,57 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let LoginPage = class LoginPage {
-    constructor(loginService, loadingCtrl, router) {
+    constructor(loginService, loadingCtrl, router, storage, alertController) {
         this.loginService = loginService;
         this.loadingCtrl = loadingCtrl;
         this.router = router;
+        this.storage = storage;
+        this.alertController = alertController;
+        this.checked = true;
     }
     ngOnInit() {
-        // const loading = await this.loadingCtrl.create({message:'Loading...'});
-        // loading.present();
-        // this.users$ = this.loginService.getUser().pipe(
-        //   tap((users)=>{
-        //     // loading.dismiss();
-        //     console.log(users);
-        //     return users;
-        //   })
-        // );
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormGroup({
             no_kp: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]),
             password: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]),
             // device_name: new FormControl(),
+        });
+        this.init();
+    }
+    init() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+            const storage = yield this.storage.create();
+            this.storage = storage;
+        });
+    }
+    presentAlert() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: 'Ralat',
+                subHeader: '',
+                message: 'No Kad Pengenalan Atau Kata Laluan Tidak Sah',
+                buttons: ['OK']
+            });
+            yield alert.present();
+            const { role } = yield alert.onDidDismiss();
+            console.log('onDidDismiss resolved with role', role);
+        });
+    }
+    presentAlert2() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: '',
+                subHeader: '',
+                message: 'Akaun Tidak Aktif. Sila Minta Admin Aktifkan Akaun Anda Untuk Meneruskan ke Aplikasi',
+                buttons: ['OK']
+            });
+            yield alert.present();
+            const { role } = yield alert.onDidDismiss();
+            console.log('onDidDismiss resolved with role', role);
         });
     }
     login() {
@@ -140,27 +172,83 @@ let LoginPage = class LoginPage {
             console.log("user", res);
             if (Object.keys(res).length === 0) {
                 console.log("failed");
+                this.presentAlert();
             }
             else {
                 var setsession_user_id = window.sessionStorage.setItem("user_id", res.id);
-                var setsession_usahawan_id = window.sessionStorage.setItem("usahawan_id", res.usahawanid);
+                var setsession_profile_status = window.sessionStorage.setItem("profile_status", res.profile_status);
                 var setsession_role = window.sessionStorage.setItem("role", res.type);
+                if (res.type == 1) {
+                    // console.log("pegawai")
+                    var setsession_pegawai_id = window.sessionStorage.setItem("pegawai_id", res.idpegawai);
+                    var setsession_perananpegawai = window.sessionStorage.setItem("peranan_pegawai", res.role);
+                    // console.log(window.sessionStorage.getItem("pegawai_id"))
+                }
+                else if (res.type == 2) {
+                    // console.log("usahawan")
+                    var setsession_usahawan_id = window.sessionStorage.setItem("usahawan_id", res.usahawanid);
+                }
                 console.log("login success");
-                this.router.navigate(['/dashboard']);
+                // this.router.navigate(['/dashboard']);
+                if (res.status_pengguna == 0) {
+                    this.presentAlert2();
+                }
+                else {
+                    if (res.profile_status == 0 || res.profile_status == 2) {
+                        this.router.navigate(['/first-time-login']);
+                    }
+                    else if (res.profile_status == 1) {
+                        this.router.navigate(['/dashboard']);
+                    }
+                }
             }
         });
         this.loginService.login(this.form.value).subscribe((res) => {
             console.log("token", res);
         });
     }
+    numericOnly(event) {
+        let pattern = /^([0-9])$/;
+        let result = pattern.test(event.key);
+        return result;
+    }
+    forget_password() {
+        this.router.navigate(['/forgot-password']);
+    }
+    addValue(e) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            var isChecked = e.currentTarget.checked;
+            // console.log(e.currentTarget);//undefined
+            console.log(this.checked); //it is working !!!
+            // console.log(isChecked);
+            if (this.checked) {
+                window.sessionStorage.removeItem("username");
+            }
+            else {
+                // this.storage?.set("username", this.form.value.no_kp);
+                console.log(this.form.value.no_kp);
+                // const username = await this.storage.get('username');
+                var username = window.sessionStorage.setItem("username", this.form.value.no_kp);
+                var get_username = window.sessionStorage.getItem("username");
+                if (get_username != null) {
+                    console.log(get_username);
+                    this.form.patchValue({
+                        no_kp: get_username
+                    });
+                }
+            }
+        });
+    }
 };
 LoginPage.ctorParameters = () => [
     { type: _services_login_login_service__WEBPACK_IMPORTED_MODULE_2__.LoginService },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__.LoadingController },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.Router }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.LoadingController },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router },
+    { type: _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_7__.Storage },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.AlertController }
 ];
-LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
         selector: 'app-login',
         template: _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_login_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -191,7 +279,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!-- <ion-header>\n  <ion-toolbar>\n    <ion-title>login</ion-title>\n  </ion-toolbar>\n</ion-header> -->\n<!-- /Users/ismailibrahim/Desktop/Risda/myApp/src/app/login -->\n<ion-content>\n\n  <div id=\"overlay\"\n    style=\"background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute\">\n\n  </div>\n  <div id=\"overlay\" style=\"position: absolute;\"></div>\n\n\n  <div style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center\">\n\n    <div class=\"element-logo\"></div>\n\n    <!-- <ion-text >\n      <h1 class=\"welcome-back nunitosans-extra-bold-green-haze-36px\">Selamat Datang</h1>\n    </ion-text> -->\n    <ion-text class=\"welcome-back\">\n      <h1 class=\"welcome-back nunitosans-extra-bold-green-haze-36px\">Selamat Datang</h1>\n    </ion-text>\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Log Masuk</h2>\n    </ion-text>\n    <br>\n\n    <!-- <h1 class=\"welcome-backnats-regular-normal-log-cabin-26px ion-text-center\">Log Masuk Kali Pertama</h1> -->\n\n    <form [formGroup]=\"form\">\n      <ion-item style=\"border-radius: 50px;\">\n        <!-- <ion-label position=\"floating\"></ion-label> -->\n        <ion-input type=\"number\" placeholder=\"No Kad Pengenalan\" name=\"nric\" formControlName='no_kp'></ion-input>\n      </ion-item>\n      <br>\n\n      <ion-item style=\"border-radius: 50px;\">\n        <!-- <ion-label position=\"floating\">Kata Laluan</ion-label> -->\n        <ion-input type=\"password\" placeholder=\"Kata Laluan\" name=\"password\" formControlName='password'>\n        </ion-input>\n      </ion-item>\n      <br>\n      <a href=\"/forgot-password\" style=\"text-decoration: none;\">\n        <div class=\"forget-password nunitosans-extra-bold-green-haze-12px\">Lupa Kata Laluan?</div>\n      </a>\n      <br>\n\n      <ion-button expand=\"block\" color=\"success\" (click)=\"login()\" [disabled]=\"form.invalid\">Log masuk</ion-button>\n    </form>\n\n\n  </div>\n\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<!-- <ion-header>\n  <ion-toolbar>\n    <ion-title>login</ion-title>\n  </ion-toolbar>\n</ion-header> -->\n<!-- /Users/ismailibrahim/Desktop/Risda/myApp/src/app/login -->\n<ion-content>\n\n  <div id=\"overlay\"\n    style=\"background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute\">\n\n  </div>\n  <div id=\"overlay\" style=\"position: absolute;\"></div>\n\n\n  <div style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center\">\n\n    <div class=\"element-logo\"></div>\n\n    <!-- <ion-text >\n      <h1 class=\"welcome-back nunitosans-extra-bold-green-haze-36px\">Selamat Datang</h1>\n    </ion-text> -->\n    <ion-text class=\"welcome-back\">\n      <h1 class=\"welcome-back nunitosans-extra-bold-green-haze-36px\">Selamat Datang</h1>\n    </ion-text>\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Log Masuk</h2>\n    </ion-text>\n    <br>\n\n    <!-- <h1 class=\"welcome-backnats-regular-normal-log-cabin-26px ion-text-center\">Log Masuk Kali Pertama</h1> -->\n\n    <form [formGroup]=\"form\" (ngSubmit)=\"login()\">\n      <ion-item style=\"border-radius: 50px;\">\n        <!-- <ion-label position=\"floating\"></ion-label> -->\n        <ion-input type=\"text\" placeholder=\"No Kad Pengenalan\" name=\"nric\" formControlName='no_kp' \n          style=\"text-transform: none !important;\" (keypress)=\"numericOnly($event)\"></ion-input>\n      </ion-item>\n      <br>\n\n      <ion-item style=\"border-radius: 50px;\">\n        <!-- <ion-label position=\"floating\">Kata Laluan</ion-label> -->\n        <ion-input type=\"password\" placeholder=\"Kata Laluan\" name=\"password\" formControlName='password'\n          style=\"text-transform: none !important;\">\n        </ion-input>\n      </ion-item>\n      <br>\n\n      <ion-grid fixed>\n        <ion-row>\n          <ion-col size=\"6\">\n            <div>\n              <a class=\"forget-password nunitosans-extra-bold-green-haze-12px\">\n\n                \n                  \n                  <!-- <ion-checkbox color=\"success\" (click)=\"addValue($event)\" [checked]=\"checked\" [(ngModel)]=\"checked\" [ngModelOptions]=\"{standalone: true}\"></ion-checkbox>\n                  <ion-label>  Ingat saya</ion-label>\n                -->\n              </a>\n            </div>\n          </ion-col>\n          <ion-col size=\"6\">\n            <div style=\"display: flex; justify-content:flex-end\">\n              <a class=\"forget-password nunitosans-extra-bold-green-haze-12px\" (click)=\"forget_password()\"\n                style=\"text-decoration: none;\">\n                Lupa Kata Laluan?\n              </a>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n\n      <br>\n\n      <ion-button expand=\"block\" color=\"success\" type=\"submit\" [disabled]=\"form.invalid\">Log masuk</ion-button>\n    </form>\n\n\n  </div>\n\n\n</ion-content>");
 
 /***/ })
 

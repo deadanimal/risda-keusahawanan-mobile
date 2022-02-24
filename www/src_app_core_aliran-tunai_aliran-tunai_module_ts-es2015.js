@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _aliran_tunai_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./aliran-tunai-routing.module */ 72190);
 /* harmony import */ var _aliran_tunai_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./aliran-tunai.page */ 51151);
 
@@ -95,13 +95,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_aliran_tunai_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./aliran-tunai.page.html */ 9559);
 /* harmony import */ var _aliran_tunai_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./aliran-tunai.page.scss */ 74161);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _modal_kemaskini_tunai_keluar_kemaskini_tunai_keluar_page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modal/kemaskini-tunai-keluar/kemaskini-tunai-keluar.page */ 58278);
 /* harmony import */ var _modal_kemaskini_tunai_masuk_kemaskini_tunai_masuk_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modal/kemaskini-tunai-masuk/kemaskini-tunai-masuk.page */ 89167);
 /* harmony import */ var _modal_tambah_tunai_keluar_tambah_tunai_keluar_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modal/tambah-tunai-keluar/tambah-tunai-keluar.page */ 8690);
 /* harmony import */ var _modal_tambah_tunai_masuk_tambah_tunai_masuk_page__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modal/tambah-tunai-masuk/tambah-tunai-masuk.page */ 29309);
 /* harmony import */ var src_app_services_Aliran_aliran_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/Aliran/aliran.service */ 72311);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ 39895);
+
 
 
 
@@ -114,9 +116,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // import { KemaskiniTunaiMasukComponent } from './kemaskini-tunai-masuk/kemaskini-tunai-masuk.component';
 let AliranTunaiPage = class AliranTunaiPage {
-    constructor(modalController, aliranService) {
+    constructor(modalController, aliranService, router) {
         this.modalController = modalController;
         this.aliranService = aliranService;
+        this.router = router;
         this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
         this.user_id = window.sessionStorage.getItem("user_id");
     }
@@ -130,7 +133,12 @@ let AliranTunaiPage = class AliranTunaiPage {
                 component: _modal_tambah_tunai_masuk_tambah_tunai_masuk_page__WEBPACK_IMPORTED_MODULE_5__.TambahTunaiMasukPage,
                 cssClass: 'my-custom-class'
             });
-            return yield modal.present();
+            yield modal.present();
+            const { data: tunaimasuk } = yield modal.onDidDismiss();
+            if (tunaimasuk) {
+                // TODO do something
+                this.getAliran();
+            }
         });
     }
     kemaskiniTunaiMasuk(tunai_masuk) {
@@ -141,8 +149,12 @@ let AliranTunaiPage = class AliranTunaiPage {
                 componentProps: { tunai_masuk },
                 // cssClass: 'my-custom-class'
             });
-            modal.present();
-            // return await modal.present();
+            yield modal.present();
+            const { data: tunaimasuk } = yield modal.onDidDismiss();
+            if (tunaimasuk) {
+                // TODO do something
+                this.getAliran();
+            }
         });
     }
     tambahTunaiKeluar() {
@@ -152,8 +164,12 @@ let AliranTunaiPage = class AliranTunaiPage {
                 component: _modal_tambah_tunai_keluar_tambah_tunai_keluar_page__WEBPACK_IMPORTED_MODULE_4__.TambahTunaiKeluarPage,
                 cssClass: 'my-custom-class'
             });
-            return yield modal.present();
-            // this.getAliran();
+            yield modal.present();
+            const { data: updatedTunaiKeluar } = yield modal.onDidDismiss();
+            if (updatedTunaiKeluar) {
+                // TODO do something
+                this.getAliran();
+            }
         });
     }
     kemaskiniTunaiKeluar(tunai_keluar) {
@@ -164,11 +180,16 @@ let AliranTunaiPage = class AliranTunaiPage {
                 componentProps: { tunai_keluar },
                 // cssClass: 'my-custom-class'
             });
-            return yield modal.present();
+            yield modal.present();
+            const { data: updatedTunaiKeluar } = yield modal.onDidDismiss();
+            if (updatedTunaiKeluar) {
+                // TODO do something
+                this.getAliran();
+            }
         });
     }
     getAliran() {
-        this.aliranService.get().subscribe((res) => {
+        this.aliranService.get(this.user_id).subscribe((res) => {
             console.log("aliran", res);
             let temp = [];
             let temp2 = [];
@@ -185,13 +206,17 @@ let AliranTunaiPage = class AliranTunaiPage {
             this.tunai_keluar = temp2;
         });
     }
+    dashboard() {
+        this.router.navigate(['/dashboard']);
+    }
 };
 AliranTunaiPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.ModalController },
-    { type: src_app_services_Aliran_aliran_service__WEBPACK_IMPORTED_MODULE_6__.AliranService }
+    { type: src_app_services_Aliran_aliran_service__WEBPACK_IMPORTED_MODULE_6__.AliranService },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_9__.Router }
 ];
 AliranTunaiPage = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
         selector: 'app-aliran-tunai',
         template: _raw_loader_aliran_tunai_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_aliran_tunai_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -222,7 +247,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            ALIRAN TUNAI\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div>\n    <ion-tabs>\n      <ion-tab-bar slot=\"top\" class=\"tab\">\n        <ion-tab-button tab=\"/tunai-masuk\" style=\"height:30px; max-width:40%\">\n          <ion-label style=\"width: 80%; \">\n            <div>\n              Tunai Masuk\n            </div>\n            <!-- <ion-button round=true>Tunai Masuk</ion-button> -->\n          </ion-label>\n          <!-- <ion-icon name=\"musical-note\"></ion-icon> -->\n        </ion-tab-button>\n        <ion-tab-button tab=\"/tunai-keluar\" style=\"height:30px; max-width:40%\">\n          <ion-label>\n            Tunai Keluar\n          </ion-label>\n          <!-- <ion-icon name=\"game-controller\"></ion-icon> -->\n        </ion-tab-button>\n\n      </ion-tab-bar>\n\n      <ion-tab tab=\"/tunai-masuk\">\n        <ion-content fullscreen>\n          <div class=\"rectangle-280\"></div>\n\n          <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n            <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n              <ion-row style=\"margin-bottom: 10px;\">\n                <ion-col>\n                  <h5 class=\"bold\"> Maklumat Aliran</h5>\n                </ion-col>\n                <ion-col class=\"ion-text-end\">\n                  <h5 class=\"bold\">Jumlah</h5>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n            <div style=\"height: 65%; width:100%; overflow: scroll;\">\n              <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n                <ion-row *ngFor=\"let tunai_masuk of tunai_masuk\" style=\"padding-bottom: 10px;\" >\n                  <ion-col>\n                    <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\" (click)=\"kemaskiniTunaiMasuk( tunai_masuk )\">\n                      <ion-grid style=\"padding: 0%;\">\n                        <ion-row style=\"padding: 0%;\">\n                          <ion-col size=\"8\">\n                            <ion-text>\n                              <h6 class=\"bold no-padding\">\n                                {{tunai_masuk.kategori_aliran}}\n                              </h6>\n                            </ion-text>\n                            <ion-text color=\"success\">\n                              {{tunai_masuk.keterangan_aliran}}\n                            </ion-text>\n                          </ion-col>\n                          <ion-col size=\"4\" style=\"padding: 0%;\">\n                            <div class=\"content-box\"\n                              style=\"height: 100%; display:flex; align-items:center; background-color:#EDEDED; display:flex; justify-content:center\">\n                              <ion-text color=\"success\" class=\"ion-text-center\">\n                                <p class=\"jumlah no-padding\"> RM {{tunai_masuk.jumlah_aliran}}</p>\n\n                                <p class=\"tarikh no-padding\">{{tunai_masuk.tarikh_aliran}}</p>\n                              </ion-text>\n                            </div>\n                          </ion-col>\n                        </ion-row>\n                      </ion-grid>\n                    </div>\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n            <div\n              style=\"width:100%; height:25%; display:flex; justify-content:flex-end; align-items:flex-end; border-radius: 0px 0px 25px 25px; \">\n              <div class=\"ion-padding ion-margin ion-text-center\" (click)=\"tambahTunaiMasuk()\">\n                <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"50\" width=\"50\">\n                <br>\n\n                <ion-text class=\"bold\" color=\"success\">\n                  <ion-icon name=\"add\"></ion-icon>\n                  <span style=\"font-size: 12px; font-weight: 900;\"><strong> TAMBAH </strong></span>\n                </ion-text>\n              </div>\n\n            </div>\n          </div>\n\n        </ion-content>\n      </ion-tab>\n\n      <ion-tab tab=\"/tunai-keluar\">\n        <ion-content fullscreen>\n          <div class=\"rectangle-280\"></div>\n\n          <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n            <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n              <ion-row style=\"margin-bottom: 10px;\">\n                <ion-col>\n                  <h5 class=\"bold\"> Maklumat Aliran</h5>\n                </ion-col>\n                <ion-col class=\"ion-text-end\">\n                  <h5 class=\"bold\">Jumlah</h5>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n            <div style=\"height: 65%; width:100%; overflow: scroll;\">\n              <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n                <ion-row *ngFor=\"let tunai_keluar of tunai_keluar\" style=\"padding-bottom: 10px;\">\n                  <ion-col>\n                    <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\" (click)=\"kemaskiniTunaiKeluar( tunai_keluar )\">\n                      <ion-grid style=\"padding: 0%;\">\n                        <ion-row style=\"padding: 0%;\">\n                          <ion-col size=\"8\">\n                            <ion-text>\n                              <h6 class=\"bold no-padding ion-text-lowercase\">\n                                {{tunai_keluar.kategori_aliran}}\n                              </h6>\n                            </ion-text>\n                            <ion-text color=\"success\">\n                              {{tunai_keluar.keterangan_aliran}}\n                            </ion-text>\n                          </ion-col>\n                          <ion-col size=\"4\" style=\"padding: 0%;\">\n                            <div class=\"content-box\"\n                              style=\"height: 100%; display:flex; align-items:center; background-color:#EDEDED; display:flex; justify-content:center\">\n                              <ion-text color=\"danger\" class=\"ion-text-center\">\n                                <p class=\"jumlah no-padding\"> RM {{tunai_keluar.jumlah_aliran}}</p>\n\n                                <p class=\"tarikh no-padding\">{{tunai_keluar.tarikh_aliran}}</p>\n                              </ion-text>\n                            </div>\n                          </ion-col>\n                        </ion-row>\n                      </ion-grid>\n                    </div>\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n            <div\n              style=\"width:100%; height:25%; display:flex; justify-content:flex-end; align-items:flex-end; border-radius: 0px 0px 25px 25px; \">\n              <div class=\"ion-padding ion-margin ion-text-center\" (click)=\"tambahTunaiKeluar()\">\n                <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"50\" width=\"50\">\n                <br>\n\n                <ion-text class=\"bold\" color=\"success\">\n                  <ion-icon name=\"add\"></ion-icon>\n                  <span style=\"font-size: 12px; font-weight: 900;\"><strong> TAMBAH </strong></span>\n                </ion-text>\n              </div>\n\n            </div>\n          </div>\n\n        </ion-content>\n      </ion-tab>\n\n\n\n\n    </ion-tabs>\n\n  </div>\n\n\n\n\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dashboard()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            ALIRAN TUNAI\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div>\n    <ion-tabs>\n      <ion-tab-bar slot=\"top\" class=\"tab\">\n        <ion-tab-button tab=\"/tunai-masuk\" style=\"height:30px; max-width:40%\">\n          <ion-label style=\"width: 80%; \">\n            <div>\n              Tunai Masuk\n            </div>\n            <!-- <ion-button round=true>Tunai Masuk</ion-button> -->\n          </ion-label>\n          <!-- <ion-icon name=\"musical-note\"></ion-icon> -->\n        </ion-tab-button>\n        <ion-tab-button tab=\"/tunai-keluar\" style=\"height:30px; max-width:40%\">\n          <ion-label>\n            Tunai Keluar\n          </ion-label>\n          <!-- <ion-icon name=\"game-controller\"></ion-icon> -->\n        </ion-tab-button>\n\n      </ion-tab-bar>\n\n      <ion-tab tab=\"/tunai-masuk\">\n        <ion-content fullscreen>\n          <div class=\"rectangle-280\"></div>\n\n          <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n            <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n              <ion-row style=\"margin-bottom: 10px;\">\n                <ion-col>\n                  <h5 class=\"bold\"> Maklumat Aliran</h5>\n                </ion-col>\n                <ion-col class=\"ion-text-end\">\n                  <h5 class=\"bold\">Jumlah</h5>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n            <div style=\"height: 65%; width:100%; overflow: scroll;\">\n              <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n                <ion-row *ngFor=\"let tunai_masuk of tunai_masuk\" style=\"padding-bottom: 10px;\" >\n                  <ion-col>\n                    <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\" (click)=\"kemaskiniTunaiMasuk( tunai_masuk )\">\n                      <ion-grid style=\"padding: 0%;\">\n                        <ion-row style=\"padding: 0%;\">\n                          <ion-col size=\"7\">\n                            <ion-text>\n                              <h6 class=\"bold no-padding\">\n                                {{tunai_masuk.kategori_aliran}}\n                              </h6>\n                            </ion-text>\n                            <ion-text color=\"success\">\n                              {{tunai_masuk.keterangan_aliran}}\n                            </ion-text>\n                          </ion-col>\n                          <ion-col size=\"5\" style=\"padding: 0%;\">\n                            <div class=\"content-box\"\n                              style=\"height: 100%; display:flex; align-items:center; background-color:#EDEDED; display:flex; justify-content:center\">\n                              <ion-text color=\"success\" class=\"ion-text-center\">\n                                <p class=\"jumlah no-padding\"> RM {{tunai_masuk.jumlah_aliran | number:'1.2-2':'en-US'}}</p>\n\n                                <p class=\"tarikh no-padding\">{{tunai_masuk.tarikh_aliran  | date:'dd/MM/yyyy'}}</p>\n                              </ion-text>\n                            </div>\n                          </ion-col>\n                        </ion-row>\n                      </ion-grid>\n                    </div>\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n            <div\n              style=\"width:100%; height:25%; display:flex; justify-content:flex-end; align-items:flex-end; border-radius: 0px 0px 25px 25px; \">\n              <div class=\"ion-padding ion-margin ion-text-center\" (click)=\"tambahTunaiMasuk()\">\n                <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"50\" width=\"50\">\n                <br>\n\n                <ion-text class=\"bold\" color=\"success\">\n                  <ion-icon name=\"add\"></ion-icon>\n                  <span style=\"font-size: 12px; font-weight: 900;\"><strong> TAMBAH </strong></span>\n                </ion-text>\n              </div>\n\n            </div>\n          </div>\n\n        </ion-content>\n      </ion-tab>\n\n      <ion-tab tab=\"/tunai-keluar\">\n        <ion-content fullscreen>\n          <div class=\"rectangle-280\"></div>\n\n          <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n            <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n              <ion-row style=\"margin-bottom: 10px;\">\n                <ion-col>\n                  <h5 class=\"bold\"> Maklumat Aliran</h5>\n                </ion-col>\n                <ion-col class=\"ion-text-end\">\n                  <h5 class=\"bold\">Jumlah</h5>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n            <div style=\"height: 65%; width:100%; overflow: scroll;\">\n              <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n                <ion-row *ngFor=\"let tunai_keluar of tunai_keluar\" style=\"padding-bottom: 10px;\">\n                  <ion-col>\n                    <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\" (click)=\"kemaskiniTunaiKeluar( tunai_keluar )\">\n                      <ion-grid style=\"padding: 0%;\">\n                        <ion-row style=\"padding: 0%;\">\n                          <ion-col size=\"8\">\n                            <ion-text>\n                              <h6 class=\"bold no-padding ion-text-uppercase\">\n                                {{tunai_keluar.kategori_aliran}}\n                              </h6>\n                            </ion-text>\n                            <ion-text color=\"success\">\n                              {{tunai_keluar.keterangan_aliran}}\n                            </ion-text>\n                          </ion-col>\n                          <ion-col size=\"4\" style=\"padding: 0%;\">\n                            <div class=\"content-box\"\n                              style=\"height: 100%; display:flex; align-items:center; background-color:#EDEDED; display:flex; justify-content:center\">\n                              <ion-text color=\"danger\" class=\"ion-text-center\">\n                                <p class=\"jumlah no-padding\"> RM {{tunai_keluar.jumlah_aliran | number:'1.2-2':'en-US'}}</p>\n\n                                <p class=\"tarikh no-padding\">{{tunai_keluar.tarikh_aliran | date:'dd/MM/yyyy'}}</p>\n                              </ion-text>\n                            </div>\n                          </ion-col>\n                        </ion-row>\n                      </ion-grid>\n                    </div>\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n            <div\n              style=\"width:100%; height:25%; display:flex; justify-content:flex-end; align-items:flex-end; border-radius: 0px 0px 25px 25px; \">\n              <div class=\"ion-padding ion-margin ion-text-center\" (click)=\"tambahTunaiKeluar()\">\n                <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"50\" width=\"50\">\n                <br>\n\n                <ion-text class=\"bold\" color=\"success\">\n                  <ion-icon name=\"add\"></ion-icon>\n                  <span style=\"font-size: 12px; font-weight: 900;\"><strong> TAMBAH </strong></span>\n                </ion-text>\n              </div>\n\n            </div>\n          </div>\n\n        </ion-content>\n      </ion-tab>\n\n\n\n\n    </ion-tabs>\n\n  </div>\n\n\n\n\n\n</ion-content>");
 
 /***/ })
 

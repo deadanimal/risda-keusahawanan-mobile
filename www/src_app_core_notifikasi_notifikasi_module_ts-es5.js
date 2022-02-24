@@ -114,7 +114,7 @@
 
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
-      80476);
+      19122);
       /* harmony import */
 
 
@@ -161,7 +161,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -179,58 +179,91 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/core */
       37716);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
+      /* harmony import */
+
+
+      var src_app_services_notifikasi_notifikasi_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/notifikasi/notifikasi.service */
+      29572);
 
       var _NotifikasiPage = /*#__PURE__*/function () {
-        function NotifikasiPage() {
+        function NotifikasiPage(notiService, router) {
           _classCallCheck(this, NotifikasiPage);
 
-          this.notifikasi = [{
-            tajuk: "notifikasi1",
-            keterangan: "aaa",
-            masa: ""
-          }, {
-            tajuk: "notifikasi2",
-            keterangan: "bbb",
-            masa: ""
-          }, {
-            tajuk: "notifikasi3",
-            keterangan: "ccc",
-            masa: ""
-          }, {
-            tajuk: "notifikasi4",
-            keterangan: "ddd",
-            masa: ""
-          }, {
-            tajuk: "notifikasi5",
-            keterangan: "eee",
-            masa: ""
-          }, {
-            tajuk: "notifikasi6",
-            keterangan: "fff",
-            masa: ""
-          }, {
-            tajuk: "notifikasi7",
-            keterangan: "ggg",
-            masa: ""
-          }];
+          this.notiService = notiService;
+          this.router = router;
+          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+          this.user_id = window.sessionStorage.getItem("user_id");
+          this.role = window.sessionStorage.getItem("role");
+          this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
         }
 
         _createClass(NotifikasiPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            console.log("user_id", this.user_id);
+            this.getNoti();
+          }
+        }, {
+          key: "getNoti",
+          value: function getNoti() {
+            var _this = this;
+
+            this.notiService.get(this.user_id).subscribe(function (res) {
+              console.log("notification", res);
+              _this.notifikasi = res;
+            });
+          }
+        }, {
+          key: "routing",
+          value: function routing(notifikasi) {
+            var _this2 = this;
+
+            console.log(notifikasi);
+            this.notiService.updateStatus(notifikasi.id).subscribe(function (res) {
+              console.log("updated status", res);
+
+              if (_this2.usahawan_id != null) {
+                if (notifikasi.modul == "katalog") {
+                  _this2.router.navigate(['/katalog']);
+                } else if (notifikasi.modul == "lawatan") {
+                  _this2.router.navigate(['/lawatan-usahawan']);
+                }
+              } else if (_this2.usahawan_id == null) {
+                console.log("pegi katalog");
+
+                if (notifikasi.modul == "katalog") {
+                  _this2.router.navigate(['/katalog-pegawai']);
+                } else if (notifikasi.modul == "lawatan") {
+                  _this2.router.navigate(['/lawatan-pegawai']);
+                }
+              }
+            });
+          }
         }]);
 
         return NotifikasiPage;
       }();
 
       _NotifikasiPage.ctorParameters = function () {
-        return [];
+        return [{
+          type: src_app_services_notifikasi_notifikasi_service__WEBPACK_IMPORTED_MODULE_2__.NotifikasiService
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_3__.Router
+        }];
       };
 
-      _NotifikasiPage = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+      _NotifikasiPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
         selector: 'app-notifikasi',
         template: _raw_loader_notifikasi_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_notifikasi_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -258,7 +291,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            NOTIFIKASI\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n\n    <div style=\"height: 100%; width:100%; overflow: scroll;\">\n      <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n        <ion-row *ngFor=\"let notifikasi of notifikasi\" style=\"padding-bottom: 10px;\">\n          <ion-col>\n            \n            <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\" (click)=\"kemaskiniTunaiMasuk()\">\n              <span class=\"dot\"></span>\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"10\">\n                    <ion-text color=success>\n                      <h6 class=\"bold no-padding\">\n                        {{notifikasi.tajuk}}\n                      </h6>\n                    </ion-text>\n                    <ion-text color=\"medium\">\n                      {{notifikasi.keterangan}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"2\" style=\"padding: 0%;\">\n                    \n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </div>\n  </div>\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            NOTIFIKASI\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n\n    <div style=\"height: 100%; width:100%; overflow: scroll;\">\n      <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n        <ion-row *ngFor=\"let notifikasi of notifikasi\" style=\"padding-bottom: 10px;\">\n          <ion-col>\n            \n            <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\" (click)=\"routing(notifikasi)\">\n              <span *ngIf=\"notifikasi.readstatus == 0\" class=\"dot\"></span>\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"10\">\n                    <ion-text color=success>\n                      <h6 class=\"bold no-padding\">\n                        {{notifikasi.tajuk}}\n                      </h6>\n                    </ion-text>\n                    <ion-text color=\"medium\">\n                      {{notifikasi.keterangan}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"2\" style=\"padding: 0%;\">\n                    \n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </div>\n  </div>\n\n\n\n</ion-content>";
       /***/
     }
   }]);

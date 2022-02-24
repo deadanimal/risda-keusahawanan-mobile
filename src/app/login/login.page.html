@@ -34,7 +34,7 @@
     <form [formGroup]="form" (ngSubmit)="login()">
       <ion-item style="border-radius: 50px;">
         <!-- <ion-label position="floating"></ion-label> -->
-        <ion-input type="text" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp'
+        <ion-input type="text" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp' 
           style="text-transform: none !important;" (keypress)="numericOnly($event)"></ion-input>
       </ion-item>
       <br>
@@ -51,22 +51,27 @@
         <ion-row>
           <ion-col size="6">
             <div>
-              <a  class="forget-password nunitosans-extra-bold-green-haze-12px">
+              <a class="forget-password nunitosans-extra-bold-green-haze-12px">
+
                 
-                <!-- <ion-checkbox color="success" ></ion-checkbox> <ion-label> Ingat saya</ion-label>  -->
+                  
+                  <!-- <ion-checkbox color="success" (click)="addValue($event)" [checked]="checked" [(ngModel)]="checked" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+                  <ion-label>  Ingat saya</ion-label>
+                -->
               </a>
             </div>
           </ion-col>
           <ion-col size="6">
             <div style="display: flex; justify-content:flex-end">
-              <a  class="forget-password nunitosans-extra-bold-green-haze-12px" (click)="forget_password()" style="text-decoration: none;">
+              <a class="forget-password nunitosans-extra-bold-green-haze-12px" (click)="forget_password()"
+                style="text-decoration: none;">
                 Lupa Kata Laluan?
               </a>
             </div>
           </ion-col>
         </ion-row>
       </ion-grid>
-      
+
 
       <br>
 

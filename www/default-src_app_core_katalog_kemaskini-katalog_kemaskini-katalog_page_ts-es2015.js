@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _raw_loader_kemaskini_katalog_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./kemaskini-katalog.page.html */ 380);
 /* harmony import */ var _kemaskini_katalog_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./kemaskini-katalog.page.scss */ 7556);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
 /* harmony import */ var src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/katalog/katalog.service */ 89496);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ 16738);
@@ -94,7 +94,7 @@ let KemaskiniKatalogPage = class KemaskiniKatalogPage {
         });
     }
     setFormValues() {
-        this.form.setValue({
+        this.form.patchValue({
             id_pengguna: this.katalog.id_pengguna,
             nama_produk: this.katalog.nama_produk,
             kandungan_produk: this.katalog.kandungan_produk,
@@ -103,34 +103,89 @@ let KemaskiniKatalogPage = class KemaskiniKatalogPage {
             keterangan_produk: this.katalog.keterangan_produk,
             baki_stok: this.katalog.unit_production,
             unit_production: this.katalog.unit_production,
-            status_katalog: this.katalog.status_katalog,
+            // status_katalog: this.katalog.status_katalog,
             gambar_url: this.katalog.gambar_url,
             modified_by: this.katalog.modified_by,
         });
+        if (this.katalog.status_katalog == "publish") {
+            this.form.patchValue({
+                status_katalog: "pending"
+            });
+        }
+        else {
+            this.form.patchValue({
+                status_katalog: this.katalog.status_katalog
+            });
+        }
         this.form.updateValueAndValidity();
     }
     logForm() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-            this.form.value.tarikh_aliran = moment__WEBPACK_IMPORTED_MODULE_3__(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
-            const loading = yield this.loadingController.create({ message: 'Loading ...' });
-            loading.present();
-            console.log(this.form.value);
-            this.katalogService.update(this.form.value, Number(this.katalog.id)).subscribe((res) => {
-                console.log("updated data", res);
-                loading.dismiss();
-                this.presentAlert();
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: '',
+                message: 'Adakah anda setuju untuk menyimpan perubahan ini?',
+                buttons: [
+                    {
+                        text: 'Tidak',
+                        role: 'cancel',
+                        cssClass: 'secondary',
+                        handler: (blah) => {
+                            console.log('Confirm Cancel: blah');
+                        }
+                    },
+                    {
+                        text: 'Ya',
+                        handler: () => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+                            console.log('Confirm Okay');
+                            this.form.value.tarikh_aliran = moment__WEBPACK_IMPORTED_MODULE_3__(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
+                            // this.form.value.status_katalog 
+                            const loading = yield this.loadingController.create({ message: 'Loading ...' });
+                            loading.present();
+                            console.log(this.form.value);
+                            this.katalogService.update(this.form.value, Number(this.katalog.id)).subscribe((res) => {
+                                console.log("updated data", res);
+                                loading.dismiss();
+                                this.presentAlert();
+                            });
+                        })
+                    }
+                ]
             });
+            yield alert.present();
         });
     }
     onDelete() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-            const loading = yield this.loadingController.create({ message: 'Deleting ...' });
-            loading.present();
-            this.katalogService.delete(this.katalog.id).subscribe((res) => {
-                console.log("deleted", res);
-                loading.dismiss();
-                this.presentAlert2();
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: '',
+                message: 'Adakah anda setuju untuk memadam maklumat ini?',
+                buttons: [
+                    {
+                        text: 'Tidak',
+                        role: 'cancel',
+                        cssClass: 'secondary',
+                        handler: (blah) => {
+                            console.log('Confirm Cancel: blah');
+                        }
+                    },
+                    {
+                        text: 'Ya',
+                        handler: () => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+                            console.log('Confirm Okay');
+                            const loading = yield this.loadingController.create({ message: 'Deleting ...' });
+                            loading.present();
+                            this.katalogService.delete(this.katalog.id).subscribe((res) => {
+                                console.log("deleted", res);
+                                loading.dismiss();
+                                this.presentAlert2();
+                            });
+                        })
+                    }
+                ]
             });
+            yield alert.present();
         });
     }
     presentAlert() {
@@ -173,7 +228,7 @@ let KemaskiniKatalogPage = class KemaskiniKatalogPage {
             var reader = new FileReader();
             reader.readAsDataURL(event.target.files[0]); // read file as data url
             reader.onload = (event) => {
-                this.url = event.target.result;
+                this.katalog.gambar_url = event.target.result;
             };
             this.fileEvent(event);
         }
@@ -192,6 +247,9 @@ let KemaskiniKatalogPage = class KemaskiniKatalogPage {
                 data: `${base64Data}`,
             });
             console.log("AAAA", this.images);
+            this.form.patchValue({
+                gambar_url: this.images[0].data
+            });
         });
     }
     // https://ionicframework.com/docs/angular/your-first-app/3-saving-photos
@@ -250,9 +308,15 @@ let KatalogService = class KatalogService {
     constructor(http) {
         this.http = http;
         this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalog";
+        this.url2 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalogPegawai";
+        this.url3 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/pengesahanPegawai";
+        this.url4 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalogdashboard";
     }
     post(data) {
         return this.http.post(`${this.url}`, data);
+    }
+    getAll() {
+        return this.http.get(`${this.url}`);
     }
     get(user_id) {
         return this.http.get(`${this.url}` + "/" + user_id);
@@ -262,6 +326,21 @@ let KatalogService = class KatalogService {
     }
     delete(aliran_id) {
         return this.http.delete(`${this.url}/${aliran_id}`);
+    }
+    getKatalogPegawai(id) {
+        return this.http.get(`${this.url2}` + "/" + id);
+    }
+    pengesahanPegawai(id) {
+        return this.http.get(`${this.url3}` + "/" + id);
+    }
+    katalogPdf(id) {
+        return this.http.get(`${this.url}` + '/katalogPdf/' + id);
+    }
+    getMaklumatUsahawan(id) {
+        return this.http.get(`${this.url}` + '/showMaklumatUsahawan/' + id);
+    }
+    katalogdashboard() {
+        return this.http.get(`${this.url4}`);
     }
 };
 KatalogService.ctorParameters = () => [
@@ -354,7 +433,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            KEMASKINI KATALOG\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" style=\"margin: 20px;\">\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA PRODUK</ion-label>\n          <ion-input type=\"text\" formControlName=\"nama_produk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KANDUNGAN PRODUK</ion-label>\n          <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n          <ion-input type=\"text\" formControlName=\"kandungan_produk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>BERAT (kg)</ion-label>\n          <ion-input placeholder=\"0.0\" class=\"ion-text-right\" type=\"number\" formControlName=\"berat_produk\">\n          </ion-input>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>HARGA JUALAN</ion-label>\n          <ion-input type=\"number\" formControlName=\"harga_produk\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>UNIT PRODUCTION</ion-label>\n          <ion-input type=\"text\" formControlName=\"unit_production\" (change)=\"updateBakiStok()\"></ion-input>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>BAKI STOK</ion-label>\n          <ion-input type=\"text\" formControlName=\"baki_stok\" value=\"bakiStok\" readonly></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KETERANGAN LAIN</ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"title\"></ion-input> -->\n          <ion-textarea rows=\"5\" formControlName=\"keterangan_produk\"></ion-textarea>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n          <ion-label position=\"stacked\">STATUS</ion-label>\n          <ion-select formControlName=\"status_katalog\">\n            <ion-select-option value=\"pending\">Publish</ion-select-option>\n            <ion-select-option value=\"draft\">Draft</ion-select-option>\n          </ion-select>\n          <!-- </ion-item> -->\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\">GAMBAR</ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label>\n            <div >\n              \n              <br>\n              <img [src]=\"katalog.gambar_url\" class=\"border-radius-md\" width=\"80\" height=\"80\"\n                id=\"upload-Preview\" />\n            </div>\n            <ion-input accept=\"image/*\" (change)=\"onSelectFile($event)\" formControlName=\"gambar_url\"  type=\"file\" name=\"gambar_profil\" style=\"display: none\"></ion-input>\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-button type=\"submit\" color=\"success\" expand=\"block\">KEMASKINI</ion-button>\n          <ion-button color=\"danger\" expand=\"block\" (click)=\"onDelete()\">HAPUS</ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            KEMASKINI KATALOG\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" style=\"margin: 20px;\">\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA PRODUK <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"nama_produk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KANDUNGAN PRODUK <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n          <ion-input type=\"text\" formControlName=\"kandungan_produk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>JUMLAH (kg/unit/orang/liter/ton/pcs) <span style=\"color: red;\">*</span></ion-label>\n          <ion-input placeholder=\"0.0\" class=\"ion-text-right\" type=\"number\" formControlName=\"berat_produk\">\n          </ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label style=\"padding-right: 0px;\">HARGA JUALAN (RM) <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"number\" formControlName=\"harga_produk\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>UNIT PRODUCTION <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"number\" formControlName=\"unit_production\" (change)=\"updateBakiStok()\"></ion-input>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>BAKI STOK <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"baki_stok\" value=\"bakiStok\" readonly></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KETERANGAN LAIN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"title\"></ion-input> -->\n          <ion-textarea rows=\"5\" formControlName=\"keterangan_produk\"></ion-textarea>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n          <ion-label position=\"stacked\">STATUS <span style=\"color: red;\">*</span></ion-label>\n          <ion-select formControlName=\"status_katalog\">\n            <ion-select-option value=\"pending\">Publish</ion-select-option>\n            <ion-select-option value=\"draft\">Draft</ion-select-option>\n          </ion-select>\n          <!-- </ion-item> -->\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\">GAMBAR <span style=\"color: red;\">*</span></ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label>\n            <div >\n              \n              <br>\n              <img [src]=\"katalog.gambar_url\" class=\"border-radius-md\" width=\"80\" height=\"80\"\n                id=\"upload-Preview\" />\n            </div>\n            <ion-input accept=\"image/*\" (change)=\"onSelectFile($event)\"  type=\"file\" name=\"gambar_profil\" style=\"display: none\"></ion-input>\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-button type=\"submit\" color=\"success\" expand=\"block\">KEMASKINI</ion-button>\n          <ion-button color=\"danger\" expand=\"block\" (click)=\"onDelete()\">HAPUS</ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n</ion-content>\n");
 
 /***/ })
 

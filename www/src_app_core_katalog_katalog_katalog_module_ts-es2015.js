@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _katalog_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./katalog-routing.module */ 93794);
 /* harmony import */ var _katalog_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./katalog.page */ 48201);
 
@@ -96,7 +96,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _raw_loader_katalog_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./katalog.page.html */ 59773);
 /* harmony import */ var _katalog_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./katalog.page.scss */ 75079);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/katalog/katalog.service */ 89496);
 /* harmony import */ var _kemaskini_katalog_kemaskini_katalog_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../kemaskini-katalog/kemaskini-katalog.page */ 43564);
 /* harmony import */ var _tambah_katalog_tambah_katalog_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../tambah-katalog/tambah-katalog.page */ 45558);
@@ -109,9 +109,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let KatalogPage = class KatalogPage {
-    constructor(modalController, katalogService) {
+    constructor(modalController, katalogService, alertController, loadingController) {
         this.modalController = modalController;
         this.katalogService = katalogService;
+        this.alertController = alertController;
+        this.loadingController = loadingController;
         this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
         this.user_id = window.sessionStorage.getItem("user_id");
     }
@@ -121,11 +123,18 @@ let KatalogPage = class KatalogPage {
     tambahKatalog() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
             console.log("tambah Katalog");
-            const modal = yield this.modalController.create({
-                component: _tambah_katalog_tambah_katalog_page__WEBPACK_IMPORTED_MODULE_4__.TambahKatalogPage,
-                cssClass: 'my-custom-class'
-            });
-            return yield modal.present();
+            console.log(this.katalog.length);
+            if (this.katalog.length >= 10) {
+                console.log("lebih 10");
+                this.presentAlert();
+            }
+            else {
+                const modal = yield this.modalController.create({
+                    component: _tambah_katalog_tambah_katalog_page__WEBPACK_IMPORTED_MODULE_4__.TambahKatalogPage,
+                    cssClass: 'my-custom-class'
+                });
+                return yield modal.present();
+            }
         });
     }
     kemaskiniKatalog(katalog) {
@@ -140,16 +149,37 @@ let KatalogPage = class KatalogPage {
         });
     }
     getKatalog() {
-        console.log("this.user_id", this.user_id);
-        this.katalogService.get(this.user_id).subscribe((res) => {
-            console.log("katalog", res);
-            this.katalog = res;
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            console.log("this.user_id", this.user_id);
+            const loading = yield this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+            this.katalogService.get(this.user_id).subscribe((res) => {
+                console.log("katalog", res);
+                this.katalog = res;
+                loading.dismiss();
+            });
+        });
+    }
+    presentAlert() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: 'Ralat',
+                subHeader: 'Jumlah tidak boleh melebihi 10 katalog',
+                message: '',
+                buttons: ['OK']
+            });
+            yield alert.present();
+            const { role } = yield alert.onDidDismiss();
+            console.log('onDidDismiss resolved with role', role);
         });
     }
 };
 KatalogPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.ModalController },
-    { type: src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_2__.KatalogService }
+    { type: src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_2__.KatalogService },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.AlertController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController }
 ];
 KatalogPage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
@@ -183,7 +213,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            KATALOG\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n    <ion-grid style=\"margin:5%; margin-bottom:0px\">\n      <ion-row style=\"margin-bottom: 10px;\">\n        <ion-col>\n          <h5 class=\"bold\"> Maklumat</h5>\n        </ion-col>\n        <ion-col class=\"ion-text-end\">\n          <h5 class=\"bold\">Status</h5>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n    <div style=\"height: 70%; width:100%; overflow: scroll; display:flex; justify-content:center\">\n      <ion-grid class=\"rectangle-279\">\n        <ion-row *ngFor=\"let katalog of katalog\"\n          style=\"margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;\" (click)=\"kemaskiniKatalog(katalog)\">\n          <ion-col>\n            <div class=\" bold\" style=\"font-family: 'Nunito Sans';\">\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"8\">\n                    <ion-text>\n                      <h6 class=\"bold no-padding\">\n                        {{katalog.nama_produk}}\n                      </h6>\n                    </ion-text>\n                    <ion-text color=\"success\">\n                      {{katalog.updated_at  | date: 'dd/MM/yyyy'}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"4\" style=\"padding: 0%; display:flex; justify-content:flex-end\">\n                    <img *ngIf=\"katalog.status_katalog == 'pending'\" src=\"assets/icon/pending.png\" alt=\"pending\"\n                      height=\"50px\">\n                    <img *ngIf=\"katalog.status_katalog == 'publish'\" src=\"assets/icon/publish-icon.png\" alt=\"publish\"\n                      height=\"50px%\">\n                    <img *ngIf=\"katalog.status_katalog == 'draft'\" src=\"assets/icon/draft-icon.png\" alt=\"draft\"\n                      height=\"50px%\">\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n\n    </div>\n    <div\n      style=\"width:100%; height:25%; display:flex; justify-content:flex-end;\">\n      <div class=\"ion-padding ion-margin ion-text-center\" (click)=\"tambahKatalog()\">\n        <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"50\" width=\"50\">\n        <br>\n\n        <ion-text class=\"bold\" color=\"success\">\n          <ion-icon name=\"add\"></ion-icon>\n          <span style=\"font-size: 12px; font-weight: 900;\"><strong> TAMBAH </strong></span>\n        </ion-text>\n      </div>\n\n    </div>\n  </div>\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            KATALOG\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n    <ion-grid style=\"margin:5%; margin-bottom:0px\">\n      <ion-row style=\"margin-bottom: 10px;\">\n        <ion-col>\n          <h5 class=\"bold\"> Maklumat</h5>\n        </ion-col>\n        <ion-col class=\"ion-text-end\">\n          <h5 class=\"bold\">Status</h5>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n    <div style=\"height: 70%; width:100%; overflow: scroll; display:flex; justify-content:center\">\n      <ion-grid class=\"rectangle-279\">\n        <ion-row *ngFor=\"let katalog of katalog\"\n          style=\"margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;\" (click)=\"kemaskiniKatalog(katalog)\">\n          <ion-col>\n            <div class=\" bold\" style=\"font-family: 'Nunito Sans';\">\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"8\">\n                    <ion-text>\n                      <h6 class=\"bold no-padding\" style=\"text-transform: uppercase;\">\n                        {{katalog.nama_produk}}\n                      </h6>\n                    </ion-text>\n                    <ion-text color=\"success\">\n                      {{katalog.updated_at  | date: 'dd/MM/yyyy'}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"4\" style=\"padding: 0%; display:flex; justify-content:flex-end\">\n                    <img *ngIf=\"katalog.status_katalog == 'pending'\" src=\"assets/icon/pending.png\" alt=\"pending\"\n                      height=\"50px\">\n                    <img *ngIf=\"katalog.status_katalog == 'publish'\" src=\"assets/icon/publish-icon.png\" alt=\"publish\"\n                      height=\"50px%\">\n                    <img *ngIf=\"katalog.status_katalog == 'draft'\" src=\"assets/icon/draft-icon.png\" alt=\"draft\"\n                      height=\"50px%\">\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n\n    </div>\n    <div\n      style=\"width:100%; height:25%; display:flex; justify-content:flex-end;\">\n      <div class=\"ion-padding ion-margin ion-text-center\" (click)=\"tambahKatalog()\">\n        <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"50\" width=\"50\">\n        <br>\n\n        <ion-text class=\"bold\" color=\"success\">\n          <ion-icon name=\"add\"></ion-icon>\n          <span style=\"font-size: 12px; font-weight: 900;\"><strong> TAMBAH </strong></span>\n        </ion-text>\n      </div>\n\n    </div>\n  </div>\n\n</ion-content>");
 
 /***/ })
 

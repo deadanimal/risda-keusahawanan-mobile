@@ -21,7 +21,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 // geolocation and native-geocoder
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
-
+// import { NativeStorage } from '@ionic-native/native-storage';
+// import { NativeStorage } from '@ionic-native/native-storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +35,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    IonicStorageModule.forRoot()
 
   ],
   providers: [

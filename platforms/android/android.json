@@ -82,6 +82,10 @@
             {
               "xml": "<feature name=\"NativeGeocoder\"><param name=\"android-package\" value=\"cordova.plugin.nativegeocoder.NativeGeocoder\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"NativeStorage\"><param name=\"android-package\" value=\"NativeStorage\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -210,6 +214,9 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-nativegeocoder": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-nativestorage": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
@@ -610,6 +617,24 @@
       "clobbers": [
         "nativegeocoder"
       ]
+    },
+    {
+      "id": "cordova-plugin-nativestorage.mainHandle",
+      "file": "plugins/cordova-plugin-nativestorage/www/mainHandle.js",
+      "pluginId": "cordova-plugin-nativestorage",
+      "clobbers": [
+        "NativeStorage"
+      ]
+    },
+    {
+      "id": "cordova-plugin-nativestorage.LocalStorageHandle",
+      "file": "plugins/cordova-plugin-nativestorage/www/LocalStorageHandle.js",
+      "pluginId": "cordova-plugin-nativestorage"
+    },
+    {
+      "id": "cordova-plugin-nativestorage.NativeStorageError",
+      "file": "plugins/cordova-plugin-nativestorage/www/NativeStorageError.js",
+      "pluginId": "cordova-plugin-nativestorage"
     }
   ],
   "plugin_metadata": {
@@ -628,6 +653,7 @@
     "cordova-plugin-advanced-http": "3.2.2",
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-add-swift-support": "2.0.2",
-    "cordova-plugin-nativegeocoder": "3.4.1"
+    "cordova-plugin-nativegeocoder": "3.4.1",
+    "cordova-plugin-nativestorage": "2.3.2"
   }
 }

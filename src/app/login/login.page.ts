@@ -7,6 +7,7 @@ import { LoginService } from '../services/login/login.service';
 import { take, tap } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,9 @@ export class LoginPage implements OnInit {
     private loginService: LoginService,
     private loadingCtrl: LoadingController,
     private router: Router,
-    public alertController: AlertController) { }
+    private storage: Storage,
+    public alertController: AlertController,
+  ) { }
 
   ngOnInit() {
 
@@ -32,8 +35,16 @@ export class LoginPage implements OnInit {
       password: new FormControl(null, [Validators.required]),
       // device_name: new FormControl(),
     })
+    this.init();
 
 
+
+  }
+
+  async init() {
+    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+    const storage = await this.storage.create();
+    this.storage = storage;
   }
 
   async presentAlert() {
@@ -127,5 +138,34 @@ export class LoginPage implements OnInit {
 
   forget_password() {
     this.router.navigate(['/forgot-password'])
+  }
+
+  checked: boolean = true;
+  async addValue(e): Promise<void> {
+    var isChecked = e.currentTarget.checked;
+    // console.log(e.currentTarget);//undefined
+    console.log(this.checked);//it is working !!!
+    // console.log(isChecked);
+    if (this.checked) {
+
+      window.sessionStorage.removeItem("username");
+
+    } else {
+
+      // this.storage?.set("username", this.form.value.no_kp);
+      console.log(this.form.value.no_kp);
+      // const username = await this.storage.get('username');
+      var username = window.sessionStorage.setItem("username", this.form.value.no_kp);
+
+      var get_username = window.sessionStorage.getItem("username");
+
+      if (get_username != null) {
+        console.log(get_username);
+        this.form.patchValue({
+          no_kp: get_username
+        })
+      }
+
+    }
   }
 }

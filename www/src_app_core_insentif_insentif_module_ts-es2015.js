@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _insentif_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./insentif-routing.module */ 42694);
 /* harmony import */ var _insentif_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./insentif.page */ 39520);
 
@@ -92,40 +92,88 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "InsentifPage": function() { return /* binding */ InsentifPage; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_insentif_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./insentif.page.html */ 71604);
 /* harmony import */ var _insentif_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./insentif.page.scss */ 15525);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var src_app_services_insentif_insentif_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/insentif/insentif.service */ 35710);
+
 
 
 
 
 let InsentifPage = class InsentifPage {
-    constructor() {
-        this.insentif = [
-            { tahun: 2017, jumlah: 10000 },
-            { tahun: 2018, jumlah: 20000 },
-            { tahun: 2019, jumlah: 30000 },
-            { tahun: 2020, jumlah: 20000 },
-            { tahun: 2021, jumlah: 25000 },
-            { tahun: 2022, jumlah: 25000 },
-            { tahun: 2023, jumlah: 25000 },
-            { tahun: 2024, jumlah: 25000 },
-            { tahun: 2025, jumlah: 25000 },
-            { tahun: 2026, jumlah: 25000 },
-        ];
+    constructor(insentifService) {
+        this.insentifService = insentifService;
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
     }
     ngOnInit() {
+        console.log('usahawan_id', this.usahawan_id);
+        console.log('user_id', this.user_id);
+        this.getInsentif();
+    }
+    getInsentif() {
+        this.insentifService.get(this.usahawan_id).subscribe((res) => {
+            console.log("insentif", res);
+            this.insentif = res;
+        });
     }
 };
-InsentifPage.ctorParameters = () => [];
-InsentifPage = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+InsentifPage.ctorParameters = () => [
+    { type: src_app_services_insentif_insentif_service__WEBPACK_IMPORTED_MODULE_2__.InsentifService }
+];
+InsentifPage = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
         selector: 'app-insentif',
         template: _raw_loader_insentif_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_insentif_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
     })
 ], InsentifPage);
+
+
+
+/***/ }),
+
+/***/ 35710:
+/*!*******************************************************!*\
+  !*** ./src/app/services/insentif/insentif.service.ts ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "InsentifService": function() { return /* binding */ InsentifService; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 92340);
+
+
+
+
+let InsentifService = class InsentifService {
+    constructor(http) {
+        this.http = http;
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/insentif";
+    }
+    // post(data: any): Observable<any> {
+    //   return this.http.post<any>(`${this.url}`, data);
+    // }
+    get(id) {
+        return this.http.get(`${this.url}` + '/' + id);
+    }
+};
+InsentifService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient }
+];
+InsentifService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
+        providedIn: 'root'
+    })
+], InsentifService);
 
 
 
@@ -151,7 +199,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"success\">\n      <h1>\n        <strong class=\"ion-text-uppercase\">\n          Insentif\n        </strong>\n      </h1>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <div class=\"rectangle-280\"></div>\n\n  <div class=\"bg-white\">\n\n    <ion-grid style=\"margin-top: 1%; margin-left:5%; margin-right:5%\">\n      <ion-row style=\"margin-bottom: 10px;\">\n        <ion-col>\n          <h5 class=\"bold\"> Maklumat<br />Insentif</h5>\n        </ion-col>\n        <ion-col class=\"ion-text-end\">\n          <h5 class=\"bold\">Jumlah<br />Bantuan</h5>\n        </ion-col>\n      </ion-row>\n      <ion-grid style=\"max-height: 70%; overflow: scroll;\">\n        <ion-row *ngFor=\"let insentif of insentif\" style=\"padding-bottom: 10px;\">\n          <ion-col>\n            <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\">\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"8\">\n                    <ion-text>\n                      JENIS INSENTIF\n                    </ion-text>\n                    <br>\n                    <ion-text color=\"success\">\n                      Tahun Terima: {{insentif.tahun}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"4\" style=\"padding: 0%;\">\n                    <div class=\"content-box\"\n                      style=\"height: 100%; display:flex; align-items:center; background-color:#EDEDED\">\n                      <ion-text color=\"success\">\n                        RM {{insentif.jumlah}}\n                      </ion-text>\n\n                    </div>\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-grid>\n\n  </div>\n\n  <!-- <div class=\"kmi nunitosans-extra-bold-te-papa-green-18px\">Maklumat<br />Insentif</div>\n\n  <div class=\"body\">\n    <div class=\"maklumatnunitosans-extra-bold-te-papa-green-18px\">\n      <div class=\"kmi\">Maklumat<br />Insentif</div>\n      <div class=\"x2000\">Jumlah<br />Bantuan</div>\n    </div>\n\n  </div>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div>1 of 2</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 2</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div>1 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>3 of 3</div>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n\n\n\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"success\">\n      <h1>\n        <strong class=\"ion-text-uppercase\">\n          Insentif\n        </strong>\n      </h1>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <div class=\"rectangle-280\"></div>\n\n  <div class=\"bg-white\">\n\n    <ion-grid style=\"margin-top: 1%; margin-left:5%; margin-right:5%\">\n      <ion-row style=\"margin-bottom: 10px;\">\n        <ion-col>\n          <h5 class=\"bold\"> Maklumat<br />Insentif</h5>\n        </ion-col>\n        <ion-col class=\"ion-text-end\">\n          <h5 class=\"bold\">Jumlah<br />Bantuan</h5>\n        </ion-col>\n      </ion-row>\n      <ion-grid style=\"max-height: 70%; overflow: scroll;\">\n        <ion-row *ngFor=\"let insentif of insentif\" style=\"padding-bottom: 10px;\">\n          <ion-col>\n            <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\">\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"8\">\n                    <ion-text>\n                      {{insentif.nama_insentif}}\n                    </ion-text>\n                    <br>\n                    <ion-text color=\"success\">\n                      Tahun Terima: {{insentif.tahun_terima_insentif}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"4\" style=\"padding: 0%;\">\n                    <div class=\"content-box\"\n                      style=\"height: 100%; display:flex; align-items:center; background-color:#EDEDED\">\n                      <ion-text color=\"success\">\n                        RM {{insentif.nilai_insentif}}\n                      </ion-text>\n\n                    </div>\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-grid>\n\n  </div>\n\n  <!-- <div class=\"kmi nunitosans-extra-bold-te-papa-green-18px\">Maklumat<br />Insentif</div>\n\n  <div class=\"body\">\n    <div class=\"maklumatnunitosans-extra-bold-te-papa-green-18px\">\n      <div class=\"kmi\">Maklumat<br />Insentif</div>\n      <div class=\"x2000\">Jumlah<br />Bantuan</div>\n    </div>\n\n  </div>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div>1 of 2</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 2</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div>1 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>3 of 3</div>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n\n\n\n\n</ion-content>");
 
 /***/ })
 

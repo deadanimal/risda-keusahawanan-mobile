@@ -47,6 +47,9 @@
     },
     "im.ltdev.cordova.UserAgent": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-nativestorage": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {
