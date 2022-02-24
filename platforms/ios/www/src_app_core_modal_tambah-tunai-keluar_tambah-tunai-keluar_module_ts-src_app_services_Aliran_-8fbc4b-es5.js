@@ -201,6 +201,16 @@
           value: function get() {
             return this.http.get("".concat(this.url));
           }
+        }, {
+          key: "update",
+          value: function update(aliran, aliran_id) {
+            return this.http.put("".concat(this.url, "/").concat(aliran_id), aliran);
+          }
+        }, {
+          key: "delete",
+          value: function _delete(aliran_id) {
+            return this.http["delete"]("".concat(this.url, "/").concat(aliran_id));
+          }
         }]);
 
         return AliranService;

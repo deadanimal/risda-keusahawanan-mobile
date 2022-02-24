@@ -28,11 +28,11 @@ export class PekebunService {
   }
 
 
-  getPekebunEpek(nokp): Observable<PekebunModel> {
+  getPekebunEpek(nokp): Observable<any> {
     return this.http.get<any>(`${this.url}` + "/getPekebunEspek/" + nokp);
   }
 
-  getNoTS(nokp): Observable<PekebunModel> {
+  getNoTS(nokp): Observable<any> {
     return this.http.get<any>(`${this.url}` + "/getNoTS/" + nokp);
   }
 

@@ -6,6 +6,9 @@ import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
+import * as moment from 'moment';
+import { Pipe, PipeTransform } from '@angular/core';
+// @Pipe({name: 'convertFrom24To12Format'})
 
 interface LocalFile {
   name: string;
@@ -60,10 +63,20 @@ export class KemaskiniLaporanPage implements OnInit {
 
   setFormValues() {
 
+    let hour = (this.laporan.masa_lawatan.split(':'))[0]
+    let min = (this.laporan.masa_lawatan.split(':'))[1]
+    let part = hour > 12 ? 'pm' : 'am';
+    if(parseInt(hour) == 0)
+     hour = 12;
+    min = (min+'').length == 1 ? `0${min}` : min;
+    hour = hour > 12 ? hour - 12 : hour;
+    hour = (hour+'').length == 1 ? `0${hour}` : hour;
+    let masa = `${hour}:${min} ${part}`
+
     this.form.patchValue({
       namausahawan: this.laporan.namausahawan,
-      tarikh_lawatan: this.laporan.tarikh_lawatan,
-      masa_lawatan: this.laporan.masa_lawatan,
+      tarikh_lawatan: moment(this.laporan.tarikh_lawatan).format('DD/MM/YYYY'),
+      masa_lawatan: masa,
       id_tindakan_lawatan: this.laporan.id_tindakan_lawatan,
       komen: this.laporan.komen,
       jenis_lawatan: this.laporan.jenis_lawatan,
@@ -79,6 +92,7 @@ export class KemaskiniLaporanPage implements OnInit {
     this.form.updateValueAndValidity();
   }
 
+  
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data

@@ -32,5 +32,10 @@ export class ProdukService {
     );
   }
 
+  delete(produk_id: number): Observable<any> {
+    return this.http.delete<any>(
+      `${this.url}/${produk_id}`
+    );
+  }
   
 }

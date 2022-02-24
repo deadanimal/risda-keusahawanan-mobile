@@ -383,7 +383,7 @@
             <ion-col class="form-control">
               <div style="width:100%; display:flex; justify-content:flex-end;">
 
-                <div *ngIf="i != 0" class="ion-text-center" (click)="deleteProduk(i)">
+                <div *ngIf="i != 0" class="ion-text-center" (click)="deleteProduk(i, produk.value.id)">
                   <img src="/assets/icon/trash-icon.png" alt="" height="30" width="30">
                   <br>
                 </div>

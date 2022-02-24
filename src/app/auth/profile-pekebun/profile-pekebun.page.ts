@@ -263,12 +263,19 @@ export class ProfilePekebunPage implements OnInit {
         this.presentAlert2()
       }
       else {
-        this.pekebun = res;
 
-        this.getMaklumatPekebun(res.No_KP);
-        this.getNoTS(res.No_KP);
+        if (res.No_KP == null) {
+          loading.dismiss();
+          this.presentAlert2()
+        } else {
+          this.pekebun = res;
 
-        loading.dismiss();
+          this.getMaklumatPekebun(res.No_KP);
+          this.getNoTS(res.No_KP);
+
+          loading.dismiss();
+        }
+
       }
     });
   }
@@ -280,10 +287,20 @@ export class ProfilePekebunPage implements OnInit {
     this.pekebunService.getPekebunEpek(nokp).subscribe((res) => {
       console.log("pekebun kecil info", res);
 
-      this.pekebunKecil = res[0];
-      this.patchValue2()
+      // let response = parseInt(res);
+      if (res == 400) {
+        console.log("takde data")
+        loading.dismiss();
+        this.presentAlert2()
+      } else {
 
-      loading.dismiss();
+        this.pekebunKecil = res[0];
+        this.patchValue2()
+
+        loading.dismiss();
+      }
+
+
 
     });
   }
@@ -350,20 +367,22 @@ export class ProfilePekebunPage implements OnInit {
   async openMyModal(tanah, index) {
 
     let maklumatTanah = [
-      {"data" :tanah.value,
-      "index" : index}
+      {
+        "data": tanah.value,
+        "index": index
+      }
     ]
 
-    console.log ("maklumatTanah",maklumatTanah )
+    console.log("maklumatTanah", maklumatTanah)
 
-    console.log("tanah",tanah.value);
+    console.log("tanah", tanah.value);
 
     // let data = tanah.value
     const myModal = await this.modalController.create({
       component: LokalitiTanahPage,
       backdropDismiss: true,
       cssClass: 'options_modal',
-      componentProps: {maklumatTanah}
+      componentProps: { maklumatTanah }
     });
     return await myModal.present();
   }

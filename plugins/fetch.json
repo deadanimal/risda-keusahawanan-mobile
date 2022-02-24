@@ -79,7 +79,10 @@
       "id": "cordova-plugin-camera@^2.4.1"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "CAMERA_USAGE_DESCRIPTION": " ",
+      "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+    }
   },
   "cordova-plugin-file-transfer": {
     "source": {
@@ -119,7 +122,9 @@
       "id": "cordova-plugin-advanced-http"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "ANDROIDBLACKLISTSECURESOCKETPROTOCOLS": "SSLv3,TLSv1"
+    }
   },
   "cordova-plugin-geolocation": {
     "source": {
@@ -127,7 +132,9 @@
       "id": "cordova-plugin-geolocation@^4.1.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "GPS_REQUIRED": "true"
+    }
   },
   "cordova-plugin-nativegeocoder": {
     "source": {
@@ -135,7 +142,9 @@
       "id": "cordova-plugin-nativegeocoder"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "LOCATION_WHEN_IN_USE_DESCRIPTION": "Use geocoder service"
+    }
   },
   "cordova-plugin-add-swift-support": {
     "source": {

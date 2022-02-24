@@ -194,7 +194,7 @@ export class ProfilePerniagaanPage implements OnInit {
       unitmatrik: ['',],
       hargaperunit: ['',],
       kapasitimaksimum: ['',],
-      kapasitisemasa: ['', ],
+      kapasitisemasa: ['',],
       modified_by: [''],
     });
     this.getProdukArray.push(produk);
@@ -209,12 +209,20 @@ export class ProfilePerniagaanPage implements OnInit {
     return (<FormArray>this.form.get('produk'));
   }
 
-  deleteProduk(i) {
+  deleteProduk(i, id) {
+
+    console.log(id);
 
     this.getProdukArray.removeAt(i);
 
     this.count--;
     this.productLength = this.getProdukArray.length;
+
+    if (id != '') {
+      this.produkService.delete(id).subscribe((res) => {
+        console.log("deleted produk", res);
+      });
+    }
   }
 
   setProdukVAlue() {
@@ -269,41 +277,40 @@ export class ProfilePerniagaanPage implements OnInit {
             this.addProduk();
           }
 
-
           this.negeriService.get().subscribe((resNegeri) => {
             console.log("Negeri", resNegeri)
             this.negeri = resNegeri;
-  
+
             this.daerahService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.perniagaan.U_Negeri_ID))).subscribe((resDaerah) => {
               console.log("resDaerah", resDaerah)
               this.daerah = resDaerah;
-  
+
               this.mukimService.get().pipe(map(x => x.filter(i => i.U_Daerah_ID == this.perniagaan.U_Daerah_ID))).subscribe((resMukim) => {
                 console.log("resMukim", resMukim)
                 this.mukim = resMukim;
-  
+
                 this.parlimenService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.perniagaan.U_Negeri_ID))).subscribe((resParlimen) => {
                   console.log("resParlimen", resParlimen)
                   this.parlimen = resParlimen;
-  
+
                   this.dunService.get().pipe(map(x => x.filter(i => i.U_Parlimen_ID == this.perniagaan.U_Parlimen_ID))).subscribe((resDun) => {
                     console.log("resDun", resDun)
                     this.dun = resDun;
-  
+
                     this.kampungService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == this.perniagaan.U_Mukim_ID))).subscribe((resKampung) => {
                       console.log("resKampung", resKampung)
                       this.kampung = resKampung;
-  
-  
+
+
                       let mukimStr = this.perniagaan.U_Mukim_ID;
                       let mukimInt = parseInt(mukimStr.toString())
-                   
-                      this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukimInt ))).subscribe((resSeksyen) => {
+
+                      this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukimInt))).subscribe((resSeksyen) => {
                         console.log("resSeksyen", resSeksyen)
                         this.seksyen = resSeksyen;
-  
+
                         this.setFormValues()
-  
+
                       })
                     })
                   })
