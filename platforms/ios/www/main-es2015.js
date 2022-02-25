@@ -382,6 +382,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 // geolocation and native-geocoder
 
 
@@ -401,7 +402,8 @@ AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
             _angular_common_http__WEBPACK_IMPORTED_MODULE_11__.HttpClientModule,
             _angular_forms__WEBPACK_IMPORTED_MODULE_12__.ReactiveFormsModule,
             _angular_forms__WEBPACK_IMPORTED_MODULE_12__.FormsModule,
-            _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_13__.IonicStorageModule.forRoot()
+            _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_13__.IonicStorageModule.forRoot(),
+            // InAppBrowser
         ],
         providers: [
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__.StatusBar,
@@ -642,7 +644,8 @@ __webpack_require__.r(__webpack_exports__);
 const environment = {
     production: false,
     // baseUrl : 'http://127.0.0.1:8000/'
-    baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
+    // baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
+    baseUrl: "https://reds.risda.gov.my/"
 };
 /*
  * For easier debugging in development mode, you can import the following file

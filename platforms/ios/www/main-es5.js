@@ -858,7 +858,8 @@
 
       var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! @ionic/storage-angular */
-      54925); // geolocation and native-geocoder
+      54925); // import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+      // geolocation and native-geocoder
       // import { NativeStorage } from '@ionic-native/native-storage';
       // import { NativeStorage } from '@ionic-native/native-storage';
 
@@ -870,7 +871,8 @@
       _AppModule = (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_8__.NgModule)({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_9__.BrowserModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_10__.IonicModule.forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_11__.HttpClientModule, _angular_forms__WEBPACK_IMPORTED_MODULE_12__.ReactiveFormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_12__.FormsModule, _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_13__.IonicStorageModule.forRoot()],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_9__.BrowserModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_10__.IonicModule.forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_11__.HttpClientModule, _angular_forms__WEBPACK_IMPORTED_MODULE_12__.ReactiveFormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_12__.FormsModule, _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_13__.IonicStorageModule.forRoot() // InAppBrowser
+        ],
         providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__.StatusBar, _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__.SplashScreen, // // { provide: ErrorHandler, useClass: IonicErrorHandler },
         // FileTransfer,
         // // FileUploadOptions,
@@ -1251,7 +1253,8 @@
       var _environment = {
         production: false,
         // baseUrl : 'http://127.0.0.1:8000/'
-        baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
+        // baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
+        baseUrl: "https://reds.risda.gov.my/"
       };
       /*
        * For easier debugging in development mode, you can import the following file

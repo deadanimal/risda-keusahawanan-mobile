@@ -16,7 +16,7 @@ import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+// import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 // geolocation and native-geocoder
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -35,7 +35,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    // InAppBrowser
 
   ],
   providers: [

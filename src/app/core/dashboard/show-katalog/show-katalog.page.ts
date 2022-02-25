@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import { environment } from 'src/environments/environment';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @Component({
   selector: 'app-show-katalog',
@@ -18,6 +19,7 @@ export class ShowKatalogPage implements OnInit {
     private katalogService: KatalogService,
     public loadingController: LoadingController,
     public alertController: AlertController,
+    // private iab: InAppBrowser
   ) { }
 
   ngOnInit() {
@@ -77,9 +79,13 @@ export class ShowKatalogPage implements OnInit {
 
       let url = environment.baseUrl + 'storage/' + res;
 
+      
       console.log(url);
       window.open(url, "_blank");
 
+     
+      // window.open(url, "_system");
+      
 
     });
   }

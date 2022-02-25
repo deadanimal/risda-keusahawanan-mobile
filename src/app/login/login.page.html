@@ -34,7 +34,7 @@
     <form [formGroup]="form" (ngSubmit)="login()">
       <ion-item style="border-radius: 50px;">
         <!-- <ion-label position="floating"></ion-label> -->
-        <ion-input type="text" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp' 
+        <ion-input type="text" inputmode="numeric" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp' 
           style="text-transform: none !important;" (keypress)="numericOnly($event)"></ion-input>
       </ion-item>
       <br>
