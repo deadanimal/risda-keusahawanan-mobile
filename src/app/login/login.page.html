@@ -34,17 +34,28 @@
     <form [formGroup]="form" (ngSubmit)="login()">
       <ion-item style="border-radius: 50px;">
         <!-- <ion-label position="floating"></ion-label> -->
-        <ion-input type="text" inputmode="numeric" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp' 
+        <ion-input type="text" inputmode="numeric" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp'
           style="text-transform: none !important;" (keypress)="numericOnly($event)"></ion-input>
       </ion-item>
       <br>
 
       <ion-item style="border-radius: 50px;">
         <!-- <ion-label position="floating">Kata Laluan</ion-label> -->
-        <ion-input type="password" placeholder="Kata Laluan" name="password" formControlName='password'
+        <ion-input type="password" [type]="getType()" placeholder="Kata Laluan" name="password" formControlName='password'
           style="text-transform: none !important;">
         </ion-input>
+
+        <a class="type-toggle" (click)="toggleTextPassword()">
+          <ion-icon class="show-option" color="dark" [hidden]="showPassword" name="eye-off-outline" style="zoom:1.5;"></ion-icon>
+          <ion-icon class="hide-option" color="dark" [hidden]="!showPassword" name="eye-outline" style="zoom:1.5;"></ion-icon>
+        </a>
       </ion-item>
+
+      <!-- <ion-item>
+        <ion-input [type]="getType()"></ion-input>
+        <ion-icon name="eye" item-right (click)="toggleTextPassword()"></ion-icon>
+      </ion-item> -->
+
       <br>
 
       <ion-grid fixed>
@@ -53,9 +64,9 @@
             <div>
               <a class="forget-password nunitosans-extra-bold-green-haze-12px">
 
-                
-                  
-                  <!-- <ion-checkbox color="success" (click)="addValue($event)" [checked]="checked" [(ngModel)]="checked" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+
+
+                <!-- <ion-checkbox color="success" (click)="addValue($event)" [checked]="checked" [(ngModel)]="checked" [ngModelOptions]="{standalone: true}"></ion-checkbox>
                   <ion-label>  Ingat saya</ion-label>
                 -->
               </a>

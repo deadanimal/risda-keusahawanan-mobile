@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _tambah_katalog_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tambah-katalog-routing.module */ 53101);
 /* harmony import */ var _tambah_katalog_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tambah-katalog.page */ 45558);
 
@@ -105,9 +105,15 @@ let KatalogService = class KatalogService {
     constructor(http) {
         this.http = http;
         this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalog";
+        this.url2 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalogPegawai";
+        this.url3 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/pengesahanPegawai";
+        this.url4 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/katalogdashboard";
     }
     post(data) {
         return this.http.post(`${this.url}`, data);
+    }
+    getAll() {
+        return this.http.get(`${this.url}`);
     }
     get(user_id) {
         return this.http.get(`${this.url}` + "/" + user_id);
@@ -117,6 +123,21 @@ let KatalogService = class KatalogService {
     }
     delete(aliran_id) {
         return this.http.delete(`${this.url}/${aliran_id}`);
+    }
+    getKatalogPegawai(id) {
+        return this.http.get(`${this.url2}` + "/" + id);
+    }
+    pengesahanPegawai(id) {
+        return this.http.get(`${this.url3}` + "/" + id);
+    }
+    katalogPdf(id) {
+        return this.http.get(`${this.url}` + '/katalogPdf/' + id);
+    }
+    getMaklumatUsahawan(id) {
+        return this.http.get(`${this.url}` + '/showMaklumatUsahawan/' + id);
+    }
+    katalogdashboard() {
+        return this.http.get(`${this.url4}`);
     }
 };
 KatalogService.ctorParameters = () => [

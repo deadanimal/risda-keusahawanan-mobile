@@ -114,7 +114,7 @@
 
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
-      80476);
+      19122);
       /* harmony import */
 
 
@@ -198,8 +198,8 @@
           }
         }, {
           key: "get",
-          value: function get() {
-            return this.http.get("".concat(this.url));
+          value: function get(id) {
+            return this.http.get("".concat(this.url) + '/' + id);
           }
         }, {
           key: "update",
@@ -210,6 +210,21 @@
           key: "delete",
           value: function _delete(aliran_id) {
             return this.http["delete"]("".concat(this.url, "/").concat(aliran_id));
+          }
+        }, {
+          key: "uploadDoc",
+          value: function uploadDoc(data, id) {
+            return this.http.post("".concat(this.url) + "/uploadDoc/" + id, data);
+          }
+        }, {
+          key: "getTotalYear",
+          value: function getTotalYear(id) {
+            return this.http.get("".concat(this.url) + "/getYear/" + id);
+          }
+        }, {
+          key: "getTotalMonth",
+          value: function getTotalMonth(id) {
+            return this.http.get("".concat(this.url) + "/getMonth/" + id);
           }
         }]);
 

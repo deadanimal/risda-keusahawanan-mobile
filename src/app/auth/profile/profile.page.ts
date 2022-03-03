@@ -236,7 +236,7 @@ export class ProfilePage implements OnInit {
       U_Dun_ID: ['', Validators.required],
       U_Kampung_ID: ['',],
       U_Seksyen_ID: ['',],
-      id_kategori_usahawan: ['', Validators.required],
+      id_kategori_usahawan: ['', ],
       gambar_url: ['',],
       notelefon: ['', Validators.required],
       nohp: ['', Validators.required],
@@ -363,10 +363,10 @@ export class ProfilePage implements OnInit {
 
 
                     let mukimStr = this.usahawan.U_Mukim_ID;
-                    let mukimInt = parseInt(mukimStr.toString())
+                    // let mukimInt = parseInt(mukimStr.toString())
                     // console.log("mukim temp", typeof mukimInt);
                     // console.log("mukim temp", mukimInt);
-                    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukimInt ))).subscribe((resSeksyen) => {
+                    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukimStr ))).subscribe((resSeksyen) => {
                       console.log("resSeksyen", resSeksyen)
                       this.seksyen = resSeksyen;
 

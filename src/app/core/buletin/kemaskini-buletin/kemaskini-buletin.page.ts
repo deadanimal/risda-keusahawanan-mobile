@@ -36,6 +36,7 @@ export class KemaskiniBuletinPage implements OnInit {
       keterangan_lain: ['', Validators.required],
       status: ['', Validators.required],
       gambar_buletin: ['', Validators.required],
+      url: ['', ],
     });
   }
 
@@ -54,6 +55,7 @@ export class KemaskiniBuletinPage implements OnInit {
       keterangan_lain: this.buletin.keterangan_lain,
       status: this.buletin.status,
       gambar_buletin: this.buletin.gambar_buletin,
+      url: this.buletin.url,
     });
     this.url = this.buletin.gambar_buletin;
     this.form.updateValueAndValidity();

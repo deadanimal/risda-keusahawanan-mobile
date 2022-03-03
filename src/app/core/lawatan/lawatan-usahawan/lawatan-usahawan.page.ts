@@ -7,7 +7,7 @@ import { PengesahanTarikhLawatanPgwPage } from '../pengesahan-tarikh-lawatan-pgw
 // import { FileTransfer, FileUploadOptions, FileTransferObject } from '@awesome-cordova-plugins/file-transfer/ngx';
 // import { File } from '@awesome-cordova-plugins/file';
 import { HTTP } from '@ionic-native/http/ngx';
-import { File } from '@ionic-native/file/ngx';
+// import { File } from '@ionic-native/file/ngx';
 // import { url } from 'inspector';
 // import { HttpClient } from '@angular/common/http';
 
@@ -27,7 +27,7 @@ export class LawatanUsahawanPage implements OnInit {
     public modalController: ModalController,
     private lawatanService: LawatanService,
     private http: HTTP,
-    private file: File
+    // private file: File
 
   ) { }
 

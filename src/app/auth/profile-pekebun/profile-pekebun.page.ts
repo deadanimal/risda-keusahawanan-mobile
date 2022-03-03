@@ -310,10 +310,14 @@ export class ProfilePekebunPage implements OnInit {
     this.pekebunService.getNoTS(nokp).subscribe((res) => {
       console.log("noTS", res);
 
+      if (res == 400) {
 
-      this.form.patchValue({
-        noTS: res[0].noTS
-      });
+      } else {
+
+        this.form.patchValue({
+          noTS: res[0].noTS
+        });
+      }
 
     });
   }

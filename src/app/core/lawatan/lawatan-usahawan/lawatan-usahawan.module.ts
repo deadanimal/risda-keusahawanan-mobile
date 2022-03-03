@@ -8,7 +8,7 @@ import { LawatanUsahawanPageRoutingModule } from './lawatan-usahawan-routing.mod
 
 import { LawatanUsahawanPage } from './lawatan-usahawan.page';
 import { HTTP } from '@ionic-native/http/ngx';
-import { File } from '@ionic-native/file/ngx';
+// import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import { File } from '@ionic-native/file/ngx';
 
   providers: [
     HTTP,
-    File
+    // File
   ]
 })
 export class LawatanUsahawanPageModule { }

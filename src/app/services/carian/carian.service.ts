@@ -21,4 +21,13 @@ export class CarianService {
   downloadFile(id): Observable<any> {
     return this.http.get<any>(`${this.url2}`+'/'+id);
   }
+
+  url3: string = environment.baseUrl + "api/cari";
+  cariUsahawan(data: any): Observable<any> {
+    return this.http.post<any>(`${this.url3}`, data);
+  }
+
+  page(url,data: any): Observable<any> {
+    return this.http.post<any>(url, data);
+  }
 }

@@ -53,6 +53,9 @@
     },
     "im.ltdev.cordova.UserAgent": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "risda.pnsb.pipeline"
     }
   },
   "dependent_plugins": {

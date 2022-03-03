@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _forgot_password_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forgot-password-routing.module */ 74450);
 /* harmony import */ var _forgot_password_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forgot-password.page */ 77571);
 
@@ -71,7 +71,8 @@ ForgotPasswordPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
             _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule,
             _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule,
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule,
-            _forgot_password_routing_module__WEBPACK_IMPORTED_MODULE_0__.ForgotPasswordPageRoutingModule
+            _forgot_password_routing_module__WEBPACK_IMPORTED_MODULE_0__.ForgotPasswordPageRoutingModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule
         ],
         declarations: [_forgot_password_page__WEBPACK_IMPORTED_MODULE_1__.ForgotPasswordPage]
     })
@@ -92,22 +93,103 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ForgotPasswordPage": function() { return /* binding */ ForgotPasswordPage; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_forgot_password_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./forgot-password.page.html */ 54738);
 /* harmony import */ var _forgot_password_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forgot-password.page.scss */ 2508);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
+/* harmony import */ var src_app_services_forgot_password_forgot_password_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/forgot-password/forgot-password.service */ 90957);
+
+
+
+
+
 
 
 
 
 let ForgotPasswordPage = class ForgotPasswordPage {
-    constructor() { }
+    constructor(router, formBuilder, forgotPassService, loadingController, alertController) {
+        this.router = router;
+        this.formBuilder = formBuilder;
+        this.forgotPassService = forgotPassService;
+        this.loadingController = loadingController;
+        this.alertController = alertController;
+        this.form = this.formBuilder.group({
+            email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required,],
+        });
+    }
     ngOnInit() {
     }
+    logForm() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            // console.log(this.form.value);
+            const loading = yield this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+            this.forgotPassService.post(this.form.value).subscribe((res) => {
+                console.log("res", res);
+                loading.dismiss();
+                console.log("title", res.title);
+                if (res.title == "Berjaya") {
+                    this.presentSuccess(res.message);
+                }
+                else {
+                    this.presentFailed(res.message);
+                }
+            });
+        });
+    }
+    presentSuccess(message) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: 'Berjaya',
+                subHeader: '',
+                message: message,
+                buttons: [
+                    {
+                        text: 'Okay',
+                        // id: 'confirm-button',
+                        handler: () => {
+                            this.router.navigate(['/']);
+                        }
+                    }
+                ]
+            });
+            yield alert.present();
+            const { role } = yield alert.onDidDismiss();
+            console.log('onDidDismiss resolved with role', role);
+        });
+    }
+    presentFailed(message) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: '',
+                subHeader: 'Set Semula Kata Laluan Tidak Berjaya',
+                message: message,
+                buttons: ['OK']
+            });
+            yield alert.present();
+            const { role } = yield alert.onDidDismiss();
+            console.log('onDidDismiss resolved with role', role);
+        });
+    }
+    forget_password() {
+        this.router.navigate(['/']);
+    }
 };
-ForgotPasswordPage.ctorParameters = () => [];
-ForgotPasswordPage = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+ForgotPasswordPage.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.Router },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder },
+    { type: src_app_services_forgot_password_forgot_password_service__WEBPACK_IMPORTED_MODULE_2__.ForgotPasswordService },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.AlertController }
+];
+ForgotPasswordPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
         selector: 'app-forgot-password',
         template: _raw_loader_forgot_password_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_forgot_password_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -138,7 +220,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!-- <ion-header>\n  <ion-toolbar>\n    <ion-title>Log Masuk Kali Pertama</ion-title>\n  </ion-toolbar>\n</ion-header> -->\n\n<ion-content>\n\n  <div id=\"overlay\"\n    style=\"background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute\">\n\n  </div>\n  <div id=\"overlay\" style=\"position: absolute;\"></div>\n\n\n  <div class=\"\" style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center\">\n\n    <div class=\"element-logo\"></div>\n    <br><br><br>\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Lupa Kata Laluan</h2>\n    </ion-text>\n\n    <br>\n\n    <form action=\"\" class=\"ion-justify-content-center\">\n\n      <ion-grid>\n        <ion-row class=\"ion-justify-content-center\">\n          <ion-col size=\"12\">\n            <div>\n              <ion-item style=\"border-radius: 50px;\">\n                <ion-input placeholder=\"Email\"></ion-input>\n              </ion-item>\n            </div>\n          </ion-col>\n        </ion-row>\n        <br><br>\n        <ion-row class=\"ion-justify-content-center ion-margin-top\">\n          \n          <ion-button class=\"button\" color=\"success\" size=\"small\">HANTAR EMAIL</ion-button>\n        \n        </ion-row>\n\n      </ion-grid>\n\n     \n    </form>\n    \n  </div>\n\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<!-- <ion-header>\n  <ion-toolbar>\n    <ion-title>Log Masuk Kali Pertama</ion-title>\n  </ion-toolbar>\n</ion-header> -->\n\n<ion-content>\n\n  <div id=\"overlay\"\n    style=\"background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; position:absolute\">\n\n  </div>\n  <div id=\"overlay\" style=\"position: absolute;\"></div>\n\n\n  <div class=\"\" style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center; \">\n\n    <div class=\"element-logo\"></div>\n    <br><br><br>\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Lupa Kata Laluan</h2>\n    </ion-text>\n\n    <br>\n\n    <form action=\"\" [formGroup]=\"form\" (ngSubmit)=\"logForm()\">\n\n      <ion-grid>\n        <ion-row class=\"ion-justify-content-center\">\n          <ion-col size=\"12\">\n            <div>\n              <ion-item style=\"border-radius: 50px;\">\n                <ion-input type=\"email\" email placeholder=\"Email\" formControlName=\"email\" style=\"text-transform: none !important;\"></ion-input>\n              </ion-item>\n            </div>\n          </ion-col>\n        </ion-row>\n\n        <ion-row >\n          <ion-col size=\"12\" style=\"display: flex; justify-content:flex-end\">\n            <a class=\"forget-password\" (click)=\"forget_password()\" style=\"text-decoration: none;\">\n              Log Masuk\n            </a>\n          </ion-col>\n        </ion-row>\n        <br><br>\n\n        <ion-row class=\"ion-justify-content-center\">\n\n\n          <br>\n\n          <ion-button type=\"submit\" class=\"button\" color=\"success\" [disabled]=\"form.invalid\">HANTAR EMAIL</ion-button>\n\n        </ion-row>\n\n      </ion-grid>\n\n\n    </form>\n\n\n\n  </div>\n\n\n\n</ion-content>");
 
 /***/ })
 

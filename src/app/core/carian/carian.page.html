@@ -19,21 +19,101 @@
 
 <ion-content>
 
-  <form class="form-control" action="">
+  <form [formGroup]="form" (ngSubmit)="logform()" class="form-control" action="">
     <ion-grid fixed>
-      <ion-row class="ion-margin-top">
+      <!-- <ion-row class="ion-margin-top">
         <ion-col size="12">
           <ion-item lines="none">
             <ion-label position="stacked" style="margin-bottom: 10px;">Nama/No. Kad Penganalan/Usahawan ID</ion-label>
-            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text"
-              placeholder="Nama/No. Kad Penganalan/Usahawan ID" (ionChange)="getUsahawan()"></ion-input>
+            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text" placeholder=""
+              (ionChange)="getUsahawan()"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col size="12">
-          <!-- Basic -->
+          <ion-item lines="none">
+            <ion-label position="stacked" style="margin-bottom: 10px;">No. Kad Penganalan</ion-label>
+            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text" placeholder=""
+              (ionChange)="getUsahawan()"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-item lines="none">
+            <ion-label position="stacked" style="margin-bottom: 10px;">Negeri Usahawan</ion-label>
+            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text" placeholder=""
+              (ionChange)="getUsahawan()"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item lines="none">
+            <ion-label position="stacked" style="margin-bottom: 10px;">Pusat Tanggungjawab</ion-label>
+            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text" placeholder=""
+              (ionChange)="getUsahawan()"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row>
+        <ion-col size="12">
+
+          <ion-accordion-group>
+            <ion-accordion value="colors">
+              <ion-item slot="header">
+                <ion-label>Carian</ion-label>
+              </ion-item>
+
+              <ion-list slot="content">
+                <ion-item lines="none">
+                  <ion-label position="stacked" style="margin-bottom: 10px;">Nama Usahawan
+                  </ion-label>
+                  <ion-input formControlName="nama" type="text" placeholder=""></ion-input>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label position="stacked" style="margin-bottom: 10px;">No. Kad Penganalan</ion-label>
+                  <ion-input formControlName="noKP" type="text" inputmode="numeric" placeholder=""></ion-input>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label position="stacked" style="margin-bottom: 10px;">Negeri Usahawan</ion-label>
+                  <ion-select placeholder="Pilih Negeri" formControlName="negeri">
+                    <ion-select-option *ngFor="let Negeri of negeri" value="{{Negeri.U_Negeri_ID}}">{{ Negeri.Negeri }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <ion-item lines="none">
+                  <ion-label position="stacked" style="margin-bottom: 10px;">Pusat Tanggungjawab</ion-label>
+                  <!-- <ion-input formControlName="PT" type="text" placeholder=""></ion-input> -->
+                  <ion-select placeholder="Pilih Pusat Tanggungjawab" formControlName="PT">
+                    <ion-select-option *ngFor="let pt of pusat_tanggungjawab" value="{{pt.Kod_PT}}">{{ pt.keterangan }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                
+                <div class="ion-padding" style="display: flex; justify-content:flex-end">
+                  <ion-button color="danger" size="small" (click)="reset()">
+                    Set Semula
+                  </ion-button>
+                  <ion-button type="submit" color="success" size="small">
+                    Carian Data
+                  </ion-button>
+                </div>
+               
+              </ion-list>
+            </ion-accordion>
+
+          </ion-accordion-group>
+        </ion-col>
+      </ion-row>
+
+
+      <!-- <ion-row>
+        <ion-col size="12">
+          
           <ion-accordion-group>
             <ion-accordion value="colors">
               <ion-item slot="header">
@@ -47,7 +127,6 @@
                     [ngModelOptions]="{standalone: true}">
                     <ion-select-option *ngFor="let pt of pusat_tanggungjawab" value="{{pt.Kod_PT}}">{{pt.keterangan}}
                     </ion-select-option>
-                    <!-- <ion-select-option value="hawaii">Hawaii</ion-select-option> -->
                   </ion-select>
                 </ion-item>
                 <ion-item lines="none">
@@ -79,17 +158,30 @@
 
           </ion-accordion-group>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
     </ion-grid>
   </form>
 
   <div class="bg-white">
 
-    <ion-grid style="margin-top: 1%; margin-left:5%; margin-right:5%">
+    <ion-grid style="margin-left:5%; margin-right:5%">
       <ion-row style="margin-bottom: 10px;">
         <ion-col>
           <h5 class="bold"> Senarai Usahawan</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div style="display: flex; flex-wrap:nowrap; justify-content: space-between;">
+            <div *ngIf="previous_page_url != null">
+              <ion-icon name="arrow-back-circle-outline" style="zoom: 2.0;" (click)="previous_page()"></ion-icon>
+            </div>
+            <br>
+            <div *ngIf="next_page_url != null">
+              <ion-icon name="arrow-forward-circle-outline" style="zoom: 2.0;" (click)="next_page()"></ion-icon>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
       <ion-grid style="max-height: 70%; overflow: scroll;">
@@ -112,7 +204,8 @@
                     </ion-text>
                   </ion-col>
                   <ion-col size="4" style="padding: 0%; display:flex; justify-content:flex-end; align-items:center">
-                    <img (click)="downloadFile(usahawan.usahawanid)" src="assets/icon/DOWNLOAD.png" alt="pending" height="25px" style="margin-left: 20px;">
+                    <img (click)="downloadFile(usahawan.usahawanid)" src="assets/icon/DOWNLOAD.png" alt="pending"
+                      height="25px" style="margin-left: 20px;">
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -121,6 +214,11 @@
         </ion-row>
       </ion-grid>
     </ion-grid>
+
+
+
+
+
 
   </div>
 

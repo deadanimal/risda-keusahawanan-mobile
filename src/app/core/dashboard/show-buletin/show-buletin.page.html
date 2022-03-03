@@ -37,7 +37,7 @@
               </p>
             </ion-text>
           </ion-col>
-          
+
         </ion-row>
         <ion-row>
           <ion-col>
@@ -52,13 +52,27 @@
 
           </ion-col>
         </ion-row>
-        
+
+        <ion-row>
+          <ion-col>
+            <ion-text class="bold no-margin">
+              <h6>Link</h6>
+            </ion-text>
+            <ion-text color="medium" class="no-margin">
+              <p>
+                <a href="{{buletin.url}}" target="_blank"> {{buletin.url}}</a>
+              </p>
+            </ion-text>
+
+          </ion-col>
+        </ion-row>
+
       </ion-grid>
     </div>
 
   </div>
   <div style="height:15%; display: flex; align-items:center; justify-content:space-around">
-    <ion-button (click)="dismiss()" fill="default" class="ion-text-uppercase bold font-11" >Kembali</ion-button>
+    <ion-button (click)="dismiss()" fill="default" class="ion-text-uppercase bold font-11">Kembali</ion-button>
     <!-- <ion-button (click)="pengesahan()" fill="default" class="ion-text-uppercase bold font-11" style="color: #00A651;">Sahkan</ion-button> -->
   </div>
 

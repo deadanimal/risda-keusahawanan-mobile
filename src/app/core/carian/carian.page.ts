@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CarianService } from 'src/app/services/carian/carian.service';
 import { JenisInsentifService } from 'src/app/services/jenis-insentif/jenis-insentif.service';
+import { NegeriService } from 'src/app/services/negeri/negeri.service';
 import { PusatTanggungjawabService } from 'src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service';
 import { environment } from 'src/environments/environment';
 
@@ -14,18 +16,32 @@ export class CarianPage implements OnInit {
   pusat_tanggungjawab: any;
   jenis_insentif: any;
 
+  negeri: any
+
   date = new Date();
   listYear = [];
   year: any;
 
+  private form: FormGroup;
 
   constructor(
     private ptService: PusatTanggungjawabService,
     private jenisInsentifService: JenisInsentifService,
-    private carianService: CarianService
-  ) { }
+    private carianService: CarianService,
+    private formBuilder: FormBuilder,
+    private negeriService: NegeriService
+  ) {
+    this.form = this.formBuilder.group({
+      nama: ['',],
+      noKP: ['',],
+      negeri: ['',],
+      PT: ['',],
+      
+    })
+   }
 
   ngOnInit() {
+    this.getNegeri()
     this.getPT()
     this.getJenisInsentif()
 
@@ -197,11 +213,7 @@ export class CarianPage implements OnInit {
   }
 
   reset(){
-    this.kod_pt = null;
-    this.insentif = null;
-    this.tahun_terima = null;
-
-    this.getUsahawan()
+    this.form.reset();
   }
 
   downloadFile(usahawanid){
@@ -218,6 +230,55 @@ export class CarianPage implements OnInit {
 
     });
   }
+
+  next_page_url: any = null;
+  previous_page_url: any = null;
+
+  logform(){
+    console.log(this.form.value)
+
+    this.carianService.cariUsahawan(this.form.value).subscribe((res) => {
+      console.log("res3", res);
+
+      this.usahawanTemp = res.data
+      this.next_page_url = res.next_page_url
+      this.previous_page_url= res.prev_page_url;
+      // let url = environment.baseUrl + 'storage/' + res;
+
+      // console.log(url);
+      // window.open(url, "_blank");
+    });
+  }
+
+  next_page(){
+    this.carianService.page(this.next_page_url,this.form.value).subscribe((res) => {
+      console.log("res3", res);
+
+      this.usahawanTemp = res.data
+      this.next_page_url = res.next_page_url;
+      this.previous_page_url= res.prev_page_url;
+    });
+  }
+
+  previous_page(){
+    this.carianService.page(this.previous_page_url,this.form.value).subscribe((res) => {
+      console.log("res3", res);
+
+      this.usahawanTemp = res.data
+      this.next_page_url = res.next_page_url;
+      this.previous_page_url= res.prev_page_url;
+    });
+  }
+  
+  getNegeri(){
+    this.negeriService.get().subscribe((res) => {
+      console.log("resnegeri", res);
+
+      this.negeri= res;
+    });
+  }
+
+
 
 
 }

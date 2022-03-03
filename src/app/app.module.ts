@@ -11,9 +11,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { LoginService } from './services/login/login.service';
 
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
-import { Camera } from '@ionic-native/camera';
+
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 // import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';

@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 19122);
 /* harmony import */ var _notifikasi_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notifikasi-routing.module */ 47824);
 /* harmony import */ var _notifikasi_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./notifikasi.page */ 85522);
 
@@ -92,32 +92,68 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "NotifikasiPage": function() { return /* binding */ NotifikasiPage; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_notifikasi_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./notifikasi.page.html */ 44785);
 /* harmony import */ var _notifikasi_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./notifikasi.page.scss */ 20690);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var src_app_services_notifikasi_notifikasi_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/notifikasi/notifikasi.service */ 29572);
+
+
 
 
 
 
 let NotifikasiPage = class NotifikasiPage {
-    constructor() {
-        this.notifikasi = [
-            { tajuk: "notifikasi1", keterangan: "aaa", masa: "" },
-            { tajuk: "notifikasi2", keterangan: "bbb", masa: "" },
-            { tajuk: "notifikasi3", keterangan: "ccc", masa: "" },
-            { tajuk: "notifikasi4", keterangan: "ddd", masa: "" },
-            { tajuk: "notifikasi5", keterangan: "eee", masa: "" },
-            { tajuk: "notifikasi6", keterangan: "fff", masa: "" },
-            { tajuk: "notifikasi7", keterangan: "ggg", masa: "" },
-        ];
+    constructor(notiService, router) {
+        this.notiService = notiService;
+        this.router = router;
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
+        this.role = window.sessionStorage.getItem("role");
+        this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
     }
     ngOnInit() {
+        console.log("user_id", this.user_id);
+        this.getNoti();
+    }
+    getNoti() {
+        this.notiService.get(this.user_id).subscribe((res) => {
+            console.log("notification", res);
+            this.notifikasi = res;
+        });
+    }
+    routing(notifikasi) {
+        console.log(notifikasi);
+        this.notiService.updateStatus(notifikasi.id).subscribe((res) => {
+            console.log("updated status", res);
+            if (this.usahawan_id != null) {
+                if (notifikasi.modul == "katalog") {
+                    this.router.navigate(['/katalog']);
+                }
+                else if (notifikasi.modul == "lawatan") {
+                    this.router.navigate(['/lawatan-usahawan']);
+                }
+            }
+            else if (this.usahawan_id == null) {
+                console.log("pegi katalog");
+                if (notifikasi.modul == "katalog") {
+                    this.router.navigate(['/katalog-pegawai']);
+                }
+                else if (notifikasi.modul == "lawatan") {
+                    this.router.navigate(['/lawatan-pegawai']);
+                }
+            }
+        });
     }
 };
-NotifikasiPage.ctorParameters = () => [];
-NotifikasiPage = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+NotifikasiPage.ctorParameters = () => [
+    { type: src_app_services_notifikasi_notifikasi_service__WEBPACK_IMPORTED_MODULE_2__.NotifikasiService },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__.Router }
+];
+NotifikasiPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
         selector: 'app-notifikasi',
         template: _raw_loader_notifikasi_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_notifikasi_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -148,7 +184,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            NOTIFIKASI\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n\n    <div style=\"height: 100%; width:100%; overflow: scroll;\">\n      <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n        <ion-row *ngFor=\"let notifikasi of notifikasi\" style=\"padding-bottom: 10px;\">\n          <ion-col>\n            \n            <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\" (click)=\"kemaskiniTunaiMasuk()\">\n              <span class=\"dot\"></span>\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"10\">\n                    <ion-text color=success>\n                      <h6 class=\"bold no-padding\">\n                        {{notifikasi.tajuk}}\n                      </h6>\n                    </ion-text>\n                    <ion-text color=\"medium\">\n                      {{notifikasi.keterangan}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"2\" style=\"padding: 0%;\">\n                    \n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </div>\n  </div>\n\n\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            NOTIFIKASI\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n\n    <div style=\"height: 100%; width:100%; overflow: scroll;\">\n      <ion-grid style=\"margin-left:5%; margin-right:5%;\">\n        <ion-row *ngFor=\"let notifikasi of notifikasi\" style=\"padding-bottom: 10px;\">\n          <ion-col>\n            \n            <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\" (click)=\"routing(notifikasi)\">\n              <span *ngIf=\"notifikasi.readstatus == 0\" class=\"dot\"></span>\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"10\">\n                    <ion-text color=success>\n                      <h6 class=\"bold no-padding\">\n                        {{notifikasi.tajuk}}\n                      </h6>\n                    </ion-text>\n                    <ion-text color=\"medium\">\n                      {{notifikasi.keterangan}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"2\" style=\"padding: 0%;\">\n                    \n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </div>\n  </div>\n\n\n\n</ion-content>");
 
 /***/ })
 

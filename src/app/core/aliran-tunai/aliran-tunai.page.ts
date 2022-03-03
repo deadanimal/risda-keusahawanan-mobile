@@ -1,18 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { IonTabs, ModalController } from '@ionic/angular';
 import { KemaskiniTunaiKeluarPage } from '../modal/kemaskini-tunai-keluar/kemaskini-tunai-keluar.page';
 import { KemaskiniTunaiMasukPage } from '../modal/kemaskini-tunai-masuk/kemaskini-tunai-masuk.page';
 import { TambahTunaiKeluarPage } from '../modal/tambah-tunai-keluar/tambah-tunai-keluar.page';
 import { TambahTunaiMasukPage } from '../modal/tambah-tunai-masuk/tambah-tunai-masuk.page';
 import { AliranService } from 'src/app/services/Aliran/aliran.service';
 import { Router } from '@angular/router';
+// import { W3csService } from 'src/app/services/w3cs/w3cs.service';
 // import { KemaskiniTunaiMasukComponent } from './kemaskini-tunai-masuk/kemaskini-tunai-masuk.component';
+
+
+
 @Component({
   selector: 'app-aliran-tunai',
   templateUrl: './aliran-tunai.page.html',
   styleUrls: ['./aliran-tunai.page.scss'],
 })
 export class AliranTunaiPage implements OnInit {
+
+  
 
   tunai_masuk: any;
   tunai_keluar: any;
@@ -23,7 +29,10 @@ export class AliranTunaiPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private aliranService: AliranService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    // private w3cService: W3csService,
   ) { }
 
   ngOnInit() {
@@ -116,8 +125,13 @@ export class AliranTunaiPage implements OnInit {
 
   }
 
-  dashboard(){
+  dashboard() {
     this.router.navigate(['/dashboard'])
   }
+
+
+ 
+
+
 
 }

@@ -36,6 +36,7 @@ export class TambahBuletinPage implements OnInit {
       keterangan_lain: ['', Validators.required],
       status: ['', Validators.required],
       gambar_buletin: ['', Validators.required],
+      url: ['', ],
     });
   }
 

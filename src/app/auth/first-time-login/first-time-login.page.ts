@@ -29,7 +29,10 @@ export class FirstTimeLoginPage implements OnInit {
   ) {
     this.form = this.formBuilder.group({
       email: ['', Validators.required,],
-      password: ['', Validators.required,],
+      password: ['', [
+        Validators.required,
+        // Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+      ]],
       confirm_password: ['', Validators.required,],
     });
 

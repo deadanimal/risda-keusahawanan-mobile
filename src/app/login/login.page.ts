@@ -168,4 +168,15 @@ export class LoginPage implements OnInit {
 
     }
   }
+
+  showPassword: boolean= false;
+  isActiveToggleTextPassword: Boolean = true;
+  public toggleTextPassword(): void{
+      this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword==true)?false:true;
+
+      this.showPassword = !this.showPassword
+  }
+  public getType() {
+      return this.isActiveToggleTextPassword ? 'password' : 'text';
+  }
 }

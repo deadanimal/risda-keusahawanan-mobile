@@ -19,7 +19,14 @@
     border-radius: 0px 0px 25px 25px;
 }
 
-.tab-selected {
+.lain.tab-selected{
+        background-color: rgb(218, 4, 4);
+        border-radius: 30px;
+        color: white;
+    
+}
+
+.tab-selected  {
     background-color: #00a651;
     border-radius: 30px;
     color: white;

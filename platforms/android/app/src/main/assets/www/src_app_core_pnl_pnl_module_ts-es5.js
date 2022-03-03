@@ -114,7 +114,7 @@
 
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
-      80476);
+      19122);
       /* harmony import */
 
 
@@ -133,7 +133,7 @@
       };
 
       _PnlPageModule = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.NgModule)({
-        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule, _pnl_routing_module__WEBPACK_IMPORTED_MODULE_0__.PnlPageRoutingModule],
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule, _pnl_routing_module__WEBPACK_IMPORTED_MODULE_0__.PnlPageRoutingModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule],
         declarations: [_pnl_page__WEBPACK_IMPORTED_MODULE_1__.PnlPage]
       })], _PnlPageModule);
       /***/
@@ -161,7 +161,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -179,52 +179,171 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/core */
       37716);
+      /* harmony import */
+
+
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/forms */
+      3679);
+      /* harmony import */
+
+
+      var src_app_services_pdfExcel_pdf_excel_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/pdfExcel/pdf-excel.service */
+      68135);
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/environments/environment */
+      92340);
 
       var _PnlPage = /*#__PURE__*/function () {
-        function PnlPage() {
+        // bulan = new Date()
+        function PnlPage(formBuilder, pdfExcelService) {
           _classCallCheck(this, PnlPage);
 
-          this.month = new Date().toISOString();
-          this.year = new Date().toISOString();
-          this.buku_tunai = [{
-            bulan: "Januari",
-            tahun: "2020"
+          this.formBuilder = formBuilder;
+          this.pdfExcelService = pdfExcelService;
+          this.date = new Date();
+          this.user_id = window.sessionStorage.getItem("user_id");
+          this.listYear = [];
+          this.listMonth = [{
+            value: "1",
+            name: "January"
           }, {
-            bulan: "February",
-            tahun: "2020"
+            value: "2",
+            name: "February"
           }, {
-            bulan: "March",
-            tahun: "2020"
+            value: "3",
+            name: "March"
           }, {
-            bulan: "April",
-            tahun: "2020"
+            value: "4",
+            name: "April"
           }, {
-            bulan: "May",
-            tahun: "2020"
+            value: "5",
+            name: "May"
           }, {
-            bulan: "June",
-            tahun: "2020"
+            value: "6",
+            name: "June"
           }, {
-            bulan: "July",
-            tahun: "2020"
+            value: "7",
+            name: "July"
+          }, {
+            value: "8",
+            name: "August"
+          }, {
+            value: "9",
+            name: "September"
+          }, {
+            value: "10",
+            name: "October"
+          }, {
+            value: "11",
+            name: "November"
+          }, {
+            value: "12",
+            name: "December"
           }];
+          this.pnl = [];
+          this.form = this.formBuilder.group({
+            id: [''],
+            bulan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
+            tahun: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required]
+          });
         }
 
         _createClass(PnlPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            // console.log("AAAAA", this.date.getMonth() + 1);
+            // console.log("BBB", this.date.getFullYear());
+            this.month = this.date.getMonth() + 1;
+            this.year = Number(this.date.getFullYear());
+
+            for (var i = 0; i <= 30; i++) {
+              this.listYear.push(this.year);
+              this.year = this.year - 1;
+            }
+          }
+        }, {
+          key: "logform",
+          value: function logform() {
+            var _this = this;
+
+            console.log(this.form.value);
+            this.form.value.id = this.user_id;
+            console.log(this.form.value);
+            this.pnl = [];
+            this.pdfExcelService.pnlInfo(this.form.value).subscribe(function (res) {
+              console.log("res", res); // this.pnl = res;
+
+              _this.pnl.push(res);
+
+              console.log("pnl", _this.pnl);
+            });
+          } // calcPnl() {
+          //   this.form.value.id = this.user_id;
+          //   console.log(this.form.value)
+          //   this.pdfExcelService.pnlInfo(this.form.value).subscribe((res) => {
+          //     console.log("res", res);
+          //   });
+          // }
+
+        }, {
+          key: "printExcelCustom",
+          value: function printExcelCustom() {
+            this.form.value.id = this.user_id;
+            console.log(this.form.value);
+            this.pdfExcelService.pnlExcel(this.form.value).subscribe(function (res) {
+              console.log("res", res);
+              var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
+              console.log(url);
+              window.open(url, "_blank");
+            });
+          }
+        }, {
+          key: "printPdfCustom",
+          value: function printPdfCustom() {
+            this.form.value.id = this.user_id;
+            console.log(this.form.value);
+            this.pdfExcelService.pnlPdf(this.form.value).subscribe(function (res) {
+              console.log("res", res);
+              var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
+              console.log(url);
+              window.open(url, "_blank");
+            });
+          }
         }, {
           key: "printExcel",
-          value: function printExcel() {
-            console.log("print excel");
+          value: function printExcel(bulan) {
+            this.form.value.id = this.user_id;
+            this.form.value.bulan = bulan;
+            this.form.value.tahun = this.date.getFullYear();
+            console.log(this.form.value);
+            this.pdfExcelService.pnlExcel(this.form.value).subscribe(function (res) {
+              console.log("res", res);
+              var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
+              console.log(url);
+              window.open(url, "_blank");
+            });
           }
         }, {
           key: "printPdf",
-          value: function printPdf() {
-            console.log("print pdf");
+          value: function printPdf(bulan) {
+            this.form.value.id = this.user_id;
+            this.form.value.bulan = bulan;
+            this.form.value.tahun = this.date.getFullYear();
+            console.log(this.form.value);
+            this.pdfExcelService.pnlPdf(this.form.value).subscribe(function (res) {
+              console.log("res", res);
+              var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
+              console.log(url);
+              window.open(url, "_blank");
+            });
           }
         }, {
           key: "share",
@@ -237,10 +356,14 @@
       }();
 
       _PnlPage.ctorParameters = function () {
-        return [];
+        return [{
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormBuilder
+        }, {
+          type: src_app_services_pdfExcel_pdf_excel_service__WEBPACK_IMPORTED_MODULE_2__.PdfExcelService
+        }];
       };
 
-      _PnlPage = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+      _PnlPage = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
         selector: 'app-pnl',
         template: _raw_loader_pnl_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_pnl_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -268,7 +391,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"success\">\n      <h3>\n        <strong class=\"ion-text-uppercase bold\">\n          PENYATA UNTUNG/RUGI\n        </strong>\n      </h3>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <!-- <div class=\"rectangle-280\"></div> -->\n\n  <div class=\"bg-white\">\n\n    <div style=\"width: 100%; height:23%;\">\n\n      <ion-card>\n        <ion-card-content class=\"no-padding test\" >\n          <ion-item>\n            <ion-label class=\"bold success\">Bulan</ion-label>\n            <!-- <ion-input placeholder=\"placeholder\"></ion-input> -->\n            <ion-datetime class=\"success\" display-format=\"MMMM\" picker-format=\"MMMM\" [(ngModel)]=\"month\"></ion-datetime>\n          </ion-item>\n        </ion-card-content>\n      </ion-card>\n\n      <ion-card>\n        <ion-card-content class=\"no-padding test\">\n          <ion-item>\n            <ion-label class=\"bold success\">Tahun</ion-label>\n            <ion-datetime class=\"success\" display-format=\"YYYY\" picker-format=\"YYYY\" [(ngModel)]=\"year\"></ion-datetime>\n          </ion-item>\n        </ion-card-content>\n      </ion-card>\n      \n\n    </div>\n\n    <div style=\"width: 100%; height:77%; overflow:scroll\">\n\n      <div class=\"rectangle-1\" *ngFor=\"let bukutunai of buku_tunai\">\n        <h3 class=\"bold\">PENYATA <br> UNTUNG RUGI</h3>\n        <h5 class=\"no-margin\">{{bukutunai.bulan}} 2020</h5>\n\n        <div style=\"width: 100%; height:30%;  display:flex; justify-content:flex-end;\">\n          <img src=\"assets/icon/download-excel-button-white.png\" alt=\"\" height=\"35px\" (click)=\"printExcel()\">\n\n          <img src=\"assets/icon/download-PDF-button-white.png\" alt=\"\" height=\"35px\" (click)=\"printPdf()\">\n\n          <img src=\"assets/icon/SHARE-BUTTON-ICON.png\" alt=\"\" height=\"35px\" (click)=\"share()\">\n\n        </div>\n\n      </div>\n\n    </div>\n\n  </div>\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"success\">\n      <h3>\n        <strong class=\"ion-text-uppercase bold\">\n          PENYATA UNTUNG/RUGI\n        </strong>\n      </h3>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <!-- <div class=\"rectangle-280\"></div> -->\n\n  <div class=\"bg-white\">\n\n    <div style=\"width: 100%; height:23%;\">\n\n      <form [formGroup]=\"form\" action=\"\" (ngSubmit)=\"logform()\">\n\n        <ion-card>\n          <ion-card-content class=\"no-padding test\">\n\n            <!-- <ion-item (click)=\"showPicker = !showPicker\">\n            <ion-label class=\"bold success\">Bulan</ion-label> \n            <ion-text slot=\"end\">\n              {{ bulan }}\n            </ion-text>\n            <ion-datetime presentation=\"month\" class=\"success\" display-format=\"MMMM\" picker-format=\"MMMM\" [(ngModel)]=\"month\"></ion-datetime>\n           </ion-item> -->\n\n            <ion-item>\n              <ion-label>Bulan</ion-label>\n              <ion-select formControlName=\"bulan\" >\n                <ion-select-option value=\"1\">Januari</ion-select-option>\n                <ion-select-option value=\"2\">Februari</ion-select-option>\n                <ion-select-option value=\"3\">Mac</ion-select-option>\n                <ion-select-option value=\"4\">April</ion-select-option>\n                <ion-select-option value=\"5\">Mei</ion-select-option>\n                <ion-select-option value=\"6\">Jun</ion-select-option>\n                <ion-select-option value=\"7\">Julai</ion-select-option>\n                <ion-select-option value=\"8\">Ogos</ion-select-option>\n                <ion-select-option value=\"9\">September</ion-select-option>\n                <ion-select-option value=\"10\">Oktober</ion-select-option>\n                <ion-select-option value=\"11\">November</ion-select-option>\n                <ion-select-option value=\"12\">Disember</ion-select-option>\n              </ion-select>\n            </ion-item>\n\n\n          </ion-card-content>\n        </ion-card>\n\n        <ion-card>\n          <ion-card-content class=\"no-padding test\">\n            <!-- <ion-item>\n            <ion-label class=\"bold success\">Tahun</ion-label> -->\n            <!-- <ion-datetime presentation=\"\" class=\"success\" display-format=\"YYYY\" picker-format=\"YYYY\" [(ngModel)]=\"year\"></ion-datetime> -->\n            <!-- </ion-item> -->\n\n            <ion-item>\n              <ion-label>Tahun</ion-label>\n              <ion-select formControlName=\"tahun\" >\n                <ion-select-option *ngFor=\"let year of listYear\" value=\"{{year}}\">{{year}}</ion-select-option>\n\n              </ion-select>\n            </ion-item>\n          </ion-card-content>\n        </ion-card>\n\n        <div style=\"width: 100%; display:flex; justify-content:flex-end\">\n          <!-- <ion-button size=\"small\" color=\"success\" [disabled]=\"form.invalid\" (click)=\"printPdfCustom()\">PDF</ion-button>\n          <ion-button size=\"small\" color=\"success\" [disabled]=\"form.invalid\" (click)=\"printExcelCustom()\">Excel\n          </ion-button> -->\n\n          <ion-button size=\"small\" color=\"success\" [disabled]=\"form.invalid\" type=\"submit\">Cari\n          </ion-button>\n        </div>\n\n\n\n      </form>\n\n\n    </div>\n\n    <div style=\"width: 100%; height:77%; overflow:scroll; margin-top:25px\">\n\n\n      <div *ngFor=\"let p of pnl\">\n\n        <ion-grid fixed>\n          <ion-row>\n            <ion-col size=\"6\">\n              <div  class=\"rectangle-1\" style=\"height: 100px;\">\n                \n                <div style=\"height: 50%;\">\n                  <h6 class=\"bold\">HASIL JUALAN</h6>\n                </div>\n                <div style=\"height: 30%;\">\n                  <span class=\"no-margin\">RM {{p.hasil_jualan | number:'1.2-2':'en-US'}}</span>\n                </div>\n                \n              </div>\n            </ion-col>\n            <ion-col size=\"6\">\n              <div  class=\"rectangle-1\" style=\"height: 100px;\">\n\n                <div style=\"height: 50%;\">\n                  <h6 class=\"bold\">KOS JUALAN (COGS)</h6>\n                </div>\n                <div style=\"height: 30%;\">\n                  <span class=\"no-margin\">RM  {{p.kos_jualan | number:'1.2-2':'en-US'}}</span>\n                </div>\n                \n              </div>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col size=\"6\">\n              <div  class=\"rectangle-1\" style=\"height: 100px;\">\n                \n                <div style=\"height: 50%;\">\n                  <h6 class=\"bold\">OPEX</h6>\n                </div>\n                <div style=\"height: 30%;\">\n                  <span class=\"no-margin\">RM {{p.opex | number:'1.2-2':'en-US'}}</span>\n                </div>\n              </div>\n            </ion-col>\n            <ion-col size=\"6\">\n              <div  class=\"rectangle-1\" style=\"height: 100px;\">\n                \n                \n                <div style=\"height: 50%;\">\n                  <h6 class=\"bold\">UNTUNG/RUGI KASAR</h6>\n                </div>\n                <div style=\"height: 30%;\">\n                  <span class=\"no-margin\">RM {{p.untung_rugi_kasar | number:'1.2-2':'en-US'}} </span>\n                </div>\n              </div>\n            </ion-col>\n          </ion-row>\n          <ion-row>\n            <ion-col>\n              <div style=\"width: 100%; display:flex; justify-content:flex-end\">\n                <ion-button size=\"small\" color=\"success\"  (click)=\"printPdfCustom()\">PDF</ion-button>\n                <ion-button size=\"small\" color=\"success\" (click)=\"printExcelCustom()\">Excel\n                </ion-button>\n              </div>\n            </ion-col>\n           \n          </ion-row>\n        </ion-grid>\n       \n\n      </div>\n\n    </div>\n\n  </div>\n\n\n\n\n</ion-content>";
       /***/
     }
   }]);

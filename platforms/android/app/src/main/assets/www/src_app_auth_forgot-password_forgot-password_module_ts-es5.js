@@ -114,7 +114,7 @@
 
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
-      80476);
+      19122);
       /* harmony import */
 
 
@@ -133,7 +133,7 @@
       };
 
       _ForgotPasswordPageModule = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.NgModule)({
-        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule, _forgot_password_routing_module__WEBPACK_IMPORTED_MODULE_0__.ForgotPasswordPageRoutingModule],
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule, _forgot_password_routing_module__WEBPACK_IMPORTED_MODULE_0__.ForgotPasswordPageRoutingModule, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule],
         declarations: [_forgot_password_page__WEBPACK_IMPORTED_MODULE_1__.ForgotPasswordPage]
       })], _ForgotPasswordPageModule);
       /***/
@@ -161,7 +161,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -179,28 +179,205 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @angular/core */
       37716);
+      /* harmony import */
+
+
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/forms */
+      3679);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @ionic/angular */
+      19122);
+      /* harmony import */
+
+
+      var src_app_services_forgot_password_forgot_password_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! src/app/services/forgot-password/forgot-password.service */
+      90957);
 
       var _ForgotPasswordPage = /*#__PURE__*/function () {
-        function ForgotPasswordPage() {
+        function ForgotPasswordPage(router, formBuilder, forgotPassService, loadingController, alertController) {
           _classCallCheck(this, ForgotPasswordPage);
+
+          this.router = router;
+          this.formBuilder = formBuilder;
+          this.forgotPassService = forgotPassService;
+          this.loadingController = loadingController;
+          this.alertController = alertController;
+          this.form = this.formBuilder.group({
+            email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
+          });
         }
 
         _createClass(ForgotPasswordPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {}
+        }, {
+          key: "logForm",
+          value: function logForm() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this = this;
+
+              var loading;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.loadingController.create({
+                        message: 'Loading ...'
+                      });
+
+                    case 2:
+                      loading = _context.sent;
+                      loading.present();
+                      this.forgotPassService.post(this.form.value).subscribe(function (res) {
+                        console.log("res", res);
+                        loading.dismiss();
+                        console.log("title", res.title);
+
+                        if (res.title == "Berjaya") {
+                          _this.presentSuccess(res.message);
+                        } else {
+                          _this.presentFailed(res.message);
+                        }
+                      });
+
+                    case 5:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "presentSuccess",
+          value: function presentSuccess(message) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this2 = this;
+
+              var alert, _yield$alert$onDidDis, role;
+
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        header: 'Berjaya',
+                        subHeader: '',
+                        message: message,
+                        buttons: [{
+                          text: 'Okay',
+                          // id: 'confirm-button',
+                          handler: function handler() {
+                            _this2.router.navigate(['/']);
+                          }
+                        }]
+                      });
+
+                    case 2:
+                      alert = _context2.sent;
+                      _context2.next = 5;
+                      return alert.present();
+
+                    case 5:
+                      _context2.next = 7;
+                      return alert.onDidDismiss();
+
+                    case 7:
+                      _yield$alert$onDidDis = _context2.sent;
+                      role = _yield$alert$onDidDis.role;
+                      console.log('onDidDismiss resolved with role', role);
+
+                    case 10:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "presentFailed",
+          value: function presentFailed(message) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var alert, _yield$alert$onDidDis2, role;
+
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        header: '',
+                        subHeader: 'Set Semula Kata Laluan Tidak Berjaya',
+                        message: message,
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context3.sent;
+                      _context3.next = 5;
+                      return alert.present();
+
+                    case 5:
+                      _context3.next = 7;
+                      return alert.onDidDismiss();
+
+                    case 7:
+                      _yield$alert$onDidDis2 = _context3.sent;
+                      role = _yield$alert$onDidDis2.role;
+                      console.log('onDidDismiss resolved with role', role);
+
+                    case 10:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
+          }
+        }, {
+          key: "forget_password",
+          value: function forget_password() {
+            this.router.navigate(['/']);
+          }
         }]);
 
         return ForgotPasswordPage;
       }();
 
       _ForgotPasswordPage.ctorParameters = function () {
-        return [];
+        return [{
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.Router
+        }, {
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder
+        }, {
+          type: src_app_services_forgot_password_forgot_password_service__WEBPACK_IMPORTED_MODULE_2__.ForgotPasswordService
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.AlertController
+        }];
       };
 
-      _ForgotPasswordPage = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+      _ForgotPasswordPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
         selector: 'app-forgot-password',
         template: _raw_loader_forgot_password_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_forgot_password_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -228,7 +405,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<!-- <ion-header>\n  <ion-toolbar>\n    <ion-title>Log Masuk Kali Pertama</ion-title>\n  </ion-toolbar>\n</ion-header> -->\n\n<ion-content>\n\n  <div id=\"overlay\"\n    style=\"background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute\">\n\n  </div>\n  <div id=\"overlay\" style=\"position: absolute;\"></div>\n\n\n  <div class=\"\" style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center\">\n\n    <div class=\"element-logo\"></div>\n    <br><br><br>\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Lupa Kata Laluan</h2>\n    </ion-text>\n\n    <br>\n\n    <form action=\"\" class=\"ion-justify-content-center\">\n\n      <ion-grid>\n        <ion-row class=\"ion-justify-content-center\">\n          <ion-col size=\"12\">\n            <div>\n              <ion-item style=\"border-radius: 50px;\">\n                <ion-input placeholder=\"Email\"></ion-input>\n              </ion-item>\n            </div>\n          </ion-col>\n        </ion-row>\n        <br><br>\n        <ion-row class=\"ion-justify-content-center ion-margin-top\">\n          \n          <ion-button class=\"button\" color=\"success\" size=\"small\">HANTAR EMAIL</ion-button>\n        \n        </ion-row>\n\n      </ion-grid>\n\n     \n    </form>\n    \n  </div>\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<!-- <ion-header>\n  <ion-toolbar>\n    <ion-title>Log Masuk Kali Pertama</ion-title>\n  </ion-toolbar>\n</ion-header> -->\n\n<ion-content>\n\n  <div id=\"overlay\"\n    style=\"background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; position:absolute\">\n\n  </div>\n  <div id=\"overlay\" style=\"position: absolute;\"></div>\n\n\n  <div class=\"\" style=\"z-index: 4; margin: 3%; margin-top:20%; align-items:center; \">\n\n    <div class=\"element-logo\"></div>\n    <br><br><br>\n\n    <ion-text style=\"text-align: center;\">\n      <h2>Lupa Kata Laluan</h2>\n    </ion-text>\n\n    <br>\n\n    <form action=\"\" [formGroup]=\"form\" (ngSubmit)=\"logForm()\">\n\n      <ion-grid>\n        <ion-row class=\"ion-justify-content-center\">\n          <ion-col size=\"12\">\n            <div>\n              <ion-item style=\"border-radius: 50px;\">\n                <ion-input type=\"email\" email placeholder=\"Email\" formControlName=\"email\" style=\"text-transform: none !important;\"></ion-input>\n              </ion-item>\n            </div>\n          </ion-col>\n        </ion-row>\n\n        <ion-row >\n          <ion-col size=\"12\" style=\"display: flex; justify-content:flex-end\">\n            <a class=\"forget-password\" (click)=\"forget_password()\" style=\"text-decoration: none;\">\n              Log Masuk\n            </a>\n          </ion-col>\n        </ion-row>\n        <br><br>\n\n        <ion-row class=\"ion-justify-content-center\">\n\n\n          <br>\n\n          <ion-button type=\"submit\" class=\"button\" color=\"success\" [disabled]=\"form.invalid\">HANTAR EMAIL</ion-button>\n\n        </ion-row>\n\n      </ion-grid>\n\n\n    </form>\n\n\n\n  </div>\n\n\n\n</ion-content>";
       /***/
     }
   }]);
