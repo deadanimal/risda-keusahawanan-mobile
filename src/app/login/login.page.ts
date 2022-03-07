@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
 
   users$: Observable<LoginModel[]>;
 
+  checked: boolean;
   form: FormGroup;
 
   constructor(
@@ -37,8 +38,18 @@ export class LoginPage implements OnInit {
     })
     this.init();
 
+    let rememberMe = localStorage.getItem('loggedIn');
+    console.log('rememberMe', rememberMe)
 
+    if (rememberMe == 'true') {
 
+      this.checked = true;
+      let nokp = localStorage.getItem('nokp');
+
+      this.form.patchValue({
+        no_kp: nokp,
+      });
+    }
   }
 
   async init() {
@@ -104,6 +115,16 @@ export class LoginPage implements OnInit {
           var setsession_usahawan_id = window.sessionStorage.setItem("usahawan_id", res.usahawanid);
         }
 
+        if (this.checked == true) {
+          this.loginService.setLoggedInStatus(true);
+
+          localStorage.setItem('nokp', this.form.value.no_kp);
+        } else {
+          this.loginService.setLoggedInStatus(false);
+          localStorage.removeItem('nokp');
+        }
+
+
         console.log("login success")
         // this.router.navigate(['/dashboard']);
 
@@ -140,43 +161,31 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/forgot-password'])
   }
 
-  checked: boolean = true;
-  async addValue(e): Promise<void> {
-    var isChecked = e.currentTarget.checked;
-    // console.log(e.currentTarget);//undefined
-    console.log(this.checked);//it is working !!!
-    // console.log(isChecked);
-    if (this.checked) {
-
-      window.sessionStorage.removeItem("username");
-
-    } else {
-
-      // this.storage?.set("username", this.form.value.no_kp);
-      console.log(this.form.value.no_kp);
-      // const username = await this.storage.get('username');
-      var username = window.sessionStorage.setItem("username", this.form.value.no_kp);
-
-      var get_username = window.sessionStorage.getItem("username");
-
-      if (get_username != null) {
-        console.log(get_username);
-        this.form.patchValue({
-          no_kp: get_username
-        })
-      }
-
-    }
-  }
-
-  showPassword: boolean= false;
+  showPassword: boolean = false;
   isActiveToggleTextPassword: Boolean = true;
-  public toggleTextPassword(): void{
-      this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword==true)?false:true;
+  public toggleTextPassword(): void {
+    this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword == true) ? false : true;
 
-      this.showPassword = !this.showPassword
+    this.showPassword = !this.showPassword
   }
   public getType() {
-      return this.isActiveToggleTextPassword ? 'password' : 'text';
+    return this.isActiveToggleTextPassword ? 'password' : 'text';
   }
+
+
+  addValue(e) {
+    // var isChecked = e.currentTarget.checked;
+
+    this.checked = !this.checked
+    console.log(this.checked)
+
+  }
+
+  // isChecked(event) {
+  //   if ( event.checked ) {
+  //     // this.btnDisabled = false;
+  //     console.log(event)
+  //  }
+  // }
+
 }

@@ -33,8 +33,14 @@
       <br>
 
       <ion-item style="border-radius: 50px;">
-        <ion-input type="password" formControlName="password" placeholder="Kata Laluan Baru"
+        <ion-input type="password" [type]="getType()" formControlName="password" placeholder="Kata Laluan Baru"
           style="text-transform: none !important;"></ion-input>
+        <a class="type-toggle" (click)="toggleTextPassword()">
+          <ion-icon class="show-option" color="dark" [hidden]="showPassword" name="eye-off-outline" style="zoom:1.5;">
+          </ion-icon>
+          <ion-icon class="hide-option" color="dark" [hidden]="!showPassword" name="eye-outline" style="zoom:1.5;">
+          </ion-icon>
+        </a>
       </ion-item>
       <br>
       <ion-item style="border-radius: 50px;">
@@ -44,12 +50,26 @@
 
       <br>
 
-      <!-- <div *ngIf="form.invalid">
-        <div *ngIf="email.errors?.['required']">
-          Name is required.
-        </div>
-      </div> -->
-      
+      <div class="ion-margin ion-padding" *ngIf="form.hasError('numeric','password')"
+        style="border-radius:10%; opacity: 0.7; overflow:hidden; background-color:aliceblue">
+
+        <!-- <div id="overlay2" style="position: absolute;"></div> -->
+        <ion-text color="danger">
+          <span style="font-size: small;">
+            Kata laluan perl mempunyai sekurang-kurangnya
+            <br>
+            8 Aksara
+            <br>
+            1 Simbol
+            <br>
+            1 nombor
+            <br>
+            1 Huruf besar
+          </span>
+        </ion-text>
+
+      </div>
+
 
       <br>
 
@@ -73,16 +93,42 @@
 
     <form action="" [formGroup]="form2" (ngSubmit)="logForm2()">
       <ion-item style="border-radius: 50px;">
-        <ion-input type="password" formControlName="password" placeholder="Kata Laluan Baru"
+        <ion-input type="password" [type]="getType()" formControlName="password" placeholder="Kata Laluan Baru"
           style="text-transform: none !important;"></ion-input>
+          <a class="type-toggle" (click)="toggleTextPassword()">
+            <ion-icon class="show-option" color="dark" [hidden]="showPassword" name="eye-off-outline" style="zoom:1.5;">
+            </ion-icon>
+            <ion-icon class="hide-option" color="dark" [hidden]="!showPassword" name="eye-outline" style="zoom:1.5;">
+            </ion-icon>
+          </a>
       </ion-item>
       <br>
       <ion-item style="border-radius: 50px;">
         <ion-input type="password" formControlName="confirm_password" placeholder="Ulang Kata Laluan Baru"
           style="text-transform: none !important;"></ion-input>
+         
       </ion-item>
+      <div class="ion-margin ion-padding" *ngIf="form2.hasError('numeric','password')"
+      style="border-radius:10%; opacity: 0.7; overflow:hidden; background-color:aliceblue">
 
+      <!-- <div id="overlay2" style="position: absolute;"></div> -->
+      <ion-text color="danger">
+        <span style="font-size: small;">
+          Kata laluan perl mempunyai sekurang-kurangnya
+          <br>
+          8 Aksara
+          <br>
+          1 Simbol
+          <br>
+          1 nombor
+          <br>
+          1 Huruf besar
+        </span>
+      </ion-text>
+
+    </div>
       <br>
+
 
       <br>
 

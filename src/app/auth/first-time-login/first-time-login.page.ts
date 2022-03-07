@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { of } from 'rxjs';
@@ -32,13 +32,18 @@ export class FirstTimeLoginPage implements OnInit {
       password: ['', [
         Validators.required,
         // Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+        this.alphaNumericValidator
+
       ]],
       confirm_password: ['', Validators.required,],
     });
 
 
     this.form2 = this.formBuilder.group({
-      password: ['', Validators.required,],
+      password: ['', [
+        Validators.required, this.alphaNumericValidator
+      ],
+      ],
       confirm_password: ['', Validators.required,],
     });
   }
@@ -89,7 +94,7 @@ export class FirstTimeLoginPage implements OnInit {
       this.forgotPassService.firstTimeLogin(this.form.value, this.user_id).subscribe((res) => {
         console.log("res", res);
 
-        if(res == 'email already exist'){
+        if (res == 'email already exist') {
           loading.dismiss();
           this.presentAlertEmailFailed()
         } else {
@@ -179,4 +184,26 @@ export class FirstTimeLoginPage implements OnInit {
 
   }
 
+
+  alphaNumericValidator(control: FormControl): any {
+    if (control.value !== null) {
+      const valueLowerCase = control.value.match('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}');
+      const isValid = valueLowerCase !== null;
+      // eslint-disable-next-line no-console
+      console.log('valueLowerCase', valueLowerCase);
+      return isValid ? null : { numeric: true };
+    }
+  }
+
+  showPassword: boolean = false;
+  isActiveToggleTextPassword: Boolean = true;
+  public toggleTextPassword(): void {
+    this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword == true) ? false : true;
+
+    this.showPassword = !this.showPassword
+
+  }
+  public getType() {
+    return this.isActiveToggleTextPassword ? 'password' : 'text';
+  }
 }
