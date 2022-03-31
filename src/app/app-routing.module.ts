@@ -166,6 +166,10 @@ const routes: Routes = [
   {
     path: 'tooltip',
     loadChildren: () => import('./core/jana-dokumen/tooltip/tooltip.module').then( m => m.TooltipPageModule)
+  },
+  {
+    path: 'carian-usahawan',
+    loadChildren: () => import('./core/lawatan/carian-usahawan/carian-usahawan.module').then( m => m.CarianUsahawanPageModule)
   }
 ];
 

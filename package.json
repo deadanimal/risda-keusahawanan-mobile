@@ -56,6 +56,7 @@
     "ionic-tooltips": "^4.0.0-beta.0",
     "moment": "^2.29.1",
     "myApp": "file:android",
+    "ng2-search-filter": "^0.5.1",
     "rxjs": "~6.6.0",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.3.4",
@@ -82,7 +83,6 @@
     "@typescript-eslint/parser": "4.16.1",
     "android": "^0.0.8",
     "cordova-android": "^8.0.0",
-    "cordova-ios": "^6.2.0",
     "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-compat": "^1.2.0",
@@ -142,8 +142,8 @@
       "cordova-plugin-file": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

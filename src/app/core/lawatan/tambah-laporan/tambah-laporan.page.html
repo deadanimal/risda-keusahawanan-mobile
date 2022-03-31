@@ -17,6 +17,10 @@
 
 <!-- BPU AND SUPER ADMIN -->
 <ion-content *ngIf="peranan_pegawai == 1 || peranan_pegawai == 2">
+
+  <!-- <ion-button (click)="openSenaraiUsahawan()" expand="block" fill="clear" shape="round">
+    Click me
+  </ion-button> -->
   <ion-grid>
     <form [formGroup]="form" (ngSubmit)="logForm()" enctype="multipart/form-data">
       <ion-row>

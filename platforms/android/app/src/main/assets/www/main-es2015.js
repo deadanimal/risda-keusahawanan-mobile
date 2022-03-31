@@ -179,7 +179,7 @@ const routes = [
     },
     {
         path: 'tambah-laporan',
-        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"), __webpack_require__.e("src_app_core_lawatan_tambah-laporan_tambah-laporan_module_ts-src_app_services_lawatan_lawatan-6b63f7")]).then(__webpack_require__.bind(__webpack_require__, /*! ./core/lawatan/tambah-laporan/tambah-laporan.module */ 36601)).then(m => m.TambahLaporanPageModule)
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_lawatan_carian-usahawan_carian-usahawan_page_ts"), __webpack_require__.e("default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"), __webpack_require__.e("src_app_core_lawatan_tambah-laporan_tambah-laporan_module_ts-src_app_services_lawatan_lawatan-6b63f7")]).then(__webpack_require__.bind(__webpack_require__, /*! ./core/lawatan/tambah-laporan/tambah-laporan.module */ 36601)).then(m => m.TambahLaporanPageModule)
     },
     {
         path: 'lawatan-usahawan',
@@ -191,7 +191,7 @@ const routes = [
     },
     {
         path: 'senarai-laporan-pegawai',
-        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_lawatan_kemaskini-laporan_kemaskini-laporan_page_ts"), __webpack_require__.e("default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"), __webpack_require__.e("src_app_core_lawatan_senarai-laporan-pegawai_senarai-laporan-pegawai_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./core/lawatan/senarai-laporan-pegawai/senarai-laporan-pegawai.module */ 15406)).then(m => m.SenaraiLaporanPegawaiPageModule)
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_lawatan_kemaskini-laporan_kemaskini-laporan_page_ts"), __webpack_require__.e("default-src_app_core_lawatan_carian-usahawan_carian-usahawan_page_ts"), __webpack_require__.e("default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"), __webpack_require__.e("src_app_core_lawatan_senarai-laporan-pegawai_senarai-laporan-pegawai_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./core/lawatan/senarai-laporan-pegawai/senarai-laporan-pegawai.module */ 15406)).then(m => m.SenaraiLaporanPegawaiPageModule)
     },
     {
         path: 'kemaskini-laporan',
@@ -204,6 +204,10 @@ const routes = [
     {
         path: 'tooltip',
         loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_core_jana-dokumen_tooltip_tooltip_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./core/jana-dokumen/tooltip/tooltip.module */ 18384)).then(m => m.TooltipPageModule)
+    },
+    {
+        path: 'carian-usahawan',
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_core_lawatan_carian-usahawan_carian-usahawan_page_ts"), __webpack_require__.e("src_app_core_lawatan_carian-usahawan_carian-usahawan_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./core/lawatan/carian-usahawan/carian-usahawan.module */ 78838)).then(m => m.CarianUsahawanPageModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

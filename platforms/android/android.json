@@ -9,7 +9,7 @@
         "parents": {
           "NSLocationWhenInUseUsageDescription": [
             {
-              "xml": "<string>We use your location for full functionality of certain app features.</string>",
+              "xml": "<string>REDS2.0 requires access to your location to show the longitude and latitude of your company.</string>",
               "count": 1,
               "mode": "merge",
               "id": "config.xml"
@@ -17,7 +17,7 @@
           ],
           "NSCameraUsageDescription": [
             {
-              "xml": "<string>REDs 2.0 uses your camera to allow you to take and submit pictures of Katalog, Buletin, and profile picture for us to analyze information.</string>",
+              "xml": "<string>REDS2.0 requires access to the camera so that you can take and submit pictures accordingly in order to analyze your information.</string>",
               "count": 1,
               "mode": "merge",
               "id": "config.xml"
@@ -25,7 +25,7 @@
           ],
           "NSPhotoLibraryUsageDescription": [
             {
-              "xml": "<string>REDs 2.0 uses your photo library to allow you to upload and submit pictures of Katalog, Buletin, and profile picture for us to analyze information.</string>",
+              "xml": "<string>REDS2.0 requires access to the library so that you can submit your pictures or documents accordingly.</string>",
               "count": 1,
               "mode": "merge",
               "id": "config.xml"
@@ -33,7 +33,7 @@
           ],
           "NSPhotoLibraryAddUsageDescription": [
             {
-              "xml": "<string>REDs 2.0 uses your photo library to allow you to upload and submit pictures of Katalog, Buletin, and profile picture for us to analyze information.</string>",
+              "xml": "<string>REDS2.0 requires access to the library so that you can submit your pictures or documents accordingly.</string>",
               "count": 1,
               "mode": "merge",
               "id": "config.xml"

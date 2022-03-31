@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Senarai Usahawan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-searchbar placeholder="Carian Usahawan" [(ngModel)]="searchTerm" showCancelButton="focus"></ion-searchbar>
+
+  <div class="list">
+    <ion-list>
+
+      <ion-radio-group>
+
+        <ion-item *ngFor="let usahawan of usahawans | filter:searchTerm">
+          <ion-label>{{ usahawan.name }}</ion-label>
+          <ion-radio slot="start" value="{{ usahawan.name }}" (onChange)="selectDismiss(usahawan)"></ion-radio>
+        </ion-item>
+
+      </ion-radio-group>
+    </ion-list>
+  </div>
+
+
+
+
+  <ion-button color="warning" (click)="dismiss()" expand="block">
+    <ion-text color="dark">
+      Batal
+    </ion-text>
+
+  </ion-button>
+  <ion-button color="dark" (click)="dismiss()" expand="block">
+      Pilih
+  </ion-button>
+</ion-content>

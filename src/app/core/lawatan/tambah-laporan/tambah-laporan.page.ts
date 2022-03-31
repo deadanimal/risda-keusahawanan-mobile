@@ -8,6 +8,7 @@ import { NegeriService } from 'src/app/services/negeri/negeri.service';
 import { PusatTanggungjawabService } from 'src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service';
 import { UsahawanService } from 'src/app/services/usahawan/usahawan.service';
 import * as moment from 'moment';
+import { CarianUsahawanPage } from '../carian-usahawan/carian-usahawan.page';
 
 
 interface LocalFile {
@@ -95,6 +96,8 @@ export class TambahLaporanPage implements OnInit {
       'dismissed': true
     });
   }
+
+
 
   tindakanLawatan: any;
   getTindakanLawatan() {
@@ -229,4 +232,18 @@ export class TambahLaporanPage implements OnInit {
     });
 
 
+
+
+    async openSenaraiUsahawan(){
+      const modal = await this.modalController.create({
+        component: CarianUsahawanPage,
+        cssClass: 'my-custom-class',
+        componentProps: {
+          'firstName': 'Douglas',
+          'lastName': 'Adams',
+          'middleInitial': 'N'
+        }
+      });
+      return await modal.present();
+    }
 }

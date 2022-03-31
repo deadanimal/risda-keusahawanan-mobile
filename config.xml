@@ -109,15 +109,15 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-        <string>We use your location for full functionality of certain app features.</string>
+        <string>REDS2.0 requires access to your location to show the longitude and latitude of your company.</string>
     </edit-config>
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
-        <string>REDs 2.0 uses your camera to allow you to take and submit pictures of Katalog, Buletin, and profile picture for us to analyze information.</string>
+        <string>REDS2.0 requires access to the camera so that you can take and submit pictures accordingly in order to analyze your information.</string>
     </edit-config>
     <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
-        <string>REDs 2.0 uses your photo library to allow you to upload and submit pictures of Katalog, Buletin, and profile picture for us to analyze information.</string>
+        <string>REDS2.0 requires access to the library so that you can submit your pictures or documents accordingly.</string>
     </edit-config>
     <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
-        <string>REDs 2.0 uses your photo library to allow you to upload and submit pictures of Katalog, Buletin, and profile picture for us to analyze information.</string>
+        <string>REDS2.0 requires access to the library so that you can submit your pictures or documents accordingly.</string>
     </edit-config>
 </widget>
