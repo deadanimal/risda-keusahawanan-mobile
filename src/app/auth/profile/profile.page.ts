@@ -236,7 +236,7 @@ export class ProfilePage implements OnInit {
       U_Dun_ID: ['', Validators.required],
       U_Kampung_ID: ['',],
       U_Seksyen_ID: ['',],
-      id_kategori_usahawan: ['', ],
+      id_kategori_usahawan: ['',],
       gambar_url: ['',],
       notelefon: ['', Validators.required],
       nohp: ['', Validators.required],
@@ -291,8 +291,14 @@ export class ProfilePage implements OnInit {
       email: this.usahawan.email,
       status_daftar_usahawan: this.usahawan.status_daftar_usahawan,
       usahawanid: this.usahawan.usahawanid,
-      negeri_perniagaan: this.usahawan.perniagaan.negeri.Negeri,
+      
     })
+
+    if (this.usahawan.perniagaan.negeri != null){
+      this.form.patchValue({
+        negeri_perniagaan: this.usahawan.perniagaan.negeri.Negeri,
+      })
+    }
 
   }
 
@@ -317,13 +323,16 @@ export class ProfilePage implements OnInit {
 
   }
 
-  getUsahawan() {
+  async getUsahawan() {
     // console.log(this.form.value);
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
     this.usahawanService.show(this.usahawan_id).subscribe((res) => {
       console.log("usahawan info", res);
 
       if (Object.keys(res).length === 0) {
         console.log("failed")
+        loading.dismiss();
       }
       else {
         this.usahawan = res;
@@ -366,11 +375,13 @@ export class ProfilePage implements OnInit {
                     // let mukimInt = parseInt(mukimStr.toString())
                     // console.log("mukim temp", typeof mukimInt);
                     // console.log("mukim temp", mukimInt);
-                    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukimStr ))).subscribe((resSeksyen) => {
+                    this.seksyenService.get().pipe(map(x => x.filter(i => i.U_Mukim_ID == mukimStr))).subscribe((resSeksyen) => {
                       console.log("resSeksyen", resSeksyen)
                       this.seksyen = resSeksyen;
 
                       this.setFormValues()
+
+                      loading.dismiss();
 
                     })
                   })

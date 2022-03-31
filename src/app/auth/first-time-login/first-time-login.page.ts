@@ -17,6 +17,8 @@ export class FirstTimeLoginPage implements OnInit {
   private form: FormGroup;
   private form2: FormGroup;
 
+  checked: boolean;
+
   user_id = window.sessionStorage.getItem("user_id");
   profile_status = window.sessionStorage.getItem("profile_status");
 
@@ -48,8 +50,19 @@ export class FirstTimeLoginPage implements OnInit {
     });
   }
 
+
+
   ngOnInit() {
     console.log("profile_status", this.profile_status)
+
+    let rememberMe = localStorage.getItem('loggedIn');
+    console.log('rememberMe', rememberMe)
+
+    if (rememberMe == 'true') {
+
+      this.checked = true;
+
+    }
   }
 
   async presentAlertConfirm() {
@@ -98,6 +111,15 @@ export class FirstTimeLoginPage implements OnInit {
           loading.dismiss();
           this.presentAlertEmailFailed()
         } else {
+
+          //replace new password in local storage if remeber me is checked in the login page
+          if (this.checked == true) {
+            localStorage.setItem('pass', this.form.value.password);
+          } else {
+            localStorage.removeItem('pass');
+          }
+
+
           loading.dismiss();
           this.presentAlertUpdatesucces()
         }
@@ -174,6 +196,12 @@ export class FirstTimeLoginPage implements OnInit {
       this.forgotPassService.updatePassword(this.form2.value, this.user_id).subscribe((res) => {
         console.log("res", res);
 
+        //replace new password in local storage if remeber me is checked in the login page
+        if (this.checked == true) {
+          localStorage.setItem('pass', this.form2.value.password);
+        } else {
+          localStorage.removeItem('pass');
+        }
 
         loading.dismiss();
         this.presentAlertUpdatesucces()
@@ -203,7 +231,21 @@ export class FirstTimeLoginPage implements OnInit {
     this.showPassword = !this.showPassword
 
   }
+
   public getType() {
     return this.isActiveToggleTextPassword ? 'password' : 'text';
+  }
+
+
+  showConfirmPassword: boolean = false;
+  isActiveToggleTextPassword2: Boolean = true;
+  public toggleTextPassword2(): void {
+    this.isActiveToggleTextPassword2 = (this.isActiveToggleTextPassword2 == true) ? false : true;
+
+    this.showConfirmPassword = !this.showConfirmPassword
+
+  }
+  public getType2() {
+    return this.isActiveToggleTextPassword2 ? 'password' : 'text';
   }
 }

@@ -5,6 +5,10 @@ import { JenisInsentifService } from 'src/app/services/jenis-insentif/jenis-inse
 import { NegeriService } from 'src/app/services/negeri/negeri.service';
 import { PusatTanggungjawabService } from 'src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service';
 import { environment } from 'src/environments/environment';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-carian',
@@ -29,7 +33,12 @@ export class CarianPage implements OnInit {
     private jenisInsentifService: JenisInsentifService,
     private carianService: CarianService,
     private formBuilder: FormBuilder,
-    private negeriService: NegeriService
+    private negeriService: NegeriService,
+    private iab: InAppBrowser,
+    private router: Router,
+    public loadingController: LoadingController,
+
+
   ) {
     this.form = this.formBuilder.group({
       nama: ['',],
@@ -225,7 +234,10 @@ export class CarianPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+
+      const browser = this.iab.create(url, '_system');
+
+      // window.open(url, "_blank");
 
 
     });
@@ -250,13 +262,22 @@ export class CarianPage implements OnInit {
     });
   }
 
-  next_page(){
+  async next_page(){
+    // const loading = await this.loadingController.create({ message: 'Loading ...' });
+    // loading.present();
+
     this.carianService.page(this.next_page_url,this.form.value).subscribe((res) => {
       console.log("res3", res);
 
       this.usahawanTemp = res.data
-      this.next_page_url = res.next_page_url;
-      this.previous_page_url= res.prev_page_url;
+      this.next_page_url = res.next_page_url
+      this.previous_page_url= res.prev_page_url
+
+      // loading.dismiss();
+    },(err) => {
+
+      // loading.dismiss();
+      alert('Something went wrong')
     });
   }
 
@@ -265,8 +286,10 @@ export class CarianPage implements OnInit {
       console.log("res3", res);
 
       this.usahawanTemp = res.data
-      this.next_page_url = res.next_page_url;
-      this.previous_page_url= res.prev_page_url;
+      this.next_page_url = res.next_page_url
+      this.previous_page_url= res.prev_page_url
+    },(err) => {
+      alert(err)
     });
   }
   
@@ -279,6 +302,8 @@ export class CarianPage implements OnInit {
   }
 
 
-
+  dashboard() {
+    this.router.navigate(['/dashboard'])
+  }
 
 }

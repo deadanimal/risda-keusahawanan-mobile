@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="success" (click)="dismiss()">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button (click)="dismiss()">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
-      <ion-text color="success">
+      <ion-text color="warning">
         <h1>
           <strong class="ion-text-uppercase">
             LAPORAN LAWATAN
@@ -16,20 +16,6 @@
 </ion-header>
 
 <ion-content>
-  <!-- <form [formGroup]="tunai_masuk" (ngSubmit)="logForm()" style="margin: 30px;">
-    <ion-item class="form-control">
-      <ion-label>Todo</ion-label>
-      <ion-input type="text" formControlName="title"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Description</ion-label>
-      <ion-textarea formControlName="description"></ion-textarea>
-    </ion-item>
-    <ion-button type="submit" [disabled]="!tunai_masuk.valid">Submit</ion-button>
-  </form> -->
-  
-
   <ion-grid>
     <form [formGroup]="form" (ngSubmit)="logForm()" enctype="multipart/form-data">
       <ion-row>
@@ -45,16 +31,14 @@
           <ion-item lines="none" class="form-control" style="border: none;">
             <ion-label class="padding" position="stacked">TARIKH </ion-label>
             <ion-input type="text" formControlName="tarikh_lawatan" readonly></ion-input>
-            <!-- <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" formControlName="tarikh_lawatan" readonly style="background-color: #f5f5f5;"> -->
-            <!-- </ion-datetime> -->
+          
           </ion-item>
         </ion-col>
         <ion-col class="form-control">
           <ion-item lines="none" class="form-control" style="border: none;">
             <ion-label class="padding" position="stacked">MASA </ion-label>
             <ion-input type="text" formControlName="masa_lawatan" readonly></ion-input>
-            <!-- <ion-datetime presentation="time" displayFormat="HHmm" formControlName="masa_lawatan" readonly style="background-color: #f5f5f5;"> -->
-            <!-- </ion-datetime> -->
+           
           </ion-item>
         </ion-col>
       </ion-row>
@@ -76,7 +60,7 @@
           <ion-item lines="none" style="border: none;">
             <ion-label class="padding" position="stacked">TINDAKAN USAHAWAN </ion-label>
             <ion-select formControlName="id_tindakan_lawatan">
-              <ion-select-option *ngFor="let tindakanLawatan of tindakanLawatan" [value]="tindakanLawatan.id" selected="tindakanLawatan.id == this.laporan.id_tindakan_lawatan">
+              <ion-select-option class="laporan" *ngFor="let tindakanLawatan of tindakanLawatan" [value]="tindakanLawatan.id" selected="tindakanLawatan.id == this.laporan.id_tindakan_lawatan">
                 {{tindakanLawatan.nama_tindakan_lawatan}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -114,8 +98,8 @@
       <ion-row style="margin:20px;">
         <ion-col class="form-control">
           
-          <ion-button color="success" expand="block" [disabled]="form.invalid" type="submit">KEMASKINI LAPORAN</ion-button>
-          <ion-button color="success" expand="block" (click)="download_laporan(laporan.lawatan_id)">CETAK LAPORAN</ion-button>
+          <ion-button color="dark" expand="block" [disabled]="form.invalid" type="submit">KEMASKINI LAPORAN</ion-button>
+          <ion-button color="warning" expand="block" (click)="download_laporan(laporan.lawatan_id)">CETAK LAPORAN</ion-button>
         </ion-col>
       </ion-row>
 

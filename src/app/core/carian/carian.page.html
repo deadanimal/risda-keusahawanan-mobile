@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar style="height: 80px;">
+  <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-button color="success" href="/dashboard">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button color="success" (click)="dashboard()">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
-      <ion-text color="success">
+      <ion-text color="warning">
         <h1>
           <strong class="ion-text-uppercase">
             CARIAN
@@ -21,44 +21,7 @@
 
   <form [formGroup]="form" (ngSubmit)="logform()" class="form-control" action="">
     <ion-grid fixed>
-      <!-- <ion-row class="ion-margin-top">
-        <ion-col size="12">
-          <ion-item lines="none">
-            <ion-label position="stacked" style="margin-bottom: 10px;">Nama/No. Kad Penganalan/Usahawan ID</ion-label>
-            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text" placeholder=""
-              (ionChange)="getUsahawan()"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="12">
-          <ion-item lines="none">
-            <ion-label position="stacked" style="margin-bottom: 10px;">No. Kad Penganalan</ion-label>
-            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text" placeholder=""
-              (ionChange)="getUsahawan()"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="12">
-          <ion-item lines="none">
-            <ion-label position="stacked" style="margin-bottom: 10px;">Negeri Usahawan</ion-label>
-            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text" placeholder=""
-              (ionChange)="getUsahawan()"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <ion-item lines="none">
-            <ion-label position="stacked" style="margin-bottom: 10px;">Pusat Tanggungjawab</ion-label>
-            <ion-input [(ngModel)]="input_carian" [ngModelOptions]="{standalone: true}" type="text" placeholder=""
-              (ionChange)="getUsahawan()"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row> -->
+     
 
       <ion-row>
         <ion-col size="12">
@@ -82,7 +45,8 @@
                 <ion-item lines="none">
                   <ion-label position="stacked" style="margin-bottom: 10px;">Negeri Usahawan</ion-label>
                   <ion-select placeholder="Pilih Negeri" formControlName="negeri">
-                    <ion-select-option *ngFor="let Negeri of negeri" value="{{Negeri.U_Negeri_ID}}">{{ Negeri.Negeri }}</ion-select-option>
+                    <ion-select-option *ngFor="let Negeri of negeri" value="{{Negeri.U_Negeri_ID}}">{{ Negeri.Negeri }}
+                    </ion-select-option>
                   </ion-select>
                 </ion-item>
 
@@ -90,10 +54,11 @@
                   <ion-label position="stacked" style="margin-bottom: 10px;">Pusat Tanggungjawab</ion-label>
                   <!-- <ion-input formControlName="PT" type="text" placeholder=""></ion-input> -->
                   <ion-select placeholder="Pilih Pusat Tanggungjawab" formControlName="PT">
-                    <ion-select-option *ngFor="let pt of pusat_tanggungjawab" value="{{pt.Kod_PT}}">{{ pt.keterangan }}</ion-select-option>
+                    <ion-select-option *ngFor="let pt of pusat_tanggungjawab" value="{{pt.Kod_PT}}">{{ pt.keterangan }}
+                    </ion-select-option>
                   </ion-select>
                 </ion-item>
-                
+
                 <div class="ion-padding" style="display: flex; justify-content:flex-end">
                   <ion-button color="danger" size="small" (click)="reset()">
                     Set Semula
@@ -102,63 +67,13 @@
                     Carian Data
                   </ion-button>
                 </div>
-               
+
               </ion-list>
             </ion-accordion>
 
           </ion-accordion-group>
         </ion-col>
       </ion-row>
-
-
-      <!-- <ion-row>
-        <ion-col size="12">
-          
-          <ion-accordion-group>
-            <ion-accordion value="colors">
-              <ion-item slot="header">
-                <ion-label>Tapisan</ion-label>
-              </ion-item>
-
-              <ion-list slot="content">
-                <ion-item lines="none">
-                  <ion-label position="stacked" style="margin-bottom: 10px;">Pusat Tanggungjawab</ion-label>
-                  <ion-select placeholder="Pilih Pusat Tanggungjawab" (ionChange)="tapisan()" [(ngModel)]="kod_pt"
-                    [ngModelOptions]="{standalone: true}">
-                    <ion-select-option *ngFor="let pt of pusat_tanggungjawab" value="{{pt.Kod_PT}}">{{pt.keterangan}}
-                    </ion-select-option>
-                  </ion-select>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-label position="stacked" style="margin-bottom: 10px;">Jenis Insentif</ion-label>
-                  <ion-select placeholder="Pilih Jenis Insentif" (ionChange)="tapisan()" [(ngModel)]="insentif"
-                    [ngModelOptions]="{standalone: true}">
-                    <ion-select-option *ngFor="let ji of jenis_insentif" value="{{ji.id_jenis_insentif}}">
-                      {{ji.nama_insentif}}</ion-select-option>
-                  </ion-select>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-label position="stacked" style="margin-bottom: 10px;">Tahun Terima</ion-label>
-                  <ion-select placeholder="Pilih Tahun Terima" (ionChange)="tapisan()" [(ngModel)]="tahun_terima"
-                    [ngModelOptions]="{standalone: true}">
-                    <ion-select-option *ngFor="let tahun of listYear" value="{{tahun}}">{{tahun}}</ion-select-option>
-
-                  </ion-select>
-                </ion-item>
-
-                <ion-item lines="none">
-                  <ion-label>
-                    <ion-button color="danger" expand="block" type="submit" (click)="reset()">Set Semula
-                    </ion-button>
-                  </ion-label>
-
-                </ion-item>
-              </ion-list>
-            </ion-accordion>
-
-          </ion-accordion-group>
-        </ion-col>
-      </ion-row> -->
 
     </ion-grid>
   </form>
@@ -172,14 +87,28 @@
         </ion-col>
       </ion-row>
       <ion-row>
+
+        <!-- <ion-button (click)="test()" expand="block" fill="clear" shape="round">
+          Click me
+        </ion-button> -->
+
         <ion-col size="12">
           <div style="display: flex; flex-wrap:nowrap; justify-content: space-between;">
+
             <div *ngIf="previous_page_url != null">
-              <ion-icon name="arrow-back-circle-outline" style="zoom: 2.0;" (click)="previous_page()"></ion-icon>
+              <ion-button (click)="previous_page()" expand="block" fill="clear" shape="round">
+                <ion-icon name="arrow-back-circle-outline" style="zoom: 1.5; color:black"></ion-icon>
+              </ion-button>
+             
             </div>
             <br>
             <div *ngIf="next_page_url != null">
-              <ion-icon name="arrow-forward-circle-outline" style="zoom: 2.0;" (click)="next_page()"></ion-icon>
+            
+              <ion-button (click)="next_page()" expand="block" fill="clear" shape="round">
+                <!-- <ion-icon name="arrow-back-circle-outline" style="zoom: 1.5; color:black"></ion-icon> -->
+                <ion-icon name="arrow-forward-circle-outline" style="zoom: 1.5; color:black"></ion-icon>
+
+              </ion-button>
             </div>
           </div>
         </ion-col>
@@ -195,16 +124,16 @@
                       {{usahawan.namausahawan}}
                     </ion-text>
                     <br>
-                    <ion-text color="success">
+                    <ion-text color="warning">
                       {{usahawan.nokadpengenalan}}
                     </ion-text>
                     <br>
-                    <ion-text color="success">
+                    <ion-text color="warning">
                       {{usahawan.usahawanid}}
                     </ion-text>
                   </ion-col>
                   <ion-col size="4" style="padding: 0%; display:flex; justify-content:flex-end; align-items:center">
-                    <img (click)="downloadFile(usahawan.usahawanid)" src="assets/icon/DOWNLOAD.png" alt="pending"
+                    <img (click)="downloadFile(usahawan.usahawanid)" src="assets/new-iconv2/Download.png" alt="pending"
                       height="25px" style="margin-left: 20px;">
                   </ion-col>
                 </ion-row>

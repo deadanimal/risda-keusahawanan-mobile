@@ -20,8 +20,8 @@ export class MaklumatProdukPage implements OnInit {
   ) { }
 
   usahawan = {
-    name:"",
-    namasyarikat:""
+    name: "",
+    namasyarikat: ""
   };
   ngOnInit() {
     console.log("katalog", this.katalog)
@@ -38,23 +38,51 @@ export class MaklumatProdukPage implements OnInit {
     });
   }
 
-  getMaklumatUsahawan(){
+  getMaklumatUsahawan() {
     this.katalogService.getMaklumatUsahawan(this.katalog.id_pengguna).subscribe((res) => {
-      console.log("usahawan",res);
+      console.log("usahawan", res);
       this.usahawan = res
     });
 
   }
 
   async pengesahan() {
-    const loading = await this.loadingController.create({message:'Disahkan ...'});
-    loading.present();
-    
-    this.katalogService.pengesahanPegawai(this.katalog.katalog_id).subscribe((res) => {
-      console.log("updated",res);
-      loading.dismiss();
-      this.presentAlert2()
+
+
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda pasti mahu mengesahkan katalog?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          id: 'confirm-button',
+          handler: async () => {
+            console.log('Confirm Okay');
+
+
+            const loading = await this.loadingController.create({ message: 'Disahkan ...' });
+            loading.present();
+
+            this.katalogService.pengesahanPegawai(this.katalog.katalog_id).subscribe((res) => {
+              console.log("updated", res);
+              loading.dismiss();
+              this.presentAlert2()
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
 
   }
 
@@ -81,5 +109,5 @@ export class MaklumatProdukPage implements OnInit {
   }
 
 
-  
+
 }

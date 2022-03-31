@@ -7,76 +7,71 @@
 <ion-content>
 
   <div id="overlay"
-    style="background-image:url('/assets/img/bg1.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute">
+    style="background-image:url('assets/img/login-background.png'); background-position: center; background-repeat: no-repeat; background-size: cover; height:100%; position:absolute">
 
   </div>
-  <div id="overlay" style="position: absolute;"></div>
+  <!-- <div id="overlay" style="position: absolute;"></div> -->
 
 
   <div style="z-index: 4; margin: 3%; margin-top:20%; align-items:center">
 
     <div class="element-logo"></div>
 
-    <!-- <ion-text >
-      <h1 class="welcome-back nunitosans-extra-bold-green-haze-36px">Selamat Datang</h1>
-    </ion-text> -->
-    <ion-text class="welcome-back">
-      <h1 class="welcome-back nunitosans-extra-bold-green-haze-36px">Selamat Datang</h1>
+
+    <ion-text class="selamat-datang">
+      <h1 class="selamat-datang nunitosans-extra-bold-green-haze-36px">Selamat Datang</h1>
     </ion-text>
 
     <ion-text style="text-align: center;">
-      <h2>Log Masuk</h2>
+      <h2 class="login-text">Log Masuk</h2>
     </ion-text>
     <br>
 
-    <!-- <h1 class="welcome-backnats-regular-normal-log-cabin-26px ion-text-center">Log Masuk Kali Pertama</h1> -->
 
     <form [formGroup]="form" (ngSubmit)="login()">
       <ion-item style="border-radius: 50px;">
-        <!-- <ion-label position="floating"></ion-label> -->
         <ion-input type="text" inputmode="numeric" placeholder="No Kad Pengenalan" name="nric" formControlName='no_kp'
           style="text-transform: none !important;" (keypress)="numericOnly($event)"></ion-input>
       </ion-item>
       <br>
 
       <ion-item style="border-radius: 50px;">
-        <!-- <ion-label position="floating">Kata Laluan</ion-label> -->
-        <ion-input type="password" [type]="getType()" placeholder="Kata Laluan" name="password" formControlName='password'
-          style="text-transform: none !important;">
+        <ion-input type="password" [type]="getType()" placeholder="Kata Laluan" name="password"
+          formControlName='password' style="text-transform: none !important;">
         </ion-input>
 
         <a class="type-toggle" (click)="toggleTextPassword()">
-          <ion-icon class="show-option" color="dark" [hidden]="showPassword" name="eye-off-outline" style="zoom:1.5;"></ion-icon>
-          <ion-icon class="hide-option" color="dark" [hidden]="!showPassword" name="eye-outline" style="zoom:1.5;"></ion-icon>
+          <ion-icon class="show-option" color="dark" [hidden]="showPassword" name="eye-off-outline" style="zoom:1.5;">
+          </ion-icon>
+          <ion-icon class="hide-option" color="dark" [hidden]="!showPassword" name="eye-outline" style="zoom:1.5;">
+          </ion-icon>
         </a>
       </ion-item>
 
-      <!-- <ion-item>
-        <ion-input [type]="getType()"></ion-input>
-        <ion-icon name="eye" item-right (click)="toggleTextPassword()"></ion-icon>
-      </ion-item> -->
-
+     
       <br>
 
       <ion-grid fixed>
         <ion-row>
           <ion-col size="6">
-            <div>
-              <a class="forget-password nunitosans-extra-bold-green-haze-12px">
+            <div style="display: flex; align-items:center">
+              <!-- <a class="forget-password nunitosans-extra-bold-green-haze-12px"> -->
 
-                <ion-checkbox color="success" (ionChange)="addValue($event)" [checked]="checked" ></ion-checkbox>
-                  <ion-label>  Ingat saya</ion-label>
+              <ion-checkbox color="dark" (ionChange)="addValue($event)" [checked]="checked"></ion-checkbox>
+              <ion-label style="margin-left: 10px;">
+                <span class="lupa">
+                  Ingat saya
+                </span>
+              </ion-label>
 
-                  <!-- <ion-checkbox color="secondary" value="option" (ionChange)="isChecked($event)" name="option"></ion-checkbox> -->
-               
-              </a>
+              <!-- </a> -->
             </div>
           </ion-col>
           <ion-col size="6">
-            <div style="display: flex; justify-content:flex-end">
+            <div style="display: flex; justify-content:flex-end;  align-items:center">
               <a class="forget-password nunitosans-extra-bold-green-haze-12px" (click)="forget_password()"
                 style="text-decoration: none;">
-                Lupa Kata Laluan?
+                <span class="lupa"> Lupa Kata Laluan?</span>
               </a>
             </div>
           </ion-col>
@@ -86,7 +81,10 @@
 
       <br>
 
-      <ion-button expand="block" color="success" type="submit" [disabled]="form.invalid">Log masuk</ion-button>
+      <div style="display: flex; justify-content:center">
+        <ion-button expand="block" color="dark" type="submit" shape="round" [disabled]="form.invalid" style="width:60%">Log masuk
+        </ion-button>
+      </div>
     </form>
 
 

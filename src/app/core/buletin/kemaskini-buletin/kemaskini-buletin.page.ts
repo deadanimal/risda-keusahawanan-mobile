@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { BuletinService } from 'src/app/services/buletin/buletin.service';
@@ -25,8 +25,10 @@ export class KemaskiniBuletinPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private buletinService : BuletinService,
+    private buletinService: BuletinService,
     public alertController: AlertController,
+    public loadingController: LoadingController,
+
 
   ) {
     this.form = this.formBuilder.group({
@@ -36,7 +38,7 @@ export class KemaskiniBuletinPage implements OnInit {
       keterangan_lain: ['', Validators.required],
       status: ['', Validators.required],
       gambar_buletin: ['', Validators.required],
-      url: ['', ],
+      url: ['',],
     });
   }
 
@@ -87,21 +89,26 @@ export class KemaskiniBuletinPage implements OnInit {
           handler: async () => {
             console.log('Confirm Okay');
 
-            if (this.images.length > 0){
+            const loading = await this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+
+            if (this.images.length > 0) {
               this.form.value.gambar_buletin = this.images[0].data;
             } else {
               this.form.value.gambar_buletin = this.buletin.gambar_buletin;
             }
             this.form.value.tarikh = moment(this.form.value.tarikh).format('YYYY-MM-DD');
             console.log(this.form.value)
-        
+
             this.buletinService.update(this.form.value, this.buletin.id).subscribe((res) => {
-              console.log("updated data",res);
-              
-        
+              console.log("updated data", res);
+
+
+              loading.dismiss();
+
               // this.dismiss();
               this.presentAlert()
-              
+
             });
           }
         }
@@ -136,7 +143,7 @@ export class KemaskiniBuletinPage implements OnInit {
   }
 
 
-  url: any ;
+  url: any;
   //image
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
@@ -173,7 +180,7 @@ export class KemaskiniBuletinPage implements OnInit {
       data: `${base64Data}`,
     });
 
-    console.log("AAAA",this.images);
+    console.log("AAAA", this.images);
   }
 
   // https://ionicframework.com/docs/angular/your-first-app/3-saving-photos

@@ -28,7 +28,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -82,7 +82,7 @@
       /* harmony import */
 
 
-      var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! rxjs/operators */
       88002);
       /* harmony import */
@@ -186,29 +186,68 @@
         }, {
           key: "logForm",
           value: function logForm() {
-            var _this = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this = this;
 
-            console.log(this.form1.value);
-            var prodTemp = this.form1.value.produk;
-            var prodTempLength = prodTemp.length;
-            console.log("prodTemp", prodTemp[1]);
-            this.pelangganService.post(this.form1.value).subscribe(function (res) {
-              console.log("res pelanggan", res);
-              var pelanggan = res;
+              var prodTemp, prodTempLength, alert;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      console.log(this.form1.value);
+                      prodTemp = this.form1.value.produk;
+                      prodTempLength = prodTemp.length;
+                      console.log("prodTemp", prodTemp[1]);
+                      _context.next = 6;
+                      return this.alertController.create({
+                        cssClass: 'my-custom-class',
+                        header: '',
+                        message: 'Adakah anda pasti mahu menyimpan maklumat ini?',
+                        buttons: [{
+                          text: 'Tidak',
+                          role: 'cancel',
+                          cssClass: 'secondary',
+                          id: 'cancel-button',
+                          handler: function handler(blah) {
+                            console.log('Confirm Cancel: blah');
+                          }
+                        }, {
+                          text: 'Ya',
+                          id: 'confirm-button',
+                          handler: function handler() {
+                            console.log('Confirm Okay');
 
-              for (var i = 0; i < prodTempLength; i++) {
-                prodTemp[i].id_pelanggan = pelanggan.id;
-                prodTemp[i].modified_by = _this.user_id;
+                            _this.pelangganService.post(_this.form1.value).subscribe(function (res) {
+                              console.log("res pelanggan", res);
+                              var pelanggan = res;
 
-                _this.stokService.post(prodTemp[i]).subscribe(function (res) {
-                  console.log("res stok", res);
-                });
-              }
+                              for (var i = 0; i < prodTempLength; i++) {
+                                prodTemp[i].id_pelanggan = pelanggan.id;
+                                prodTemp[i].modified_by = _this.user_id;
 
-              _this.dismiss();
+                                _this.stokService.post(prodTemp[i]).subscribe(function (res) {
+                                  console.log("res stok", res);
+                                });
+                              }
 
-              _this.presentAlert();
-            });
+                              _this.presentAlert();
+                            });
+                          }
+                        }]
+                      });
+
+                    case 6:
+                      alert = _context.sent;
+                      _context.next = 9;
+                      return alert.present();
+
+                    case 9:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           }
         }, {
           key: "getNegeri",
@@ -227,7 +266,7 @@
 
             // console.log("test")
             // console.log(this.form1.value.U_Negeri_ID)
-            this.daerahService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_9__.map)(function (x) {
+            this.daerahService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.map)(function (x) {
               return x.filter(function (i) {
                 return i.U_Negeri_ID == _this3.form1.value.U_Negeri_ID;
               });
@@ -251,14 +290,14 @@
         }, {
           key: "presentAlert",
           value: function presentAlert() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
               var alert, _yield$alert$onDidDis, role;
 
-              return regeneratorRuntime.wrap(function _callee$(_context) {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
-                  switch (_context.prev = _context.next) {
+                  switch (_context2.prev = _context2.next) {
                     case 0:
-                      _context.next = 2;
+                      _context2.next = 2;
                       return this.alertController.create({
                         cssClass: 'my-custom-class',
                         header: 'Berjaya',
@@ -268,16 +307,16 @@
                       });
 
                     case 2:
-                      alert = _context.sent;
-                      _context.next = 5;
+                      alert = _context2.sent;
+                      _context2.next = 5;
                       return alert.present();
 
                     case 5:
-                      _context.next = 7;
+                      _context2.next = 7;
                       return alert.onDidDismiss();
 
                     case 7:
-                      _yield$alert$onDidDis = _context.sent;
+                      _yield$alert$onDidDis = _context2.sent;
                       role = _yield$alert$onDidDis.role;
                       console.log('onDidDismiss resolved with role', role);
                       this.dismiss();
@@ -285,10 +324,10 @@
 
                     case 12:
                     case "end":
-                      return _context.stop();
+                      return _context2.stop();
                   }
                 }
-              }, _callee, this);
+              }, _callee2, this);
             }));
           }
         }, {
@@ -307,13 +346,13 @@
         }, {
           key: "openPopOver",
           value: function openPopOver(ev) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var popover;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
-                      _context2.next = 2;
+                      _context3.next = 2;
                       return this.popoverCtrl.create({
                         component: _tooltip_tooltip_page__WEBPACK_IMPORTED_MODULE_7__.TooltipPage,
                         event: ev,
@@ -321,16 +360,16 @@
                       });
 
                     case 2:
-                      popover = _context2.sent;
-                      _context2.next = 5;
+                      popover = _context3.sent;
+                      _context3.next = 5;
                       return popover.present();
 
                     case 5:
                     case "end":
-                      return _context2.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee3, this);
             }));
           }
         }]);
@@ -360,7 +399,7 @@
         }];
       };
 
-      _TambahJanaDokumenPage = (0, tslib__WEBPACK_IMPORTED_MODULE_10__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_12__.Component)({
+      _TambahJanaDokumenPage = (0, tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_12__.Component)({
         selector: 'app-tambah-jana-dokumen',
         template: _raw_loader_tambah_jana_dokumen_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_tambah_jana_dokumen_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -388,7 +427,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            DOKUMEN PERNIAGAAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-grid>\n    <form [formGroup]=\"form1\" (ngSubmit)=\"logForm()\" style=\"margin: 20px;\">\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <h5 class=\"form-header\">Maklumat Pelanggan</h5>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>TAJUK <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"tajuk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA PELANGGAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"nama_pelanggan\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NO RUMAH/ LOT/ PINTU <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat1\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA JALAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat2\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KAMPUNG/ TAMAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat3\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NEGERI <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"U_Negeri_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Negeri_ID\" (ionChange)=\"getDaerah($event)\">\n            <ion-select-option *ngFor=\"let negeri of negeri\" value=\"{{negeri.U_Negeri_ID}}\">{{negeri.Negeri}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>DAERAH <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"U_Daerah_ID\">\n          </ion-input> -->\n          <ion-select formControlName=\"U_Daerah_ID\">\n            <ion-select-option *ngFor=\"let daerah of daerah\" value=\"{{daerah.U_Daerah_ID}}\">{{daerah.Daerah}}\n            </ion-select-option>\n\n          </ion-select>\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>POSKOD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"number\" formControlName=\"poskod\"></ion-input>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>NO. TELEFON <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" inputmode=\"numeric\" formControlName=\"no_telefon\" (keypress)=\"numericOnly($event)\" placeholder=\"Eg: 0342564022\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NO. FAKS </ion-label>\n          <ion-input type=\"text\" inputmode=\"numeric\" formControlName=\"no_fax\" (keypress)=\"numericOnly($event)\" placeholder=\"Eg: 0342564022\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <h5 class=\"form-header\">Maklumat Pembelian <ion-icon name=\"alert-circle-outline\" style=\"font-size: large; margin-top:2px; color: blue\" (click)=\"openPopOver($event)\"></ion-icon></h5>\n        </ion-col>\n      </ion-row>\n      <div formArrayName=\"produk\">\n        <div *ngFor=\"let produk of getProdukArray.controls; let i=index\" [formGroupName]=\"i\">\n\n          <ion-row style=\"margin-bottom: 10px;\">\n            <ion-col class=\"form-control\">\n              <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n              <ion-label position=\"stacked\">NAMA PRODUK <span style=\"color: red;\">*</span></ion-label>\n              <!-- <ion-input formControlName=\"id_katalog\"></ion-input> -->\n              <ion-select formControlName=\"id_katalog\">\n                <ion-select-option *ngFor=\"let katalog of katalog\" value=\"{{katalog.id}}\">{{katalog.nama_produk}}\n                </ion-select-option>\n                <!-- <ion-select-option value=\"draft\">Draft</ion-select-option> -->\n              </ion-select>\n              <!-- </ion-item> -->\n            </ion-col>\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n              <ion-label position=\"stacked\">KUANTITI <span style=\"color: red;\">*</span></ion-label>\n              <ion-input type=\"number\" formControlName=\"stok_dijual\"></ion-input>\n            </ion-col>\n\n\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <div style=\"width:100%; display:flex; justify-content:flex-end;\">\n\n                <div *ngIf=\"i != 0\" class=\"ion-text-center\" (click)=\"deleteProduk(i)\">\n                  <img src=\"/assets/icon/trash-icon.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n\n                <div *ngIf=\"i == (productLength-1)\" class=\"ion-text-center\" (click)=\"addProduk()\">\n                  <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n              </div>\n            </ion-col>\n          </ion-row>\n\n\n        </div>\n\n      </div>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN) </ion-label>\n          <ion-input type=\"number\" formControlName=\"diskaun\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN)</ion-label>\n          <ion-input type=\"number\" formControlName=\"kos_penghantaran\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN)</ion-label>\n          <ion-input type=\"number\" formControlName=\"cukai_sst\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"form1.invalid\">TAMBAH</ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button  (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h2>\n          <strong class=\"ion-text-uppercase\">\n            DOKUMEN PERNIAGAAN\n          </strong>\n        </h2>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-grid>\n    <form [formGroup]=\"form1\" (ngSubmit)=\"logForm()\" style=\"margin: 20px;\">\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <h5 class=\"form-header\">Maklumat Pelanggan</h5>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>TAJUK <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"tajuk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA PELANGGAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"nama_pelanggan\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NO RUMAH/ LOT/ PINTU <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat1\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA JALAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat2\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KAMPUNG/ TAMAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat3\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NEGERI <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"U_Negeri_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Negeri_ID\" (ionChange)=\"getDaerah($event)\">\n            <ion-select-option *ngFor=\"let negeri of negeri\" value=\"{{negeri.U_Negeri_ID}}\">{{negeri.Negeri}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>DAERAH <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"U_Daerah_ID\">\n          </ion-input> -->\n          <ion-select formControlName=\"U_Daerah_ID\">\n            <ion-select-option *ngFor=\"let daerah of daerah\" value=\"{{daerah.U_Daerah_ID}}\">{{daerah.Daerah}}\n            </ion-select-option>\n\n          </ion-select>\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>POSKOD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"number\" formControlName=\"poskod\"></ion-input>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>NO. TELEFON <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" inputmode=\"numeric\" formControlName=\"no_telefon\" (keypress)=\"numericOnly($event)\" placeholder=\"Eg: 0342564022\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NO. FAKS </ion-label>\n          <ion-input type=\"text\" inputmode=\"numeric\" formControlName=\"no_fax\" (keypress)=\"numericOnly($event)\" placeholder=\"Eg: 0342564022\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <h5 class=\"form-header\">Maklumat Pembelian <ion-icon name=\"alert-circle-outline\" style=\"font-size: large; margin-top:2px; color: blue\" (click)=\"openPopOver($event)\"></ion-icon></h5>\n        </ion-col>\n      </ion-row>\n      <div formArrayName=\"produk\">\n        <div *ngFor=\"let produk of getProdukArray.controls; let i=index\" [formGroupName]=\"i\">\n\n          <ion-row style=\"margin-bottom: 10px;\">\n            <ion-col class=\"form-control\">\n              <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n              <ion-label position=\"stacked\">NAMA PRODUK <span style=\"color: red;\">*</span></ion-label>\n              <!-- <ion-input formControlName=\"id_katalog\"></ion-input> -->\n              <ion-select formControlName=\"id_katalog\">\n                <ion-select-option *ngFor=\"let katalog of katalog\" value=\"{{katalog.id}}\">{{katalog.nama_produk}}\n                </ion-select-option>\n                <!-- <ion-select-option value=\"draft\">Draft</ion-select-option> -->\n              </ion-select>\n              <!-- </ion-item> -->\n            </ion-col>\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n              <ion-label position=\"stacked\">KUANTITI <span style=\"color: red;\">*</span></ion-label>\n              <ion-input type=\"number\" formControlName=\"stok_dijual\"></ion-input>\n            </ion-col>\n\n\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <div style=\"width:100%; display:flex; justify-content:flex-end;\">\n\n                <div *ngIf=\"i != 0\" class=\"ion-text-center\" (click)=\"deleteProduk(i)\">\n                  <img src=\"assets/new-iconv2/hapus.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n\n                <div *ngIf=\"i == (productLength-1)\" class=\"ion-text-center\" (click)=\"addProduk()\">\n                  <img src=\"assets/new-iconv2/Tambah.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n              </div>\n            </ion-col>\n          </ion-row>\n\n\n        </div>\n\n      </div>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN) </ion-label>\n          <ion-input type=\"number\" formControlName=\"diskaun\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN)</ion-label>\n          <ion-input type=\"number\" formControlName=\"kos_penghantaran\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN)</ion-label>\n          <ion-input type=\"number\" formControlName=\"cukai_sst\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"form1.invalid\">TAMBAH</ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n\n\n</ion-content>";
       /***/
     }
   }]);

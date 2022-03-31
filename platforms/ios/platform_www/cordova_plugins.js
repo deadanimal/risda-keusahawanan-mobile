@@ -425,27 +425,19 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-file-transfer.FileTransferError",
-      "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
-      "pluginId": "cordova-plugin-file-transfer",
+      "id": "cordova-plugin-firebase.FirebasePlugin",
+      "file": "plugins/cordova-plugin-firebase/www/firebase.js",
+      "pluginId": "cordova-plugin-firebase",
       "clobbers": [
-        "window.FileTransferError"
-      ]
-    },
-    {
-      "id": "cordova-plugin-file-transfer.FileTransfer",
-      "file": "plugins/cordova-plugin-file-transfer/www/FileTransfer.js",
-      "pluginId": "cordova-plugin-file-transfer",
-      "clobbers": [
-        "window.FileTransfer"
+        "FirebasePlugin"
       ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-add-swift-support": "2.0.2",
-    "cordova-plugin-compat": "1.2.0",
-    "cordova-plugin-file": "4.3.3",
+    "cordova-plugin-file": "5.0.0",
     "cordova-plugin-advanced-http": "3.2.2",
+    "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-camera": "2.4.1",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-dialogs": "2.0.2",
@@ -460,6 +452,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
     "im.ltdev.cordova.UserAgent": "1.0.1",
-    "cordova-plugin-file-transfer": "1.7.1"
+    "cordova-plugin-firebase": "2.0.5"
   };
 });

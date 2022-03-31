@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="success" (click)="dismiss()">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button  (click)="dismiss()">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
-      <ion-text color="success">
+      <ion-text color="danger">
         <h1>
           <strong class="ion-text-uppercase">
             TUNAI KELUAR
@@ -46,7 +46,7 @@
       </ion-row>
       <ion-row class="ion-text-center" style="display: flex; justify-content:center">
         <!-- <ion-col class="ion-text-center"> -->
-        <p style="margin: 0px;"> JUMLAH <span style="color: red;">*</span></p><br>
+        <p style="margin: 0px; font-weight:bold"> JUMLAH <span style="color: red;">*</span></p><br>
         <!-- </ion-col> -->
       </ion-row>
 
@@ -57,7 +57,7 @@
         <ion-col [size]=8>
           <!-- <ion-item class=" ion-text-center">
             <ion-label class="jumlah" style="margin-top:50px">RM </ion-label> -->
-            <ion-input class="jumlah" type="text" inputmode="numeric" formControlName="jumlah_aliran"></ion-input>
+            <ion-input class="jumlah" type="number" formControlName="jumlah_aliran"></ion-input>
           <!-- </ion-item> -->
         </ion-col>
       </ion-row>
@@ -73,7 +73,7 @@
 
           <label>
             <div class="ion-text-center"
-              style="background-color: #00A651; color:white; display:flex; justify-content:center; padding:10px; border-radius:10px">
+              style="background-color: #919091; color:white; display:flex; justify-content:center; padding:10px; border-radius:10px">
               PILIH DOKUMEN
             </div>
 
@@ -92,8 +92,8 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button color="success" expand="block" type="submit">KEMASKINI</ion-button>
-          <ion-button color="danger" expand="block" (click)="onDelete()">PADAM</ion-button>
+          <ion-button color="dark" expand="block" type="submit">KEMASKINI</ion-button>
+          <ion-button color="warning" expand="block" (click)="onDelete()">PADAM</ion-button>
         </ion-col>
       </ion-row>
       

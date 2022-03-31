@@ -126,6 +126,19 @@ ion-input {
 }
 
 
+.laporan{
+    .alert-radio-label.sc-ion-alert-md{
+        font-size: 10px;
+    }
+
+    .alert-tappable.sc-ion-alert-md {
+        position: relative;
+        height: 70px;
+        overflow: hidden;
+    }
+}
+
+
 .alert-tappable.sc-ion-alert-md {
     position: relative;
     height: 60px;

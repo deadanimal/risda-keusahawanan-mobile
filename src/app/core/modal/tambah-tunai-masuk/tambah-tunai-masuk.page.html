@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="success" (click)="dismiss()">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button  (click)="dismiss()">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
       <ion-text color="success">
         <h1>
@@ -64,7 +64,7 @@
       </ion-row>
       <ion-row class="ion-text-center" style="display: flex; justify-content:center">
         <!-- <ion-col class="ion-text-center"> -->
-        <p style="margin: 0px;"> JUMLAH <span style="color: red;">*</span></p><br>
+        <p style="margin: 0px; font-weight:bold"> JUMLAH <span style="color: red;">*</span></p><br>
         <!-- </ion-col> -->
       </ion-row>
 
@@ -75,7 +75,7 @@
         <ion-col [size]=8 class="ion-text-center">
           <!-- <ion-item class=" ion-text-center">
             <ion-label class="jumlah" style="margin-top:50px">RM </ion-label> -->
-          <ion-input class="jumlah" type="text" inputmode="numeric" placeholder="0.00" formControlName="jumlah_aliran"></ion-input>
+          <ion-input class="jumlah" type="number" placeholder="0.00" formControlName="jumlah_aliran"></ion-input>
           <!-- </ion-item> -->
         </ion-col>
       </ion-row>
@@ -91,7 +91,7 @@
 
           <label>
             <div class="ion-text-center"
-              style="background-color: #00A651; color:white; display:flex; justify-content:center; padding:10px; border-radius:10px">
+              style="background-color: #919091; color:white; display:flex; justify-content:center; padding:10px; border-radius:10px">
               PILIH DOKUMEN
             </div>
 

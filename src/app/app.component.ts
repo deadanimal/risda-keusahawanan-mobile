@@ -15,31 +15,31 @@ export class AppComponent {
   pegawai_id = window.sessionStorage.getItem("pegawai_id");
   user_id = window.sessionStorage.getItem("user_id");
   role = window.sessionStorage.getItem("role");
-  peranan_pegawai= window.sessionStorage.getItem("peranan_pegawai");
+  peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
 
   pegawai: any;
 
   public appPages = [
-    { title: 'Profil', url: '/profile', icon: 'assets/new-icon/Profil.png' },
-    { title: 'Insentif', url: '/insentif', icon: 'assets/new-icon/Insentif.png' },
-    { title: 'Aliran Tunai', url: '/aliran-tunai', icon: 'assets/new-icon/Aliran-Tunai.png' },
-    { title: 'Buku tunai', url: '/buku-tunai', icon: 'assets/new-icon/Buku-Tunai.png' },
-    { title: 'Ringkasan lejar', url: '/ringkasan-lejar', icon: 'assets/new-icon/Ringkasan-Lejar.png' },
-    { title: 'Penyata Untung Rugi', url: '/pnl', icon: 'assets/new-icon/Penyata-Untung-Rugi.png' },
-    { title: 'Katalog', url: 'katalog', icon: 'assets/new-icon/Katalog.png' },
-    { title: 'Jana Dokumen', url: '/jana-dokumen', icon: 'assets/new-icon/Jana-Dokumen.png' },
-    { title: 'Lawatan', url: 'lawatan-usahawan', icon: 'assets/new-icon/Lawatan.png' },
+    { title: 'Profil', url: '/profile', icon: 'assets/new-iconv2/Profil.png' },
+    { title: 'Insentif', url: '/insentif', icon: 'assets/new-iconv2/Insentif.png' },
+    { title: 'Aliran Tunai', url: '/aliran-tunai', icon: 'assets/new-iconv2/Aliran-Tunai.png' },
+    { title: 'Buku tunai', url: '/buku-tunai', icon: 'assets/new-iconv2/Buku-Tunai.png' },
+    { title: 'Ringkasan lejar', url: '/ringkasan-lejar', icon: 'assets/new-iconv2/Ringkasan-Lejar.png' },
+    { title: 'Penyata Untung Rugi', url: '/pnl', icon: 'assets/new-iconv2/Penyata-Untung-Rugi.png' },
+    { title: 'Katalog', url: 'katalog', icon: 'assets/new-iconv2/Katalog.png' },
+    { title: 'Jana Dokumen', url: '/jana-dokumen', icon: 'assets/new-iconv2/Jana-Dokumen.png' },
+    { title: 'Lawatan', url: 'lawatan-usahawan', icon: 'assets/new-iconv2/Lawatan.png' },
     // { title: 'Log Keluar',  url: '#', icon: 'assets/new-icon/log-out-button.png' },
   ];
 
   public appPagesPegawai = [
-    { title: 'Carian', url: '/carian', icon: 'assets/new-icon/Carian.png' },
-    { title: 'Lawatan', url: '/lawatan-pegawai', icon: 'assets/new-icon/Lawatan.png' },
-    { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-icon/Katalog.png' },
+    { title: 'Carian', url: '/carian', icon: 'assets/new-iconv2/Cari.png' },
+    { title: 'Lawatan', url: '/lawatan-pegawai', icon: 'assets/new-iconv2/Lawatan.png' },
+    { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-iconv2/Katalog.png' },
     // { title: 'Buletin', url: '/buletin', icon: 'assets/new-icon/Buletin.png' },
     // { title: 'Log Keluar', url: '#', icon: 'assets/new-icon/log-out-button.png' },
   ];
-  
+
 
 
   constructor(
@@ -74,9 +74,9 @@ export class AppComponent {
 
     if (this.peranan_pegawai == "1") {
       this.appPagesPegawai.push(
-        { title: 'Buletin', url: '/buletin', icon: 'assets/new-icon/Buletin.png' },
+        { title: 'Buletin', url: '/buletin', icon: 'assets/new-iconv2/Buletin.png' },
       )
-    } 
+    }
 
 
 
@@ -99,20 +99,31 @@ export class AppComponent {
   }
 
   // usahawan: any;
-  gambar_usahawan : any;
-  getusahawan(){
+  gambar_usahawan: any;
+  getusahawan() {
     this.usahawanService.show(this.usahawan_id).subscribe((res) => {
-      console.log("AAAAAA", res);
-      this.gambar_usahawan = res.gambar_url
+      // console.log("AAAAAA", res.gambar_url);
+
+      // if (res.gambar_url != "null" || res.gambar_url != null) {
+      //   this.gambar_usahawan = res.gambar_url
+      // } else {
+      //   this.gambar_usahawan = "assets/new-icon/default_profile.png"
+      // }
+
+      if (res.gambar_url == "null" || res.gambar_url == null) {
+        this.gambar_usahawan = "assets/new-icon/default_profile.png"
+      } else {
+        this.gambar_usahawan = res.gambar_url
+      }
     });
   }
 
-  
 
 
-  profil(){
+
+  profil() {
     this.router.navigate(['/profile'])
   }
 
- 
+
 }

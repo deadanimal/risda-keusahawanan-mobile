@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { BuletinService } from 'src/app/services/buletin/buletin.service';
@@ -27,7 +27,10 @@ export class TambahBuletinPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private buletinService : BuletinService
+    private buletinService: BuletinService,
+    public alertController: AlertController,
+    public loadingController: LoadingController,
+
   ) {
     this.form = this.formBuilder.group({
       id_pegawai: ['',],
@@ -36,7 +39,7 @@ export class TambahBuletinPage implements OnInit {
       keterangan_lain: ['', Validators.required],
       status: ['', Validators.required],
       gambar_buletin: ['', Validators.required],
-      url: ['', ],
+      url: ['',],
     });
   }
 
@@ -52,20 +55,52 @@ export class TambahBuletinPage implements OnInit {
     });
   }
 
-  logForm() {
-    this.form.value.id_pegawai = this.pegawai_id;
-    this.form.value.gambar_buletin = this.images[0].data;
+  async logForm() {
 
-    this.form.value.tarikh = moment(this.form.value.tarikh).format('YYYY-MM-DD');
 
-    console.log(this.form.value)
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda pasti mahu menambah berita?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          id: 'confirm-button',
+          handler: async () => {
+            console.log('Confirm Okay');
 
-    this.buletinService.post(this.form.value).subscribe((res) => {
-      console.log("res", res);
+            const loading = await this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
 
-      this.dismiss();
-      window.location.reload();
+            this.form.value.id_pegawai = this.pegawai_id;
+            this.form.value.gambar_buletin = this.images[0].data;
+
+            this.form.value.tarikh = moment(this.form.value.tarikh).format('YYYY-MM-DD');
+
+            console.log(this.form.value)
+
+            this.buletinService.post(this.form.value).subscribe((res) => {
+              console.log("res", res);
+
+              loading.dismiss();
+              this.dismiss();
+              window.location.reload();
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
   }
 
 

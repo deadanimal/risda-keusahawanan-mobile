@@ -9,6 +9,8 @@ import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import * as moment from 'moment';
 import { Pipe, PipeTransform } from '@angular/core';
 // @Pipe({name: 'convertFrom24To12Format'})
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+
 
 interface LocalFile {
   name: string;
@@ -36,6 +38,8 @@ export class KemaskiniLaporanPage implements OnInit {
     private lawatanService: LawatanService,
     public loadingController: LoadingController,
     public alertController: AlertController,
+    private iab: InAppBrowser
+
   ) {
     this.form = this.formBuilder.group({
       namausahawan: ['', Validators.required],
@@ -226,7 +230,8 @@ export class KemaskiniLaporanPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
 
 
     });

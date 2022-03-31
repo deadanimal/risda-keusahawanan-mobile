@@ -13,6 +13,8 @@
 
 <ion-content>
 
+  <!-- <a href="https://github.com/eligrey/FileSaver.js" target="_system">test</a> -->
+
 
   <div class="rectangle-280"></div>
 
@@ -31,7 +33,7 @@
               {{katalog.nama_produk}}
             </h4>
 
-            <ion-text color="success" class="bold no-margin">
+            <ion-text color="warning" class="bold no-margin">
               {{katalog.baki_stok}}
             </ion-text>
             <br>
@@ -42,7 +44,7 @@
             </ion-text>
           </ion-col>
           <ion-col size="4">
-            <ion-text color="success" class="bold no-margin">
+            <ion-text color="warning" class="bold no-margin">
               <h5 class="bold no-margin">
                 RM {{katalog.harga_produk}}
               </h5>
@@ -81,8 +83,8 @@
 
   </div>
   <div style="height:15%; display: flex; align-items:center; justify-content:space-around">
-    <ion-button (click)="dismiss()" fill="default" class="ion-text-uppercase bold font-11" >Kembali</ion-button>
-    <ion-button (click)="download(katalog.id)" fill="default" class="ion-text-uppercase bold font-11" style="color: #00A651;">Muat Turun</ion-button>
+    <ion-button (click)="dismiss()" fill="default" class="ion-text-uppercase bold font-11" style="color: #FF6600;">Kembali</ion-button>
+    <ion-button (click)="download(katalog.id)" color="dark" class="ion-text-uppercase bold font-11">Muat Turun</ion-button>
   </div>
 
   <!-- <div class="kmi nunitosans-extra-bold-te-papa-green-18px">Maklumat<br />Insentif</div>

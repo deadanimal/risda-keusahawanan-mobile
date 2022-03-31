@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
@@ -27,6 +28,8 @@ export class LawatanPegawaiPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private lawatanService: LawatanService,
+    private router: Router,
+
     ) { }
 
   ngOnInit() {
@@ -83,6 +86,10 @@ export class LawatanPegawaiPage implements OnInit {
       // this.lawatan
     });
 
+  }
+
+  dashboard() {
+    this.router.navigate(['/dashboard'])
   }
 
 }

@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar style="height: 80px;">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="success" (click)="back()">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button (click)="back()" >
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
       <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
     </ion-buttons>
-    <ion-text color="success">
+    <ion-text color="warning">
       <h1>
         <strong>
           PROFIL USAHAWAN
@@ -21,50 +21,37 @@
   <ion-fab vertical="top" horizontal="end" slot="fixed">
 
     <ion-fab-button color="light">
-      <ion-icon color="success" name="caret-down-outline"></ion-icon>
+      <ion-icon color="warning" name="caret-down-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="bottom">
       <!-- <a href="/profile"> -->
-      <ion-fab-button color="success" href="/profile">
+      <ion-fab-button color="warning" href="/profile">
         <!-- <ion-icon name="logo-facebook"></ion-icon> -->
         <img src="assets/icon/usahawan-icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Usahawan</small></ion-text>
+      <ion-text color="warning"><small> Usahawan</small></ion-text>
       <!-- </a> -->
       <!-- <a href="/profile-syarikat" style="text-decoration:none;"> -->
-      <ion-fab-button color="success" href="/profile-syarikat">
+      <ion-fab-button color="warning" href="/profile-syarikat">
         <!-- <ion-icon name="logo-twitter"></ion-icon> -->
         <img src="assets/icon/Syarikat--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Syarikat</small></ion-text>
+      <ion-text color="warning"><small> Syarikat</small></ion-text>
       <!-- </a> -->
 
-      <ion-fab-button color="success" href="/profile-perniagaan">
+      <ion-fab-button color="warning" href="/profile-perniagaan">
         <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
         <img src="assets/icon/Perniagaan--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Perniagaan</small></ion-text>
+      <ion-text color="warning"><small> Perniagaan</small></ion-text>
 
-      <ion-fab-button color="success" href="/profile-pekebun">
+      <ion-fab-button color="warning" href="/profile-pekebun">
         <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
         <img src="assets/icon/Pekebun--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Pekebun</small></ion-text>
+      <ion-text color="warning"><small> Pekebun</small></ion-text>
     </ion-fab-list>
   </ion-fab>
-
-
-  <!-- <ion-item-divider class="ion-padding" color="light">
-    <ion-text color="success">
-
-      <h1>
-        <strong>
-          <ion-icon name="chevron-back-outline"></ion-icon> PROFIL
-        </strong>
-      </h1>
-    </ion-text>
-
-  </ion-item-divider> -->
 
 
   <ion-grid [fixed]="true">
@@ -72,7 +59,7 @@
 
     <form [formGroup]="form" class="ion-padding form-control" (ngSubmit)="logForm()">
 
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Peribadi</strong>
         </ion-col>
@@ -88,10 +75,10 @@
           <label>
             <div>
               <ion-avatar class="ion-justify-content-center"
-                style="padding:3%; height: 100px; width: 100px; border: 3px solid #ABC128;">
+                style="padding:3%; height: 100px; width: 100px; border: 3px solid black;">
                 <img [src]="usahawan.gambar_url">
               </ion-avatar>
-              <img src="assets/icon/cam.png" alt="" height="30%" style="position: absolute; bottom:0px; left:37px">
+              <img src="assets/new-iconv2/camera.png" alt=""  style="position: absolute; bottom:-3px; left:35px" height="35%">
             </div>
             <ion-input accept="image/*" (change)="onSelectFile($event)" formControlName="gambar_url" type="file"
               name="gambar_profil" style="display: none"></ion-input>
@@ -226,7 +213,7 @@
 
       <br><br><br>
 
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Kediaman</strong>
         </ion-col>
@@ -337,7 +324,7 @@
       </ion-row>
 
       <br><br><br>
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Lain</strong>
         </ion-col>
@@ -364,7 +351,7 @@
           <!-- <ion-input value="{{usahawan.id_kategori_usahawan}}" formControlName="id_kategori_usahawan"></ion-input> -->
 
 
-          <ion-select formControlName="id_kategori_usahawan" disabled>
+          <ion-select class="read-only" formControlName="id_kategori_usahawan" disabled style="background-color: #9e9e9e; color:#535353">
             <ion-select-option *ngFor="let kategoriUsahawan of kategoriUsahawan"
               [value]="kategoriUsahawan.id_kategori_usahawan"
               selected="kategoriUsahawan.id_kategori_usahawan == this.usahawan.id_kategori_usahawan">
@@ -397,7 +384,7 @@
       <ion-row>
         <ion-col>
           <!-- <ion-label> KATEGORI USAHAWAN</ion-label> -->
-          <ion-button type="submit" expand="block" color="success" [disabled]="form.invalid">KEMASKINI</ion-button>
+          <ion-button type="submit" expand="block" color="dark" [disabled]="form.invalid">KEMASKINI</ion-button>
         </ion-col>
       </ion-row>
 

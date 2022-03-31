@@ -52,6 +52,11 @@ export class ForgotPasswordPage implements OnInit {
         this.presentFailed(res.message)
       }
       
+    },(err) => {
+
+      // loading.dismiss();
+      loading.dismiss();
+      alert('Something went wrong')
     });
   }
 

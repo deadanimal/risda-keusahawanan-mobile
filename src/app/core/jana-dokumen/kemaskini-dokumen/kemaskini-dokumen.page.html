@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="success" (click)="dismiss()">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button  (click)="dismiss()">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
-      <ion-text color="success">
+      <ion-text color="warning">
         <h1>
           <strong class="ion-text-uppercase">
             DOKUMEN PERNIAGAAN
@@ -135,12 +135,12 @@
               <div style="width:100%; display:flex; justify-content:flex-end;">
 
                 <div *ngIf="i != 0" class="ion-text-center" (click)="deleteProduk(i, produk.value.id)">
-                  <img src="/assets/icon/trash-icon.png" alt="" height="30" width="30">
+                  <img src="assets/new-iconv2/hapus.png" alt="" height="30" width="30">
                   <br>
                 </div>
 
                 <div *ngIf="i == (productLength-1)" class="ion-text-center" (click)="addProduk()">
-                  <img src="/assets/icon/add-item-icon.png" alt="" height="30" width="30">
+                  <img src="assets/new-iconv2/Tambah.png" alt="" height="30" width="30">
                   <br>
                 </div>
               </div>
@@ -174,9 +174,9 @@
 
       <ion-row style="margin-bottom: 20px;">
         <ion-col class="form-control">
-          <ion-button type="submit" color="success" expand="block" [disabled]="form.invalid">KEMASKINI</ion-button>
+          <ion-button type="submit" color="dark" expand="block" [disabled]="form.invalid">KEMASKINI</ion-button>
           <!-- <ion-button color="danger" expand="block" (click)="onDelete()">HAPUS</ion-button> -->
-          <ion-button color="danger" expand="block" (click)="presentAlertConfirmDelete()" >HAPUS</ion-button>
+          <ion-button color="warning" expand="block" (click)="presentAlertConfirmDelete()" >HAPUS</ion-button>
         </ion-col>
       </ion-row>
     </form>

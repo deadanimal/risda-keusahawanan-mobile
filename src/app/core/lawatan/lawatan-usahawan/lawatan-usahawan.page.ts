@@ -4,12 +4,12 @@ import { map } from 'rxjs/operators';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
 import { environment } from 'src/environments/environment';
 import { PengesahanTarikhLawatanPgwPage } from '../pengesahan-tarikh-lawatan-pgw/pengesahan-tarikh-lawatan-pgw.page';
-// import { FileTransfer, FileUploadOptions, FileTransferObject } from '@awesome-cordova-plugins/file-transfer/ngx';
-// import { File } from '@awesome-cordova-plugins/file';
+
 import { HTTP } from '@ionic-native/http/ngx';
-// import { File } from '@ionic-native/file/ngx';
-// import { url } from 'inspector';
-// import { HttpClient } from '@angular/common/http';
+
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-lawatan-usahawan',
@@ -27,7 +27,9 @@ export class LawatanUsahawanPage implements OnInit {
     public modalController: ModalController,
     private lawatanService: LawatanService,
     private http: HTTP,
-    // private file: File
+    private iab: InAppBrowser,
+    private router: Router,
+    
 
   ) { }
 
@@ -74,11 +76,16 @@ export class LawatanUsahawanPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
 
     });
   }
 
+  dashboard(){
+    this.router.navigate(['/dashboard'])
+  }
 
 }

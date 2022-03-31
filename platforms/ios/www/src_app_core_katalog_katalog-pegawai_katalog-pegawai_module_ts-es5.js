@@ -179,9 +179,15 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @angular/core */
       37716);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
       /* harmony import */
 
 
@@ -208,11 +214,13 @@
       27010);
 
       var _KatalogPegawaiPage = /*#__PURE__*/function () {
-        function KatalogPegawaiPage(modalController, katalogService) {
+        function KatalogPegawaiPage(modalController, katalogService, router, loadingController) {
           _classCallCheck(this, KatalogPegawaiPage);
 
           this.modalController = modalController;
           this.katalogService = katalogService;
+          this.router = router;
+          this.loadingController = loadingController;
           this.user_id = window.sessionStorage.getItem("user_id");
           this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
           this.katalog = [];
@@ -261,17 +269,45 @@
         }, {
           key: "getKatalog",
           value: function getKatalog() {
-            var _this = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this = this;
 
-            console.log("this.user_id", this.user_id);
-            this.katalogService.getKatalogPegawai(this.pegawai_id).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(function (x) {
-              return x.filter(function (i) {
-                return i.status_katalog != "draft";
-              });
-            })).subscribe(function (res) {
-              console.log("katalog", res);
-              _this.katalog = res;
-            });
+              var loading;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.loadingController.create({
+                        message: 'Loading ...'
+                      });
+
+                    case 2:
+                      loading = _context2.sent;
+                      loading.present();
+                      console.log("this.user_id", this.user_id);
+                      this.katalogService.getKatalogPegawai(this.pegawai_id).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(function (x) {
+                        return x.filter(function (i) {
+                          return i.status_katalog != "draft";
+                        });
+                      })).subscribe(function (res) {
+                        console.log("katalog", res);
+                        _this.katalog = res;
+                        loading.dismiss();
+                      });
+
+                    case 6:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "dashboard",
+          value: function dashboard() {
+            this.router.navigate(['/dashboard']);
           }
         }]);
 
@@ -283,10 +319,14 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.ModalController
         }, {
           type: src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_2__.KatalogService
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController
         }];
       };
 
-      _KatalogPegawaiPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+      _KatalogPegawaiPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
         selector: 'app-katalog-pegawai',
         template: _raw_loader_katalog_pegawai_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_katalog_pegawai_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -314,7 +354,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            KATALOG\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n    <ion-grid style=\"margin:5%; margin-bottom:0px\">\n      <ion-row style=\"margin-bottom: 10px;\">\n        <ion-col>\n          <h5 class=\"bold\"> Maklumat</h5>\n        </ion-col>\n        <ion-col class=\"ion-text-end\">\n          <h5 class=\"bold\">Status</h5>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n    <div style=\"height: 90%; width:100%; overflow: scroll; display:flex; justify-content:center\">\n\n      <ion-grid class=\"rectangle-279\">\n        <ion-row *ngFor=\"let katalog of katalog\"\n          style=\"margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;\" (click)=\"lihatKatalog(katalog)\">\n          <ion-col>\n            <div class=\" bold\" style=\"font-family: 'Nunito Sans';\">\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"8\">\n                    <ion-text>\n                      <h6 class=\"bold no-padding\" style=\"text-transform: uppercase;\">\n                        {{katalog.nama_produk}}\n                      </h6>\n                    </ion-text>\n                    <ion-text color=\"success\">\n                      {{katalog.updated_at | date: 'dd/MM/yyyy'}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"4\" style=\"padding: 0%; display:flex; justify-content:flex-end; align-items:center\">\n                    <!-- <img *ngIf=\"katalog.status_katalog == 'pending'\" src=\"assets/icon/pending.png\" alt=\"pending\"\n                      height=\"50px\">\n                    <ion-icon color=\"danger\" name=\"ellipse-outline\"></ion-icon>\n                    <img *ngIf=\"katalog.status_katalog == 'publish'\" src=\"assets/icon/publish-icon.png\" alt=\"publish\"\n                      height=\"50px%\"> -->\n                      <span *ngIf=\"katalog.status_katalog == 'publish'\" class=\"dot\"></span>\n                      <span *ngIf=\"katalog.status_katalog == 'pending'\" class=\"dot2\"></span>\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n\n    </div>\n    <!-- <div style=\"width:100%; height:25%; display:flex; justify-content:flex-end;\">\n      <div class=\"ion-padding ion-margin ion-text-center\" (click)=\"tambahKatalog()\">\n        <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"50\" width=\"50\">\n        <br>\n\n        <ion-text class=\"bold\" color=\"success\">\n          <ion-icon name=\"add\"></ion-icon>\n          <span style=\"font-size: 12px; font-weight: 900;\"><strong> TAMBAH </strong></span>\n        </ion-text>\n      </div>\n\n    </div> -->\n  </div>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dashboard()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            KATALOG\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"bg-white\" style=\"display: flex; flex-wrap:wrap\">\n    <ion-grid style=\"margin:5%; margin-bottom:0px\">\n      <ion-row style=\"margin-bottom: 10px;\">\n        <ion-col>\n          <h5 class=\"bold\"> Maklumat</h5>\n        </ion-col>\n        <ion-col class=\"ion-text-end\">\n          <h5 class=\"bold\">Status</h5>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n    <div style=\"height: 90%; width:100%; overflow: scroll; display:flex; justify-content:center\">\n\n      <ion-grid class=\"rectangle-279\">\n        <ion-row *ngFor=\"let katalog of katalog\"\n          style=\"margin-bottom: 10px; background-color: #EDEDED; border-radius: 15px;\" (click)=\"lihatKatalog(katalog)\">\n          <ion-col>\n            <div class=\" bold\" style=\"font-family: 'Nunito Sans';\">\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"8\">\n                    <ion-text>\n                      <h6 class=\"bold no-padding\" style=\"text-transform: uppercase;\">\n                        {{katalog.nama_produk}}\n                      </h6>\n                    </ion-text>\n                    <ion-text color=\"medium\">\n                      {{katalog.updated_at | date: 'dd/MM/yyyy'}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"4\" style=\"padding: 0%; display:flex; justify-content:flex-end; align-items:center\">\n                    <!-- <img *ngIf=\"katalog.status_katalog == 'pending'\" src=\"assets/icon/pending.png\" alt=\"pending\"\n                      height=\"50px\">\n                    <ion-icon color=\"danger\" name=\"ellipse-outline\"></ion-icon>\n                    <img *ngIf=\"katalog.status_katalog == 'publish'\" src=\"assets/icon/publish-icon.png\" alt=\"publish\"\n                      height=\"50px%\"> -->\n                      <span *ngIf=\"katalog.status_katalog == 'publish'\" class=\"dot\"></span>\n                      <span *ngIf=\"katalog.status_katalog == 'pending'\" class=\"dot2\"></span>\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n\n    </div>\n    <!-- <div style=\"width:100%; height:25%; display:flex; justify-content:flex-end;\">\n      <div class=\"ion-padding ion-margin ion-text-center\" (click)=\"tambahKatalog()\">\n        <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"50\" width=\"50\">\n        <br>\n\n        <ion-text class=\"bold\" color=\"success\">\n          <ion-icon name=\"add\"></ion-icon>\n          <span style=\"font-size: 12px; font-weight: 900;\"><strong> TAMBAH </strong></span>\n        </ion-text>\n      </div>\n\n    </div> -->\n  </div>\n\n</ion-content>";
       /***/
     }
   }]);

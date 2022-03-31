@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="success" (click)="dismiss()">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button  (click)="dismiss()">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
-      <ion-text color="success">
+      <ion-text color="warning">
         <h1>
           <strong class="ion-text-uppercase">
             TAMBAH KATALOG
@@ -36,7 +36,7 @@
         <ion-col class="form-control">
           <!-- <br> -->
           <ion-label>JUMLAH (kg/unit/orang/liter/ton/pcs) <span style="color: red;">*</span></ion-label>
-          <ion-input placeholder="0.0" type="text" formControlName="berat_produk">
+          <ion-input placeholder="0.0" type="number" formControlName="berat_produk">
           </ion-input>
         </ion-col>
         

@@ -7,9 +7,11 @@ export const environment = {
 
   // baseUrl : 'http://127.0.0.1:8000/'
 
-  baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
+  // baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
 
-  // baseUrl:"https://reds.risda.gov.my/"
+  baseUrl:"http://reds.risda.gov.my/"
+
+  
 };
 
 

@@ -11,7 +11,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TambahJanaDokumenPage": function() { return /* binding */ TambahJanaDokumenPage; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_tambah_jana_dokumen_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./tambah-jana-dokumen.page.html */ 57894);
 /* harmony import */ var _tambah_jana_dokumen_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tambah-jana-dokumen.page.scss */ 24426);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 37716);
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_pelanggan_pelanggan_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/pelanggan/pelanggan.service */ 14744);
 /* harmony import */ var src_app_services_stok_stok_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/stok/stok.service */ 67441);
 /* harmony import */ var src_app_services_daerah_daerah_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/daerah/daerah.service */ 42122);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ 88002);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 88002);
 /* harmony import */ var src_app_services_negeri_negeri_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/negeri/negeri.service */ 64802);
 /* harmony import */ var src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/katalog/katalog.service */ 89496);
 /* harmony import */ var _tooltip_tooltip_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../tooltip/tooltip.page */ 48742);
@@ -106,22 +106,46 @@ let TambahJanaDokumenPage = class TambahJanaDokumenPage {
         // window.location.reload();
     }
     logForm() {
-        console.log(this.form1.value);
-        let prodTemp = this.form1.value.produk;
-        let prodTempLength = prodTemp.length;
-        console.log("prodTemp", prodTemp[1]);
-        this.pelangganService.post(this.form1.value).subscribe((res) => {
-            console.log("res pelanggan", res);
-            let pelanggan = res;
-            for (let i = 0; i < prodTempLength; i++) {
-                prodTemp[i].id_pelanggan = pelanggan.id;
-                prodTemp[i].modified_by = this.user_id;
-                this.stokService.post(prodTemp[i]).subscribe((res) => {
-                    console.log("res stok", res);
-                });
-            }
-            this.dismiss();
-            this.presentAlert();
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, function* () {
+            console.log(this.form1.value);
+            let prodTemp = this.form1.value.produk;
+            let prodTempLength = prodTemp.length;
+            console.log("prodTemp", prodTemp[1]);
+            const alert = yield this.alertController.create({
+                cssClass: 'my-custom-class',
+                header: '',
+                message: 'Adakah anda pasti mahu menyimpan maklumat ini?',
+                buttons: [
+                    {
+                        text: 'Tidak',
+                        role: 'cancel',
+                        cssClass: 'secondary',
+                        id: 'cancel-button',
+                        handler: (blah) => {
+                            console.log('Confirm Cancel: blah');
+                        }
+                    }, {
+                        text: 'Ya',
+                        id: 'confirm-button',
+                        handler: () => {
+                            console.log('Confirm Okay');
+                            this.pelangganService.post(this.form1.value).subscribe((res) => {
+                                console.log("res pelanggan", res);
+                                let pelanggan = res;
+                                for (let i = 0; i < prodTempLength; i++) {
+                                    prodTemp[i].id_pelanggan = pelanggan.id;
+                                    prodTemp[i].modified_by = this.user_id;
+                                    this.stokService.post(prodTemp[i]).subscribe((res) => {
+                                        console.log("res stok", res);
+                                    });
+                                }
+                                this.presentAlert();
+                            });
+                        }
+                    }
+                ]
+            });
+            yield alert.present();
         });
     }
     getNegeri() {
@@ -133,7 +157,7 @@ let TambahJanaDokumenPage = class TambahJanaDokumenPage {
     getDaerah(event) {
         // console.log("test")
         // console.log(this.form1.value.U_Negeri_ID)
-        this.daerahService.get().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_9__.map)(x => x.filter(i => i.U_Negeri_ID == this.form1.value.U_Negeri_ID))).subscribe((res) => {
+        this.daerahService.get().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.map)(x => x.filter(i => i.U_Negeri_ID == this.form1.value.U_Negeri_ID))).subscribe((res) => {
             // this.daerahService.get().subscribe((res) => {
             console.log("Daerah", res);
             this.daerah = res;
@@ -147,7 +171,7 @@ let TambahJanaDokumenPage = class TambahJanaDokumenPage {
         });
     }
     presentAlert() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 cssClass: 'my-custom-class',
                 header: 'Berjaya',
@@ -172,7 +196,7 @@ let TambahJanaDokumenPage = class TambahJanaDokumenPage {
         return result;
     }
     openPopOver(ev) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__awaiter)(this, void 0, void 0, function* () {
             const popover = yield this.popoverCtrl.create({
                 component: _tooltip_tooltip_page__WEBPACK_IMPORTED_MODULE_7__.TooltipPage,
                 event: ev,
@@ -193,7 +217,7 @@ TambahJanaDokumenPage.ctorParameters = () => [
     { type: src_app_services_katalog_katalog_service__WEBPACK_IMPORTED_MODULE_6__.KatalogService },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_11__.PopoverController }
 ];
-TambahJanaDokumenPage = (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__decorate)([
+TambahJanaDokumenPage = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_12__.Component)({
         selector: 'app-tambah-jana-dokumen',
         template: _raw_loader_tambah_jana_dokumen_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -225,7 +249,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            DOKUMEN PERNIAGAAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-grid>\n    <form [formGroup]=\"form1\" (ngSubmit)=\"logForm()\" style=\"margin: 20px;\">\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <h5 class=\"form-header\">Maklumat Pelanggan</h5>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>TAJUK <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"tajuk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA PELANGGAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"nama_pelanggan\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NO RUMAH/ LOT/ PINTU <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat1\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA JALAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat2\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KAMPUNG/ TAMAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat3\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NEGERI <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"U_Negeri_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Negeri_ID\" (ionChange)=\"getDaerah($event)\">\n            <ion-select-option *ngFor=\"let negeri of negeri\" value=\"{{negeri.U_Negeri_ID}}\">{{negeri.Negeri}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>DAERAH <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"U_Daerah_ID\">\n          </ion-input> -->\n          <ion-select formControlName=\"U_Daerah_ID\">\n            <ion-select-option *ngFor=\"let daerah of daerah\" value=\"{{daerah.U_Daerah_ID}}\">{{daerah.Daerah}}\n            </ion-select-option>\n\n          </ion-select>\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>POSKOD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"number\" formControlName=\"poskod\"></ion-input>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>NO. TELEFON <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" inputmode=\"numeric\" formControlName=\"no_telefon\" (keypress)=\"numericOnly($event)\" placeholder=\"Eg: 0342564022\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NO. FAKS </ion-label>\n          <ion-input type=\"text\" inputmode=\"numeric\" formControlName=\"no_fax\" (keypress)=\"numericOnly($event)\" placeholder=\"Eg: 0342564022\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <h5 class=\"form-header\">Maklumat Pembelian <ion-icon name=\"alert-circle-outline\" style=\"font-size: large; margin-top:2px; color: blue\" (click)=\"openPopOver($event)\"></ion-icon></h5>\n        </ion-col>\n      </ion-row>\n      <div formArrayName=\"produk\">\n        <div *ngFor=\"let produk of getProdukArray.controls; let i=index\" [formGroupName]=\"i\">\n\n          <ion-row style=\"margin-bottom: 10px;\">\n            <ion-col class=\"form-control\">\n              <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n              <ion-label position=\"stacked\">NAMA PRODUK <span style=\"color: red;\">*</span></ion-label>\n              <!-- <ion-input formControlName=\"id_katalog\"></ion-input> -->\n              <ion-select formControlName=\"id_katalog\">\n                <ion-select-option *ngFor=\"let katalog of katalog\" value=\"{{katalog.id}}\">{{katalog.nama_produk}}\n                </ion-select-option>\n                <!-- <ion-select-option value=\"draft\">Draft</ion-select-option> -->\n              </ion-select>\n              <!-- </ion-item> -->\n            </ion-col>\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n              <ion-label position=\"stacked\">KUANTITI <span style=\"color: red;\">*</span></ion-label>\n              <ion-input type=\"number\" formControlName=\"stok_dijual\"></ion-input>\n            </ion-col>\n\n\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <div style=\"width:100%; display:flex; justify-content:flex-end;\">\n\n                <div *ngIf=\"i != 0\" class=\"ion-text-center\" (click)=\"deleteProduk(i)\">\n                  <img src=\"/assets/icon/trash-icon.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n\n                <div *ngIf=\"i == (productLength-1)\" class=\"ion-text-center\" (click)=\"addProduk()\">\n                  <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n              </div>\n            </ion-col>\n          </ion-row>\n\n\n        </div>\n\n      </div>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN) </ion-label>\n          <ion-input type=\"number\" formControlName=\"diskaun\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN)</ion-label>\n          <ion-input type=\"number\" formControlName=\"kos_penghantaran\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN)</ion-label>\n          <ion-input type=\"number\" formControlName=\"cukai_sst\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"form1.invalid\">TAMBAH</ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button  (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h2>\n          <strong class=\"ion-text-uppercase\">\n            DOKUMEN PERNIAGAAN\n          </strong>\n        </h2>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-grid>\n    <form [formGroup]=\"form1\" (ngSubmit)=\"logForm()\" style=\"margin: 20px;\">\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <h5 class=\"form-header\">Maklumat Pelanggan</h5>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>TAJUK <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"tajuk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA PELANGGAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"nama_pelanggan\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NO RUMAH/ LOT/ PINTU <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat1\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NAMA JALAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat2\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KAMPUNG/ TAMAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"alamat3\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NEGERI <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"U_Negeri_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Negeri_ID\" (ionChange)=\"getDaerah($event)\">\n            <ion-select-option *ngFor=\"let negeri of negeri\" value=\"{{negeri.U_Negeri_ID}}\">{{negeri.Negeri}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>DAERAH <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"text\" formControlName=\"U_Daerah_ID\">\n          </ion-input> -->\n          <ion-select formControlName=\"U_Daerah_ID\">\n            <ion-select-option *ngFor=\"let daerah of daerah\" value=\"{{daerah.U_Daerah_ID}}\">{{daerah.Daerah}}\n            </ion-select-option>\n\n          </ion-select>\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>POSKOD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"number\" formControlName=\"poskod\"></ion-input>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-label>NO. TELEFON <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" inputmode=\"numeric\" formControlName=\"no_telefon\" (keypress)=\"numericOnly($event)\" placeholder=\"Eg: 0342564022\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>NO. FAKS </ion-label>\n          <ion-input type=\"text\" inputmode=\"numeric\" formControlName=\"no_fax\" (keypress)=\"numericOnly($event)\" placeholder=\"Eg: 0342564022\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <h5 class=\"form-header\">Maklumat Pembelian <ion-icon name=\"alert-circle-outline\" style=\"font-size: large; margin-top:2px; color: blue\" (click)=\"openPopOver($event)\"></ion-icon></h5>\n        </ion-col>\n      </ion-row>\n      <div formArrayName=\"produk\">\n        <div *ngFor=\"let produk of getProdukArray.controls; let i=index\" [formGroupName]=\"i\">\n\n          <ion-row style=\"margin-bottom: 10px;\">\n            <ion-col class=\"form-control\">\n              <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n              <ion-label position=\"stacked\">NAMA PRODUK <span style=\"color: red;\">*</span></ion-label>\n              <!-- <ion-input formControlName=\"id_katalog\"></ion-input> -->\n              <ion-select formControlName=\"id_katalog\">\n                <ion-select-option *ngFor=\"let katalog of katalog\" value=\"{{katalog.id}}\">{{katalog.nama_produk}}\n                </ion-select-option>\n                <!-- <ion-select-option value=\"draft\">Draft</ion-select-option> -->\n              </ion-select>\n              <!-- </ion-item> -->\n            </ion-col>\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <!-- <ion-item lines=\"none\" style=\"border: none;\"> -->\n              <ion-label position=\"stacked\">KUANTITI <span style=\"color: red;\">*</span></ion-label>\n              <ion-input type=\"number\" formControlName=\"stok_dijual\"></ion-input>\n            </ion-col>\n\n\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <div style=\"width:100%; display:flex; justify-content:flex-end;\">\n\n                <div *ngIf=\"i != 0\" class=\"ion-text-center\" (click)=\"deleteProduk(i)\">\n                  <img src=\"assets/new-iconv2/hapus.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n\n                <div *ngIf=\"i == (productLength-1)\" class=\"ion-text-center\" (click)=\"addProduk()\">\n                  <img src=\"assets/new-iconv2/Tambah.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n              </div>\n            </ion-col>\n          </ion-row>\n\n\n        </div>\n\n      </div>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>DISKAUN (TOLAK KOS KESELURUHAN) </ion-label>\n          <ion-input type=\"number\" formControlName=\"diskaun\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KOS PENGHANTARAN (TAMBAH KOS KESELURUHAN)</ion-label>\n          <ion-input type=\"number\" formControlName=\"kos_penghantaran\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>CUKAI/SST/GST/LAIN-LAIN (TAMBAH KOS KESELURUHAN)</ion-label>\n          <ion-input type=\"number\" formControlName=\"cukai_sst\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"form1.invalid\">TAMBAH</ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n\n\n</ion-content>");
 
 /***/ })
 

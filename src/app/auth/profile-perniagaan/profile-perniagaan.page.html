@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar style="height: 80px;">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="success" href="/dashboard">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button href="/dashboard">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
       <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
     </ion-buttons>
-    <ion-text color="success">
+    <ion-text color="warning">
       <h1>
         <strong>
           PROFIL PERNIAGAAN
@@ -21,35 +21,27 @@
   <ion-fab vertical="top" horizontal="end" slot="fixed">
 
     <ion-fab-button color="light">
-      <ion-icon color="success" name="caret-down-outline"></ion-icon>
+      <ion-icon color="warning" name="caret-down-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="bottom">
-      <!-- <a href="/profile"> -->
-      <ion-fab-button color="success" href="/profile">
-        <!-- <ion-icon name="logo-facebook"></ion-icon> -->
+      <ion-fab-button color="warning" href="/profile">
         <img src="assets/icon/usahawan-icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Usahawan</small></ion-text>
-      <!-- </a> -->
-      <!-- <a href="/profile-syarikat" style="text-decoration:none;"> -->
-      <ion-fab-button color="success" href="/profile-syarikat">
-        <!-- <ion-icon name="logo-twitter"></ion-icon> -->
+      <ion-text color="warning"><small> Usahawan</small></ion-text>
+      <ion-fab-button color="warning" href="/profile-syarikat">
         <img src="assets/icon/Syarikat--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Syarikat</small></ion-text>
-      <!-- </a> -->
+      <ion-text color="warning"><small> Syarikat</small></ion-text>
 
-      <ion-fab-button color="success" href="/profile-perniagaan">
-        <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
+      <ion-fab-button color="warning" href="/profile-perniagaan">
         <img src="assets/icon/Perniagaan--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Perniagaan</small></ion-text>
+      <ion-text color="warning"><small> Perniagaan</small></ion-text>
 
-      <ion-fab-button color="success" href="/profile-pekebun">
-        <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
+      <ion-fab-button color="warning" href="/profile-pekebun">
         <img src="assets/icon/Pekebun--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Pekebun</small></ion-text>
+      <ion-text color="warning"><small> Pekebun</small></ion-text>
     </ion-fab-list>
   </ion-fab>
 
@@ -58,7 +50,7 @@
 
     <form [formGroup]="form" class="ion-padding form-control" (ngSubmit)="logForm()">
 
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Perniagaan</strong>
         </ion-col>
@@ -71,7 +63,7 @@
         <ion-col>
           <ion-label>JENIS PERNIAGAAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="jenisperniagaan"></ion-input> -->
-          <ion-select formControlName="jenisperniagaan" style="width:100%," (ionChange)="getKluster();">
+          <ion-select formControlName="jenisperniagaan" style="width:100%," (ionChange)="getKluster(); resetKluster();">
             <ion-select-option *ngFor="let jenis_perniagaan of jenis_perniagaan" value="{{jenis_perniagaan.id}}"
               style="word-wrap:break-word">{{jenis_perniagaan.name}}</ion-select-option>
           </ion-select>
@@ -83,8 +75,8 @@
           <ion-label>KLUSTER PERNIAGAAN <span style="color: red;">*</span></ion-label>
           <!-- <ion-input formControlName="klusterperniagaan"></ion-input> -->
           <ion-select formControlName="klusterperniagaan" style="width:100%,">
-            <ion-select-option *ngFor="let klusterPerniagaan of klusterPerniagaan" value="{{klusterPerniagaan.kluster_id}}"
-              style="word-wrap:break-word">{{klusterPerniagaan.nama_kluster}}</ion-select-option>
+            <ion-select-option *ngFor="let klusterPerniagaans of klusterPerniagaan" value="{{klusterPerniagaans.kluster_id}}" 
+              style="word-wrap:break-word">{{klusterPerniagaans.nama_kluster}}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -214,12 +206,18 @@
           <ion-input formControlName="logitud"></ion-input>
         </ion-col>
       </ion-row>
-      <ion-button (click)="getCurrentCoordinates()" expand="block">
-        Get Location
-      </ion-button>
+
+      <ion-row>
+        <ion-col size="12" style="display: flex; justify-content:center">
+          <ion-button fill="outline" color="dark" (click)="getCurrentCoordinates()" expand="block" style="width: 60%;">
+            <strong>LOKASI GPS</strong> 
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      
 
       <br><br><br>
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Media Sosial</strong>
         </ion-col>
@@ -254,7 +252,7 @@
       </ion-row>
 
       <br><br><br>
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Pemasaran</strong>
         </ion-col>
@@ -307,7 +305,7 @@
 
 
       <br><br><br>
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Pendapatan</strong>
         </ion-col>
@@ -339,7 +337,7 @@
 
 
       <br><br><br>
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Produk</strong>
         </ion-col>
@@ -384,12 +382,12 @@
               <div style="width:100%; display:flex; justify-content:flex-end;">
 
                 <div *ngIf="i != 0" class="ion-text-center" (click)="deleteProduk(i, produk.value.id)">
-                  <img src="/assets/icon/trash-icon.png" alt="" height="30" width="30">
+                  <img src="assets/new-iconv2/hapus.png" alt="" height="30" width="30">
                   <br>
                 </div>
 
                 <div *ngIf="i == (productLength-1)" class="ion-text-center" (click)="addProduk()">
-                  <img src="/assets/icon/add-item-icon.png" alt="" height="30" width="30">
+                  <img src="assets/new-iconv2/Tambah.png" alt="" height="30" width="30">
                   <br>
                 </div>
               </div>
@@ -402,7 +400,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-button type="submit" expand="block" color="success" [disabled]="form.invalid">KEMASKINI</ion-button>
+          <ion-button type="submit" expand="block" color="dark" [disabled]="form.invalid">KEMASKINI</ion-button>
         </ion-col>
       </ion-row>
 

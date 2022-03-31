@@ -28,7 +28,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -46,19 +46,19 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @ionic/angular */
       19122);
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/forms */
       3679);
       /* harmony import */
@@ -70,7 +70,7 @@
       /* harmony import */
 
 
-      var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! rxjs/operators */
       88002);
       /* harmony import */
@@ -89,16 +89,24 @@
 
 
       var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+      /* harmony import */
+
+
+      var _awesome_cordova_plugins_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @awesome-cordova-plugins/in-app-browser/ngx */
+      69526); // @Pipe({name: 'convertFrom24To12Format'})
+
 
       var _KemaskiniLaporanPage = /*#__PURE__*/function () {
-        function KemaskiniLaporanPage(modalController, formBuilder, lawatanService, loadingController, alertController) {
+        function KemaskiniLaporanPage(modalController, formBuilder, lawatanService, loadingController, alertController, iab) {
           _classCallCheck(this, KemaskiniLaporanPage);
 
           this.modalController = modalController;
           this.formBuilder = formBuilder;
           this.lawatanService = lawatanService;
           this.loadingController = loadingController;
-          this.alertController = alertController; // Convert the base64 to blob data
+          this.alertController = alertController;
+          this.iab = iab; // Convert the base64 to blob data
           // and create  formData with it
 
           this.images = [];
@@ -117,12 +125,12 @@
           };
 
           this.form = this.formBuilder.group({
-            namausahawan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            namausahawan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required],
             tarikh_lawatan: [''],
             masa_lawatan: [''],
-            id_tindakan_lawatan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            id_tindakan_lawatan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required],
             komen: [''],
-            jenis_lawatan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            jenis_lawatan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required],
             gambar_lawatan: ['']
           });
         }
@@ -183,7 +191,7 @@
           value: function getTindakanLawatan() {
             var _this = this;
 
-            this.lawatanService.getTindakanLawatan().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.map)(function (x) {
+            this.lawatanService.getTindakanLawatan().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.map)(function (x) {
               return x.filter(function (i) {
                 return i.status_tindakan_lawatan == "aktif";
               });
@@ -197,7 +205,7 @@
         }, {
           key: "logForm",
           value: function logForm() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
               var _this2 = this;
 
               var alert;
@@ -222,7 +230,7 @@
                         }, {
                           text: 'Ya',
                           handler: function handler() {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                               var _this3 = this;
 
                               return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -288,7 +296,7 @@
         }, {
           key: "fileEvent",
           value: function fileEvent(e) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var files, file, filePath, base64Data, fileName;
               return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
@@ -323,7 +331,7 @@
         }, {
           key: "readAsBase64",
           value: function readAsBase64(blob) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
                   switch (_context4.prev = _context4.next) {
@@ -345,12 +353,15 @@
         }, {
           key: "download_laporan",
           value: function download_laporan(id) {
+            var _this5 = this;
+
             console.log(id);
             this.lawatanService.janaLaporan(id).subscribe(function (res) {
               console.log("res3", res);
               var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
-              console.log(url);
-              window.open(url, "_blank");
+              console.log(url); // window.open(url, "_blank");
+
+              var browser = _this5.iab.create(url, '_system');
             });
           }
         }]);
@@ -360,24 +371,26 @@
 
       _KemaskiniLaporanPage.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.ModalController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.ModalController
         }, {
-          type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormBuilder
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormBuilder
         }, {
           type: src_app_services_lawatan_lawatan_service__WEBPACK_IMPORTED_MODULE_2__.LawatanService
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.LoadingController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.LoadingController
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.AlertController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.AlertController
+        }, {
+          type: _awesome_cordova_plugins_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_5__.InAppBrowser
         }];
       };
 
       _KemaskiniLaporanPage.propDecorators = {
         laporan: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_9__.Input
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_10__.Input
         }]
       };
-      _KemaskiniLaporanPage = (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
+      _KemaskiniLaporanPage = (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
         selector: 'app-kemaskini-laporan',
         template: _raw_loader_kemaskini_laporan_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_kemaskini_laporan_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -523,7 +536,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            LAPORAN LAWATAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- <form [formGroup]=\"tunai_masuk\" (ngSubmit)=\"logForm()\" style=\"margin: 30px;\">\n    <ion-item class=\"form-control\">\n      <ion-label>Todo</ion-label>\n      <ion-input type=\"text\" formControlName=\"title\"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label>Description</ion-label>\n      <ion-textarea formControlName=\"description\"></ion-textarea>\n    </ion-item>\n    <ion-button type=\"submit\" [disabled]=\"!tunai_masuk.valid\">Submit</ion-button>\n  </form> -->\n  \n\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">NAMA USAHAWAN </ion-label>\n            <ion-input formControlName=\"namausahawan\" readonly></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row> \n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">TARIKH </ion-label>\n            <ion-input type=\"text\" formControlName=\"tarikh_lawatan\" readonly></ion-input>\n            <!-- <ion-datetime presentation=\"date\" displayFormat=\"DD/MM/YYYY\" formControlName=\"tarikh_lawatan\" readonly style=\"background-color: #f5f5f5;\"> -->\n            <!-- </ion-datetime> -->\n          </ion-item>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">MASA </ion-label>\n            <ion-input type=\"text\" formControlName=\"masa_lawatan\" readonly></ion-input>\n            <!-- <ion-datetime presentation=\"time\" displayFormat=\"HHmm\" formControlName=\"masa_lawatan\" readonly style=\"background-color: #f5f5f5;\"> -->\n            <!-- </ion-datetime> -->\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">JENIS LAWATAN </ion-label>\n            <ion-select formControlName=\"jenis_lawatan\">\n              <ion-select-option value=\"janji temu\">JANJI TEMU</ion-select-option>\n              <ion-select-option value=\"datang terus\">DATANG TERUS</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">TINDAKAN USAHAWAN </ion-label>\n            <ion-select formControlName=\"id_tindakan_lawatan\">\n              <ion-select-option *ngFor=\"let tindakanLawatan of tindakanLawatan\" [value]=\"tindakanLawatan.id\" selected=\"tindakanLawatan.id == this.laporan.id_tindakan_lawatan\">\n                {{tindakanLawatan.nama_tindakan_lawatan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">KOMEN KESELURUHAN </ion-label>\n            <ion-textarea rows=\"4\" formControlName=\"komen\" ></ion-textarea>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\">GAMBAR</ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px; \">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label style=\"display: flex; justify-content:center\">\n            <div style=\"display: flex; justify-content:center\">\n              <img [src]=\"url\" class=\"border-radius-md\" width=\"40%\" \n                id=\"upload-Preview\" style=\"border-radius: 10px;\" />\n            </div>\n            <input id=\"upload-Image\" accept=\"image/*\" (change)=\"onSelectFile($event)\" formControlName=\"gambar_lawatan\" type=\"file\"  style=\"display: none\">\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin:20px;\">\n        <ion-col class=\"form-control\">\n          \n          <ion-button color=\"success\" expand=\"block\" [disabled]=\"form.invalid\" type=\"submit\">KEMASKINI LAPORAN</ion-button>\n          <ion-button color=\"success\" expand=\"block\" (click)=\"download_laporan(laporan.lawatan_id)\">CETAK LAPORAN</ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            LAPORAN LAWATAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">NAMA USAHAWAN </ion-label>\n            <ion-input formControlName=\"namausahawan\" readonly></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row> \n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">TARIKH </ion-label>\n            <ion-input type=\"text\" formControlName=\"tarikh_lawatan\" readonly></ion-input>\n          \n          </ion-item>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">MASA </ion-label>\n            <ion-input type=\"text\" formControlName=\"masa_lawatan\" readonly></ion-input>\n           \n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">JENIS LAWATAN </ion-label>\n            <ion-select formControlName=\"jenis_lawatan\">\n              <ion-select-option value=\"janji temu\">JANJI TEMU</ion-select-option>\n              <ion-select-option value=\"datang terus\">DATANG TERUS</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">TINDAKAN USAHAWAN </ion-label>\n            <ion-select formControlName=\"id_tindakan_lawatan\">\n              <ion-select-option class=\"laporan\" *ngFor=\"let tindakanLawatan of tindakanLawatan\" [value]=\"tindakanLawatan.id\" selected=\"tindakanLawatan.id == this.laporan.id_tindakan_lawatan\">\n                {{tindakanLawatan.nama_tindakan_lawatan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">KOMEN KESELURUHAN </ion-label>\n            <ion-textarea rows=\"4\" formControlName=\"komen\" ></ion-textarea>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\">GAMBAR</ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px; \">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label style=\"display: flex; justify-content:center\">\n            <div style=\"display: flex; justify-content:center\">\n              <img [src]=\"url\" class=\"border-radius-md\" width=\"40%\" \n                id=\"upload-Preview\" style=\"border-radius: 10px;\" />\n            </div>\n            <input id=\"upload-Image\" accept=\"image/*\" (change)=\"onSelectFile($event)\" formControlName=\"gambar_lawatan\" type=\"file\"  style=\"display: none\">\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin:20px;\">\n        <ion-col class=\"form-control\">\n          \n          <ion-button color=\"dark\" expand=\"block\" [disabled]=\"form.invalid\" type=\"submit\">KEMASKINI LAPORAN</ion-button>\n          <ion-button color=\"warning\" expand=\"block\" (click)=\"download_laporan(laporan.lawatan_id)\">CETAK LAPORAN</ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>";
       /***/
     }
   }]);

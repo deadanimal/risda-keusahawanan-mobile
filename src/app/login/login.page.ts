@@ -45,9 +45,11 @@ export class LoginPage implements OnInit {
 
       this.checked = true;
       let nokp = localStorage.getItem('nokp');
+      let pass = localStorage.getItem('pass');
 
       this.form.patchValue({
         no_kp: nokp,
+        password: pass
       });
     }
   }
@@ -119,9 +121,11 @@ export class LoginPage implements OnInit {
           this.loginService.setLoggedInStatus(true);
 
           localStorage.setItem('nokp', this.form.value.no_kp);
+          localStorage.setItem('pass', this.form.value.password);
         } else {
           this.loginService.setLoggedInStatus(false);
           localStorage.removeItem('nokp');
+          localStorage.removeItem('pass');
         }
 
 
@@ -174,18 +178,10 @@ export class LoginPage implements OnInit {
 
 
   addValue(e) {
-    // var isChecked = e.currentTarget.checked;
 
     this.checked = !this.checked
     console.log(this.checked)
 
   }
-
-  // isChecked(event) {
-  //   if ( event.checked ) {
-  //     // this.btnDisabled = false;
-  //     console.log(event)
-  //  }
-  // }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { BuletinService } from 'src/app/services/buletin/buletin.service';
 import { KemaskiniBuletinPage } from '../kemaskini-buletin/kemaskini-buletin.page';
 import { TambahBuletinPage } from '../tambah-buletin/tambah-buletin.page';
@@ -18,18 +19,25 @@ export class BuletinPage implements OnInit {
 
   constructor(
     public modalController: ModalController,
-    private buletinService: BuletinService
+    private buletinService: BuletinService,
+    private router: Router,
+    public loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
     this.getBuletin();
   }
 
-  getBuletin() {
+  async getBuletin() {
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
     this.buletinService.get(this.pegawai_id).subscribe((res) => {
       console.log("res", res);
 
       this.buletin = res;
+
+      loading.dismiss();
+
     });
   }
 
@@ -52,4 +60,8 @@ export class BuletinPage implements OnInit {
     return await modal.present();
   }
 
+
+  dashboard() {
+    this.router.navigate(['/dashboard'])
+  }
 }

@@ -38,12 +38,12 @@ export class TambahJanaDokumenPage implements OnInit {
     private daerahService: DaerahService,
     private negeriService: NegeriService,
     private katalogService: KatalogService,
-    private popoverCtrl:PopoverController
+    private popoverCtrl: PopoverController
 
   ) {
 
     this.form1 = this.formBuilder.group({
-      tajuk:['', Validators.required],
+      tajuk: ['', Validators.required],
 
       nama_pelanggan: ['', Validators.required],
       alamat1: ['', Validators.required],
@@ -53,27 +53,27 @@ export class TambahJanaDokumenPage implements OnInit {
       U_Negeri_ID: ['', Validators.required],
       U_Daerah_ID: ['', Validators.required],
       no_telefon: ['', Validators.required],
-      no_fax: ['', ],
+      no_fax: ['',],
 
-      diskaun: ['', ],
-      kos_penghantaran: ['', ],
-      cukai_sst: ['', ],
+      diskaun: ['',],
+      kos_penghantaran: ['',],
+      cukai_sst: ['',],
 
       produk: this.formBuilder.array([]),
-      
+
     });
 
 
 
   }
 
-  count : any = 0;
-  productLength : any = 0;
+  count: any = 0;
+  productLength: any = 0;
   addProduk() {
     const produk = this.formBuilder.group({
-      id_katalog: ['',  Validators.required],
+      id_katalog: ['', Validators.required],
       id_pelanggan: [''],
-      stok_dijual: ['',  Validators.required],
+      stok_dijual: ['', Validators.required],
       modified_by: [''],
     });
     this.getProdukArray.push(produk);
@@ -89,7 +89,7 @@ export class TambahJanaDokumenPage implements OnInit {
   }
 
   deleteProduk(i) {
-    
+
     this.getProdukArray.removeAt(i);
 
     this.count--;
@@ -115,35 +115,59 @@ export class TambahJanaDokumenPage implements OnInit {
     // window.location.reload();
   }
 
-  logForm() {
+  async logForm() {
     console.log(this.form1.value);
 
     let prodTemp = this.form1.value.produk;
     let prodTempLength = prodTemp.length;
 
     console.log("prodTemp", prodTemp[1])
-    
 
-    this.pelangganService.post(this.form1.value).subscribe((res) => {
-      console.log("res pelanggan", res);
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '',
+      message: 'Adakah anda pasti mahu menyimpan maklumat ini?',
+      buttons: [
+        {
+          text: 'Tidak',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ya',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
 
-      let pelanggan = res;
+            this.pelangganService.post(this.form1.value).subscribe((res) => {
+              console.log("res pelanggan", res);
 
-      for (let i = 0; i < prodTempLength; i++) {
+              let pelanggan = res;
 
-        prodTemp[i].id_pelanggan = pelanggan.id;
-        prodTemp[i].modified_by = this.user_id;
+              for (let i = 0; i < prodTempLength; i++) {
 
-        this.stokService.post(prodTemp[i]).subscribe((res) => {
-          console.log("res stok", res);
+                prodTemp[i].id_pelanggan = pelanggan.id;
+                prodTemp[i].modified_by = this.user_id;
 
-        });
-      }
+                this.stokService.post(prodTemp[i]).subscribe((res) => {
+                  console.log("res stok", res);
 
-      this.dismiss();
-      this.presentAlert()
+                });
+              }
 
+              this.presentAlert()
+
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
+
   }
 
   getNegeri() {
@@ -204,7 +228,7 @@ export class TambahJanaDokumenPage implements OnInit {
     window.location.reload();
   }
 
-  
+
 
   numericOnly(event): boolean {
 
@@ -215,7 +239,7 @@ export class TambahJanaDokumenPage implements OnInit {
   }
 
 
-  async openPopOver(ev: any){
+  async openPopOver(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: TooltipPage,
       event: ev,

@@ -161,7 +161,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -215,7 +215,7 @@
       /* harmony import */
 
 
-      var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! rxjs/operators */
       88002);
       /* harmony import */
@@ -445,90 +445,123 @@
         }, {
           key: "getPerniagaan",
           value: function getPerniagaan() {
-            var _this2 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_16__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this2 = this;
 
-            // console.log(this.form.value);
-            this.perniagaanService.show(this.usahawan_id).subscribe(function (res) {
-              console.log("perniagaan info", res);
-
-              if (Object.keys(res).length === 0) {
-                console.log("failed");
-              } else {
-                _this2.perniagaan = res;
-
-                _this2.produkService.get(res.id).subscribe(function (produkRes) {
-                  console.log("produk", produkRes);
-                  _this2.produk = produkRes;
-
-                  if (Object.keys(produkRes).length === 0) {
-                    _this2.addProduk();
-                  }
-
-                  _this2.negeriService.get().subscribe(function (resNegeri) {
-                    console.log("Negeri", resNegeri);
-                    _this2.negeri = resNegeri;
-
-                    _this2.daerahService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
-                      return x.filter(function (i) {
-                        return i.U_Negeri_ID == _this2.perniagaan.U_Negeri_ID;
+              var loading;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.loadingController.create({
+                        message: 'Loading ...'
                       });
-                    })).subscribe(function (resDaerah) {
-                      console.log("resDaerah", resDaerah);
-                      _this2.daerah = resDaerah;
 
-                      _this2.mukimService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
-                        return x.filter(function (i) {
-                          return i.U_Daerah_ID == _this2.perniagaan.U_Daerah_ID;
-                        });
-                      })).subscribe(function (resMukim) {
-                        console.log("resMukim", resMukim);
-                        _this2.mukim = resMukim;
+                    case 2:
+                      loading = _context.sent;
+                      loading.present(); // console.log(this.form.value);
 
-                        _this2.parlimenService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
-                          return x.filter(function (i) {
-                            return i.U_Negeri_ID == _this2.perniagaan.U_Negeri_ID;
-                          });
-                        })).subscribe(function (resParlimen) {
-                          console.log("resParlimen", resParlimen);
-                          _this2.parlimen = resParlimen;
+                      this.perniagaanService.show(this.usahawan_id).subscribe(function (res) {
+                        console.log("perniagaan info", res);
 
-                          _this2.dunService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
-                            return x.filter(function (i) {
-                              return i.U_Parlimen_ID == _this2.perniagaan.U_Parlimen_ID;
-                            });
-                          })).subscribe(function (resDun) {
-                            console.log("resDun", resDun);
-                            _this2.dun = resDun;
+                        if (Object.keys(res).length === 0) {
+                          console.log("failed");
+                          loading.dismiss();
+                        } else {
+                          _this2.perniagaan = res;
 
-                            _this2.kampungService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
-                              return x.filter(function (i) {
-                                return i.U_Mukim_ID == _this2.perniagaan.U_Mukim_ID;
-                              });
-                            })).subscribe(function (resKampung) {
-                              console.log("resKampung", resKampung);
-                              _this2.kampung = resKampung;
-                              var mukimStr = _this2.perniagaan.U_Mukim_ID;
-                              var mukimInt = parseInt(mukimStr.toString());
+                          _this2.produkService.get(res.id).subscribe(function (produkRes) {
+                            console.log("produk", produkRes);
+                            _this2.produk = produkRes;
 
-                              _this2.seksyenService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
+                            if (Object.keys(produkRes).length == 0 && _this2.productLength == 0) {
+                              _this2.addProduk();
+                            }
+
+                            _this2.negeriService.get().subscribe(function (resNegeri) {
+                              console.log("Negeri", resNegeri);
+                              _this2.negeri = resNegeri;
+
+                              _this2.daerahService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
                                 return x.filter(function (i) {
-                                  return i.U_Mukim_ID == mukimInt;
+                                  return i.U_Negeri_ID == _this2.perniagaan.U_Negeri_ID;
                                 });
-                              })).subscribe(function (resSeksyen) {
-                                console.log("resSeksyen", resSeksyen);
-                                _this2.seksyen = resSeksyen;
+                              })).subscribe(function (resDaerah) {
+                                console.log("resDaerah", resDaerah);
+                                _this2.daerah = resDaerah;
 
-                                _this2.setFormValues();
+                                _this2.mukimService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
+                                  return x.filter(function (i) {
+                                    return i.U_Daerah_ID == _this2.perniagaan.U_Daerah_ID;
+                                  });
+                                })).subscribe(function (resMukim) {
+                                  console.log("resMukim", resMukim);
+                                  _this2.mukim = resMukim;
+
+                                  _this2.parlimenService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
+                                    return x.filter(function (i) {
+                                      return i.U_Negeri_ID == _this2.perniagaan.U_Negeri_ID;
+                                    });
+                                  })).subscribe(function (resParlimen) {
+                                    console.log("resParlimen", resParlimen);
+                                    _this2.parlimen = resParlimen;
+
+                                    _this2.dunService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
+                                      return x.filter(function (i) {
+                                        return i.U_Parlimen_ID == _this2.perniagaan.U_Parlimen_ID;
+                                      });
+                                    })).subscribe(function (resDun) {
+                                      console.log("resDun", resDun);
+                                      _this2.dun = resDun;
+
+                                      _this2.kampungService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
+                                        return x.filter(function (i) {
+                                          return i.U_Mukim_ID == _this2.perniagaan.U_Mukim_ID;
+                                        });
+                                      })).subscribe(function (resKampung) {
+                                        console.log("resKampung", resKampung);
+                                        _this2.kampung = resKampung;
+                                        var mukimStr = _this2.perniagaan.U_Mukim_ID; // let mukimInt = parseInt(mukimStr.toString())
+
+                                        _this2.seksyenService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
+                                          return x.filter(function (i) {
+                                            return i.U_Mukim_ID == mukimStr;
+                                          });
+                                        })).subscribe(function (resSeksyen) {
+                                          console.log("resSeksyen", resSeksyen);
+                                          _this2.seksyen = resSeksyen;
+
+                                          _this2.klusterService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
+                                            return x.filter(function (i) {
+                                              return i.jenis_kluster == _this2.perniagaan.jenisperniagaan;
+                                            });
+                                          })).subscribe(function (resKluster) {
+                                            console.log("kluster", resKluster);
+                                            _this2.klusterPerniagaan = resKluster;
+
+                                            _this2.setFormValues();
+
+                                            loading.dismiss();
+                                          });
+                                        });
+                                      });
+                                    });
+                                  });
+                                });
                               });
                             });
                           });
-                        });
+                        }
                       });
-                    });
-                  });
-                });
-              }
-            });
+
+                    case 5:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           }
         }, {
           key: "setFormValues",
@@ -573,7 +606,8 @@
           value: function getKluster() {
             var _this3 = this;
 
-            this.klusterService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
+            // this.form.value.klusterPerniagaan = null;
+            this.klusterService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
               return x.filter(function (i) {
                 return i.jenis_kluster == _this3.form.value.jenisperniagaan;
               });
@@ -581,6 +615,14 @@
               console.log("kluster", res);
               _this3.klusterPerniagaan = res;
             });
+          }
+        }, {
+          key: "resetKluster",
+          value: function resetKluster() {
+            this.form.patchValue({
+              klusterPerniagaan: null
+            });
+            console.log(this.form.value.klusterPerniagaan);
           }
         }, {
           key: "getNegeri",
@@ -597,7 +639,7 @@
           value: function getDaerah(event) {
             var _this5 = this;
 
-            this.daerahService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
+            this.daerahService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
               return x.filter(function (i) {
                 return i.U_Negeri_ID == _this5.form.value.U_Negeri_ID;
               });
@@ -613,7 +655,7 @@
           value: function getMukim(event) {
             var _this6 = this;
 
-            this.mukimService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
+            this.mukimService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
               return x.filter(function (i) {
                 return i.U_Daerah_ID == _this6.form.value.U_Daerah_ID;
               });
@@ -627,7 +669,7 @@
           value: function getParlimen() {
             var _this7 = this;
 
-            this.parlimenService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
+            this.parlimenService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
               return x.filter(function (i) {
                 return i.U_Negeri_ID == _this7.form.value.U_Negeri_ID;
               });
@@ -641,7 +683,7 @@
           value: function getDun() {
             var _this8 = this;
 
-            this.dunService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
+            this.dunService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
               return x.filter(function (i) {
                 return i.U_Parlimen_ID == _this8.form.value.U_Parlimen_ID;
               });
@@ -655,7 +697,7 @@
           value: function getKampung() {
             var _this9 = this;
 
-            this.kampungService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
+            this.kampungService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
               return x.filter(function (i) {
                 return i.U_Mukim_ID == _this9.form.value.U_Mukim_ID;
               });
@@ -671,7 +713,7 @@
 
             console.log(this.form.value.U_Mukim_ID);
             var mukim = parseInt(this.form.value.U_Mukim_ID);
-            this.seksyenService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_16__.map)(function (x) {
+            this.seksyenService.get().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.map)(function (x) {
               return x.filter(function (i) {
                 return i.U_Mukim_ID == mukim;
               });
@@ -683,15 +725,15 @@
         }, {
           key: "logForm",
           value: function logForm() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_17__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_16__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var _this11 = this;
 
               var alert;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
-                      _context2.next = 2;
+                      _context3.next = 2;
                       return this.alertController.create({
                         cssClass: 'my-custom-class',
                         header: '',
@@ -704,26 +746,28 @@
                             console.log('Confirm Cancel: blah');
 
                             _this11.setFormValues();
+
+                            console.log("AAAAAAAA", _this11.produk.length);
                           }
                         }, {
                           text: 'Ya',
                           handler: function handler() {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_17__.__awaiter)(_this11, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_16__.__awaiter)(_this11, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
                               var _this12 = this;
 
                               var loading, prodTemp, prodTempLength;
-                              return regeneratorRuntime.wrap(function _callee$(_context) {
+                              return regeneratorRuntime.wrap(function _callee2$(_context2) {
                                 while (1) {
-                                  switch (_context.prev = _context.next) {
+                                  switch (_context2.prev = _context2.next) {
                                     case 0:
                                       console.log('Confirm Okay');
-                                      _context.next = 3;
+                                      _context2.next = 3;
                                       return this.loadingController.create({
                                         message: 'Loading ...'
                                       });
 
                                     case 3:
-                                      loading = _context.sent;
+                                      loading = _context2.sent;
                                       loading.present();
                                       console.log(this.form.value);
                                       prodTemp = this.form.value.produk;
@@ -748,8 +792,6 @@
                                           }
                                         }
 
-                                        _this12.getPerniagaan();
-
                                         loading.dismiss();
 
                                         _this12.presentAlert();
@@ -757,39 +799,39 @@
 
                                     case 10:
                                     case "end":
-                                      return _context.stop();
+                                      return _context2.stop();
                                   }
                                 }
-                              }, _callee, this);
+                              }, _callee2, this);
                             }));
                           }
                         }]
                       });
 
                     case 2:
-                      alert = _context2.sent;
-                      _context2.next = 5;
+                      alert = _context3.sent;
+                      _context3.next = 5;
                       return alert.present();
 
                     case 5:
                     case "end":
-                      return _context2.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee3, this);
             }));
           }
         }, {
           key: "presentAlert",
           value: function presentAlert() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_17__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_16__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var alert, _yield$alert$onDidDis, role;
 
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
-                      _context3.next = 2;
+                      _context4.next = 2;
                       return this.alertController.create({
                         cssClass: 'my-custom-class',
                         header: 'Kemaskini Berjaya',
@@ -799,25 +841,25 @@
                       });
 
                     case 2:
-                      alert = _context3.sent;
-                      _context3.next = 5;
+                      alert = _context4.sent;
+                      _context4.next = 5;
                       return alert.present();
 
                     case 5:
-                      _context3.next = 7;
+                      _context4.next = 7;
                       return alert.onDidDismiss();
 
                     case 7:
-                      _yield$alert$onDidDis = _context3.sent;
+                      _yield$alert$onDidDis = _context4.sent;
                       role = _yield$alert$onDidDis.role;
                       console.log('onDidDismiss resolved with role', role);
 
                     case 10:
                     case "end":
-                      return _context3.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee4, this);
             }));
           }
         }, {
@@ -860,14 +902,7 @@
               _this13.form.patchValue({
                 peratus_kenaikan: peratus_kenaikan.toFixed(2)
               });
-            }); // this.aliranService.getTotalMonth(this.user_id).subscribe((res) => {
-            //   console.log("jumlah bulanan", res);
-            //   let total = ((res - purata_jualan_bulanan) / (res + purata_jualan_bulanan)) * 100;
-            //   console.log("total", total);
-            //   this.form.patchValue({
-            //     peratus_kenaikan: total.toFixed(2),
-            //   })
-            // });
+            });
           } // use geolocation to get user's device coordinates
 
         }, {
@@ -932,7 +967,7 @@
         }];
       };
 
-      _ProfilePerniagaanPage = (0, tslib__WEBPACK_IMPORTED_MODULE_17__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_20__.Component)({
+      _ProfilePerniagaanPage = (0, tslib__WEBPACK_IMPORTED_MODULE_16__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_20__.Component)({
         selector: 'app-profile-perniagaan',
         template: _raw_loader_profile_perniagaan_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_profile_perniagaan_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -1502,7 +1537,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".read-only {\n  background-color: #f5f5f5;\n  color: #919191;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInByb2ZpbGUtcGVybmlhZ2Fhbi5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx5QkFBQTtFQUNBLGNBQUE7QUFDSiIsImZpbGUiOiJwcm9maWxlLXBlcm5pYWdhYW4ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlYWQtb25seSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y1ZjVmNTtcbiAgICBjb2xvcjojOTE5MTkxXG59XG4iXX0= */";
+      __webpack_exports__["default"] = ".read-only {\n  background-color: #e2e2e2;\n  color: #6d6d6d;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInByb2ZpbGUtcGVybmlhZ2Fhbi5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx5QkFBQTtFQUNBLGNBQUE7QUFDSiIsImZpbGUiOiJwcm9maWxlLXBlcm5pYWdhYW4ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlYWQtb25seSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2UyZTJlMjtcbiAgICBjb2xvcjojNmQ2ZDZkXG59XG4iXX0= */";
       /***/
     },
 
@@ -1514,7 +1549,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"success\">\n      <h1>\n        <strong>\n          PROFIL PERNIAGAAN\n        </strong>\n      </h1>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n\n    <ion-fab-button color=\"light\">\n      <ion-icon color=\"success\" name=\"caret-down-outline\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"bottom\">\n      <!-- <a href=\"/profile\"> -->\n      <ion-fab-button color=\"success\" href=\"/profile\">\n        <!-- <ion-icon name=\"logo-facebook\"></ion-icon> -->\n        <img src=\"assets/icon/usahawan-icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Usahawan</small></ion-text>\n      <!-- </a> -->\n      <!-- <a href=\"/profile-syarikat\" style=\"text-decoration:none;\"> -->\n      <ion-fab-button color=\"success\" href=\"/profile-syarikat\">\n        <!-- <ion-icon name=\"logo-twitter\"></ion-icon> -->\n        <img src=\"assets/icon/Syarikat--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Syarikat</small></ion-text>\n      <!-- </a> -->\n\n      <ion-fab-button color=\"success\" href=\"/profile-perniagaan\">\n        <!-- <ion-icon name=\"logo-vimeo\"></ion-icon> -->\n        <img src=\"assets/icon/Perniagaan--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Perniagaan</small></ion-text>\n\n      <ion-fab-button color=\"success\" href=\"/profile-pekebun\">\n        <!-- <ion-icon name=\"logo-vimeo\"></ion-icon> -->\n        <img src=\"assets/icon/Pekebun--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"success\"><small> Pekebun</small></ion-text>\n    </ion-fab-list>\n  </ion-fab>\n\n  <ion-grid [fixed]=\"true\">\n\n\n    <form [formGroup]=\"form\" class=\"ion-padding form-control\" (ngSubmit)=\"logForm()\">\n\n      <ion-row style=\"background-color: #00A651; color:white\">\n        <ion-col>\n          <strong>Maklumat Perniagaan</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>JENIS PERNIAGAAN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input formControlName=\"jenisperniagaan\"></ion-input> -->\n          <ion-select formControlName=\"jenisperniagaan\" style=\"width:100%,\" (ionChange)=\"getKluster();\">\n            <ion-select-option *ngFor=\"let jenis_perniagaan of jenis_perniagaan\" value=\"{{jenis_perniagaan.id}}\"\n              style=\"word-wrap:break-word\">{{jenis_perniagaan.name}}</ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>KLUSTER PERNIAGAAN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input formControlName=\"klusterperniagaan\"></ion-input> -->\n          <ion-select formControlName=\"klusterperniagaan\" style=\"width:100%,\">\n            <ion-select-option *ngFor=\"let klusterPerniagaan of klusterPerniagaan\" value=\"{{klusterPerniagaan.kluster_id}}\"\n              style=\"word-wrap:break-word\">{{klusterPerniagaan.nama_kluster}}</ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>SUB KLUSTER PERNIAGAAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"subkluster\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NO RUMAH/LOT/PINTU <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"alamat1\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NAMA JALAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"alamat2\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> KAMPUNG/TAMAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"alamat3\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> BANDAR <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"bandar\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label> POSKOD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"Number\" formControlName=\"poskod\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NEGERI <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input formControlName=\"U_Negeri_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Negeri_ID\" (ionChange)=\"getDaerah($event); reset()\">\n            <ion-select-option *ngFor=\"let negeri of negeri\" value=\"{{negeri.U_Negeri_ID}}\">\n              {{negeri.Negeri}}</ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> DAERAH <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Daerah_ID}}\" formControlName=\"U_Daerah_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Daerah_ID\" (ionChange)=\"getMukim($event)\">\n            <ion-select-option *ngFor=\"let daerah of daerah\" value=\"{{daerah.U_Daerah_ID}}\">{{daerah.Daerah}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col>\n          <ion-label> MUKIM <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input  formControlName=\"U_Mukim_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Mukim_ID\" (ionChange)=\"getKampung($event); getSeksyen(); reset2()\">\n            <ion-select-option *ngFor=\"let mukim of mukim\" value=\"{{mukim.U_Mukim_ID}}\">{{mukim.Mukim}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> PARLIMEN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Parlimen_ID}}\" formControlName=\"U_Parlimen_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Parlimen_ID\" (ionChange)=\"getDun()\">\n            <ion-select-option *ngFor=\"let parlimen of parlimen\" value=\"{{parlimen.U_Parlimen_ID}}\">\n              {{parlimen.Parlimen}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col>\n          <ion-label> DUN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Dun_ID}}\" formControlName=\"U_Dun_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Dun_ID\">\n            <ion-select-option *ngFor=\"let dun of dun\" value=\"{{dun.U_Dun_ID}}\">{{dun.Dun}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> KAMPUNG</ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Kampung_ID}}\" formControlName=\"U_Kampung_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Kampung_ID\">\n            <ion-select-option *ngFor=\"let kampung of kampung\" [value]=\"kampung.U_Kampung_ID\"\n              selected=\"kampung.U_Kampung_ID == this.usahawan.U_Kampung_ID\">{{kampung.Kampung}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col>\n          <ion-label> SEKSYEN</ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Seksyen_ID}}\" formControlName=\"U_Seksyen_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Seksyen_ID\">\n            <ion-select-option *ngFor=\"let seksyen of seksyen\" [value]=\"seksyen.U_Seksyen_ID\"\n              selected=\"seksyen.U_Seksyen_ID == this.usahawan.U_Seksyen_ID\">{{seksyen.Seksyen}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>LATITUD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"latitud\"></ion-input>\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col>\n          <ion-label> LONGITUD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"logitud\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-button (click)=\"getCurrentCoordinates()\" expand=\"block\">\n        Get Location\n      </ion-button>\n\n      <br><br><br>\n      <ion-row style=\"background-color: #00A651; color:white\">\n        <ion-col>\n          <strong>Maklumat Media Sosial</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> FACEBOOK </ion-label>\n          <ion-input formControlName=\"facebook\" style=\"text-transform: none;\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> INSTAGRAM</ion-label>\n          <ion-input formControlName=\"instagram\" style=\"text-transform: none;\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> TWITTER</ion-label>\n          <ion-input formControlName=\"twitter\" style=\"text-transform: none;\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> LAMAN WEB</ion-label>\n          <ion-input formControlName=\"lamanweb\" style=\"text-transform: none;\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <br><br><br>\n      <ion-row style=\"background-color: #00A651; color:white\">\n        <ion-col>\n          <strong>Maklumat Pemasaran</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>BILANGAN DROPSHIP</ion-label>\n          <ion-input type=\"Number\" formControlName=\"dropship\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label>BILANGAN EJEN</ion-label>\n          <ion-input type=\"Number\" formControlName=\"ejen\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>BILANGAN STOKIS</ion-label>\n          <ion-input type=\"Number\" formControlName=\"stokis\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label>BILANGAN OUTLET</ion-label>\n          <ion-input type=\"Number\" formControlName=\"outlet\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> PASARAN DOMESTIK</ion-label>\n          <ion-input formControlName=\"domestik\" placeholder=\"Nyatakan Daerah/Negeri\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> PASARAN LUAR NEGERA</ion-label>\n          <ion-input formControlName=\"luarnegara\" placeholder=\"Nyatakan Negara\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> PASARAN ONLINE</ion-label>\n          <ion-input formControlName=\"pasaranonline\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n\n      <br><br><br>\n      <ion-row style=\"background-color: #00A651; color:white\">\n        <ion-col>\n          <strong>Maklumat Pendapatan</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n\n      <ion-row>\n        <ion-col>\n          <ion-label style=\"text-transform: uppercase;\"> Purata jualan tahunan tahun sebelum bantuan</ion-label>\n          <ion-input type=\"Number\" formControlName=\"purata_jualan_bulanan\" (ionChange)=\"calcMaklumatPendapatan()\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label style=\"text-transform: uppercase;\"> Jumlah jualan tahunan bagi tahun semasa</ion-label>\n          <ion-input class=\"read-only\" type=\"Number\" formControlName=\"hasil_jualan_tahunan\" readonly></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label style=\"text-transform: uppercase;\"> Peratus kenaikan </ion-label>\n          <ion-input class=\"read-only\" type=\"Number\" formControlName=\"peratus_kenaikan\" readonly></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n      <br><br><br>\n      <ion-row style=\"background-color: #00A651; color:white\">\n        <ion-col>\n          <strong>Maklumat Produk</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n      <div formArrayName=\"produk\">\n        <div *ngFor=\"let produk of getProdukArray.controls; let i=index\" [formGroupName]=\"i\">\n          \n          <ion-row>\n            <ion-col>\n              <ion-label> JENAMA PRODUK </ion-label>\n              <ion-input value=\"\" formControlName=\"jenamaproduk\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-label> UNIT METRIK</ion-label>\n              <ion-input formControlName=\"unitmatrik\" placeholder=\"10KG/ 5 UNIT/1.5L/2 KARTON\"></ion-input>\n            </ion-col>\n            <ion-col>\n              <ion-label> HARGA PER UNIT (RM)</ion-label>\n              <ion-input type=\"number\" formControlName=\"hargaperunit\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-label> KAPASITI MAKSIMUM</ion-label>\n              <ion-input type=\"number\" formControlName=\"kapasitimaksimum\"></ion-input>\n            </ion-col>\n            <ion-col>\n              <ion-label> KAPASITI SEMASA</ion-label>\n              <ion-input type=\"number\" formControlName=\"kapasitisemasa\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <div style=\"width:100%; display:flex; justify-content:flex-end;\">\n\n                <div *ngIf=\"i != 0\" class=\"ion-text-center\" (click)=\"deleteProduk(i, produk.value.id)\">\n                  <img src=\"/assets/icon/trash-icon.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n\n                <div *ngIf=\"i == (productLength-1)\" class=\"ion-text-center\" (click)=\"addProduk()\">\n                  <img src=\"/assets/icon/add-item-icon.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n              </div>\n            </ion-col>\n          </ion-row>\n        </div>\n      </div>\n\n\n\n      <ion-row>\n        <ion-col>\n          <ion-button type=\"submit\" expand=\"block\" color=\"success\" [disabled]=\"form.invalid\">KEMASKINI</ion-button>\n        </ion-col>\n      </ion-row>\n\n\n    </form>\n\n  </ion-grid>\n\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"warning\">\n      <h1>\n        <strong>\n          PROFIL PERNIAGAAN\n        </strong>\n      </h1>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-fab vertical=\"top\" horizontal=\"end\" slot=\"fixed\">\n\n    <ion-fab-button color=\"light\">\n      <ion-icon color=\"warning\" name=\"caret-down-outline\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"bottom\">\n      <ion-fab-button color=\"warning\" href=\"/profile\">\n        <img src=\"assets/icon/usahawan-icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"warning\"><small> Usahawan</small></ion-text>\n      <ion-fab-button color=\"warning\" href=\"/profile-syarikat\">\n        <img src=\"assets/icon/Syarikat--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"warning\"><small> Syarikat</small></ion-text>\n\n      <ion-fab-button color=\"warning\" href=\"/profile-perniagaan\">\n        <img src=\"assets/icon/Perniagaan--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"warning\"><small> Perniagaan</small></ion-text>\n\n      <ion-fab-button color=\"warning\" href=\"/profile-pekebun\">\n        <img src=\"assets/icon/Pekebun--icon.png\" alt=\"\">\n      </ion-fab-button>\n      <ion-text color=\"warning\"><small> Pekebun</small></ion-text>\n    </ion-fab-list>\n  </ion-fab>\n\n  <ion-grid [fixed]=\"true\">\n\n\n    <form [formGroup]=\"form\" class=\"ion-padding form-control\" (ngSubmit)=\"logForm()\">\n\n      <ion-row style=\"background-color: #FF6600; color:white\">\n        <ion-col>\n          <strong>Maklumat Perniagaan</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>JENIS PERNIAGAAN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input formControlName=\"jenisperniagaan\"></ion-input> -->\n          <ion-select formControlName=\"jenisperniagaan\" style=\"width:100%,\" (ionChange)=\"getKluster(); resetKluster();\">\n            <ion-select-option *ngFor=\"let jenis_perniagaan of jenis_perniagaan\" value=\"{{jenis_perniagaan.id}}\"\n              style=\"word-wrap:break-word\">{{jenis_perniagaan.name}}</ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>KLUSTER PERNIAGAAN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input formControlName=\"klusterperniagaan\"></ion-input> -->\n          <ion-select formControlName=\"klusterperniagaan\" style=\"width:100%,\">\n            <ion-select-option *ngFor=\"let klusterPerniagaans of klusterPerniagaan\" value=\"{{klusterPerniagaans.kluster_id}}\" \n              style=\"word-wrap:break-word\">{{klusterPerniagaans.nama_kluster}}</ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>SUB KLUSTER PERNIAGAAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"subkluster\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NO RUMAH/LOT/PINTU <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"alamat1\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NAMA JALAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"alamat2\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> KAMPUNG/TAMAN <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"alamat3\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> BANDAR <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"bandar\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label> POSKOD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"Number\" formControlName=\"poskod\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> NEGERI <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input formControlName=\"U_Negeri_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Negeri_ID\" (ionChange)=\"getDaerah($event); reset()\">\n            <ion-select-option *ngFor=\"let negeri of negeri\" value=\"{{negeri.U_Negeri_ID}}\">\n              {{negeri.Negeri}}</ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> DAERAH <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Daerah_ID}}\" formControlName=\"U_Daerah_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Daerah_ID\" (ionChange)=\"getMukim($event)\">\n            <ion-select-option *ngFor=\"let daerah of daerah\" value=\"{{daerah.U_Daerah_ID}}\">{{daerah.Daerah}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col>\n          <ion-label> MUKIM <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input  formControlName=\"U_Mukim_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Mukim_ID\" (ionChange)=\"getKampung($event); getSeksyen(); reset2()\">\n            <ion-select-option *ngFor=\"let mukim of mukim\" value=\"{{mukim.U_Mukim_ID}}\">{{mukim.Mukim}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> PARLIMEN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Parlimen_ID}}\" formControlName=\"U_Parlimen_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Parlimen_ID\" (ionChange)=\"getDun()\">\n            <ion-select-option *ngFor=\"let parlimen of parlimen\" value=\"{{parlimen.U_Parlimen_ID}}\">\n              {{parlimen.Parlimen}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col>\n          <ion-label> DUN <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Dun_ID}}\" formControlName=\"U_Dun_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Dun_ID\">\n            <ion-select-option *ngFor=\"let dun of dun\" value=\"{{dun.U_Dun_ID}}\">{{dun.Dun}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> KAMPUNG</ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Kampung_ID}}\" formControlName=\"U_Kampung_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Kampung_ID\">\n            <ion-select-option *ngFor=\"let kampung of kampung\" [value]=\"kampung.U_Kampung_ID\"\n              selected=\"kampung.U_Kampung_ID == this.usahawan.U_Kampung_ID\">{{kampung.Kampung}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n        <ion-col>\n          <ion-label> SEKSYEN</ion-label>\n          <!-- <ion-input value=\"{{usahawan.U_Seksyen_ID}}\" formControlName=\"U_Seksyen_ID\"></ion-input> -->\n          <ion-select formControlName=\"U_Seksyen_ID\">\n            <ion-select-option *ngFor=\"let seksyen of seksyen\" [value]=\"seksyen.U_Seksyen_ID\"\n              selected=\"seksyen.U_Seksyen_ID == this.usahawan.U_Seksyen_ID\">{{seksyen.Seksyen}}\n            </ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>LATITUD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"latitud\"></ion-input>\n        </ion-col>\n\n      </ion-row>\n\n      <ion-row>\n\n        <ion-col>\n          <ion-label> LONGITUD <span style=\"color: red;\">*</span></ion-label>\n          <ion-input formControlName=\"logitud\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col size=\"12\" style=\"display: flex; justify-content:center\">\n          <ion-button fill=\"outline\" color=\"dark\" (click)=\"getCurrentCoordinates()\" expand=\"block\" style=\"width: 60%;\">\n            <strong>LOKASI GPS</strong> \n          </ion-button>\n        </ion-col>\n      </ion-row>\n      \n\n      <br><br><br>\n      <ion-row style=\"background-color: #FF6600; color:white\">\n        <ion-col>\n          <strong>Maklumat Media Sosial</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> FACEBOOK </ion-label>\n          <ion-input formControlName=\"facebook\" style=\"text-transform: none;\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> INSTAGRAM</ion-label>\n          <ion-input formControlName=\"instagram\" style=\"text-transform: none;\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> TWITTER</ion-label>\n          <ion-input formControlName=\"twitter\" style=\"text-transform: none;\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> LAMAN WEB</ion-label>\n          <ion-input formControlName=\"lamanweb\" style=\"text-transform: none;\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <br><br><br>\n      <ion-row style=\"background-color: #FF6600; color:white\">\n        <ion-col>\n          <strong>Maklumat Pemasaran</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>BILANGAN DROPSHIP</ion-label>\n          <ion-input type=\"Number\" formControlName=\"dropship\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label>BILANGAN EJEN</ion-label>\n          <ion-input type=\"Number\" formControlName=\"ejen\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label>BILANGAN STOKIS</ion-label>\n          <ion-input type=\"Number\" formControlName=\"stokis\"></ion-input>\n        </ion-col>\n        <ion-col>\n          <ion-label>BILANGAN OUTLET</ion-label>\n          <ion-input type=\"Number\" formControlName=\"outlet\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> PASARAN DOMESTIK</ion-label>\n          <ion-input formControlName=\"domestik\" placeholder=\"Nyatakan Daerah/Negeri\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n          <ion-label> PASARAN LUAR NEGERA</ion-label>\n          <ion-input formControlName=\"luarnegara\" placeholder=\"Nyatakan Negara\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label> PASARAN ONLINE</ion-label>\n          <ion-input formControlName=\"pasaranonline\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n\n      <br><br><br>\n      <ion-row style=\"background-color: #FF6600; color:white\">\n        <ion-col>\n          <strong>Maklumat Pendapatan</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n\n      <ion-row>\n        <ion-col>\n          <ion-label style=\"text-transform: uppercase;\"> Purata jualan tahunan tahun sebelum bantuan</ion-label>\n          <ion-input type=\"Number\" formControlName=\"purata_jualan_bulanan\" (ionChange)=\"calcMaklumatPendapatan()\"></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label style=\"text-transform: uppercase;\"> Jumlah jualan tahunan bagi tahun semasa</ion-label>\n          <ion-input class=\"read-only\" type=\"Number\" formControlName=\"hasil_jualan_tahunan\" readonly></ion-input>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-label style=\"text-transform: uppercase;\"> Peratus kenaikan </ion-label>\n          <ion-input class=\"read-only\" type=\"Number\" formControlName=\"peratus_kenaikan\" readonly></ion-input>\n        </ion-col>\n      </ion-row>\n\n\n      <br><br><br>\n      <ion-row style=\"background-color: #FF6600; color:white\">\n        <ion-col>\n          <strong>Maklumat Produk</strong>\n        </ion-col>\n      </ion-row>\n      <br>\n\n      <br>\n      <div formArrayName=\"produk\">\n        <div *ngFor=\"let produk of getProdukArray.controls; let i=index\" [formGroupName]=\"i\">\n          \n          <ion-row>\n            <ion-col>\n              <ion-label> JENAMA PRODUK </ion-label>\n              <ion-input value=\"\" formControlName=\"jenamaproduk\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-label> UNIT METRIK</ion-label>\n              <ion-input formControlName=\"unitmatrik\" placeholder=\"10KG/ 5 UNIT/1.5L/2 KARTON\"></ion-input>\n            </ion-col>\n            <ion-col>\n              <ion-label> HARGA PER UNIT (RM)</ion-label>\n              <ion-input type=\"number\" formControlName=\"hargaperunit\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row>\n            <ion-col>\n              <ion-label> KAPASITI MAKSIMUM</ion-label>\n              <ion-input type=\"number\" formControlName=\"kapasitimaksimum\"></ion-input>\n            </ion-col>\n            <ion-col>\n              <ion-label> KAPASITI SEMASA</ion-label>\n              <ion-input type=\"number\" formControlName=\"kapasitisemasa\"></ion-input>\n            </ion-col>\n          </ion-row>\n\n          <ion-row style=\"margin-bottom: 20px;\">\n            <ion-col class=\"form-control\">\n              <div style=\"width:100%; display:flex; justify-content:flex-end;\">\n\n                <div *ngIf=\"i != 0\" class=\"ion-text-center\" (click)=\"deleteProduk(i, produk.value.id)\">\n                  <img src=\"assets/new-iconv2/hapus.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n\n                <div *ngIf=\"i == (productLength-1)\" class=\"ion-text-center\" (click)=\"addProduk()\">\n                  <img src=\"assets/new-iconv2/Tambah.png\" alt=\"\" height=\"30\" width=\"30\">\n                  <br>\n                </div>\n              </div>\n            </ion-col>\n          </ion-row>\n        </div>\n      </div>\n\n\n\n      <ion-row>\n        <ion-col>\n          <ion-button type=\"submit\" expand=\"block\" color=\"dark\" [disabled]=\"form.invalid\">KEMASKINI</ion-button>\n        </ion-col>\n      </ion-row>\n\n\n    </form>\n\n  </ion-grid>\n\n\n\n\n\n</ion-content>";
       /***/
     }
   }]);

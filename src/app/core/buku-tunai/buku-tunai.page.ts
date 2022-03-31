@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { format } from 'path';
 import { PdfExcelService } from 'src/app/services/pdfExcel/pdf-excel.service';
 import { environment } from 'src/environments/environment';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-buku-tunai',
@@ -40,6 +43,10 @@ export class BukuTunaiPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pdfExcelService: PdfExcelService,
+    private iab: InAppBrowser,
+    private router: Router,
+
+
   ) {
     this.form = this.formBuilder.group({
       id: ['',],
@@ -65,16 +72,6 @@ export class BukuTunaiPage implements OnInit {
   }
 
 
-  // buku_tunai = [
-  //   { bulan: "Januari", tahun: "2020" },
-  //   { bulan: "February", tahun: "2020" },
-  //   { bulan: "March", tahun: "2020" },
-  //   { bulan: "April", tahun: "2020" },
-  //   { bulan: "May", tahun: "2020" },
-  //   { bulan: "June", tahun: "2020" },
-  //   { bulan: "July", tahun: "2020" },
-  // ]
-
   logForm() {
     console.log(this.form.value)
   }
@@ -90,7 +87,9 @@ export class BukuTunaiPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
     });
   }
@@ -105,7 +104,9 @@ export class BukuTunaiPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
     });
   }
@@ -124,7 +125,9 @@ export class BukuTunaiPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
     });
   }
@@ -142,7 +145,9 @@ export class BukuTunaiPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
     });
   }
@@ -151,4 +156,7 @@ export class BukuTunaiPage implements OnInit {
     console.log("share")
   }
 
+  dashboard() {
+    this.router.navigate(['/dashboard'])
+  }
 }

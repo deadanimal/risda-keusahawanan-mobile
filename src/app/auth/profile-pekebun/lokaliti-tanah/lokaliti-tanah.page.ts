@@ -125,7 +125,10 @@ export class LokalitiTanahPage implements OnInit {
   kampung: any
   seksyen: any;
 
-  getLocaliti() {
+  async getLocaliti() {
+
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
 
     this.negeriService.get().pipe(map(x => x.filter(i => i.U_Negeri_ID == this.data.U_Negeri_ID))).subscribe((resNegeri) => {
       console.log("Negeri", resNegeri)
@@ -156,6 +159,7 @@ export class LokalitiTanahPage implements OnInit {
                   this.seksyen = resSeksyen;
 
                   this.patchValue2()
+                  loading.dismiss();
                 })
               })
             })

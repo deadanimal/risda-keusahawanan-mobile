@@ -68,4 +68,8 @@ export class NotifikasiPage implements OnInit {
 
   }
 
+  dashboard(){
+    this.router.navigate(['/dashboard'])
+  }
+
 }

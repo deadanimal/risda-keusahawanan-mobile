@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar style="height: 80px;">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="success" href="/dashboard">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button href="/dashboard">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
       <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
     </ion-buttons>
-    <ion-text color="success">
+    <ion-text color="warning">
       <h1>
         <strong>
           PROFIL PEKEBUN
@@ -17,39 +17,39 @@
 </ion-header>
 
 <ion-content>
-  <!-- 00A651 -->
+  <!-- FF6600 -->
   <ion-fab vertical="top" horizontal="end" slot="fixed">
 
     <ion-fab-button color="light">
-      <ion-icon color="success" name="caret-down-outline"></ion-icon>
+      <ion-icon color="warning" name="caret-down-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="bottom">
       <!-- <a href="/profile"> -->
-      <ion-fab-button color="success" href="/profile">
+      <ion-fab-button color="warning" href="/profile">
         <!-- <ion-icon name="logo-facebook"></ion-icon> -->
         <img src="assets/icon/usahawan-icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Usahawan</small></ion-text>
+      <ion-text color="warning"><small> Usahawan</small></ion-text>
       <!-- </a> -->
       <!-- <a href="/profile-syarikat" style="text-decoration:none;"> -->
-      <ion-fab-button color="success" href="/profile-syarikat">
+      <ion-fab-button color="warning" href="/profile-syarikat">
         <!-- <ion-icon name="logo-twitter"></ion-icon> -->
         <img src="assets/icon/Syarikat--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Syarikat</small></ion-text>
+      <ion-text color="warning"><small> Syarikat</small></ion-text>
       <!-- </a> -->
 
-      <ion-fab-button color="success" href="/profile-perniagaan">
+      <ion-fab-button color="warning" href="/profile-perniagaan">
         <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
         <img src="assets/icon/Perniagaan--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Perniagaan</small></ion-text>
+      <ion-text color="warning"><small> Perniagaan</small></ion-text>
 
-      <ion-fab-button color="success" href="/profile-pekebun">
+      <ion-fab-button color="warning" href="/profile-pekebun">
         <!-- <ion-icon name="logo-vimeo"></ion-icon> -->
         <img src="assets/icon/Pekebun--icon.png" alt="">
       </ion-fab-button>
-      <ion-text color="success"><small> Pekebun</small></ion-text>
+      <ion-text color="warning"><small> Pekebun</small></ion-text>
     </ion-fab-list>
   </ion-fab>
 
@@ -59,7 +59,7 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="ion-padding form-control">
 
-      <ion-row style="background-color: #00A651; color:white">
+      <ion-row style="background-color: #FF6600; color:white">
         <ion-col>
           <strong>Maklumat Pekebun Kecil</strong>
         </ion-col>
@@ -70,7 +70,7 @@
         <ion-col>
 
           <ion-label>NO. KAD PENGENALAN</ion-label>
-          <ion-input formControlName="No_KP" readonly></ion-input>
+          <ion-input class="read-only" formControlName="No_KP" disabled></ion-input>
 
         </ion-col>
       </ion-row>
@@ -79,7 +79,7 @@
         <ion-col>
 
           <ion-label>NAMA PEKEBUN KECIL</ion-label>
-          <ion-input formControlName="Nama_PK" readonly></ion-input>
+          <ion-input class="read-only" formControlName="Nama_PK" disabled></ion-input>
         </ion-col>
       </ion-row>
 
@@ -87,7 +87,7 @@
         <ion-col>
 
           <ion-label>NO. TANAM SEMULA/SIC</ion-label>
-          <ion-input formControlName="noTS" readonly></ion-input>
+          <ion-input class="read-only" formControlName="noTS" disabled></ion-input>
         </ion-col>
       </ion-row>
 
@@ -100,7 +100,7 @@
 
           <div [formGroupName]="ti">
 
-            <ion-row style="background-color: #00A651; color:white">
+            <ion-row class="ion-margin-bottom" style="background-color: #FF6600; color:white">
               <ion-col>
                 <strong>Maklumat Tanah {{ ti+1 }}</strong>
               </ion-col>
@@ -109,16 +109,16 @@
             <ion-row>
               <ion-col>
                 <ion-label> NO.GERAN</ion-label>
-                <ion-input formControlName="No_Geran" readonly></ion-input>
+                <ion-input class="read-only" formControlName="No_Geran" disabled></ion-input>
               </ion-col>
             </ion-row>
 
             <ion-row>
               <ion-col>
                 <ion-label> NEGERI</ion-label>
-                <!-- <ion-input formControlName="U_Negeri_ID" ></ion-input> -->
-                <ion-select formControlName="U_Negeri_ID">
-                  <ion-select-option *ngFor = "let negeri of negeri" value="{{negeri.U_Negeri_ID}}" disabled>{{negeri.Negeri}}</ion-select-option>
+                <ion-select class="read-only" formControlName="U_Negeri_ID" disabled style="background-color: #b1b1b1;">
+                  <ion-select-option *ngFor="let negeri of negeri" value="{{negeri.U_Negeri_ID}}" disabled>
+                    {{negeri.Negeri}}</ion-select-option>
                 </ion-select>
               </ion-col>
             </ion-row>
@@ -126,81 +126,33 @@
             <ion-row>
               <ion-col>
                 <ion-label> DAERAH</ion-label>
-                <!-- <ion-input formControlName="U_Daerah_ID"></ion-input> -->
-                <ion-select formControlName="U_Daerah_ID">
-                  <ion-select-option *ngFor = "let daerah of daerah" value="{{daerah.U_Daerah_ID}}" disabled>{{daerah.Daerah}}</ion-select-option>
+                <ion-select class="read-only" formControlName="U_Daerah_ID" disabled style="background-color: #b1b1b1;">
+                  <ion-select-option *ngFor="let daerah of daerah" value="{{daerah.U_Daerah_ID}}" disabled>
+                    {{daerah.Daerah}}</ion-select-option>
                 </ion-select>
               </ion-col>
-              <!-- <ion-col>
-                <ion-label> MUKIM</ion-label>
-                <ion-input formControlName="U_Mukim_ID"></ion-input>
-                
-              </ion-col> -->
+
             </ion-row>
 
-            <!-- <ion-row>
-              <ion-col>
-                <ion-label> PARLIMEN</ion-label>
-                <ion-input formControlName="U_Parlimen_ID"></ion-input>
-                
-              </ion-col>
-              <ion-col>
-                <ion-label> DUN</ion-label>
-                <ion-input formControlName="U_Dun_ID"></ion-input>
 
-                
-              </ion-col>
-            </ion-row> -->
-
-            <!-- <ion-row>
-              <ion-col>
-                <ion-label> KAMPUNG</ion-label>
-                <ion-input formControlName="U_Kampung_ID"></ion-input>
-
-                
-              </ion-col>
-            </ion-row> -->
-
-            <!-- <ion-row>
-              <ion-col>
-                <ion-label> SEKSYEN</ion-label>
-                <ion-input formControlName="U_Seksyen_ID"></ion-input>
-
-                
-              </ion-col>
-            </ion-row> -->
 
             <ion-row>
               <ion-col>
                 <ion-label> KELUARAN HEKTAR</ion-label>
-                <ion-input formControlName="Luas_Lot" readonly></ion-input>
+                <ion-input class="read-only" formControlName="Luas_Lot" disabled></ion-input>
               </ion-col>
             </ion-row>
 
-            <ion-button (click)="openMyModal(tanah, ti+1)">Lokasi Tanah</ion-button>
+            <ion-row>
+              <ion-col size="12" style="display: flex; justify-content:center">
+                <ion-button fill="outline" color="dark" (click)="openMyModal(tanah, ti+1)" expand="block" style="width: 60%;">Lokasi Tanah</ion-button>
 
-
-            <!-- <ion-row>
-              <ion-col>
-                <strong>Maklumat Tanaman</strong>
               </ion-col>
             </ion-row>
+           
 
-            <div formArrayName="Tanaman">
 
-              <div *ngFor="let tanaman of tanamans(ti).controls; let bi=index">
 
-                <div [formGroupName]="bi">
-
-                  <ion-row>
-                    <ion-col>
-                      <ion-label> JENIS TANAMAN PEKEBUN {{bi +1}}</ion-label>
-                      <ion-input formControlName="Jenis_Tanaman" readonly></ion-input>
-                    </ion-col>
-                  </ion-row>
-                </div>
-              </div>
-            </div> -->
             <br>
             <br>
           </div>
@@ -215,7 +167,7 @@
       <ion-row>
         <ion-col>
 
-          <ion-button expand="block" color="success" type="submit">SAHKAN</ion-button>
+          <ion-button expand="block" color="dark" type="submit">SAHKAN</ion-button>
         </ion-col>
       </ion-row>
 

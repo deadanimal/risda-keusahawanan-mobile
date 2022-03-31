@@ -7,6 +7,8 @@ import { ShowBuletinPage } from './show-buletin/show-buletin.page';
 import { ShowKatalogPage } from './show-katalog/show-katalog.page';
 import { Router } from '@angular/router';
 import { NotifikasiService } from 'src/app/services/notifikasi/notifikasi.service';
+import { PegawaiService } from 'src/app/services/pegawai/pegawai.service';
+import { UsahawanService } from 'src/app/services/usahawan/usahawan.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +19,12 @@ export class DashboardPage implements OnInit {
   katalog: any;
   buletin: any;
 
+  usahawan_id = window.sessionStorage.getItem("usahawan_id");
+  pegawai_id = window.sessionStorage.getItem("pegawai_id");
   user_id = window.sessionStorage.getItem("user_id");
+  role = window.sessionStorage.getItem("role");
+  peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+  // user_id = window.sessionStorage.getItem("user_id");
 
   constructor(
     private loadingController : LoadingController,
@@ -25,7 +32,9 @@ export class DashboardPage implements OnInit {
     private buletinService: BuletinService,
     public modalController: ModalController,
     private router: Router,
-    private notiService: NotifikasiService
+    private notiService: NotifikasiService,
+    private pegawaiService: PegawaiService,
+    private usahawanService: UsahawanService,
   ) { }
 
   ngOnInit() {
@@ -38,9 +47,15 @@ export class DashboardPage implements OnInit {
       localStorage.removeItem('key')
     }
 
+    if (this.usahawan_id == null && this.pegawai_id != null) {
+      this.getpegawai();
+    } else {
+      this.getusahawan();
+    }
+
     this.getKatalog();
     this.getBuletin();
-    // this.getnoti()
+    this.getnoti()
   }
 
   async getKatalog() {
@@ -102,23 +117,66 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['/dashboard/senarai-buletin'])
   }
 
+  open_noti(){
+    this.router.navigate(['/notifikasi'])
+  }
+
   // refresh(): void {
   //   window.location.reload();
   // }
 
-  // noti: boolean = false;
-  // getnoti() {
-  //   this.notiService.get(this.user_id).subscribe((res) => {
-  //     console.log("noti", res);
+  noti: boolean = false;
+  noti_icon_url= "assets/new-icon/notification-bell-(no-msg).png";
 
-  //     for (let i =0; i< res.length; i++){
-  //       // console.log(i)
-  //       if(res[i].readstatus == 0 ){
-  //         this.noti = true;
-  //         break
-  //       }
-  //     }
-  //   });
-  // }
+ 
+  getnoti() {
+    this.notiService.get(this.user_id).subscribe((res) => {
+      console.log("noti", res);
+
+      for (let i =0; i< res.length; i++){
+        // console.log(i)
+        if(res[i].readstatus == 0 ){
+          this.noti = true;
+
+          this.noti_icon_url = "assets/icon/NOTIFICATION-BELL.png";
+          console.log('AAAAAA',this.noti)
+          break
+        }
+      }
+    });
+  }
+
+  usahawan: any = null
+  pegawai: any = null
+  jenis_perniagaan: any = null
+
+  getusahawan() {
+    this.usahawanService.show(this.usahawan_id).subscribe((res) => {
+      console.log("usahawan", res);
+
+      this.usahawan =res
+
+      if (res.perniagaan.jenisperniagaan == 'A') {
+        this.jenis_perniagaan = 'PENGELUARAN PRODUK MAKANAN'
+      } else if (res.perniagaan.jenisperniagaan == 'B') {
+        this.jenis_perniagaan = 'PENGELUARAN PRODUK BUKAN MAKANA'
+      } else if (res.perniagaan.jenisperniagaan == 'C') {
+        this.jenis_perniagaan = 'PENGELUARAN PRODUK PERTANIAN'
+      } else if (res.perniagaan.jenisperniagaan == 'D') {
+        this.jenis_perniagaan = 'PERKHIDMATAN PEMASARAN'
+      } else if (res.perniagaan.jenisperniagaan == 'E') {
+        this.jenis_perniagaan = 'PERKHIDMATAN BUKAN PEMASARAN'
+      } 
+
+
+    });
+  }
+
+  getpegawai() {
+    this.pegawaiService.get(this.pegawai_id).subscribe((res) => {
+      console.log("pegawai", res[0]);
+      this.pegawai = res[0];
+    });
+  }
 
 }

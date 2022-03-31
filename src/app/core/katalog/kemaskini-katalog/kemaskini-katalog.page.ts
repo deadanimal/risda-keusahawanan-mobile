@@ -150,6 +150,11 @@ export class KemaskiniKatalogPage implements OnInit {
             this.form.value.tarikh_aliran = moment(this.form.value.tarikh_aliran).format('YYYY-MM-DD');
 
             // this.form.value.status_katalog 
+            let temp = this.form.value.nama_produk.toUpperCase()
+            let temp2 = this.form.value.kandungan_produk.toUpperCase()
+
+            this.form.value.nama_produk = temp
+            this.form.value.kandungan_produk = temp2
 
             const loading = await this.loadingController.create({ message: 'Loading ...' });
             loading.present();
@@ -190,7 +195,7 @@ export class KemaskiniKatalogPage implements OnInit {
 
             const loading = await this.loadingController.create({ message: 'Deleting ...' });
             loading.present();
-        
+
             this.katalogService.delete(this.katalog.id).subscribe((res) => {
               console.log("deleted", res);
               loading.dismiss();
@@ -284,7 +289,7 @@ export class KemaskiniKatalogPage implements OnInit {
 
     console.log("AAAA", this.images);
     this.form.patchValue({
-      gambar_url:this.images[0].data
+      gambar_url: this.images[0].data
     })
 
   }

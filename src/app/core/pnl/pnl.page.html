@@ -1,13 +1,13 @@
 <ion-header>
-  <ion-toolbar style="height: 80px;">
+  <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-button color="success" href="/dashboard">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button (click)="dashboard()" >
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
       <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
     </ion-buttons>
-    <ion-text color="success">
+    <ion-text color="warning">
       <h3>
         <strong class="ion-text-uppercase bold">
           PENYATA UNTUNG/RUGI
@@ -30,14 +30,6 @@
 
         <ion-card>
           <ion-card-content class="no-padding test">
-
-            <!-- <ion-item (click)="showPicker = !showPicker">
-            <ion-label class="bold success">Bulan</ion-label> 
-            <ion-text slot="end">
-              {{ bulan }}
-            </ion-text>
-            <ion-datetime presentation="month" class="success" display-format="MMMM" picker-format="MMMM" [(ngModel)]="month"></ion-datetime>
-           </ion-item> -->
 
             <ion-item>
               <ion-label>Bulan</ion-label>
@@ -63,11 +55,7 @@
 
         <ion-card>
           <ion-card-content class="no-padding test">
-            <!-- <ion-item>
-            <ion-label class="bold success">Tahun</ion-label> -->
-            <!-- <ion-datetime presentation="" class="success" display-format="YYYY" picker-format="YYYY" [(ngModel)]="year"></ion-datetime> -->
-            <!-- </ion-item> -->
-
+          
             <ion-item>
               <ion-label>Tahun</ion-label>
               <ion-select formControlName="tahun" >
@@ -79,11 +67,8 @@
         </ion-card>
 
         <div style="width: 100%; display:flex; justify-content:flex-end">
-          <!-- <ion-button size="small" color="success" [disabled]="form.invalid" (click)="printPdfCustom()">PDF</ion-button>
-          <ion-button size="small" color="success" [disabled]="form.invalid" (click)="printExcelCustom()">Excel
-          </ion-button> -->
-
-          <ion-button size="small" color="success" [disabled]="form.invalid" type="submit">Cari
+   
+          <ion-button size="small" color="warning" [disabled]="form.invalid" type="submit">Cari
           </ion-button>
         </div>
 
@@ -155,8 +140,8 @@
           <ion-row>
             <ion-col>
               <div style="width: 100%; display:flex; justify-content:flex-end">
-                <ion-button size="small" color="success"  (click)="printPdfCustom()">PDF</ion-button>
-                <ion-button size="small" color="success" (click)="printExcelCustom()">Excel
+                <ion-button size="small" color="warning"  (click)="printPdfCustom()">PDF</ion-button>
+                <ion-button size="small" color="warning" (click)="printExcelCustom()">Excel
                 </ion-button>
               </div>
             </ion-col>

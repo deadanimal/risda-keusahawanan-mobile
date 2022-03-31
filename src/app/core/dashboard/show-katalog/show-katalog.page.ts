@@ -19,7 +19,7 @@ export class ShowKatalogPage implements OnInit {
     private katalogService: KatalogService,
     public loadingController: LoadingController,
     public alertController: AlertController,
-    // private iab: InAppBrowser
+    private iab: InAppBrowser
   ) { }
 
   ngOnInit() {
@@ -37,11 +37,11 @@ export class ShowKatalogPage implements OnInit {
   }
 
   async pengesahan() {
-    const loading = await this.loadingController.create({message:'Disahkan ...'});
+    const loading = await this.loadingController.create({ message: 'Disahkan ...' });
     loading.present();
-    
+
     this.katalogService.pengesahanPegawai(this.katalog.katalog_id).subscribe((res) => {
-      console.log("updated",res);
+      console.log("updated", res);
       loading.dismiss();
       this.presentAlert2()
     });
@@ -79,13 +79,17 @@ export class ShowKatalogPage implements OnInit {
 
       let url = environment.baseUrl + 'storage/' + res;
 
-      
-      console.log(url);
-      window.open(url, "_blank");
 
-     
+      console.log(url);
+      // window.open(url, "_blank", 'location=yes');
+
+      // window.location.href = url
+      const browser = this.iab.create(url, '_system');
+
+      // console.log("yeayyyyy13");
+
       // window.open(url, "_system");
-      
+
 
     });
   }

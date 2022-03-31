@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import { KemaskiniKatalogPage } from '../kemaskini-katalog/kemaskini-katalog.page';
@@ -18,7 +19,9 @@ export class KatalogPage implements OnInit {
     public modalController: ModalController,
     private katalogService: KatalogService,
     public alertController: AlertController,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private router: Router,
+
   ) { }
 
   ngOnInit() {
@@ -88,5 +91,8 @@ export class KatalogPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
+  dashboard(){
+    this.router.navigate(['/dashboard'])
+  }
 
 }

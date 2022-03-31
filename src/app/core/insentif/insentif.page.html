@@ -1,13 +1,13 @@
 <ion-header>
-  <ion-toolbar style="height: 80px;">
+  <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-button color="success" href="/dashboard">
-        <ion-icon name="chevron-back-outline"></ion-icon>
+      <ion-button href="/dashboard">
+        <ion-icon name="chevron-back-outline" style="color: #986522;"></ion-icon>
       </ion-button>
       <!-- <ion-back-button defaultHref="/dashboard"></ion-back-button> -->
     </ion-buttons>
-    <ion-text color="success">
+    <ion-text color="warning">
       <h1>
         <strong class="ion-text-uppercase">
           Insentif
@@ -40,19 +40,19 @@
               <ion-grid style="padding: 0%;">
                 <ion-row style="padding: 0%;">
                   <ion-col size="8">
-                    <ion-text>
+                    <ion-text style="font-size: 15px;">
                       {{insentif.nama_insentif}}
                     </ion-text>
                     <br>
-                    <ion-text color="success">
+                    <ion-text color="warning" style="font-size: 13px;">
                       Tahun Terima: {{insentif.tahun_terima_insentif}}
                     </ion-text>
                   </ion-col>
                   <ion-col size="4" style="padding: 0%;">
                     <div class="content-box"
-                      style="height: 100%; display:flex; align-items:center; background-color:#EDEDED">
-                      <ion-text color="success">
-                        RM {{insentif.nilai_insentif}}
+                      style="height: 100%; display:flex; align-items:center; background-color:#EDEDED; text-align:center">
+                      <ion-text color="dark">
+                        RM {{insentif.nilai_insentif | number:'1.2-2':'en-US'}}
                       </ion-text>
 
                     </div>

@@ -14,14 +14,12 @@ import { LoginService } from './services/login/login.service';
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-// import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
-// geolocation and native-geocoder
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
-// import { NativeStorage } from '@ionic-native/native-storage';
-// import { NativeStorage } from '@ionic-native/native-storage';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,13 +38,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
   providers: [
     StatusBar,
     SplashScreen,
-    // // { provide: ErrorHandler, useClass: IonicErrorHandler },
-    // FileTransfer,
-    // // FileUploadOptions,
-    // FileTransferObject,
-    // File,
-    // Camera,
-  
+    InAppBrowser,
+   
     {
       provide: RouteReuseStrategy,
       useClass: IonicRouteStrategy,

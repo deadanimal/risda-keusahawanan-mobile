@@ -161,7 +161,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -179,9 +179,15 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @angular/core */
       37716);
+      /* harmony import */
+
+
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @angular/forms */
+      3679);
       /* harmony import */
 
 
@@ -197,33 +203,71 @@
       /* harmony import */
 
 
-      var src_app_services_pusat_tanggungjawab_pusat_tanggungjawab_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var src_app_services_negeri_negeri_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! src/app/services/negeri/negeri.service */
+      64802);
+      /* harmony import */
+
+
+      var src_app_services_pusat_tanggungjawab_pusat_tanggungjawab_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! src/app/services/pusat-tanggungjawab/pusat-tanggungjawab.service */
       47076);
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! src/environments/environment */
       92340);
+      /* harmony import */
+
+
+      var _awesome_cordova_plugins_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @awesome-cordova-plugins/in-app-browser/ngx */
+      69526);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! @ionic/angular */
+      19122);
 
       var _CarianPage = /*#__PURE__*/function () {
-        function CarianPage(ptService, jenisInsentifService, carianService) {
+        function CarianPage(ptService, jenisInsentifService, carianService, formBuilder, negeriService, iab, router, loadingController) {
           _classCallCheck(this, CarianPage);
 
           this.ptService = ptService;
           this.jenisInsentifService = jenisInsentifService;
           this.carianService = carianService;
+          this.formBuilder = formBuilder;
+          this.negeriService = negeriService;
+          this.iab = iab;
+          this.router = router;
+          this.loadingController = loadingController;
           this.date = new Date();
           this.listYear = [];
           this.kod_pt = null;
           this.insentif = null;
           this.tahun_terima = null;
+          this.next_page_url = null;
+          this.previous_page_url = null;
+          this.form = this.formBuilder.group({
+            nama: [''],
+            noKP: [''],
+            negeri: [''],
+            PT: ['']
+          });
         }
 
         _createClass(CarianPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.getNegeri();
             this.getPT();
             this.getJenisInsentif();
             this.year = Number(this.date.getFullYear());
@@ -363,21 +407,96 @@
         }, {
           key: "reset",
           value: function reset() {
-            this.kod_pt = null;
-            this.insentif = null;
-            this.tahun_terima = null;
-            this.getUsahawan();
+            this.form.reset();
           }
         }, {
           key: "downloadFile",
           value: function downloadFile(usahawanid) {
+            var _this5 = this;
+
             console.log(usahawanid);
             this.carianService.downloadFile(usahawanid).subscribe(function (res) {
               console.log("res3", res);
-              var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_5__.environment.baseUrl + 'storage/' + res;
+              var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_6__.environment.baseUrl + 'storage/' + res;
               console.log(url);
-              window.open(url, "_blank");
+
+              var browser = _this5.iab.create(url, '_system'); // window.open(url, "_blank");
+
             });
+          }
+        }, {
+          key: "logform",
+          value: function logform() {
+            var _this6 = this;
+
+            console.log(this.form.value);
+            this.carianService.cariUsahawan(this.form.value).subscribe(function (res) {
+              console.log("res3", res);
+              _this6.usahawanTemp = res.data;
+              _this6.next_page_url = res.next_page_url;
+              _this6.previous_page_url = res.prev_page_url; // let url = environment.baseUrl + 'storage/' + res;
+              // console.log(url);
+              // window.open(url, "_blank");
+            });
+          }
+        }, {
+          key: "next_page",
+          value: function next_page() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this7 = this;
+
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      // const loading = await this.loadingController.create({ message: 'Loading ...' });
+                      // loading.present();
+                      this.carianService.page(this.next_page_url, this.form.value).subscribe(function (res) {
+                        console.log("res3", res);
+                        _this7.usahawanTemp = res.data;
+                        _this7.next_page_url = res.next_page_url;
+                        _this7.previous_page_url = res.prev_page_url; // loading.dismiss();
+                      }, function (err) {
+                        // loading.dismiss();
+                        alert('Something went wrong');
+                      });
+
+                    case 1:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "previous_page",
+          value: function previous_page() {
+            var _this8 = this;
+
+            this.carianService.page(this.previous_page_url, this.form.value).subscribe(function (res) {
+              console.log("res3", res);
+              _this8.usahawanTemp = res.data;
+              _this8.next_page_url = res.next_page_url;
+              _this8.previous_page_url = res.prev_page_url;
+            }, function (err) {
+              alert(err);
+            });
+          }
+        }, {
+          key: "getNegeri",
+          value: function getNegeri() {
+            var _this9 = this;
+
+            this.negeriService.get().subscribe(function (res) {
+              console.log("resnegeri", res);
+              _this9.negeri = res;
+            });
+          }
+        }, {
+          key: "dashboard",
+          value: function dashboard() {
+            this.router.navigate(['/dashboard']);
           }
         }]);
 
@@ -386,15 +505,25 @@
 
       _CarianPage.ctorParameters = function () {
         return [{
-          type: src_app_services_pusat_tanggungjawab_pusat_tanggungjawab_service__WEBPACK_IMPORTED_MODULE_4__.PusatTanggungjawabService
+          type: src_app_services_pusat_tanggungjawab_pusat_tanggungjawab_service__WEBPACK_IMPORTED_MODULE_5__.PusatTanggungjawabService
         }, {
           type: src_app_services_jenis_insentif_jenis_insentif_service__WEBPACK_IMPORTED_MODULE_3__.JenisInsentifService
         }, {
           type: src_app_services_carian_carian_service__WEBPACK_IMPORTED_MODULE_2__.CarianService
+        }, {
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormBuilder
+        }, {
+          type: src_app_services_negeri_negeri_service__WEBPACK_IMPORTED_MODULE_4__.NegeriService
+        }, {
+          type: _awesome_cordova_plugins_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__.InAppBrowser
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_10__.Router
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_11__.LoadingController
         }];
       };
 
-      _CarianPage = (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+      _CarianPage = (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_12__.Component)({
         selector: 'app-carian',
         template: _raw_loader_carian_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_carian_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -453,6 +582,7 @@
           this.http = http;
           this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/carian";
           this.url2 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/downloadCarian";
+          this.url3 = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/cari";
         }
 
         _createClass(CarianService, [{
@@ -464,6 +594,16 @@
           key: "downloadFile",
           value: function downloadFile(id) {
             return this.http.get("".concat(this.url2) + '/' + id);
+          }
+        }, {
+          key: "cariUsahawan",
+          value: function cariUsahawan(data) {
+            return this.http.post("".concat(this.url3), data);
+          }
+        }, {
+          key: "page",
+          value: function page(url, data) {
+            return this.http.post(url, data);
           }
         }]);
 
@@ -556,6 +696,83 @@
       _JenisInsentifService = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
         providedIn: 'root'
       })], _JenisInsentifService);
+      /***/
+    },
+
+    /***/
+    64802: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "NegeriService": function NegeriService() {
+          return (
+            /* binding */
+            _NegeriService
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/common/http */
+      91841);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! src/environments/environment */
+      92340);
+
+      var _NegeriService = /*#__PURE__*/function () {
+        function NegeriService(http) {
+          _classCallCheck(this, NegeriService);
+
+          this.http = http;
+          this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.baseUrl + "api/negeri";
+        } // post(data: any): Observable<any> {
+        //   return this.http.post<any>(`${this.url}`, data);
+        // }
+
+
+        _createClass(NegeriService, [{
+          key: "get",
+          value: function get() {
+            return this.http.get("".concat(this.url));
+          }
+        }]);
+
+        return NegeriService;
+      }();
+
+      _NegeriService.ctorParameters = function () {
+        return [{
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__.HttpClient
+        }];
+      };
+
+      _NegeriService = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
+        providedIn: 'root'
+      })], _NegeriService);
       /***/
     },
 
@@ -661,7 +878,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            CARIAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <form class=\"form-control\" action=\"\">\n    <ion-grid fixed>\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\">\n          <ion-item lines=\"none\">\n            <ion-label position=\"stacked\" style=\"margin-bottom: 10px;\">Nama/No. Kad Penganalan/Usahawan ID</ion-label>\n            <ion-input [(ngModel)]=\"input_carian\" [ngModelOptions]=\"{standalone: true}\" type=\"text\"\n              placeholder=\"Nama/No. Kad Penganalan/Usahawan ID\" (ionChange)=\"getUsahawan()\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col size=\"12\">\n          <!-- Basic -->\n          <ion-accordion-group>\n            <ion-accordion value=\"colors\">\n              <ion-item slot=\"header\">\n                <ion-label>Tapisan</ion-label>\n              </ion-item>\n\n              <ion-list slot=\"content\">\n                <ion-item lines=\"none\">\n                  <ion-label position=\"stacked\" style=\"margin-bottom: 10px;\">Pusat Tanggungjawab</ion-label>\n                  <ion-select placeholder=\"Pilih Pusat Tanggungjawab\" (ionChange)=\"tapisan()\" [(ngModel)]=\"kod_pt\"\n                    [ngModelOptions]=\"{standalone: true}\">\n                    <ion-select-option *ngFor=\"let pt of pusat_tanggungjawab\" value=\"{{pt.Kod_PT}}\">{{pt.keterangan}}\n                    </ion-select-option>\n                    <!-- <ion-select-option value=\"hawaii\">Hawaii</ion-select-option> -->\n                  </ion-select>\n                </ion-item>\n                <ion-item lines=\"none\">\n                  <ion-label position=\"stacked\" style=\"margin-bottom: 10px;\">Jenis Insentif</ion-label>\n                  <ion-select placeholder=\"Pilih Jenis Insentif\" (ionChange)=\"tapisan()\" [(ngModel)]=\"insentif\"\n                    [ngModelOptions]=\"{standalone: true}\">\n                    <ion-select-option *ngFor=\"let ji of jenis_insentif\" value=\"{{ji.id_jenis_insentif}}\">\n                      {{ji.nama_insentif}}</ion-select-option>\n                  </ion-select>\n                </ion-item>\n                <ion-item lines=\"none\">\n                  <ion-label position=\"stacked\" style=\"margin-bottom: 10px;\">Tahun Terima</ion-label>\n                  <ion-select placeholder=\"Pilih Tahun Terima\" (ionChange)=\"tapisan()\" [(ngModel)]=\"tahun_terima\"\n                    [ngModelOptions]=\"{standalone: true}\">\n                    <ion-select-option *ngFor=\"let tahun of listYear\" value=\"{{tahun}}\">{{tahun}}</ion-select-option>\n\n                  </ion-select>\n                </ion-item>\n\n                <ion-item lines=\"none\">\n                  <ion-label>\n                    <ion-button color=\"danger\" expand=\"block\" type=\"submit\" (click)=\"reset()\">Set Semula\n                    </ion-button>\n                  </ion-label>\n\n                </ion-item>\n              </ion-list>\n            </ion-accordion>\n\n          </ion-accordion-group>\n        </ion-col>\n      </ion-row>\n\n    </ion-grid>\n  </form>\n\n  <div class=\"bg-white\">\n\n    <ion-grid style=\"margin-top: 1%; margin-left:5%; margin-right:5%\">\n      <ion-row style=\"margin-bottom: 10px;\">\n        <ion-col>\n          <h5 class=\"bold\"> Senarai Usahawan</h5>\n        </ion-col>\n      </ion-row>\n      <ion-grid style=\"max-height: 70%; overflow: scroll;\">\n        <ion-row *ngFor=\"let usahawan of usahawanTemp\" style=\"padding-bottom: 10px;\">\n          <ion-col>\n            <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\">\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"8\">\n                    <ion-text>\n                      {{usahawan.namausahawan}}\n                    </ion-text>\n                    <br>\n                    <ion-text color=\"success\">\n                      {{usahawan.nokadpengenalan}}\n                    </ion-text>\n                    <br>\n                    <ion-text color=\"success\">\n                      {{usahawan.usahawanid}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"4\" style=\"padding: 0%; display:flex; justify-content:flex-end; align-items:center\">\n                    <img (click)=\"downloadFile(usahawan.usahawanid)\" src=\"assets/icon/DOWNLOAD.png\" alt=\"pending\" height=\"25px\" style=\"margin-left: 20px;\">\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-grid>\n\n  </div>\n\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dashboard()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            CARIAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <form [formGroup]=\"form\" (ngSubmit)=\"logform()\" class=\"form-control\" action=\"\">\n    <ion-grid fixed>\n     \n\n      <ion-row>\n        <ion-col size=\"12\">\n\n          <ion-accordion-group>\n            <ion-accordion value=\"colors\">\n              <ion-item slot=\"header\">\n                <ion-label>Carian</ion-label>\n              </ion-item>\n\n              <ion-list slot=\"content\">\n                <ion-item lines=\"none\">\n                  <ion-label position=\"stacked\" style=\"margin-bottom: 10px;\">Nama Usahawan\n                  </ion-label>\n                  <ion-input formControlName=\"nama\" type=\"text\" placeholder=\"\"></ion-input>\n                </ion-item>\n                <ion-item lines=\"none\">\n                  <ion-label position=\"stacked\" style=\"margin-bottom: 10px;\">No. Kad Penganalan</ion-label>\n                  <ion-input formControlName=\"noKP\" type=\"text\" inputmode=\"numeric\" placeholder=\"\"></ion-input>\n                </ion-item>\n                <ion-item lines=\"none\">\n                  <ion-label position=\"stacked\" style=\"margin-bottom: 10px;\">Negeri Usahawan</ion-label>\n                  <ion-select placeholder=\"Pilih Negeri\" formControlName=\"negeri\">\n                    <ion-select-option *ngFor=\"let Negeri of negeri\" value=\"{{Negeri.U_Negeri_ID}}\">{{ Negeri.Negeri }}\n                    </ion-select-option>\n                  </ion-select>\n                </ion-item>\n\n                <ion-item lines=\"none\">\n                  <ion-label position=\"stacked\" style=\"margin-bottom: 10px;\">Pusat Tanggungjawab</ion-label>\n                  <!-- <ion-input formControlName=\"PT\" type=\"text\" placeholder=\"\"></ion-input> -->\n                  <ion-select placeholder=\"Pilih Pusat Tanggungjawab\" formControlName=\"PT\">\n                    <ion-select-option *ngFor=\"let pt of pusat_tanggungjawab\" value=\"{{pt.Kod_PT}}\">{{ pt.keterangan }}\n                    </ion-select-option>\n                  </ion-select>\n                </ion-item>\n\n                <div class=\"ion-padding\" style=\"display: flex; justify-content:flex-end\">\n                  <ion-button color=\"danger\" size=\"small\" (click)=\"reset()\">\n                    Set Semula\n                  </ion-button>\n                  <ion-button type=\"submit\" color=\"success\" size=\"small\">\n                    Carian Data\n                  </ion-button>\n                </div>\n\n              </ion-list>\n            </ion-accordion>\n\n          </ion-accordion-group>\n        </ion-col>\n      </ion-row>\n\n    </ion-grid>\n  </form>\n\n  <div class=\"bg-white\">\n\n    <ion-grid style=\"margin-left:5%; margin-right:5%\">\n      <ion-row style=\"margin-bottom: 10px;\">\n        <ion-col>\n          <h5 class=\"bold\"> Senarai Usahawan</h5>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n\n        <!-- <ion-button (click)=\"test()\" expand=\"block\" fill=\"clear\" shape=\"round\">\n          Click me\n        </ion-button> -->\n\n        <ion-col size=\"12\">\n          <div style=\"display: flex; flex-wrap:nowrap; justify-content: space-between;\">\n\n            <div *ngIf=\"previous_page_url != null\">\n              <ion-button (click)=\"previous_page()\" expand=\"block\" fill=\"clear\" shape=\"round\">\n                <ion-icon name=\"arrow-back-circle-outline\" style=\"zoom: 1.5; color:black\"></ion-icon>\n              </ion-button>\n             \n            </div>\n            <br>\n            <div *ngIf=\"next_page_url != null\">\n            \n              <ion-button (click)=\"next_page()\" expand=\"block\" fill=\"clear\" shape=\"round\">\n                <!-- <ion-icon name=\"arrow-back-circle-outline\" style=\"zoom: 1.5; color:black\"></ion-icon> -->\n                <ion-icon name=\"arrow-forward-circle-outline\" style=\"zoom: 1.5; color:black\"></ion-icon>\n\n              </ion-button>\n            </div>\n          </div>\n        </ion-col>\n      </ion-row>\n      <ion-grid style=\"max-height: 70%; overflow: scroll;\">\n        <ion-row *ngFor=\"let usahawan of usahawanTemp\" style=\"padding-bottom: 10px;\">\n          <ion-col>\n            <div class=\"content-box bold\" style=\"font-family: 'Nunito Sans';\">\n              <ion-grid style=\"padding: 0%;\">\n                <ion-row style=\"padding: 0%;\">\n                  <ion-col size=\"8\">\n                    <ion-text>\n                      {{usahawan.namausahawan}}\n                    </ion-text>\n                    <br>\n                    <ion-text color=\"warning\">\n                      {{usahawan.nokadpengenalan}}\n                    </ion-text>\n                    <br>\n                    <ion-text color=\"warning\">\n                      {{usahawan.usahawanid}}\n                    </ion-text>\n                  </ion-col>\n                  <ion-col size=\"4\" style=\"padding: 0%; display:flex; justify-content:flex-end; align-items:center\">\n                    <img (click)=\"downloadFile(usahawan.usahawanid)\" src=\"assets/new-iconv2/Download.png\" alt=\"pending\"\n                      height=\"25px\" style=\"margin-left: 20px;\">\n                  </ion-col>\n                </ion-row>\n              </ion-grid>\n            </div>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-grid>\n\n\n\n\n\n\n  </div>\n\n\n\n\n\n</ion-content>";
       /***/
     }
   }]);

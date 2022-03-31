@@ -84,19 +84,24 @@ export class ProfileSyarikatPage implements OnInit {
     this.getSyarikat();
   }
 
-  getSyarikat() {
+  async getSyarikat() {
+
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
     // console.log(this.form.value);
     this.syarikatService.show(this.usahawan_id).subscribe((res) => {
       console.log("syarikat info", res);
 
       if (Object.keys(res).length === 0) {
         console.log("failed")
+        loading.dismiss();
       }
       else {
         this.syarikat = res;
 
         console.log("profile syarikat success")
         this.setFormValues();
+        loading.dismiss();
       }
     });
 

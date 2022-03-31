@@ -13,23 +13,44 @@
 }
 
 .element-logo {
-    background-image: url("/assets/img/risda_logo.png");
+    background-image: url("/assets/img/reds-logo-no-background.png");
     background-position: 50% 50%;
     background-size: cover;
-    height: 94px;
-    width: 97px;
+    height: 150px;
+    width: 250px;
     z-index: 3;
     margin: auto;
 }
 
-.welcome-back {
-    letter-spacing: 0;
-    min-height: 49px;
-    min-width: 278px;
+.selamat-datang {
+    font-family: "Nunito Sans";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 36px;
+    // line-height: 49px;
     text-align: center;
-    color: green;
+
+    color: #000000;
 }
 
+.login-text {
+    font-family: "Nunito Sans";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 35px;
+    text-align: center;
+
+    color: #ff6600;
+}
+
+ion-item {
+    // background: #ffffff;
+    border: 1px solid rgba(239, 141, 31, 0.1);
+    box-sizing: border-box;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 27px;
+}
 @font-face {
     font-family: "NATS-Regular";
     font-style: normal;
@@ -43,7 +64,18 @@
     min-height: 16px;
     min-width: 105px;
     text-align: end;
-    color: green;
+    // color: green;
+}
+
+.lupa {
+    font-family: "Nunito Sans";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+
+    color: #000000;
 }
 
 ion-input {

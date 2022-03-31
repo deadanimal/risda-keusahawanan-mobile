@@ -161,7 +161,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -179,13 +179,13 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/forms */
       3679);
       /* harmony import */
@@ -200,14 +200,28 @@
       var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! src/environments/environment */
       92340);
+      /* harmony import */
+
+
+      var _awesome_cordova_plugins_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @awesome-cordova-plugins/in-app-browser/ngx */
+      69526);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
 
       var _BukuTunaiPage = /*#__PURE__*/function () {
         // bulan = new Date()
-        function BukuTunaiPage(formBuilder, pdfExcelService) {
+        function BukuTunaiPage(formBuilder, pdfExcelService, iab, router) {
           _classCallCheck(this, BukuTunaiPage);
 
           this.formBuilder = formBuilder;
           this.pdfExcelService = pdfExcelService;
+          this.iab = iab;
+          this.router = router;
           this.date = new Date();
           this.user_id = window.sessionStorage.getItem("user_id");
           this.listYear = [];
@@ -250,8 +264,8 @@
           }];
           this.form = this.formBuilder.group({
             id: [''],
-            bulan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
-            tahun: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required]
+            bulan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            tahun: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
           });
         }
 
@@ -267,16 +281,7 @@
               this.listYear.push(this.year);
               this.year = this.year - 1;
             }
-          } // buku_tunai = [
-          //   { bulan: "Januari", tahun: "2020" },
-          //   { bulan: "February", tahun: "2020" },
-          //   { bulan: "March", tahun: "2020" },
-          //   { bulan: "April", tahun: "2020" },
-          //   { bulan: "May", tahun: "2020" },
-          //   { bulan: "June", tahun: "2020" },
-          //   { bulan: "July", tahun: "2020" },
-          // ]
-
+          }
         }, {
           key: "logForm",
           value: function logForm() {
@@ -285,30 +290,38 @@
         }, {
           key: "printExcelCustom",
           value: function printExcelCustom() {
+            var _this = this;
+
             this.form.value.id = this.user_id;
             console.log(this.form.value);
             this.pdfExcelService.bukuTunaiExcel(this.form.value).subscribe(function (res) {
               console.log("res", res);
               var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
-              console.log(url);
-              window.open(url, "_blank");
+              console.log(url); // window.open(url, "_blank");
+
+              var browser = _this.iab.create(url, '_system');
             });
           }
         }, {
           key: "printPdfCustom",
           value: function printPdfCustom() {
+            var _this2 = this;
+
             this.form.value.id = this.user_id;
             console.log(this.form.value);
             this.pdfExcelService.bukuTunaiPdf(this.form.value).subscribe(function (res) {
               console.log("res", res);
               var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
-              console.log(url);
-              window.open(url, "_blank");
+              console.log(url); // window.open(url, "_blank");
+
+              var browser = _this2.iab.create(url, '_system');
             });
           }
         }, {
           key: "printExcel",
           value: function printExcel(bulan) {
+            var _this3 = this;
+
             this.form.value.id = this.user_id;
             this.form.value.bulan = bulan;
             this.form.value.tahun = this.date.getFullYear();
@@ -316,13 +329,16 @@
             this.pdfExcelService.bukuTunaiExcel(this.form.value).subscribe(function (res) {
               console.log("res", res);
               var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
-              console.log(url);
-              window.open(url, "_blank");
+              console.log(url); // window.open(url, "_blank");
+
+              var browser = _this3.iab.create(url, '_system');
             });
           }
         }, {
           key: "printPdf",
           value: function printPdf(bulan) {
+            var _this4 = this;
+
             this.form.value.id = this.user_id;
             this.form.value.bulan = bulan;
             this.form.value.tahun = this.date.getFullYear();
@@ -330,14 +346,20 @@
             this.pdfExcelService.bukuTunaiPdf(this.form.value).subscribe(function (res) {
               console.log("res", res);
               var url = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.baseUrl + 'storage/' + res;
-              console.log(url);
-              window.open(url, "_blank");
+              console.log(url); // window.open(url, "_blank");
+
+              var browser = _this4.iab.create(url, '_system');
             });
           }
         }, {
           key: "share",
           value: function share() {
             console.log("share");
+          }
+        }, {
+          key: "dashboard",
+          value: function dashboard() {
+            this.router.navigate(['/dashboard']);
           }
         }]);
 
@@ -346,13 +368,17 @@
 
       _BukuTunaiPage.ctorParameters = function () {
         return [{
-          type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormBuilder
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormBuilder
         }, {
           type: src_app_services_pdfExcel_pdf_excel_service__WEBPACK_IMPORTED_MODULE_2__.PdfExcelService
+        }, {
+          type: _awesome_cordova_plugins_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_4__.InAppBrowser
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router
         }];
       };
 
-      _BukuTunaiPage = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
+      _BukuTunaiPage = (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
         selector: 'app-buku-tunai',
         template: _raw_loader_buku_tunai_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_buku_tunai_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -368,7 +394,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".bold,\nh1 {\n  font-weight: bold;\n  font-family: \"Nunito Sans\";\n}\n\n.no-padding {\n  padding: 0px !important;\n}\n\n.no-margin {\n  margin: 0px !important;\n}\n\n.rectangle-280 {\n  background-color: #00a651;\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  z-index: -1;\n}\n\n.bg-white {\n  background-color: white;\n  display: flex;\n  height: 100%;\n  justify-content: center;\n  min-width: 100%;\n  padding: 20px;\n  display: flex;\n  flex-wrap: wrap;\n}\n\n.rectangle-1 {\n  background-color: #00a651;\n  border-radius: 18px;\n  box-shadow: 0px 4px 4px #00000040;\n  font-family: \"Nunito Sans\";\n  height: 125px;\n  width: 100%;\n  color: white;\n  padding-left: 5%;\n  padding-right: 5%;\n  padding-top: 2%;\n  margin-bottom: 5%;\n}\n\n.success {\n  color: #00a651;\n}\n\n.card {\n  background-color: #EDEDED;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJ1a3UtdHVuYWkucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVJLGlCQUFBO0VBQ0EsMEJBQUE7QUFDSjs7QUFDQTtFQUNJLHVCQUFBO0FBRUo7O0FBQ0E7RUFDSSxzQkFBQTtBQUVKOztBQUNBO0VBQ0kseUJBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsV0FBQTtBQUVKOztBQUNBO0VBQ0ksdUJBQUE7RUFDQSxhQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0VBQ0EsZUFBQTtFQUVBLGFBQUE7RUFFQSxhQUFBO0VBQ0EsZUFBQTtBQUFKOztBQUdBO0VBQ0kseUJBQUE7RUFDQSxtQkFBQTtFQUNBLGlDQUFBO0VBQ0EsMEJBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxnQkFBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0FBQUo7O0FBbUJBO0VBQ0ksY0FBQTtBQWhCSjs7QUFtQkE7RUFDSSx5QkFBQTtBQWhCSiIsImZpbGUiOiJidWt1LXR1bmFpLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ib2xkLFxuaDEge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtZmFtaWx5OiBcIk51bml0byBTYW5zXCI7XG59XG4ubm8tcGFkZGluZyB7XG4gICAgcGFkZGluZzogMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5uby1tYXJnaW4ge1xuICAgIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5yZWN0YW5nbGUtMjgwIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDBhNjUxO1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgei1pbmRleDogLTE7XG59XG5cbi5iZy13aGl0ZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgbWluLXdpZHRoOiAxMDAlO1xuICAgIC8vIGJvcmRlci1yYWRpdXM6IDBweCAwcHggNDBweCA0MHB4O1xuICAgIHBhZGRpbmc6IDIwcHg7XG4gICAgLy8gb3ZlcmZsb3c6IHNjcm9sbDtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbn1cblxuLnJlY3RhbmdsZS0xIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDBhNjUxO1xuICAgIGJvcmRlci1yYWRpdXM6IDE4cHg7XG4gICAgYm94LXNoYWRvdzogMHB4IDRweCA0cHggIzAwMDAwMDQwO1xuICAgIGZvbnQtZmFtaWx5OiBcIk51bml0byBTYW5zXCI7XG4gICAgaGVpZ2h0OiAxMjVweDtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgcGFkZGluZy1sZWZ0OiA1JTtcbiAgICBwYWRkaW5nLXJpZ2h0OiA1JTtcbiAgICBwYWRkaW5nLXRvcDogMiU7XG4gICAgbWFyZ2luLWJvdHRvbTogNSU7XG59XG5cbi8vIGlvbi1pdGVtLFxuLy8gLnRlc3Qge1xuLy8gICAgIC0tcGFkZGluZy1zdGFydDogMC43NXJlbSAhaW1wb3J0YW50O1xuLy8gICAgIC0tcGFkZGluZy10b3A6IDAuNjI1cmVtICFpbXBvcnRhbnQ7XG4vLyAgICAgLS1wbGFjZWhvbGRlci1jb2xvcjogIzg4OThhYTtcbi8vICAgICAtLXBsYWNlaG9sZGVyLWZvbnQtd2VpZ2h0OiA0MDA7XG4vLyAgICAgYmFja2dyb3VuZC1jb2xvcjogI0VERURFRCAhaW1wb3J0YW50O1xuLy8gICAgIC8vIGJvcmRlcjogMXB4IHNvbGlkICNkZWUyZTYgIWltcG9ydGFudDtcbi8vICAgICBib3JkZXItcmFkaXVzOiAxcmVtICFpbXBvcnRhbnQ7XG4vLyAgICAgYm94LXNoYWRvdzogMCAzcHggMnB4IHJnYmEoMjMzLCAyMzYsIDIzOSwgMC4wNSkgIWltcG9ydGFudDtcbi8vICAgICBsaW5lLWhlaWdodDogMS41ICFpbXBvcnRhbnQ7XG4vLyAgICAgZm9udC1mYW1pbHk6IFwiTnVuaXRvIFNhbnNcIjtcbi8vICAgICBjb2xvcjogIzAwYTY1MTtcbiAgICBcbi8vIH1cblxuLnN1Y2Nlc3N7XG4gICAgY29sb3I6ICMwMGE2NTE7XG59XG5cbi5jYXJke1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNFREVERUQ7XG59XG5cbiJdfQ== */";
+      __webpack_exports__["default"] = ".bold,\nh1 {\n  font-weight: bold;\n  font-family: \"Nunito Sans\";\n}\n\n.no-padding {\n  padding: 0px !important;\n}\n\n.no-margin {\n  margin: 0px !important;\n}\n\n.rectangle-280 {\n  background-color: #00a651;\n  position: absolute;\n  height: 100%;\n  width: 100%;\n  z-index: -1;\n}\n\n.bg-white {\n  background-color: white;\n  display: flex;\n  height: 100%;\n  justify-content: center;\n  min-width: 100%;\n  padding: 20px;\n  display: flex;\n  flex-wrap: wrap;\n}\n\n.rectangle-1 {\n  background-color: #FF6600;\n  border-radius: 18px;\n  box-shadow: 0px 4px 4px #00000040;\n  font-family: \"Nunito Sans\";\n  height: 125px;\n  width: 100%;\n  padding-left: 5%;\n  padding-right: 5%;\n  padding-top: 2%;\n  margin-bottom: 5%;\n}\n\n.success {\n  color: #00a651;\n}\n\n.card {\n  background-color: #EDEDED;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJ1a3UtdHVuYWkucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVJLGlCQUFBO0VBQ0EsMEJBQUE7QUFDSjs7QUFDQTtFQUNJLHVCQUFBO0FBRUo7O0FBQ0E7RUFDSSxzQkFBQTtBQUVKOztBQUNBO0VBQ0kseUJBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsV0FBQTtBQUVKOztBQUNBO0VBQ0ksdUJBQUE7RUFDQSxhQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0VBQ0EsZUFBQTtFQUVBLGFBQUE7RUFFQSxhQUFBO0VBQ0EsZUFBQTtBQUFKOztBQUdBO0VBQ0kseUJBQUE7RUFDQSxtQkFBQTtFQUNBLGlDQUFBO0VBQ0EsMEJBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtFQUVBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUFESjs7QUFvQkE7RUFDSSxjQUFBO0FBakJKOztBQW9CQTtFQUNJLHlCQUFBO0FBakJKIiwiZmlsZSI6ImJ1a3UtdHVuYWkucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJvbGQsXG5oMSB7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgZm9udC1mYW1pbHk6IFwiTnVuaXRvIFNhbnNcIjtcbn1cbi5uby1wYWRkaW5nIHtcbiAgICBwYWRkaW5nOiAwcHggIWltcG9ydGFudDtcbn1cblxuLm5vLW1hcmdpbiB7XG4gICAgbWFyZ2luOiAwcHggIWltcG9ydGFudDtcbn1cblxuLnJlY3RhbmdsZS0yODAge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMwMGE2NTE7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICB6LWluZGV4OiAtMTtcbn1cblxuLmJnLXdoaXRlIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGhlaWdodDogMTAwJTtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtaW4td2lkdGg6IDEwMCU7XG4gICAgLy8gYm9yZGVyLXJhZGl1czogMHB4IDBweCA0MHB4IDQwcHg7XG4gICAgcGFkZGluZzogMjBweDtcbiAgICAvLyBvdmVyZmxvdzogc2Nyb2xsO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC13cmFwOiB3cmFwO1xufVxuXG4ucmVjdGFuZ2xlLTEge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNGRjY2MDA7XG4gICAgYm9yZGVyLXJhZGl1czogMThweDtcbiAgICBib3gtc2hhZG93OiAwcHggNHB4IDRweCAjMDAwMDAwNDA7XG4gICAgZm9udC1mYW1pbHk6IFwiTnVuaXRvIFNhbnNcIjtcbiAgICBoZWlnaHQ6IDEyNXB4O1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIC8vIGNvbG9yOiB3aGl0ZTtcbiAgICBwYWRkaW5nLWxlZnQ6IDUlO1xuICAgIHBhZGRpbmctcmlnaHQ6IDUlO1xuICAgIHBhZGRpbmctdG9wOiAyJTtcbiAgICBtYXJnaW4tYm90dG9tOiA1JTtcbn1cblxuLy8gaW9uLWl0ZW0sXG4vLyAudGVzdCB7XG4vLyAgICAgLS1wYWRkaW5nLXN0YXJ0OiAwLjc1cmVtICFpbXBvcnRhbnQ7XG4vLyAgICAgLS1wYWRkaW5nLXRvcDogMC42MjVyZW0gIWltcG9ydGFudDtcbi8vICAgICAtLXBsYWNlaG9sZGVyLWNvbG9yOiAjODg5OGFhO1xuLy8gICAgIC0tcGxhY2Vob2xkZXItZm9udC13ZWlnaHQ6IDQwMDtcbi8vICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjRURFREVEICFpbXBvcnRhbnQ7XG4vLyAgICAgLy8gYm9yZGVyOiAxcHggc29saWQgI2RlZTJlNiAhaW1wb3J0YW50O1xuLy8gICAgIGJvcmRlci1yYWRpdXM6IDFyZW0gIWltcG9ydGFudDtcbi8vICAgICBib3gtc2hhZG93OiAwIDNweCAycHggcmdiYSgyMzMsIDIzNiwgMjM5LCAwLjA1KSAhaW1wb3J0YW50O1xuLy8gICAgIGxpbmUtaGVpZ2h0OiAxLjUgIWltcG9ydGFudDtcbi8vICAgICBmb250LWZhbWlseTogXCJOdW5pdG8gU2Fuc1wiO1xuLy8gICAgIGNvbG9yOiAjMDBhNjUxO1xuICAgIFxuLy8gfVxuXG4uc3VjY2Vzc3tcbiAgICBjb2xvcjogIzAwYTY1MTtcbn1cblxuLmNhcmR7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI0VERURFRDtcbn1cblxuIl19 */";
       /***/
     },
 
@@ -380,7 +406,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px;\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" href=\"/dashboard\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"success\">\n      <h1>\n        <strong class=\"ion-text-uppercase bold\">\n          BUKU TUNAI\n        </strong>\n      </h1>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <!-- <div class=\"rectangle-280\"></div> -->\n\n  <div class=\"bg-white\">\n\n    <div style=\"width: 100%; height:23%; background-color:azure\">\n\n      <form [formGroup]=\"form\" action=\"\">\n\n        <ion-card>\n          <ion-card-content class=\"no-padding test\">\n\n            <!-- <ion-item (click)=\"showPicker = !showPicker\">\n            <ion-label class=\"bold success\">Bulan</ion-label> \n            <ion-text slot=\"end\">\n              {{ bulan }}\n            </ion-text>\n            <ion-datetime presentation=\"month\" class=\"success\" display-format=\"MMMM\" picker-format=\"MMMM\" [(ngModel)]=\"month\"></ion-datetime>\n           </ion-item> -->\n\n            <ion-item>\n              <ion-label>Bulan</ion-label>\n              <ion-select formControlName=\"bulan\">\n                <ion-select-option value=\"1\">Januari</ion-select-option>\n                <ion-select-option value=\"2\">Februari</ion-select-option>\n                <ion-select-option value=\"3\">Mac</ion-select-option>\n                <ion-select-option value=\"4\">April</ion-select-option>\n                <ion-select-option value=\"5\">Mei</ion-select-option>\n                <ion-select-option value=\"6\">Jun</ion-select-option>\n                <ion-select-option value=\"7\">Julai</ion-select-option>\n                <ion-select-option value=\"8\">Ogos</ion-select-option>\n                <ion-select-option value=\"9\">September</ion-select-option>\n                <ion-select-option value=\"10\">Oktober</ion-select-option>\n                <ion-select-option value=\"11\">November</ion-select-option>\n                <ion-select-option value=\"12\">Disember</ion-select-option>\n              </ion-select>\n            </ion-item>\n\n\n          </ion-card-content>\n        </ion-card>\n\n        <ion-card>\n          <ion-card-content class=\"no-padding test\">\n            <!-- <ion-item>\n            <ion-label class=\"bold success\">Tahun</ion-label> -->\n            <!-- <ion-datetime presentation=\"\" class=\"success\" display-format=\"YYYY\" picker-format=\"YYYY\" [(ngModel)]=\"year\"></ion-datetime> -->\n            <!-- </ion-item> -->\n\n            <ion-item>\n              <ion-label>Tahun</ion-label>\n              <ion-select formControlName=\"tahun\">\n                <ion-select-option *ngFor=\"let year of listYear\" value=\"{{year}}\">{{year}}</ion-select-option>\n\n              </ion-select>\n            </ion-item>\n          </ion-card-content>\n        </ion-card>\n\n        <div style=\"width: 100%; display:flex; justify-content:flex-end\">\n          <ion-button size=\"small\" color=\"success\" [disabled]=\"form.invalid\" (click)=\"printPdfCustom()\">PDF</ion-button>\n          <ion-button size=\"small\" color=\"success\" [disabled]=\"form.invalid\" (click)=\"printExcelCustom()\">Excel\n          </ion-button>\n        </div>\n\n\n\n      </form>\n\n\n    </div>\n\n    <div style=\"width: 100%; height:77%; overflow:scroll; margin-top:25px\">\n\n\n      <div *ngFor=\"let listMonth of listMonth; index as i; \">\n        <div class=\"rectangle-1\" *ngIf=\"i < month\">\n\n          <h3 class=\"bold\">BUKU TUNAI</h3>\n          <h5 class=\"no-margin\">{{listMonth.name}} {{date.getFullYear()}}</h5>\n\n          <!-- <ion-button size=\"small\" color=\"success\" type=\"submit\">PDF</ion-button> -->\n          <div style=\"width: 100%; height:30%;  display:flex; justify-content:flex-end;\">\n            <img src=\"assets/icon/download-excel-button-white.png\" alt=\"\" height=\"100%\" (click)=\"printExcel(listMonth.value)\">\n\n            <img src=\"assets/icon/download-PDF-button-white.png\" alt=\"\" height=\"100%\" (click)=\"printPdf(listMonth.value)\">\n\n            <!-- <img src=\"assets/icon/SHARE-BUTTON-ICON.png\" alt=\"\" height=\"100%\" (click)=\"share()\"> -->\n\n          </div>\n\n\n\n        </div>\n      </div>\n\n\n    </div>\n\n  </div>\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dashboard()\" >\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <!-- <ion-back-button defaultHref=\"/dashboard\"></ion-back-button> -->\n    </ion-buttons>\n    <ion-text color=\"warning\">\n      <h1>\n        <strong class=\"ion-text-uppercase bold\">\n          BUKU TUNAI\n        </strong>\n      </h1>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <!-- <div class=\"rectangle-280\"></div> -->\n\n  <div class=\"bg-white\">\n\n    <div style=\"width: 100%; height:23%; background-color:azure\">\n\n      <form [formGroup]=\"form\" action=\"\">\n\n        <ion-card>\n          <ion-card-content class=\"no-padding test\">\n\n            <!-- <ion-item (click)=\"showPicker = !showPicker\">\n            <ion-label class=\"bold success\">Bulan</ion-label> \n            <ion-text slot=\"end\">\n              {{ bulan }}\n            </ion-text>\n            <ion-datetime presentation=\"month\" class=\"success\" display-format=\"MMMM\" picker-format=\"MMMM\" [(ngModel)]=\"month\"></ion-datetime>\n           </ion-item> -->\n\n            <ion-item>\n              <ion-label>Bulan</ion-label>\n              <ion-select formControlName=\"bulan\">\n                <ion-select-option value=\"1\">Januari</ion-select-option>\n                <ion-select-option value=\"2\">Februari</ion-select-option>\n                <ion-select-option value=\"3\">Mac</ion-select-option>\n                <ion-select-option value=\"4\">April</ion-select-option>\n                <ion-select-option value=\"5\">Mei</ion-select-option>\n                <ion-select-option value=\"6\">Jun</ion-select-option>\n                <ion-select-option value=\"7\">Julai</ion-select-option>\n                <ion-select-option value=\"8\">Ogos</ion-select-option>\n                <ion-select-option value=\"9\">September</ion-select-option>\n                <ion-select-option value=\"10\">Oktober</ion-select-option>\n                <ion-select-option value=\"11\">November</ion-select-option>\n                <ion-select-option value=\"12\">Disember</ion-select-option>\n              </ion-select>\n            </ion-item>\n\n\n          </ion-card-content>\n        </ion-card>\n\n        <ion-card>\n          <ion-card-content class=\"no-padding test\">\n            <!-- <ion-item>\n            <ion-label class=\"bold success\">Tahun</ion-label> -->\n            <!-- <ion-datetime presentation=\"\" class=\"success\" display-format=\"YYYY\" picker-format=\"YYYY\" [(ngModel)]=\"year\"></ion-datetime> -->\n            <!-- </ion-item> -->\n\n            <ion-item>\n              <ion-label>Tahun</ion-label>\n              <ion-select formControlName=\"tahun\">\n                <ion-select-option *ngFor=\"let year of listYear\" value=\"{{year}}\">{{year}}</ion-select-option>\n\n              </ion-select>\n            </ion-item>\n          </ion-card-content>\n        </ion-card>\n\n        <div style=\"width: 100%; display:flex; justify-content:flex-end\">\n          <ion-button size=\"small\" color=\"warning\" [disabled]=\"form.invalid\" (click)=\"printPdfCustom()\">PDF</ion-button>\n          <ion-button size=\"small\" color=\"warning\" [disabled]=\"form.invalid\" (click)=\"printExcelCustom()\">Excel\n          </ion-button>\n        </div>\n\n\n\n      </form>\n\n\n    </div>\n\n    <div style=\"width: 100%; height:77%; overflow:scroll; margin-top:40px\">\n\n\n      <div *ngFor=\"let listMonth of listMonth; index as i; \">\n        <div class=\"rectangle-1\" *ngIf=\"i < month\">\n\n          <ion-text color=\"light\">\n            <h3 class=\"bold\">BUKU TUNAI</h3>\n          </ion-text>\n          <h5 class=\"no-margin\">{{listMonth.name}} {{date.getFullYear()}}</h5>\n\n          <!-- <ion-button size=\"small\" color=\"success\" type=\"submit\">PDF</ion-button> -->\n          <div style=\"width: 100%; height:30%;  display:flex; justify-content:flex-end;\">\n            <img src=\"assets/icon/download-excel-button-white.png\" alt=\"\" height=\"100%\" (click)=\"printExcel(listMonth.value)\">\n\n            <img src=\"assets/icon/download-PDF-button-white.png\" alt=\"\" height=\"100%\" (click)=\"printPdf(listMonth.value)\">\n\n            <!-- <img src=\"assets/icon/SHARE-BUTTON-ICON.png\" alt=\"\" height=\"100%\" (click)=\"share()\"> -->\n\n          </div>\n\n\n\n        </div>\n      </div>\n\n\n    </div>\n\n  </div>\n\n\n\n\n</ion-content>";
       /***/
     }
   }]);

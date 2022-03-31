@@ -4,6 +4,9 @@ import { PelangganService } from 'src/app/services/pelanggan/pelanggan.service';
 import { environment } from 'src/environments/environment';
 import { KemaskiniDokumenPage } from '../kemaskini-dokumen/kemaskini-dokumen.page';
 import { TambahJanaDokumenPage } from '../tambah-jana-dokumen/tambah-jana-dokumen.page';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-jana-dokumen',
@@ -27,6 +30,9 @@ export class JanaDokumenPage implements OnInit {
     public modalController: ModalController,
     private pelangganService: PelangganService,
     private loadingController: LoadingController,
+    private iab: InAppBrowser,
+    private router: Router,
+
   ) { }
 
   ngOnInit() {
@@ -88,7 +94,9 @@ export class JanaDokumenPage implements OnInit {
         let url = environment.baseUrl + 'storage/' + res;
 
         console.log(url);
-        window.open(url, "_blank");
+        // window.open(url, "_blank");
+        const browser = this.iab.create(url, '_system');
+
 
 
       });
@@ -99,7 +107,9 @@ export class JanaDokumenPage implements OnInit {
         let url = environment.baseUrl + 'storage/' + res;
 
         console.log(url);
-        window.open(url, "_blank");
+        // window.open(url, "_blank");
+        const browser = this.iab.create(url, '_system');
+
 
 
       });
@@ -111,7 +121,9 @@ export class JanaDokumenPage implements OnInit {
         let url = environment.baseUrl + 'storage/' + res;
 
         console.log(url);
-        window.open(url, "_blank");
+        // window.open(url, "_blank");
+        const browser = this.iab.create(url, '_system');
+
 
 
       });
@@ -123,12 +135,16 @@ export class JanaDokumenPage implements OnInit {
         let url = environment.baseUrl + 'storage/' + res;
 
         console.log(url);
-        window.open(url, "_blank");
-
+        // window.open(url, "_blank");
+        const browser = this.iab.create(url, '_system');
 
       });
     }
 
+  }
+
+  dashboard(){
+    this.router.navigate(['/dashboard'])
   }
 
 }

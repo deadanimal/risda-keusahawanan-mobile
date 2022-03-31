@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PdfExcelService } from 'src/app/services/pdfExcel/pdf-excel.service';
 import { environment } from 'src/environments/environment';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-pnl',
@@ -39,6 +42,10 @@ export class PnlPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pdfExcelService: PdfExcelService,
+    private iab: InAppBrowser,
+    private router: Router,
+
+
   ) {
     this.form = this.formBuilder.group({
       id: ['',],
@@ -80,18 +87,6 @@ export class PnlPage implements OnInit {
     });
   }
 
-  // calcPnl() {
-
-  //   this.form.value.id = this.user_id;
-  //   console.log(this.form.value)
-
-  //   this.pdfExcelService.pnlInfo(this.form.value).subscribe((res) => {
-  //     console.log("res", res);
-
-
-  //   });
-  // }
-
   printExcelCustom() {
 
     this.form.value.id = this.user_id;
@@ -103,7 +98,9 @@ export class PnlPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
     });
   }
@@ -118,7 +115,9 @@ export class PnlPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
     });
   }
@@ -137,7 +136,9 @@ export class PnlPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
     });
   }
@@ -155,13 +156,19 @@ export class PnlPage implements OnInit {
       let url = environment.baseUrl + 'storage/' + res;
 
       console.log(url);
-      window.open(url, "_blank");
+      // window.open(url, "_blank");
+      const browser = this.iab.create(url, '_system');
+
 
     });
   }
 
   share() {
     console.log("share")
+  }
+
+  dashboard() {
+    this.router.navigate(['/dashboard'])
   }
 
 }

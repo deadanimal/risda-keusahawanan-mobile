@@ -79,13 +79,14 @@
       var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 
       var _KemaskiniBuletinPage = /*#__PURE__*/function () {
-        function KemaskiniBuletinPage(modalController, formBuilder, buletinService, alertController) {
+        function KemaskiniBuletinPage(modalController, formBuilder, buletinService, alertController, loadingController) {
           _classCallCheck(this, KemaskiniBuletinPage);
 
           this.modalController = modalController;
           this.formBuilder = formBuilder;
           this.buletinService = buletinService;
-          this.alertController = alertController; // Convert the base64 to blob data
+          this.alertController = alertController;
+          this.loadingController = loadingController; // Convert the base64 to blob data
           // and create  formData with it
 
           this.images = [];
@@ -108,7 +109,8 @@
             tarikh: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
             keterangan_lain: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
             status: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
-            gambar_buletin: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required]
+            gambar_buletin: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
+            url: ['']
           });
         }
 
@@ -127,7 +129,8 @@
               tarikh: date,
               keterangan_lain: this.buletin.keterangan_lain,
               status: this.buletin.status,
-              gambar_buletin: this.buletin.gambar_buletin
+              gambar_buletin: this.buletin.gambar_buletin,
+              url: this.buletin.url
             });
             this.url = this.buletin.gambar_buletin;
             this.form.updateValueAndValidity();
@@ -170,11 +173,20 @@
                             return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                               var _this2 = this;
 
+                              var loading;
                               return regeneratorRuntime.wrap(function _callee$(_context) {
                                 while (1) {
                                   switch (_context.prev = _context.next) {
                                     case 0:
                                       console.log('Confirm Okay');
+                                      _context.next = 3;
+                                      return this.loadingController.create({
+                                        message: 'Loading ...'
+                                      });
+
+                                    case 3:
+                                      loading = _context.sent;
+                                      loading.present();
 
                                       if (this.images.length > 0) {
                                         this.form.value.gambar_buletin = this.images[0].data;
@@ -185,13 +197,14 @@
                                       this.form.value.tarikh = moment__WEBPACK_IMPORTED_MODULE_3__(this.form.value.tarikh).format('YYYY-MM-DD');
                                       console.log(this.form.value);
                                       this.buletinService.update(this.form.value, this.buletin.id).subscribe(function (res) {
-                                        console.log("updated data", res); // this.dismiss();
+                                        console.log("updated data", res);
+                                        loading.dismiss(); // this.dismiss();
 
                                         // this.dismiss();
                                         _this2.presentAlert();
                                       });
 
-                                    case 5:
+                                    case 9:
                                     case "end":
                                       return _context.stop();
                                   }
@@ -351,6 +364,8 @@
           type: src_app_services_buletin_buletin_service__WEBPACK_IMPORTED_MODULE_2__.BuletinService
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.AlertController
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController
         }];
       };
 
@@ -476,7 +491,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button color=\"success\" (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"success\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            KEMASKINI BULETIN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" style=\"margin: 20px;\">\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>TAJUK</ion-label>\n          <ion-input type=\"text\" formControlName=\"tajuk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label> TARIKH</ion-label>\n          <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n          <!-- <ion-input type=\"text\" formControlName=\"title\"></ion-input> -->\n          <ion-datetime presentation=\"date\" displayFormat=\"DD/MM/YYYY\" formControlName=\"tarikh\" style=\"background-color: #f5f5f5;\">\n          </ion-datetime>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KETERANGAN LAIN</ion-label>\n          <ion-textarea rows=\"6\" placeholder=\"\" formControlName=\"keterangan_lain\"></ion-textarea>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>STATUS</ion-label>\n          <ion-select formControlName=\"status\">\n            <ion-select-option value=\"aktif\">AKTIF</ion-select-option>\n            <ion-select-option value=\"tidak_aktif\">TIDAK AKTIF</ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      \n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\">GAMBAR</ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px; \">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label style=\"display: flex; justify-content:center\">\n            <div style=\"display: flex; justify-content:center\">\n              <img [src]=\"this.url\" class=\"border-radius-md\" width=\"40%\" \n                id=\"upload-Preview\" style=\"border-radius: 10px;\" />\n            </div>\n            <input id=\"upload-Image\" type=\"file\" formControlName=\"gambar_buletin\" accept=\"image/*\" (change)=\"onSelectFile($event)\" style=\"display: none\">\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"form.invalid\" >KEMASKINI BULETIN</ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            KEMASKINI BULETIN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" style=\"margin: 20px;\">\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>TAJUK <span style=\"color: red;\">*</span></ion-label>\n          <ion-input type=\"text\" formControlName=\"tajuk\"></ion-input>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label> TARIKH <span style=\"color: red;\">*</span></ion-label>\n          <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n          <!-- <ion-input type=\"text\" formControlName=\"title\"></ion-input> -->\n          <ion-datetime presentation=\"date\" displayFormat=\"DD/MM/YYYY\" formControlName=\"tarikh\" style=\"background-color: #f5f5f5;\">\n          </ion-datetime>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>KETERANGAN LAIN <span style=\"color: red;\">*</span></ion-label>\n          <ion-textarea rows=\"6\" placeholder=\"\" formControlName=\"keterangan_lain\"></ion-textarea>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>Link</ion-label>\n          <ion-textarea rows=\"2\" placeholder=\"\" formControlName=\"url\"></ion-textarea>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-label>STATUS <span style=\"color: red;\">*</span></ion-label>\n          <ion-select formControlName=\"status\">\n            <ion-select-option value=\"aktif\">AKTIF</ion-select-option>\n            <ion-select-option value=\"tidak_aktif\">TIDAK AKTIF</ion-select-option>\n          </ion-select>\n        </ion-col>\n      </ion-row>\n\n      \n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\">GAMBAR <span style=\"color: red;\">*</span></ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px; \">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label style=\"display: flex; justify-content:center\">\n            <div style=\"display: flex; justify-content:center\">\n              <img [src]=\"this.url\" class=\"border-radius-md\" width=\"40%\" \n                id=\"upload-Preview\" style=\"border-radius: 10px;\" />\n            </div>\n            <input id=\"upload-Image\" type=\"file\" formControlName=\"gambar_buletin\" accept=\"image/*\" (change)=\"onSelectFile($event)\" style=\"display: none\">\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <ion-button color=\"dark\" expand=\"block\" type=\"submit\" [disabled]=\"form.invalid\" >KEMASKINI BULETIN</ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>\n";
       /***/
     }
   }]);
