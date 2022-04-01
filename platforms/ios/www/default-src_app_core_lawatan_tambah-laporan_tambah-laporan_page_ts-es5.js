@@ -119,8 +119,6 @@
           this.ptService = ptService;
           this.usahawanService = usahawanService;
           this.loadingController = loadingController;
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-          this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
           this.url = "assets/icon/image-not-available.png";
           this.negeriValue = null;
           this.ptValue = null; // Convert the base64 to blob data
@@ -158,6 +156,8 @@
         _createClass(TambahLaporanPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+            this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
             console.log("peranan", this.peranan_pegawai);
             console.log("laporan", this.laporan);
 

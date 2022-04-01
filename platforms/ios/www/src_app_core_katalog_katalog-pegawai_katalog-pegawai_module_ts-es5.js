@@ -221,14 +221,14 @@
           this.katalogService = katalogService;
           this.router = router;
           this.loadingController = loadingController;
-          this.user_id = window.sessionStorage.getItem("user_id");
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
           this.katalog = [];
         }
 
         _createClass(KatalogPegawaiPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.user_id = window.sessionStorage.getItem("user_id");
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
             this.getKatalog();
           }
         }, {

@@ -45,6 +45,9 @@
     },
     "im.ltdev.cordova.UserAgent": {
       "PACKAGE_NAME": "risda.keusahawanan.reds"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "risda.keusahawanan.reds"
     }
   },
   "dependent_plugins": {

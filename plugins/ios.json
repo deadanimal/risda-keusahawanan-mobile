@@ -48,11 +48,11 @@
     "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "risda.keusahawanan.reds"
     },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "risda.keusahawanan.reds"
-    },
     "im.ltdev.cordova.UserAgent": {
       "PACKAGE_NAME": "risda.keusahawanan.reds"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "risdareds-risda.keusahawanan.reds"
     }
   },
   "dependent_plugins": {

@@ -21,8 +21,7 @@ export class TambahJanaDokumenPage implements OnInit {
   private form2: FormGroup;
   authForm: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   // variable
 
@@ -96,8 +95,14 @@ export class TambahJanaDokumenPage implements OnInit {
     this.productLength = this.getProdukArray.length;
   }
 
+  usahawan_id : any
+  user_id : any
 
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
 
     this.getNegeri();
     // this.getDaerah();

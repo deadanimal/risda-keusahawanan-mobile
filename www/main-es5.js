@@ -612,11 +612,6 @@
           this.pegawaiService = pegawaiService;
           this.usahawanService = usahawanService;
           this.notiService = notiService;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
-          this.role = window.sessionStorage.getItem("role");
-          this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
           this.appPages = [{
             title: 'Profil',
             url: '/profile',
@@ -675,6 +670,11 @@
         _createClass(AppComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
+            this.role = window.sessionStorage.getItem("role");
+            this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
             console.log("role", this.role);
             console.log("usahawan_id", this.usahawan_id);
             console.log("pegawai_id", this.pegawai_id);

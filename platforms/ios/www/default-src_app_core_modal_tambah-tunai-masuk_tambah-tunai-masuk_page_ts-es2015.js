@@ -47,8 +47,6 @@ let TambahTunaiMasukPage = class TambahTunaiMasukPage {
         this.router = router;
         this.http = http;
         this.alertController = alertController;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.tunai_masuk = this.formBuilder.group({
             id_pengguna: [''],
             id_kategori_aliran: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
@@ -60,6 +58,8 @@ let TambahTunaiMasukPage = class TambahTunaiMasukPage {
         });
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.today = new Date();
         var dd = String(this.today.getDate()).padStart(2, '0');
         var mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!

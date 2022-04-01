@@ -122,13 +122,13 @@ let JanaDokumenPage = class JanaDokumenPage {
         this.iab = iab;
         this.router = router;
         this.hideList = true;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
     }
     displayCountry() {
         this.docSelectRef.open();
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.getPelanggan();
     }
     tambahDokumen() {

@@ -87,8 +87,6 @@
           this.buletinService = buletinService;
           this.alertController = alertController;
           this.loadingController = loadingController;
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
           this.url = 'assets/icon/image-not-available.png';
 
           this.convertBlobToBase64 = function (blob) {
@@ -118,6 +116,8 @@
         _createClass(TambahBuletinPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
             this.images = [];
           }
         }, {

@@ -321,8 +321,6 @@ let ProfilePekebunPage = class ProfilePekebunPage {
         this.loadingController = loadingController;
         this.alertController = alertController;
         this.modalController = modalController;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.tanah = [];
         this.tanaman = [];
         this.form = this.formBuilder.group({
@@ -374,6 +372,8 @@ let ProfilePekebunPage = class ProfilePekebunPage {
         this.tanamans(ti).removeAt(ti);
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         console.log("usahawan id", this.usahawan_id);
         console.log("user id", this.user_id);
         this.getPekebun();

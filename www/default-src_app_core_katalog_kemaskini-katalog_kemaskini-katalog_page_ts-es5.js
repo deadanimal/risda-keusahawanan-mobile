@@ -100,8 +100,6 @@
           this.loadingController = loadingController;
           this.alertController = alertController;
           this.stokService = stokService;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
           this.url = 'assets/icon/image-not-available.png';
 
           this.convertBlobToBase64 = function (blob) {
@@ -136,6 +134,8 @@
         _createClass(KemaskiniKatalogPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
             this.images = [];
             console.log("katalog", this.katalog);
             this.setFormValues();

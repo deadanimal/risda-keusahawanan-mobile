@@ -41,8 +41,6 @@ let KemaskiniKatalogPage = class KemaskiniKatalogPage {
         this.loadingController = loadingController;
         this.alertController = alertController;
         this.stokService = stokService;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.url = 'assets/icon/image-not-available.png';
         this.convertBlobToBase64 = (blob) => new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -68,6 +66,8 @@ let KemaskiniKatalogPage = class KemaskiniKatalogPage {
         });
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.images = [];
         console.log("katalog", this.katalog);
         this.setFormValues();

@@ -414,7 +414,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-nativestorage": "2.3.2",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "2.4.2",
-    "cordova-plugin-whitelist": "1.3.3",
-    "im.ltdev.cordova.UserAgent": "1.0.1"
+    "im.ltdev.cordova.UserAgent": "1.0.1",
+    "cordova-plugin-whitelist": "1.3.5"
   };
 });

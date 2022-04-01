@@ -116,11 +116,11 @@ let KatalogPegawaiPage = class KatalogPegawaiPage {
         this.katalogService = katalogService;
         this.router = router;
         this.loadingController = loadingController;
-        this.user_id = window.sessionStorage.getItem("user_id");
-        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
         this.katalog = [];
     }
     ngOnInit() {
+        this.user_id = window.sessionStorage.getItem("user_id");
+        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
         this.getKatalog();
     }
     lihatKatalog(katalog) {

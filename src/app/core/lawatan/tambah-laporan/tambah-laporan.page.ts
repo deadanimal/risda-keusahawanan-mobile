@@ -26,8 +26,7 @@ export class TambahLaporanPage implements OnInit {
 
   @Input() laporan: any;
 
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  peranan_pegawai= window.sessionStorage.getItem("peranan_pegawai");
+
 
   url: any = "assets/icon/image-not-available.png";
 
@@ -53,23 +52,29 @@ export class TambahLaporanPage implements OnInit {
     this.form = this.formBuilder.group({
       // negeri: ['', Validators.required],
       // pt: ['', Validators.required],
-      id_pegawai : ['',],
+      id_pegawai: ['',],
       id_pengguna: ['', Validators.required],
       tarikh_lawatan: ['', Validators.required],
       masa_lawatan: ['', Validators.required],
       id_tindakan_lawatan: ['', Validators.required],
-      komen: ['', ],
+      komen: ['',],
       jenis_lawatan: ['', Validators.required],
       gambar_lawatan: ['',],
     });
   }
 
+  pegawai_id: any
+  peranan_pegawai: any
+
   ngOnInit() {
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+
     console.log("peranan", this.peranan_pegawai);
     console.log("laporan", this.laporan);
 
 
-    if (this.peranan_pegawai == "1" || this.peranan_pegawai == "2"){
+    if (this.peranan_pegawai == "1" || this.peranan_pegawai == "2") {
       this.getNegeri();
       this.getPT()
       this.getTindakanLawatan();
@@ -127,7 +132,7 @@ export class TambahLaporanPage implements OnInit {
     });
   }
 
-  getNegeriPt(){
+  getNegeriPt() {
     this.ptService.getNegeriPt(this.pegawai_id).subscribe((res) => {
       console.log("pt", res);
 
@@ -150,7 +155,7 @@ export class TambahLaporanPage implements OnInit {
 
   }
 
-  logForm() {
+  async logForm() {
 
     if (this.images.length > 0) {
       this.form.value.gambar_lawatan = this.images[0].data;
@@ -161,12 +166,16 @@ export class TambahLaporanPage implements OnInit {
     this.form.value.id_pegawai = this.pegawai_id;
     this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
     this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('HH:mm');
-    
+
     console.log(this.form.value)
 
+    const loading = await this.loadingController.create({ message: 'Loading ...' });
+    loading.present();
+    
     this.lawatanService.tambahLaporan(this.form.value).subscribe((res) => {
       console.log("laporan baru", res);
 
+      loading.dismiss();
       this.dismiss();
       window.location.reload();
     });
@@ -233,17 +242,35 @@ export class TambahLaporanPage implements OnInit {
 
 
 
+  tempID: any = null
 
-    async openSenaraiUsahawan(){
-      const modal = await this.modalController.create({
-        component: CarianUsahawanPage,
-        cssClass: 'my-custom-class',
-        componentProps: {
-          'firstName': 'Douglas',
-          'lastName': 'Adams',
-          'middleInitial': 'N'
-        }
-      });
-      return await modal.present();
+  async openSenaraiUsahawan() {
+
+    console.log("AAAAAA", this.usahawan)
+
+    let usahawans = this.usahawan;
+    const modal = await this.modalController.create({
+      component: CarianUsahawanPage,
+      cssClass: 'my-custom-class',
+      componentProps: { usahawans }
+    });
+    await modal.present();
+
+    const { data: usahawan } = await modal.onDidDismiss();
+    if (usahawan >0) {
+      console.log("yeayyy", usahawan)
+
+      this.tempID = usahawan
+
+      console.log("AAAAAA", this.tempID)
+
+      this.form.patchValue({
+        id_pengguna: usahawan
+      })
+    } else {
+
+      console.log("AAAAAA", this.tempID)
+      this.tempID == null
     }
+  }
 }

@@ -227,12 +227,12 @@
           this.lawatanServicce = lawatanServicce;
           this.router = router;
           this.loadingController = loadingController;
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
         }
 
         _createClass(SenaraiLaporanPegawaiPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
             this.getLaporan();
           }
         }, {

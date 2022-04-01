@@ -36,8 +36,6 @@ let TambahBuletinPage = class TambahBuletinPage {
         this.buletinService = buletinService;
         this.alertController = alertController;
         this.loadingController = loadingController;
-        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.url = 'assets/icon/image-not-available.png';
         this.convertBlobToBase64 = (blob) => new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -58,6 +56,8 @@ let TambahBuletinPage = class TambahBuletinPage {
         });
     }
     ngOnInit() {
+        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.images = [];
     }
     dismiss() {

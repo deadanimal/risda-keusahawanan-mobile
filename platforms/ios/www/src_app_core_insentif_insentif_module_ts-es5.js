@@ -194,13 +194,13 @@
           _classCallCheck(this, InsentifPage);
 
           this.insentifService = insentifService;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
         }
 
         _createClass(InsentifPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
             console.log('usahawan_id', this.usahawan_id);
             console.log('user_id', this.user_id);
             this.getInsentif();

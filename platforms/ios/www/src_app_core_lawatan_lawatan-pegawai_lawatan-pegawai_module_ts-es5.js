@@ -232,14 +232,14 @@
           this.modalController = modalController;
           this.lawatanService = lawatanService;
           this.router = router;
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
-          this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
         }
 
         _createClass(LawatanPegawaiPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
+            this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
             this.getLawatan();
             document.getElementById("1").click();
             console.log("peranan_pegawai", this.peranan_pegawai);

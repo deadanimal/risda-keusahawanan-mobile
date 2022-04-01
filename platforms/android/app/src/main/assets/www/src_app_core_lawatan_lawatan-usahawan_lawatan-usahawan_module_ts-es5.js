@@ -539,12 +539,12 @@
           this.http = http;
           this.iab = iab;
           this.router = router;
-          this.user_id = window.sessionStorage.getItem("user_id");
         }
 
         _createClass(LawatanUsahawanPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.user_id = window.sessionStorage.getItem("user_id");
             this.getLawatan();
           }
         }, {

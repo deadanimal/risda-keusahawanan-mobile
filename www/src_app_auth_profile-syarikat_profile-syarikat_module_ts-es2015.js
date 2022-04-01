@@ -169,8 +169,6 @@ let ProfileSyarikatPage = class ProfileSyarikatPage {
         this.loadingController = loadingController;
         this.formBuilder = formBuilder;
         this.popoverCtrl = popoverCtrl;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.jenis_milikan = [
             { id: "JPP01", name: "PEMILIKAN TUNGGAL" },
             { id: "JPP02", name: "PERKONGSIAN" },
@@ -213,6 +211,8 @@ let ProfileSyarikatPage = class ProfileSyarikatPage {
         });
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         console.log("usahawan id", this.usahawan_id);
         console.log("user id", this.user_id);
         this.getSyarikat();

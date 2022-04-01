@@ -38,9 +38,6 @@ let TarikhLawatanPgwPage = class TarikhLawatanPgwPage {
         this.router = router;
         this.lawatanService = lawatanService;
         this.alertController = alertController;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.form = this.formBuilder.group({
             id_pengguna: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
             id_pegawai: ['',],
@@ -49,6 +46,9 @@ let TarikhLawatanPgwPage = class TarikhLawatanPgwPage {
         });
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.getSenaraiUsahawan();
     }
     dismiss() {

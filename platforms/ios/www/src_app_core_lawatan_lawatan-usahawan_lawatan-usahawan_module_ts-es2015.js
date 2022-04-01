@@ -213,9 +213,9 @@ let LawatanUsahawanPage = class LawatanUsahawanPage {
         this.http = http;
         this.iab = iab;
         this.router = router;
-        this.user_id = window.sessionStorage.getItem("user_id");
     }
     ngOnInit() {
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.getLawatan();
     }
     pengesahanLawatan(lawatan) {

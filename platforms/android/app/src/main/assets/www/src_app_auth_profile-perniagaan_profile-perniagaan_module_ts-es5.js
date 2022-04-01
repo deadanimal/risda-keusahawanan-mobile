@@ -307,8 +307,6 @@
           this.aliranService = aliranService;
           this.geolocation = geolocation;
           this.klusterService = klusterService;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
           this.jenis_perniagaan = [{
             id: "A",
             name: "PENGELUARAN PRODUK MAKANAN"
@@ -438,6 +436,8 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
             console.log("usahawan id", this.usahawan_id);
             console.log("user id", this.user_id);
             this.getPerniagaan();

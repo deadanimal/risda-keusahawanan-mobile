@@ -235,8 +235,6 @@
           this.iab = iab;
           this.router = router;
           this.hideList = true;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
         }
 
         _createClass(JanaDokumenPage, [{
@@ -247,6 +245,8 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
             this.getPelanggan();
           }
         }, {

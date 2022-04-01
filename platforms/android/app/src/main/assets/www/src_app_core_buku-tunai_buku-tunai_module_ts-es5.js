@@ -223,7 +223,6 @@
           this.iab = iab;
           this.router = router;
           this.date = new Date();
-          this.user_id = window.sessionStorage.getItem("user_id");
           this.listYear = [];
           this.listMonth = [{
             value: "1",
@@ -272,8 +271,9 @@
         _createClass(BukuTunaiPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            // console.log("AAAAA", this.date.getMonth() + 1);
+            this.user_id = window.sessionStorage.getItem("user_id"); // console.log("AAAAA", this.date.getMonth() + 1);
             // console.log("BBB", this.date.getFullYear());
+
             this.month = this.date.getMonth() + 1;
             this.year = Number(this.date.getFullYear());
 

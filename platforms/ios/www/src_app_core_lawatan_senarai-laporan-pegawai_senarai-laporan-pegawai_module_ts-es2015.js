@@ -118,9 +118,9 @@ let SenaraiLaporanPegawaiPage = class SenaraiLaporanPegawaiPage {
         this.lawatanServicce = lawatanServicce;
         this.router = router;
         this.loadingController = loadingController;
-        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
     }
     ngOnInit() {
+        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
         this.getLaporan();
     }
     tambahLaporan(laporan) {

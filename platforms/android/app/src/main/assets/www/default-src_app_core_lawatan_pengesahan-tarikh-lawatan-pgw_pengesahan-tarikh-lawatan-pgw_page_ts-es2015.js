@@ -39,9 +39,6 @@ let PengesahanTarikhLawatanPgwPage = class PengesahanTarikhLawatanPgwPage {
         this.alertController = alertController;
         this.router = router;
         this.lawatanService = lawatanService;
-        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.form = this.formBuilder.group({
             namausahawan: ['',],
             nama_pegawai: ['',],
@@ -54,6 +51,9 @@ let PengesahanTarikhLawatanPgwPage = class PengesahanTarikhLawatanPgwPage {
         });
     }
     ngOnInit() {
+        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         console.log(this.lawatan);
         this.setFormValues();
     }

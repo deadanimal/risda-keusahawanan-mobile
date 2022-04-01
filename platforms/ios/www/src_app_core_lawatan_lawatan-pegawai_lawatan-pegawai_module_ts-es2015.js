@@ -119,11 +119,11 @@ let LawatanPegawaiPage = class LawatanPegawaiPage {
         this.modalController = modalController;
         this.lawatanService = lawatanService;
         this.router = router;
+    }
+    ngOnInit() {
         this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
         this.user_id = window.sessionStorage.getItem("user_id");
         this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
-    }
-    ngOnInit() {
         this.getLawatan();
         document.getElementById("1").click();
         console.log("peranan_pegawai", this.peranan_pegawai);

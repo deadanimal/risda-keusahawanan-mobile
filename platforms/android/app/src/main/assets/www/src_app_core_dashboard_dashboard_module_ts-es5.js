@@ -299,12 +299,7 @@
           this.router = router;
           this.notiService = notiService;
           this.pegawaiService = pegawaiService;
-          this.usahawanService = usahawanService;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
-          this.role = window.sessionStorage.getItem("role");
-          this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai"); // refresh(): void {
+          this.usahawanService = usahawanService; // refresh(): void {
           //   window.location.reload();
           // }
 
@@ -318,7 +313,12 @@
         _createClass(DashboardPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            // this.refresh();
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
+            this.role = window.sessionStorage.getItem("role");
+            this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai"); // this.refresh();
+
             var firstTime = localStorage.getItem('key');
 
             if (!firstTime) {
@@ -604,7 +604,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -622,24 +622,32 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @ionic/angular */
       19122);
+      /* harmony import */
+
+
+      var _awesome_cordova_plugins_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @awesome-cordova-plugins/in-app-browser/ngx */
+      69526); // import { KatalogService } from 'src/app/services/katalog/katalog.service';
+
 
       var _ShowBuletinPage = /*#__PURE__*/function () {
         function ShowBuletinPage(modalController, // private katalogService: KatalogService,
-        loadingController, alertController) {
+        loadingController, alertController, iab) {
           _classCallCheck(this, ShowBuletinPage);
 
           this.modalController = modalController;
           this.loadingController = loadingController;
           this.alertController = alertController;
+          this.iab = iab;
         }
 
         _createClass(ShowBuletinPage, [{
@@ -656,6 +664,11 @@
               'dismissed': true
             });
           }
+        }, {
+          key: "openUrl",
+          value: function openUrl(url) {
+            var browser = this.iab.create(url, '_system');
+          }
         }]);
 
         return ShowBuletinPage;
@@ -663,20 +676,22 @@
 
       _ShowBuletinPage.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.ModalController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__.ModalController
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.LoadingController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__.LoadingController
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.AlertController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__.AlertController
+        }, {
+          type: _awesome_cordova_plugins_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_2__.InAppBrowser
         }];
       };
 
       _ShowBuletinPage.propDecorators = {
         buletin: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Input
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.Input
         }]
       };
-      _ShowBuletinPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+      _ShowBuletinPage = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
         selector: 'app-show-buletin',
         template: _raw_loader_show_buletin_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_show_buletin_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
@@ -1176,7 +1191,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px; display:flex; justify-content:center; align-items:center\">\n\n    <ion-text style=\"display:flex; justify-content:center;\">\n      <h5 style=\"color: #15493C;\">\n        <!-- <strong class=\"ion-text-uppercase\"> -->\n        BULETIN\n        <!-- </strong> -->\n      </h5>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <div class=\"rectangle-280\"></div>\n\n  <div class=\"bg-white\">\n\n    <div class=\"gambar_produk\" style=\"height: 30%; width:100%; background-image: url('{{buletin.gambar_buletin}}');\">\n      <!-- <img src=\"assets/img/pic1.jpeg\" alt=\"\" > -->\n    </div>\n\n\n    <div style=\"display: flex; align-items:flex-start; width:100%; height:60%; overflow:scroll; margin:5%\">\n      <ion-grid>\n        <ion-row>\n          <ion-col size=\"8\">\n            <h4 class=\"bold no-margin dark-green\">\n              {{buletin.tajuk}}\n            </h4>\n\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p class=\"nunito font-15\" style=\" text-align: justify; text-justify: inter-word;\">\n                {{buletin.tarikh | date: 'dd/MM/YYYY'}}\n              </p>\n            </ion-text>\n          </ion-col>\n\n        </ion-row>\n        <ion-row>\n          <ion-col>\n            <ion-text class=\"bold no-margin\">\n              <h6>Keterangan</h6>\n            </ion-text>\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p class=\"nunito font-15\" style=\" text-align: justify; text-justify: inter-word;\">\n                {{buletin.keterangan_lain}}\n              </p>\n            </ion-text>\n\n          </ion-col>\n        </ion-row>\n\n        <ion-row>\n          <ion-col>\n            <ion-text class=\"bold no-margin\">\n              <h6>Link</h6>\n            </ion-text>\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p>\n                <a href=\"{{buletin.url}}\" target=\"_blank\"> {{buletin.url}}</a>\n              </p>\n            </ion-text>\n\n          </ion-col>\n        </ion-row>\n\n      </ion-grid>\n    </div>\n\n  </div>\n  <div style=\"height:15%; display: flex; align-items:center; justify-content:space-around\">\n    <ion-button (click)=\"dismiss()\" fill=\"default\" class=\"ion-text-uppercase bold font-11\" style=\"color: #FF6600;\">Kembali</ion-button>\n    <!-- <ion-button (click)=\"pengesahan()\" fill=\"default\" class=\"ion-text-uppercase bold font-11\" style=\"color: #00A651;\">Sahkan</ion-button> -->\n  </div>\n\n  <!-- <div class=\"kmi nunitosans-extra-bold-te-papa-green-18px\">Maklumat<br />Insentif</div>\n\n  <div class=\"body\">\n    <div class=\"maklumatnunitosans-extra-bold-te-papa-green-18px\">\n      <div class=\"kmi\">Maklumat<br />Insentif</div>\n      <div class=\"x2000\">Jumlah<br />Bantuan</div>\n    </div>\n\n  </div>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div>1 of 2</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 2</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div>1 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>3 of 3</div>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar style=\"height: 80px; display:flex; justify-content:center; align-items:center\">\n\n    <ion-text style=\"display:flex; justify-content:center;\">\n      <h5 style=\"color: #15493C;\">\n        <!-- <strong class=\"ion-text-uppercase\"> -->\n        BULETIN\n        <!-- </strong> -->\n      </h5>\n    </ion-text>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n\n  <div class=\"rectangle-280\"></div>\n\n  <div class=\"bg-white\">\n\n    <div class=\"gambar_produk\" style=\"height: 30%; width:100%; background-image: url('{{buletin.gambar_buletin}}');\">\n      <!-- <img src=\"assets/img/pic1.jpeg\" alt=\"\" > -->\n    </div>\n\n\n    <div style=\"display: flex; align-items:flex-start; width:100%; height:60%; overflow:scroll; margin:5%\">\n      <ion-grid>\n        <ion-row>\n          <ion-col size=\"8\">\n            <h4 class=\"bold no-margin dark-green\">\n              {{buletin.tajuk}}\n            </h4>\n\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p class=\"nunito font-15\" style=\" text-align: justify; text-justify: inter-word;\">\n                {{buletin.tarikh | date: 'dd/MM/YYYY'}}\n              </p>\n            </ion-text>\n          </ion-col>\n\n        </ion-row>\n        <ion-row>\n          <ion-col>\n            <ion-text class=\"bold no-margin\">\n              <h6>Keterangan</h6>\n            </ion-text>\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p class=\"nunito font-15\" style=\" text-align: justify; text-justify: inter-word;\">\n                {{buletin.keterangan_lain}}\n              </p>\n            </ion-text>\n\n          </ion-col>\n        </ion-row>\n\n        <ion-row>\n          <ion-col>\n            <ion-text class=\"bold no-margin\">\n              <h6>Link</h6>\n            </ion-text>\n            <ion-text color=\"medium\" class=\"no-margin\">\n              <p>\n                <a (click)=\"openUrl(buletin.url)\"> {{buletin.url}}</a>\n              </p>\n            </ion-text>\n\n          </ion-col>\n        </ion-row>\n\n      </ion-grid>\n    </div>\n\n  </div>\n  <div style=\"height:15%; display: flex; align-items:center; justify-content:space-around\">\n    <ion-button (click)=\"dismiss()\" fill=\"default\" class=\"ion-text-uppercase bold font-11\" style=\"color: #FF6600;\">Kembali</ion-button>\n    <!-- <ion-button (click)=\"pengesahan()\" fill=\"default\" class=\"ion-text-uppercase bold font-11\" style=\"color: #00A651;\">Sahkan</ion-button> -->\n  </div>\n\n  <!-- <div class=\"kmi nunitosans-extra-bold-te-papa-green-18px\">Maklumat<br />Insentif</div>\n\n  <div class=\"body\">\n    <div class=\"maklumatnunitosans-extra-bold-te-papa-green-18px\">\n      <div class=\"kmi\">Maklumat<br />Insentif</div>\n      <div class=\"x2000\">Jumlah<br />Bantuan</div>\n    </div>\n\n  </div>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div>1 of 2</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 2</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div>1 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>2 of 3</div>\n      </ion-col>\n      <ion-col>\n        <div>3 of 3</div>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n\n\n\n\n</ion-content>";
       /***/
     },
 

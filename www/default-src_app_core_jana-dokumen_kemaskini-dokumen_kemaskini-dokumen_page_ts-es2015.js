@@ -50,8 +50,6 @@ let KemaskiniDokumenPage = class KemaskiniDokumenPage {
         this.stokService = stokService;
         this.pelangganService = pelangganService;
         this.popoverCtrl = popoverCtrl;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.count = 0;
         this.productLength = 0;
         this.form = this.formBuilder.group({
@@ -102,6 +100,8 @@ let KemaskiniDokumenPage = class KemaskiniDokumenPage {
         }
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         console.log(this.pelanggan);
         this.getNegeri();
         this.getKatalog();

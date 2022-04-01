@@ -201,16 +201,16 @@
 
           this.notiService = notiService;
           this.router = router;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
-          this.role = window.sessionStorage.getItem("role");
-          this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
         }
 
         _createClass(NotifikasiPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
+            this.role = window.sessionStorage.getItem("role");
+            this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
             console.log("user_id", this.user_id);
             this.getNoti();
           }

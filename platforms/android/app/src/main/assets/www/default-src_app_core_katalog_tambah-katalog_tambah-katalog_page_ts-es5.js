@@ -77,8 +77,6 @@
           this.katalogService = katalogService;
           this.loadingController = loadingController;
           this.alertController = alertController;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
           this.url = 'assets/icon/image-not-available.png';
 
           this.convertBlobToBase64 = function (blob) {
@@ -113,6 +111,8 @@
         _createClass(TambahKatalogPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
             this.images = [];
           }
         }, {

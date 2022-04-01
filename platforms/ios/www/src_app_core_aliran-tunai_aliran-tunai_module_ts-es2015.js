@@ -123,10 +123,10 @@ let AliranTunaiPage = class AliranTunaiPage {
         this.router = router;
         this.elementRef = elementRef;
         this.renderer = renderer;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.getAliran();
     }
     tambahTunaiMasuk() {

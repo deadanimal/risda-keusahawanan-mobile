@@ -334,8 +334,6 @@
           this.kategoriUsahawanService = kategoriUsahawanService;
           this.ptService = ptService;
           this.aliranService = aliranService;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
           this.jantina = [{
             name: "Lelaki",
             id: 1
@@ -815,7 +813,9 @@
         _createClass(ProfilePage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            // var getsession_id = window.sessionStorage.getItem("user_id");
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.user_id = window.sessionStorage.getItem("user_id"); // var getsession_id = window.sessionStorage.getItem("user_id");
+
             console.log("usahawan id", this.usahawan_id);
             console.log("user id", this.user_id);
             this.getUsahawan();

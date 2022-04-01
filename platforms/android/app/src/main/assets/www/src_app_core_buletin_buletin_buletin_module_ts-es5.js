@@ -221,13 +221,13 @@
           this.buletinService = buletinService;
           this.router = router;
           this.loadingController = loadingController;
-          this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
         }
 
         _createClass(BuletinPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
             this.getBuletin();
           }
         }, {

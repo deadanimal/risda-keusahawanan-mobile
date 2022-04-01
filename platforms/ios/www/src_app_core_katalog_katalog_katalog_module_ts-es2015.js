@@ -117,10 +117,10 @@ let KatalogPage = class KatalogPage {
         this.alertController = alertController;
         this.loadingController = loadingController;
         this.router = router;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.getKatalog();
     }
     tambahKatalog() {

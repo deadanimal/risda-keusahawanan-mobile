@@ -236,13 +236,13 @@
           this.router = router;
           this.elementRef = elementRef;
           this.renderer = renderer;
-          this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-          this.user_id = window.sessionStorage.getItem("user_id");
         }
 
         _createClass(AliranTunaiPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
+            this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+            this.user_id = window.sessionStorage.getItem("user_id");
             this.getAliran();
           }
         }, {

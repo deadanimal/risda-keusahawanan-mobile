@@ -116,8 +116,6 @@ let FirstTimeLoginPage = class FirstTimeLoginPage {
         this.forgotPassService = forgotPassService;
         this.loadingController = loadingController;
         this.alertController = alertController;
-        this.user_id = window.sessionStorage.getItem("user_id");
-        this.profile_status = window.sessionStorage.getItem("profile_status");
         this.showPassword = false;
         this.isActiveToggleTextPassword = true;
         this.showConfirmPassword = false;
@@ -140,6 +138,8 @@ let FirstTimeLoginPage = class FirstTimeLoginPage {
         });
     }
     ngOnInit() {
+        this.user_id = window.sessionStorage.getItem("user_id");
+        this.profile_status = window.sessionStorage.getItem("profile_status");
         console.log("profile_status", this.profile_status);
         let rememberMe = localStorage.getItem('loggedIn');
         console.log('rememberMe', rememberMe);

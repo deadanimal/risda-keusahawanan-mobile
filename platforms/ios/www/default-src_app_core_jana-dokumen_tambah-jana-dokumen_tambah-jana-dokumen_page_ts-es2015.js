@@ -49,8 +49,6 @@ let TambahJanaDokumenPage = class TambahJanaDokumenPage {
         this.negeriService = negeriService;
         this.katalogService = katalogService;
         this.popoverCtrl = popoverCtrl;
-        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.count = 0;
         this.productLength = 0;
         this.form1 = this.formBuilder.group({
@@ -92,6 +90,8 @@ let TambahJanaDokumenPage = class TambahJanaDokumenPage {
         this.productLength = this.getProdukArray.length;
     }
     ngOnInit() {
+        this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.getNegeri();
         // this.getDaerah();
         this.getKatalog();

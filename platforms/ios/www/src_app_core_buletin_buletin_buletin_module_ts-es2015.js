@@ -116,10 +116,10 @@ let BuletinPage = class BuletinPage {
         this.buletinService = buletinService;
         this.router = router;
         this.loadingController = loadingController;
-        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
-        this.user_id = window.sessionStorage.getItem("user_id");
     }
     ngOnInit() {
+        this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+        this.user_id = window.sessionStorage.getItem("user_id");
         this.getBuletin();
     }
     getBuletin() {

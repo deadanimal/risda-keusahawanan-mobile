@@ -119,7 +119,6 @@ let BukuTunaiPage = class BukuTunaiPage {
         this.iab = iab;
         this.router = router;
         this.date = new Date();
-        this.user_id = window.sessionStorage.getItem("user_id");
         this.listYear = [];
         this.listMonth = [
             { value: "1", name: "January" },
@@ -142,6 +141,7 @@ let BukuTunaiPage = class BukuTunaiPage {
         });
     }
     ngOnInit() {
+        this.user_id = window.sessionStorage.getItem("user_id");
         // console.log("AAAAA", this.date.getMonth() + 1);
         // console.log("BBB", this.date.getFullYear());
         this.month = this.date.getMonth() + 1;
