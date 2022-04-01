@@ -23,12 +23,11 @@ export class TambahTunaiMasukPage implements OnInit {
 
   private tunai_masuk: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   today: any
 
-  tunaimasuk:any;
+  tunaimasuk: any;
 
   constructor(
     public modalController: ModalController,
@@ -50,7 +49,14 @@ export class TambahTunaiMasukPage implements OnInit {
     });
   }
 
+  usahawan_id: any
+  user_id: any
+
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
 
     this.today = new Date();
     var dd = String(this.today.getDate()).padStart(2, '0');
@@ -134,7 +140,7 @@ export class TambahTunaiMasukPage implements OnInit {
 
   getKategoriAliran() {
 
-    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_masuk" && i.status_kategori_aliran =="aktif"))).subscribe((res) => {
+    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_masuk" && i.status_kategori_aliran == "aktif"))).subscribe((res) => {
       console.log("kategori aliran", res);
       this.kategori_aliran_masuk = res;
       console.log("kategori aliran", this.kategori_aliran_masuk);

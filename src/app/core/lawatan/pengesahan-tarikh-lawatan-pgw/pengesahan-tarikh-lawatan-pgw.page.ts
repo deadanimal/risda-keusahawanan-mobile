@@ -18,9 +18,7 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
   private form: FormGroup;
 
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   constructor(
     public modalController: ModalController,
@@ -42,7 +40,18 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
     });
   }
 
+  pegawai_id : any
+  usahawan_id : any
+  user_id : any
+
+
   ngOnInit() {
+
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
+
     console.log(this.lawatan)
 
     this.setFormValues();
@@ -86,14 +95,14 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
     if (this.usahawan_id != null) {
       this.form.patchValue({
         role: "usahawan",
-        id_pengguna : this.lawatan.id_pengguna,
+        id_pengguna: this.lawatan.id_pengguna,
         id_pegawai: this.lawatan.id_pegawai,
         status_lawatan: 2
       });
     } else {
       this.form.patchValue({
         role: "pegawai",
-        id_pengguna : this.lawatan.id_pengguna,
+        id_pengguna: this.lawatan.id_pengguna,
         id_pegawai: this.lawatan.id_pegawai,
         status_lawatan: 1
       });
@@ -105,7 +114,7 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: '',
-      message: 'Adakah anda pasti untuk mencadangkan tarikh '+ tempDate +' untuk sesi lawatan?',
+      message: 'Adakah anda pasti untuk mencadangkan tarikh ' + tempDate + ' untuk sesi lawatan?',
       buttons: [
         {
           text: 'Tidak',
@@ -123,9 +132,9 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
             this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
               console.log("res", res);
-        
+
               this.dismiss();
-        
+
               window.location.reload();
             });
           }
@@ -135,7 +144,7 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
     await alert.present();
 
-   
+
   }
 
   async sahkan() {
@@ -145,27 +154,27 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
     if (this.usahawan_id != null) {
       this.form.patchValue({
         role: "usahawan",
-        id_pengguna : this.lawatan.id_pengguna,
+        id_pengguna: this.lawatan.id_pengguna,
         id_pegawai: this.lawatan.id_pegawai,
         status_lawatan: 3
       });
     } else {
       this.form.patchValue({
         role: "pegawai",
-        id_pengguna : this.lawatan.id_pengguna,
+        id_pengguna: this.lawatan.id_pengguna,
         id_pegawai: this.lawatan.id_pegawai,
         status_lawatan: 3
       });
     }
 
     console.log(this.form.value)
-    
+
 
     let tempDate = moment(this.lawatan.tarikh_lawatan).format('DD/MM/YYYY');
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: '',
-      message: 'Adakah anda pasti untuk mengesahkan tarikh '+tempDate+' untuk sesi lawatan?',
+      message: 'Adakah anda pasti untuk mengesahkan tarikh ' + tempDate + ' untuk sesi lawatan?',
       buttons: [
         {
           text: 'Tidak',
@@ -183,9 +192,9 @@ export class PengesahanTarikhLawatanPgwPage implements OnInit {
 
             this.lawatanService.update(this.form.value, this.lawatan.lawatan_id).subscribe((res) => {
               console.log("res", res);
-        
+
               this.dismiss();
-        
+
               window.location.reload();
             });
           }

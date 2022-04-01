@@ -19,11 +19,7 @@ export class DashboardPage implements OnInit {
   katalog: any;
   buletin: any;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  user_id = window.sessionStorage.getItem("user_id");
-  role = window.sessionStorage.getItem("role");
-  peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+  
   // user_id = window.sessionStorage.getItem("user_id");
 
   constructor(
@@ -37,7 +33,22 @@ export class DashboardPage implements OnInit {
     private usahawanService: UsahawanService,
   ) { }
 
+  usahawan_id : any
+  pegawai_id: any
+  user_id : any
+  role : any
+  peranan_pegawai : any
+
+
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+    this.role = window.sessionStorage.getItem("role");
+    this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+
+  
     // this.refresh();
     const firstTime = localStorage.getItem('key')
     if (!firstTime) {

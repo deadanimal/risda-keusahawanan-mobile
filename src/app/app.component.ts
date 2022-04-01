@@ -11,12 +11,6 @@ import { NotifikasiService } from './services/notifikasi/notifikasi.service';
 })
 export class AppComponent {
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  user_id = window.sessionStorage.getItem("user_id");
-  role = window.sessionStorage.getItem("role");
-  peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
-
   pegawai: any;
 
   public appPages = [
@@ -39,6 +33,11 @@ export class AppComponent {
     // { title: 'Buletin', url: '/buletin', icon: 'assets/new-icon/Buletin.png' },
     // { title: 'Log Keluar', url: '#', icon: 'assets/new-icon/log-out-button.png' },
   ];
+  usahawan_id: any;
+  pegawai_id: any;
+  user_id: any;
+  role: any;
+  peranan_pegawai: any;
 
 
 
@@ -52,6 +51,14 @@ export class AppComponent {
   }
 
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+    this.role = window.sessionStorage.getItem("role");
+    this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+
+
     console.log("role", this.role)
     console.log("usahawan_id", this.usahawan_id)
     console.log("pegawai_id", this.pegawai_id)

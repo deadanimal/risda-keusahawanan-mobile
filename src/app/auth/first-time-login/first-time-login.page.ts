@@ -19,8 +19,7 @@ export class FirstTimeLoginPage implements OnInit {
 
   checked: boolean;
 
-  user_id = window.sessionStorage.getItem("user_id");
-  profile_status = window.sessionStorage.getItem("profile_status");
+
 
   constructor(
     private router: Router,
@@ -50,9 +49,15 @@ export class FirstTimeLoginPage implements OnInit {
     });
   }
 
+  user_id : any
+  profile_status: any
 
 
   ngOnInit() {
+
+    this.user_id = window.sessionStorage.getItem("user_id");
+    this.profile_status = window.sessionStorage.getItem("profile_status");
+
     console.log("profile_status", this.profile_status)
 
     let rememberMe = localStorage.getItem('loggedIn');

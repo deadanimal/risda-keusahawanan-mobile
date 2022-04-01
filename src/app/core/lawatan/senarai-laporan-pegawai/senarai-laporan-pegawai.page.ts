@@ -13,7 +13,7 @@ import { KemaskiniLaporanPage } from '../kemaskini-laporan/kemaskini-laporan.pag
 })
 export class SenaraiLaporanPegawaiPage implements OnInit {
 
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
+  pegawai_id :any
   laporan: any;
 
   constructor(
@@ -24,6 +24,8 @@ export class SenaraiLaporanPegawaiPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+
     this.getLaporan()
   }
 

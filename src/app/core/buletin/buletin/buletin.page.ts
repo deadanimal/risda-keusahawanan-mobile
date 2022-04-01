@@ -12,8 +12,7 @@ import { TambahBuletinPage } from '../tambah-buletin/tambah-buletin.page';
 })
 export class BuletinPage implements OnInit {
 
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  user_id = window.sessionStorage.getItem("user_id");
+  
 
   buletin: any;
 
@@ -24,7 +23,15 @@ export class BuletinPage implements OnInit {
     public loadingController: LoadingController,
   ) { }
 
+  pegawai_id : any
+  user_id : any
+
   ngOnInit() {
+
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
+
     this.getBuletin();
   }
 

@@ -42,8 +42,8 @@ export class ProfilePage implements OnInit {
 
   private form: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+  usahawan_id : any
+  user_id : any
 
   negeri: any;
   daerah: any;
@@ -249,6 +249,8 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
 
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
 
     // var getsession_id = window.sessionStorage.getItem("user_id");
     console.log("usahawan id", this.usahawan_id);
@@ -291,10 +293,10 @@ export class ProfilePage implements OnInit {
       email: this.usahawan.email,
       status_daftar_usahawan: this.usahawan.status_daftar_usahawan,
       usahawanid: this.usahawan.usahawanid,
-      
+
     })
 
-    if (this.usahawan.perniagaan.negeri != null){
+    if (this.usahawan.perniagaan.negeri != null) {
       this.form.patchValue({
         negeri_perniagaan: this.usahawan.perniagaan.negeri.Negeri,
       })

@@ -15,9 +15,9 @@ export class TarikhLawatanPgwPage implements OnInit {
 
   private form: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  user_id = window.sessionStorage.getItem("user_id");
+  usahawan_id : any
+  pegawai_id : any
+  user_id : any
 
   constructor(
     public modalController: ModalController,
@@ -31,11 +31,17 @@ export class TarikhLawatanPgwPage implements OnInit {
       id_pegawai: ['',],
       tarikh_lawatan: ['', Validators.required],
       masa_lawatan: ['', Validators.required],
-     
+
     });
   }
 
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
+
     this.getSenaraiUsahawan();
   }
 
@@ -48,20 +54,20 @@ export class TarikhLawatanPgwPage implements OnInit {
   }
 
   async logForm() {
-    
+
     this.form.value.tarikh_lawatan = moment(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
     this.form.value.masa_lawatan = moment(this.form.value.masa_lawatan).format('HH:mm');
 
     this.form.value.id_pegawai = this.pegawai_id;
 
-    console.log(this.form.value) 
+    console.log(this.form.value)
 
     let tempDate = moment(this.form.value.tarikh_lawatan).format('DD/MM/YYYY');
 
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: '',
-      message: 'Adakah anda pasti untuk mencadangkan tarikh '+ tempDate +' untuk sesi lawatan?',
+      message: 'Adakah anda pasti untuk mencadangkan tarikh ' + tempDate + ' untuk sesi lawatan?',
       buttons: [
         {
           text: 'Tidak',
@@ -79,9 +85,9 @@ export class TarikhLawatanPgwPage implements OnInit {
 
             this.lawatanService.post(this.form.value).subscribe((res) => {
               console.log("res", res);
-        
+
               this.dismiss();
-        
+
               window.location.reload();
             });
           }
@@ -94,15 +100,15 @@ export class TarikhLawatanPgwPage implements OnInit {
 
   }
 
-  usahawan :any;
-  getSenaraiUsahawan(){
+  usahawan: any;
+  getSenaraiUsahawan() {
     this.lawatanService.getsenaraiusahawan(this.pegawai_id).subscribe((res) => {
       console.log("usahawan", res);
       this.usahawan = res;
-     
+
     });
   }
 
 
-  
+
 }

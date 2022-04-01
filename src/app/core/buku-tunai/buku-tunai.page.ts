@@ -21,7 +21,7 @@ export class BukuTunaiPage implements OnInit {
   month: any;
 
   private form: FormGroup;
-  user_id = window.sessionStorage.getItem("user_id");
+ 
 
   listYear = [];
   listMonth = [
@@ -56,7 +56,11 @@ export class BukuTunaiPage implements OnInit {
     });
   }
 
+  user_id: any
   ngOnInit() {
+
+    this.user_id = window.sessionStorage.getItem("user_id");
+    
     // console.log("AAAAA", this.date.getMonth() + 1);
     // console.log("BBB", this.date.getFullYear());
     this.month = this.date.getMonth() + 1

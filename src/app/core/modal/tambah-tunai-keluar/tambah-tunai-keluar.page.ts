@@ -20,8 +20,7 @@ export class TambahTunaiKeluarPage implements OnInit {
 
   today: any
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
   tunai_keluar: any;
 
   constructor(
@@ -44,7 +43,13 @@ export class TambahTunaiKeluarPage implements OnInit {
     });
   }
 
+  usahawan_id : any
+  user_id : any
+
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
 
     this.today = new Date();
     var dd = String(this.today.getDate()).padStart(2, '0');
@@ -99,7 +104,7 @@ export class TambahTunaiKeluarPage implements OnInit {
 
               this.aliranService.uploadDoc(formdata, res.id).subscribe((resDoc) => {
                 console.log("resDoc", resDoc);
-                
+
                 this.tunai_keluar = res
                 this.dismiss();
               })
@@ -116,7 +121,7 @@ export class TambahTunaiKeluarPage implements OnInit {
 
   getKategoriAliran() {
 
-    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_keluar" && i.status_kategori_aliran =="aktif"))).subscribe((res) => {
+    this.kategoriAliranService.getKategoriAliran().pipe(map(x => x.filter(i => i.jenis_aliran == "tunai_keluar" && i.status_kategori_aliran == "aktif"))).subscribe((res) => {
       console.log("kategori aliran", res);
       this.kategori_aliran = res;
       console.log("kategori aliran", this.kategori_aliran);

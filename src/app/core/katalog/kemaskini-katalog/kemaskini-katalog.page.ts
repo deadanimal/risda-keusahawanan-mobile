@@ -25,8 +25,7 @@ export class KemaskiniKatalogPage implements OnInit {
 
   private form: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   constructor(
     public modalController: ModalController,
@@ -53,7 +52,15 @@ export class KemaskiniKatalogPage implements OnInit {
     });
   }
 
+  usahawan_id : any
+  user_id : any
+
+
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
     this.images = [];
 
     console.log("katalog", this.katalog)

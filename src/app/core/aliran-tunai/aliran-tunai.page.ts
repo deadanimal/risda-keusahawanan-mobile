@@ -18,13 +18,12 @@ import { Router } from '@angular/router';
 })
 export class AliranTunaiPage implements OnInit {
 
-  
+
 
   tunai_masuk: any;
   tunai_keluar: any;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   constructor(
     public modalController: ModalController,
@@ -35,7 +34,15 @@ export class AliranTunaiPage implements OnInit {
     // private w3cService: W3csService,
   ) { }
 
+  usahawan_id : any
+  user_id : any
+
+
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
     this.getAliran()
   }
 
@@ -130,7 +137,7 @@ export class AliranTunaiPage implements OnInit {
   }
 
 
- 
+
 
 
 

@@ -32,8 +32,7 @@ export class ProfilePerniagaanPage implements OnInit {
 
   form: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+  
 
   jenis_perniagaan = [
     { id: "A", name: "PENGELUARAN PRODUK MAKANAN" },
@@ -174,8 +173,13 @@ export class ProfilePerniagaanPage implements OnInit {
     });
   }
 
-
+  usahawan_id: any;
+  user_id: any;
+  
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
 
     console.log("usahawan id", this.usahawan_id);
     console.log("user id", this.user_id);

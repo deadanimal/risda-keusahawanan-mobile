@@ -12,8 +12,7 @@ import { TambahKatalogPage } from '../tambah-katalog/tambah-katalog.page';
 })
 export class KatalogPage implements OnInit {
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   constructor(
     public modalController: ModalController,
@@ -24,7 +23,14 @@ export class KatalogPage implements OnInit {
 
   ) { }
 
+  usahawan_id: any
+  user_id: any
+
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
     this.getKatalog();
   }
 
@@ -34,7 +40,7 @@ export class KatalogPage implements OnInit {
     console.log("tambah Katalog");
     console.log(this.katalog.length);
 
-    if (this.katalog.length >= 10){
+    if (this.katalog.length >= 10) {
       console.log("lebih 10");
       this.presentAlert()
 
@@ -47,7 +53,7 @@ export class KatalogPage implements OnInit {
       });
       return await modal.present();
     }
-   
+
   }
 
   async kemaskiniKatalog(katalog: any) {
@@ -91,7 +97,7 @@ export class KatalogPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  dashboard(){
+  dashboard() {
     this.router.navigate(['/dashboard'])
   }
 

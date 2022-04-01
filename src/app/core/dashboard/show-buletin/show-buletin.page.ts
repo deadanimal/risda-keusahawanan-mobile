@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, LoadingController, AlertController } from '@ionic/angular';
-import { KatalogService } from 'src/app/services/katalog/katalog.service';
+// import { KatalogService } from 'src/app/services/katalog/katalog.service';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @Component({
   selector: 'app-show-buletin',
@@ -16,6 +17,8 @@ export class ShowBuletinPage implements OnInit {
     // private katalogService: KatalogService,
     public loadingController: LoadingController,
     public alertController: AlertController,
+    private iab: InAppBrowser
+
   ) { }
 
   ngOnInit() {
@@ -29,6 +32,11 @@ export class ShowBuletinPage implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+  }
+
+
+  openUrl(url){
+    const browser = this.iab.create(url, '_system');
   }
 
 

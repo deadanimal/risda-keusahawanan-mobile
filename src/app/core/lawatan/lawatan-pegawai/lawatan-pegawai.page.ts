@@ -17,12 +17,9 @@ import { TarikhLawatanPgwPage } from '../tarikh-lawatan-pgw/tarikh-lawatan-pgw.p
 export class LawatanPegawaiPage implements OnInit {
 
 
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  user_id = window.sessionStorage.getItem("user_id");
 
-  peranan_pegawai= window.sessionStorage.getItem("peranan_pegawai");
 
-  lawatan : any;
+  lawatan: any;
   laporan: any;
 
   constructor(
@@ -30,13 +27,23 @@ export class LawatanPegawaiPage implements OnInit {
     private lawatanService: LawatanService,
     private router: Router,
 
-    ) { }
+  ) { }
+
+  pegawai_id :any
+  user_id :any
+  peranan_pegawai :any
 
   ngOnInit() {
+
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+    this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+
+
     this.getLawatan();
-    
+
     document.getElementById("1").click();
-    console.log("peranan_pegawai",this.peranan_pegawai)
+    console.log("peranan_pegawai", this.peranan_pegawai)
   }
 
   async addLawatan() {
@@ -68,7 +75,7 @@ export class LawatanPegawaiPage implements OnInit {
     return await modal.present();
   }
 
-  getLawatan(){
+  getLawatan() {
 
     this.lawatanService.get(this.pegawai_id).pipe(map(x => x.filter(i => i.status_lawatan != "4"))).subscribe((res) => {
       console.log("res", res);

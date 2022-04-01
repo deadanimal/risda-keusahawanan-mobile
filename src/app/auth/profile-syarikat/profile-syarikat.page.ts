@@ -26,8 +26,7 @@ export class ProfileSyarikatPage implements OnInit {
 
   form: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   jenis_milikan = [
     { id: "JPP01", name: "PEMILIKAN TUNGGAL" },
@@ -44,7 +43,7 @@ export class ProfileSyarikatPage implements OnInit {
     public alertController: AlertController,
     private loadingController: LoadingController,
     private formBuilder: FormBuilder,
-    private popoverCtrl:PopoverController
+    private popoverCtrl: PopoverController
   ) {
     this.form = this.formBuilder.group({
       id: ['',],
@@ -53,17 +52,17 @@ export class ProfileSyarikatPage implements OnInit {
       logo_syarikat: ['',],
       namasyarikat: ['', Validators.required],
       jenismilikanperniagaan: ['', Validators.required],
-      nodaftarssm: ['', ],
-      nodaftarpbt: ['', ],
-      nodaftarpersijilanhalal: ['', ],
-      nodaftarmesti: ['', ],
+      nodaftarssm: ['',],
+      nodaftarpbt: ['',],
+      nodaftarpersijilanhalal: ['',],
+      nodaftarmesti: ['',],
       tahunmulaoperasi: ['', Validators.required],
       bilanganpekerja: ['', Validators.required],
       alamat1_ssm: ['', Validators.required],
       alamat2_ssm: ['', Validators.required],
       alamat3_ssm: ['', Validators.required],
-      tarikh_mula_mof: ['', ],
-      tarikh_tamat_mof: ['', ],
+      tarikh_mula_mof: ['',],
+      tarikh_tamat_mof: ['',],
       status_bumiputera: ['', Validators.required],
       prefix_id: ['', Validators.required],
       notelefon: ['', Validators.required],
@@ -75,8 +74,13 @@ export class ProfileSyarikatPage implements OnInit {
     })
   }
 
+  usahawan_id: any
+  user_id: any
 
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
 
     console.log("usahawan id", this.usahawan_id);
     console.log("user id", this.user_id);
@@ -265,7 +269,7 @@ export class ProfileSyarikatPage implements OnInit {
 
 
 
-  async openPopOver(ev: any){
+  async openPopOver(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: PopOverPage,
       event: ev,

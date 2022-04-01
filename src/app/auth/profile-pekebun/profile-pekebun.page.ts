@@ -24,8 +24,8 @@ export class ProfilePekebunPage implements OnInit {
 
   private form: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+  usahawan_id: any
+  user_id: any
   pekebunKecil: any;
   tanah = []
   tanaman = []
@@ -110,6 +110,9 @@ export class ProfilePekebunPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
 
     console.log("usahawan id", this.usahawan_id);
     console.log("user id", this.user_id);
@@ -217,6 +220,8 @@ export class ProfilePekebunPage implements OnInit {
 
   async patchValue2() {
 
+    // console.log("yeayyy", this.pekebunKecil)
+
     const loading = await this.loadingController.create({ message: 'Loading ...' });
     loading.present();
 
@@ -264,7 +269,7 @@ export class ProfilePekebunPage implements OnInit {
       }
       else {
 
-        if (res.No_KP == null) {
+        if (res.No_KP == null || res.No_KP == "") {
           loading.dismiss();
           this.presentAlert2()
         } else {
@@ -277,6 +282,10 @@ export class ProfilePekebunPage implements OnInit {
         }
 
       }
+    }, (err) => {
+
+      loading.dismiss();
+      alert('Something went wrong')
     });
   }
 
@@ -294,6 +303,7 @@ export class ProfilePekebunPage implements OnInit {
         this.presentAlert2()
       } else {
 
+        console.log("yeayyy",this.pekebunKecil)
         this.pekebunKecil = res[0];
         this.patchValue2()
 
@@ -302,6 +312,10 @@ export class ProfilePekebunPage implements OnInit {
 
 
 
+    }, (err) => {
+
+      loading.dismiss();
+      alert('Something went wrong')
     });
   }
 
@@ -310,8 +324,11 @@ export class ProfilePekebunPage implements OnInit {
     this.pekebunService.getNoTS(nokp).subscribe((res) => {
       console.log("noTS", res);
 
+      // console.log("resaaaaa", res)
       if (res == 400) {
-
+        this.form.patchValue({
+          // noTS: null
+        });
       } else {
 
         this.form.patchValue({
@@ -339,31 +356,6 @@ export class ProfilePekebunPage implements OnInit {
       this.daerahService.get().subscribe((resDaerah) => {
         console.log("resDaerah", resDaerah)
         this.daerah = resDaerah;
-
-        // this.mukimService.get().subscribe((resMukim) => {
-        //   console.log("resMukim", resMukim)
-        //   this.mukim = resMukim;
-
-        //   this.parlimenService.get().subscribe((resParlimen) => {
-        //     console.log("resParlimen", resParlimen)
-        //     this.parlimen = resParlimen;
-
-        //     this.dunService.get().subscribe((resDun) => {
-        //       console.log("resDun", resDun)
-        //       this.dun = resDun;
-
-        //       this.kampungService.get().subscribe((resKampung) => {
-        //         console.log("resKampung", resKampung)
-        //         this.kampung = resKampung;
-
-        //         this.seksyenService.get().subscribe((resSeksyen) => {
-        //           console.log("resSeksyen", resSeksyen)
-        //           this.seksyen = resSeksyen;
-        //         })
-        //       })
-        //     })
-        //   })
-        // })
       })
     })
   }

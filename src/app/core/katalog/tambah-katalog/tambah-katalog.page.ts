@@ -19,8 +19,10 @@ export class TambahKatalogPage implements OnInit {
 
   private form: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
+
+  usahawan_id: any
+  user_id: any
 
   constructor(
     public modalController: ModalController,
@@ -47,6 +49,11 @@ export class TambahKatalogPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
+
     this.images = [];
   }
 
@@ -62,9 +69,9 @@ export class TambahKatalogPage implements OnInit {
 
     this.form.value.gambar_url = this.images[0].data;
 
-    let temp =this.form.value.nama_produk.toUpperCase( )
-    let temp2 =this.form.value.kandungan_produk.toUpperCase( )
-    
+    let temp = this.form.value.nama_produk.toUpperCase()
+    let temp2 = this.form.value.kandungan_produk.toUpperCase()
+
     this.form.value.nama_produk = temp
     this.form.value.kandungan_produk = temp2
 
@@ -149,7 +156,7 @@ export class TambahKatalogPage implements OnInit {
     console.log("AAAA", this.images);
 
     this.form.patchValue({
-      gambar_url:this.images[0].data
+      gambar_url: this.images[0].data
     })
   }
 

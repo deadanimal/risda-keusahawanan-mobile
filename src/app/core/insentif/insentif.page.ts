@@ -8,14 +8,17 @@ import { InsentifService } from 'src/app/services/insentif/insentif.service';
 })
 export class InsentifPage implements OnInit {
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+  usahawan_id : any
+  user_id : any
 
   constructor(
     private insentifService: InsentifService
   ) { }
 
   ngOnInit() {
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
     console.log('usahawan_id', this.usahawan_id)
     console.log('user_id', this.user_id)
 

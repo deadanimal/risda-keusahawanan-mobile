@@ -19,8 +19,8 @@ export class JanaDokumenPage implements OnInit {
 
   @ViewChild('jenisDoc') docSelectRef: IonSelect;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+  usahawan_id : any
+  user_id : any
 
   displayCountry() {
     this.docSelectRef.open();
@@ -36,6 +36,9 @@ export class JanaDokumenPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
     this.getPelanggan();
   }
 
@@ -143,7 +146,7 @@ export class JanaDokumenPage implements OnInit {
 
   }
 
-  dashboard(){
+  dashboard() {
     this.router.navigate(['/dashboard'])
   }
 

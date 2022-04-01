@@ -21,8 +21,7 @@ export class TambahBuletinPage implements OnInit {
 
   private form: FormGroup;
 
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   constructor(
     public modalController: ModalController,
@@ -43,7 +42,15 @@ export class TambahBuletinPage implements OnInit {
     });
   }
 
+  pegawai_id: any
+  user_id: any
+
   ngOnInit() {
+
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
+
     this.images = [];
   }
 

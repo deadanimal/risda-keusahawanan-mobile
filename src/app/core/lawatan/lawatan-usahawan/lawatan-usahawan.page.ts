@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 export class LawatanUsahawanPage implements OnInit {
 
 
-  user_id = window.sessionStorage.getItem("user_id");
+  user_id :any
   lawatan: any;
   laporan: any;
 
@@ -34,6 +34,8 @@ export class LawatanUsahawanPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user_id = window.sessionStorage.getItem("user_id");
+    
     this.getLawatan();
   }
 

@@ -12,8 +12,7 @@ import { MaklumatProdukPage } from '../maklumat-produk/maklumat-produk.page';
 })
 export class KatalogPegawaiPage implements OnInit {
 
-  user_id = window.sessionStorage.getItem("user_id");
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
+ 
 
   katalog = [
 
@@ -27,7 +26,13 @@ export class KatalogPegawaiPage implements OnInit {
 
   ) { }
 
+  user_id : any
+  pegawai_id : any
+
   ngOnInit() {
+    this.user_id = window.sessionStorage.getItem("user_id");
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    
     this.getKatalog();
   }
 

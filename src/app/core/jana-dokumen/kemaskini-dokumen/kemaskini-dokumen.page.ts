@@ -22,8 +22,7 @@ export class KemaskiniDokumenPage implements OnInit {
 
   private form: FormGroup;
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  user_id = window.sessionStorage.getItem("user_id");
+
 
   // variable
 
@@ -40,7 +39,7 @@ export class KemaskiniDokumenPage implements OnInit {
     private katalogService: KatalogService,
     private stokService: StokService,
     private pelangganService: PelangganService,
-    private popoverCtrl:PopoverController
+    private popoverCtrl: PopoverController
   ) {
     this.form = this.formBuilder.group({
       tajuk: ['', Validators.required],
@@ -52,11 +51,11 @@ export class KemaskiniDokumenPage implements OnInit {
       U_Negeri_ID: ['', Validators.required],
       U_Daerah_ID: ['', Validators.required],
       no_telefon: ['', Validators.required],
-      no_fax: ['', ],
+      no_fax: ['',],
 
-      diskaun: ['', ],
-      kos_penghantaran: ['', ],
-      cukai_sst: ['', ],
+      diskaun: ['',],
+      kos_penghantaran: ['',],
+      cukai_sst: ['',],
 
       produk: this.formBuilder.array([]),
     });
@@ -68,9 +67,9 @@ export class KemaskiniDokumenPage implements OnInit {
 
     const produk = this.formBuilder.group({
       id: ['',],
-      id_katalog: ['',  Validators.required],
+      id_katalog: ['', Validators.required],
       id_pelanggan: [''],
-      stok_dijual: ['',  Validators.required],
+      stok_dijual: ['', Validators.required],
       modified_by: [''],
     });
     this.getProdukArray.push(produk);
@@ -103,7 +102,15 @@ export class KemaskiniDokumenPage implements OnInit {
 
   }
 
+  usahawan_id: any
+  user_id: any
+
+
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+
     console.log(this.pelanggan);
 
     this.getNegeri();
@@ -395,7 +402,7 @@ export class KemaskiniDokumenPage implements OnInit {
     return result;
   }
 
-  async openPopOver(ev: any){
+  async openPopOver(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: TooltipPage,
       event: ev,

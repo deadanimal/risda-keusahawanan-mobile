@@ -9,11 +9,11 @@ import { NotifikasiService } from 'src/app/services/notifikasi/notifikasi.servic
 })
 export class NotifikasiPage implements OnInit {
 
-  usahawan_id = window.sessionStorage.getItem("usahawan_id");
-  pegawai_id = window.sessionStorage.getItem("pegawai_id");
-  user_id = window.sessionStorage.getItem("user_id");
-  role = window.sessionStorage.getItem("role");
-  peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+  usahawan_id : any
+  pegawai_id : any
+  user_id: any
+  role : any
+  peranan_pegawai : any
 
   constructor(
     private notiService: NotifikasiService,
@@ -21,6 +21,15 @@ export class NotifikasiPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.usahawan_id = window.sessionStorage.getItem("usahawan_id");
+    this.pegawai_id = window.sessionStorage.getItem("pegawai_id");
+    this.user_id = window.sessionStorage.getItem("user_id");
+    this.role = window.sessionStorage.getItem("role");
+    this.peranan_pegawai = window.sessionStorage.getItem("peranan_pegawai");
+
+
+
     console.log("user_id", this.user_id);
 
     this.getNoti()
