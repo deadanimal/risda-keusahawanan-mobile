@@ -65,10 +65,10 @@ export class ProfileSyarikatPage implements OnInit {
       tarikh_tamat_mof: ['',],
       status_bumiputera: ['', Validators.required],
       prefix_id: ['', Validators.required],
-      notelefon: ['', Validators.required],
+      notelefon: ['', ],
       nama_akaun_bank: ['', Validators.required],
       no_akaun_bank: ['', Validators.required],
-      no_hp: ['', Validators.required],
+      no_hp: ['', ],
       email: ['', Validators.required],
 
     })

@@ -173,7 +173,7 @@ export class FirstTimeLoginPage implements OnInit {
       message: 'Email dan kata laluan berjaya dikemaskini',
       buttons: [
         {
-          text: 'Okay',
+          text: 'OK',
           // id: 'confirm-button',
           handler: () => {
             this.router.navigate(['/dashboard'])
