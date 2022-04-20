@@ -1,5 +1,65 @@
 (self["webpackChunkmyApp"] = self["webpackChunkmyApp"] || []).push([["default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"],{
 
+/***/ 39542:
+/*!**********************************************************************!*\
+  !*** ./src/app/core/lawatan/carian-usahawan/carian-usahawan.page.ts ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CarianUsahawanPage": function() { return /* binding */ CarianUsahawanPage; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_carian_usahawan_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./carian-usahawan.page.html */ 24959);
+/* harmony import */ var _carian_usahawan_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./carian-usahawan.page.scss */ 80662);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ 19122);
+
+
+
+
+
+let CarianUsahawanPage = class CarianUsahawanPage {
+    constructor(modalController) {
+        this.modalController = modalController;
+    }
+    ngOnInit() {
+        this.peranan = window.sessionStorage.getItem("peranan_pegawai");
+        console.log("senarai", this.usahawans);
+    }
+    dismiss() {
+        this.modalController.dismiss({
+            'dismissed': true
+        });
+    }
+    selectDismiss() {
+        console.log("usahawan", this.pilihUsahawan);
+        // this.modalController.dismiss({
+        //   'dismissed': true
+        // });
+        this.modalController.dismiss(this.pilihUsahawan);
+    }
+};
+CarianUsahawanPage.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.ModalController }
+];
+CarianUsahawanPage.propDecorators = {
+    usahawans: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Input }]
+};
+CarianUsahawanPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+        selector: 'app-carian-usahawan',
+        template: _raw_loader_carian_usahawan_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_carian_usahawan_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], CarianUsahawanPage);
+
+
+
+/***/ }),
+
 /***/ 18398:
 /*!********************************************************************!*\
   !*** ./src/app/core/lawatan/tambah-laporan/tambah-laporan.page.ts ***!
@@ -62,6 +122,7 @@ let TambahLaporanPage = class TambahLaporanPage {
             };
             reader.readAsDataURL(blob);
         });
+        this.tempID = null;
         this.form = this.formBuilder.group({
             // negeri: ['', Validators.required],
             // pt: ['', Validators.required],
@@ -140,20 +201,25 @@ let TambahLaporanPage = class TambahLaporanPage {
         });
     }
     logForm() {
-        if (this.images.length > 0) {
-            this.form.value.gambar_lawatan = this.images[0].data;
-        }
-        else {
-            this.form.value.gambar_lawatan = this.laporan.gambar_lawatan;
-        }
-        this.form.value.id_pegawai = this.pegawai_id;
-        this.form.value.tarikh_lawatan = moment__WEBPACK_IMPORTED_MODULE_6__(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
-        this.form.value.masa_lawatan = moment__WEBPACK_IMPORTED_MODULE_6__(this.form.value.masa_lawatan).format('HH:mm');
-        console.log(this.form.value);
-        this.lawatanService.tambahLaporan(this.form.value).subscribe((res) => {
-            console.log("laporan baru", res);
-            this.dismiss();
-            window.location.reload();
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+            if (this.images.length > 0) {
+                this.form.value.gambar_lawatan = this.images[0].data;
+            }
+            else {
+                this.form.value.gambar_lawatan = this.laporan.gambar_lawatan;
+            }
+            this.form.value.id_pegawai = this.pegawai_id;
+            this.form.value.tarikh_lawatan = moment__WEBPACK_IMPORTED_MODULE_6__(this.form.value.tarikh_lawatan).format('YYYY-MM-DD');
+            this.form.value.masa_lawatan = moment__WEBPACK_IMPORTED_MODULE_6__(this.form.value.masa_lawatan).format('HH:mm');
+            console.log(this.form.value);
+            const loading = yield this.loadingController.create({ message: 'Loading ...' });
+            loading.present();
+            this.lawatanService.tambahLaporan(this.form.value).subscribe((res) => {
+                console.log("laporan baru", res);
+                loading.dismiss();
+                this.dismiss();
+                window.location.reload();
+            });
         });
     }
     //image
@@ -194,16 +260,27 @@ let TambahLaporanPage = class TambahLaporanPage {
     }
     openSenaraiUsahawan() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__awaiter)(this, void 0, void 0, function* () {
+            console.log("AAAAAA", this.usahawan);
+            let usahawans = this.usahawan;
             const modal = yield this.modalController.create({
                 component: _carian_usahawan_carian_usahawan_page__WEBPACK_IMPORTED_MODULE_7__.CarianUsahawanPage,
                 cssClass: 'my-custom-class',
-                componentProps: {
-                    'firstName': 'Douglas',
-                    'lastName': 'Adams',
-                    'middleInitial': 'N'
-                }
+                componentProps: { usahawans }
             });
-            return yield modal.present();
+            yield modal.present();
+            const { data: usahawan } = yield modal.onDidDismiss();
+            if (usahawan > 0) {
+                console.log("yeayyy", usahawan);
+                this.tempID = usahawan;
+                console.log("AAAAAA", this.tempID);
+                this.form.patchValue({
+                    id_pengguna: usahawan
+                });
+            }
+            else {
+                console.log("AAAAAA", this.tempID);
+                this.tempID == null;
+            }
         });
     }
 };
@@ -322,6 +399,18 @@ PusatTanggungjawabService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
 
 /***/ }),
 
+/***/ 80662:
+/*!************************************************************************!*\
+  !*** ./src/app/core/lawatan/carian-usahawan/carian-usahawan.page.scss ***!
+  \************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".list {\n  height: 80%;\n  overflow: scroll;\n  margin-bottom: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNhcmlhbi11c2FoYXdhbi5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBRUEsZ0JBQUE7RUFDQSxpQkFBQTtBQUFKIiwiZmlsZSI6ImNhcmlhbi11c2FoYXdhbi5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubGlzdHtcbiAgICBoZWlnaHQ6IDgwJTtcbiAgICAvLyBiYWNrZ3JvdW5kLWNvbG9yOiBhcXVhO1xuICAgIG92ZXJmbG93OiBzY3JvbGw7XG4gICAgbWFyZ2luLWJvdHRvbTogMiU7XG59Il19 */");
+
+/***/ }),
+
 /***/ 79165:
 /*!**********************************************************************!*\
   !*** ./src/app/core/lawatan/tambah-laporan/tambah-laporan.page.scss ***!
@@ -334,6 +423,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ 24959:
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/core/lawatan/carian-usahawan/carian-usahawan.page.html ***!
+  \**************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Senarai Usahawan</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"peranan != 7\" class=\"ion-padding\">\n\n  <ion-searchbar placeholder=\"Carian Usahawan\" [(ngModel)]=\"searchTerm\" showCancelButton=\"focus\"></ion-searchbar>\n\n\n  <!-- {{ usahawans }} -->\n  <div class=\"list\">\n    <ion-list>\n\n      <ion-radio-group [(ngModel)]=\"pilihUsahawan\">\n\n        <ion-item *ngFor=\"let usahawan of usahawans | filter:searchTerm\">\n          <!-- {{usahawan}} -->\n          <ion-label>{{usahawan.namausahawan}}</ion-label>\n          <ion-radio slot=\"start\" value=\"{{usahawan.id_pengguna}}\"></ion-radio>\n        </ion-item>\n\n      </ion-radio-group>\n    </ion-list>\n  </div>\n\n\n\n  <ion-button color=\"dark\" (click)=\"selectDismiss()\" expand=\"block\">\n    Pilih\n  </ion-button>\n  <ion-button color=\"warning\" (click)=\"dismiss()\" expand=\"block\">\n    <ion-text color=\"dark\">\n      Batal\n    </ion-text>\n  </ion-button>\n\n</ion-content>\n\n\n<ion-content *ngIf=\"peranan == 7\" class=\"ion-padding\">\n\n  <ion-searchbar placeholder=\"Carian Usahawan\" [(ngModel)]=\"searchTerm\" showCancelButton=\"focus\"></ion-searchbar>\n\n\n  <!-- {{ usahawans }} -->\n  <div class=\"list\">\n    <ion-list>\n\n      <ion-radio-group [(ngModel)]=\"pilihUsahawan\">\n\n        <ion-item *ngFor=\"let usahawan of usahawans | filter:searchTerm\">\n          <!-- {{usahawan}} -->\n          <ion-label>{{usahawan.name}}</ion-label>\n          <ion-radio slot=\"start\" value=\"{{usahawan.id_pengguna}}\"></ion-radio>\n        </ion-item>\n\n      </ion-radio-group>\n    </ion-list>\n  </div>\n\n\n\n  <ion-button color=\"dark\" (click)=\"selectDismiss()\" expand=\"block\">\n    Pilih\n  </ion-button>\n  <ion-button color=\"warning\" (click)=\"dismiss()\" expand=\"block\">\n    <ion-text color=\"dark\">\n      Batal\n    </ion-text>\n  </ion-button>\n\n</ion-content>");
+
+/***/ }),
+
 /***/ 79389:
 /*!************************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/core/lawatan/tambah-laporan/tambah-laporan.page.html ***!
@@ -342,7 +443,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button  (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            LAPORAN LAWATAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<!-- BPU AND SUPER ADMIN -->\n<ion-content *ngIf=\"peranan_pegawai == 1 || peranan_pegawai == 2\">\n\n  <!-- <ion-button (click)=\"openSenaraiUsahawan()\" expand=\"block\" fill=\"clear\" shape=\"round\">\n    Click me\n  </ion-button> -->\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">NEGERI </ion-label>\n            <ion-select [(ngModel)]=\"negeriValue\" [ngModelOptions]=\"{standalone: true}\" (ionChange)=\"getPT()\">\n              <ion-select-option *ngFor=\"let negeri of negeri\" value=\"{{negeri.Negeri_Rkod}}\">{{negeri.Negeri}}\n              </ion-select-option>\n              \n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">PUSAT TANGGUNGJAWAB </ion-label>\n            <ion-select [disabled]=\"negeriValue == null\" [(ngModel)]=\"ptValue\" [ngModelOptions]=\"{standalone: true}\"\n              (ionChange)=\"getUsahawan()\">\n              <ion-select-option *ngFor=\"let pt of pt\" value=\"{{pt.Kod_PT}}\">{{pt.keterangan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">NAMA USAHAWAN <span style=\"color: red;\">*</span></ion-label>\n            <!-- <ion-input formControlName=\"namausahawan\" readonly></ion-input> -->\n            <ion-select [disabled]=\"ptValue == null\" formControlName=\"id_pengguna\">\n              <ion-select-option *ngFor=\"let usahawan of usahawan\" value=\"{{usahawan.id_pengguna}}\">\n                {{usahawan.namausahawan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">TARIKH <span style=\"color: red;\">*</span></ion-label>\n            <ion-datetime presentation=\"date\" displayFormat=\"DD/MM/YYYY\" formControlName=\"tarikh_lawatan\"\n              style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">MASA <span style=\"color: red;\">*</span> </ion-label>\n            <ion-datetime presentation=\"time\" displayFormat=\"HHmm\" formControlName=\"masa_lawatan\"\n              style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">JENIS LAWATAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"jenis_lawatan\">\n              <ion-select-option value=\"janji temu\" disabled>JANJI TEMU</ion-select-option>\n              <ion-select-option value=\"datang terus\">DATANG TERUS</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">TINDAKAN USAHAWAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"id_tindakan_lawatan\">\n              <ion-select-option class=\"laporan\" *ngFor=\"let tindakanLawatan of tindakanLawatan\" [value]=\"tindakanLawatan.id\"\n                selected=\"tindakanLawatan.id == this.laporan.id_tindakan_lawatan\">\n                {{tindakanLawatan.nama_tindakan_lawatan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">KOMEN KESELURUHAN </ion-label>\n            <ion-textarea rows=\"4\" formControlName=\"komen\"></ion-textarea>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\" mode=\"ios\">GAMBAR  <span style=\"color: red;\">*</span></ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px; \">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label style=\"display: flex; justify-content:center\">\n            <div style=\"display: flex; justify-content:center\">\n              <img [src]=\"url\" class=\"border-radius-md\" width=\"40%\" id=\"upload-Preview\" style=\"border-radius: 10px;\" />\n            </div>\n            <input id=\"upload-Image\" accept=\"image/*\" (change)=\"onSelectFile($event)\" formControlName=\"gambar_lawatan\"\n              type=\"file\" style=\"display: none\">\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin:20px;\">\n        <ion-col class=\"form-control\">\n\n          <ion-button color=\"success\" expand=\"block\" [disabled]=\"form.invalid\" type=\"submit\">TAMBAH LAPORAN\n          </ion-button>\n          <!-- <ion-button color=\"success\" expand=\"block\">CETAK LAPORAN</ion-button> -->\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n</ion-content>\n\n\n<!-- PUN AND PUD -->\n<ion-content *ngIf=\"peranan_pegawai == 3 || peranan_pegawai == 4\">\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      \n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">PUSAT TANGGUNGJAWAB </ion-label>\n            <ion-select [(ngModel)]=\"ptValue\" [ngModelOptions]=\"{standalone: true}\"\n              (ionChange)=\"getUsahawan()\">\n              <ion-select-option *ngFor=\"let pt of pt\" value=\"{{pt.Kod_PT}}\">{{pt.keterangan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">NAMA USAHAWAN <span style=\"color: red;\">*</span></ion-label>\n            <!-- <ion-input formControlName=\"namausahawan\" readonly></ion-input> -->\n            <ion-select [disabled]=\"ptValue == null\" formControlName=\"id_pengguna\">\n              <ion-select-option *ngFor=\"let usahawan of usahawan\" value=\"{{usahawan.id_pengguna}}\">\n                {{usahawan.namausahawan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">TARIKH <span style=\"color: red;\">*</span></ion-label>\n            <ion-datetime presentation=\"date\" displayFormat=\"DD/MM/YYYY\" formControlName=\"tarikh_lawatan\"\n              style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">MASA <span style=\"color: red;\">*</span></ion-label>\n            <ion-datetime presentation=\"time\" displayFormat=\"HHmm\" formControlName=\"masa_lawatan\"\n              style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">JENIS LAWATAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"jenis_lawatan\">\n              <ion-select-option value=\"janji temu\" mode=\"ios\">JANJI TEMU</ion-select-option>\n              <ion-select-option value=\"datang terus\" selected>DATANG TERUS</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">TINDAKAN USAHAWAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"id_tindakan_lawatan\">\n              <ion-select-option *ngFor=\"let tindakanLawatan of tindakanLawatan\" [value]=\"tindakanLawatan.id\"\n                selected=\"tindakanLawatan.id == this.laporan.id_tindakan_lawatan\">\n                {{tindakanLawatan.nama_tindakan_lawatan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">KOMEN KESELURUHAN </ion-label>\n            <ion-textarea rows=\"4\" formControlName=\"komen\"></ion-textarea>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\" mode=\"ios\">GAMBAR <span style=\"color: red;\">*</span></ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px; \">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label style=\"display: flex; justify-content:center\">\n            <div style=\"display: flex; justify-content:center\">\n              <img [src]=\"url\" class=\"border-radius-md\" width=\"40%\" id=\"upload-Preview\" style=\"border-radius: 10px;\" />\n            </div>\n            <input id=\"upload-Image\" accept=\"image/*\" (change)=\"onSelectFile($event)\" formControlName=\"gambar_lawatan\"\n              type=\"file\" style=\"display: none\">\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin:20px;\">\n        <ion-col class=\"form-control\">\n\n          <ion-button color=\"success\" expand=\"block\" [disabled]=\"form.invalid\" type=\"submit\">SIMPAN LAPORAN\n          </ion-button>\n          <!-- <ion-button color=\"success\" expand=\"block\">CETAK LAPORAN</ion-button> -->\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            LAPORAN LAWATAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<!-- BPU AND SUPER ADMIN -->\n<ion-content *ngIf=\"peranan_pegawai == 1 || peranan_pegawai == 2\">\n\n  <!-- <ion-button (click)=\"openSenaraiUsahawan()\" expand=\"block\" fill=\"clear\" shape=\"round\">\n    Click me\n  </ion-button> -->\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">NEGERI </ion-label>\n            <ion-select [(ngModel)]=\"negeriValue\" [ngModelOptions]=\"{standalone: true}\" (ionChange)=\"getPT()\">\n              <ion-select-option *ngFor=\"let negeri of negeri\" value=\"{{negeri.Negeri_Rkod}}\">{{negeri.Negeri}}\n              </ion-select-option>\n\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">PUSAT TANGGUNGJAWAB </ion-label>\n            <ion-select [disabled]=\"negeriValue == null\" [(ngModel)]=\"ptValue\" [ngModelOptions]=\"{standalone: true}\"\n              (ionChange)=\"getUsahawan()\">\n              <ion-select-option *ngFor=\"let pt of pt\" value=\"{{pt.Kod_PT}}\">{{pt.keterangan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\" (click)=\"openSenaraiUsahawan()\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">NAMA USAHAWAN <span style=\"color: red;\">*</span>\n            </ion-label>\n\n            <div *ngIf=\"tempID == null\" style=\"width: 100%;\">\n              <ion-input [disabled]=\"ptValue == null\" type=\"text\" placeholder=\"Pilih Usahawan\" disabled style=\"width: 100%\"></ion-input>\n            </div>\n            <div *ngFor=\"let usahawan of usahawan\" style=\"width: 100%;\">\n\n              <div *ngIf=\"usahawan.id_pengguna == tempID; then content else other_content\" style=\"width: 100%;\">\n              </div>\n              <ng-template #content style=\"width: 100%;\">\n                <ion-input type=\"text\" formControlName=\"id_pengguna\" placeholder=\"Pilih Usahawan\" hidden></ion-input>\n                <ion-input readonly type=\"text\" value=\"{{usahawan.namausahawan}}\" placeholder=\"Pilih Usahawan\" style=\"width: 100%;\"></ion-input>\n              </ng-template>\n            </div>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">TARIKH <span style=\"color: red;\">*</span>\n            </ion-label>\n            <ion-datetime presentation=\"date\" displayFormat=\"DD/MM/YYYY\" formControlName=\"tarikh_lawatan\"\n              style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">MASA <span style=\"color: red;\">*</span>\n            </ion-label>\n            <ion-datetime presentation=\"time\" displayFormat=\"HHmm\" formControlName=\"masa_lawatan\"\n              style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">JENIS LAWATAN <span style=\"color: red;\">*</span>\n            </ion-label>\n            <ion-select formControlName=\"jenis_lawatan\">\n              <ion-select-option value=\"janji temu\" disabled>JANJI TEMU</ion-select-option>\n              <ion-select-option value=\"datang terus\">DATANG TERUS</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">TINDAKAN USAHAWAN <span\n                style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"id_tindakan_lawatan\">\n              <ion-select-option class=\"laporan\" *ngFor=\"let tindakanLawatan of tindakanLawatan\"\n                [value]=\"tindakanLawatan.id\" selected=\"tindakanLawatan.id == this.laporan.id_tindakan_lawatan\">\n                {{tindakanLawatan.nama_tindakan_lawatan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">KOMEN KESELURUHAN </ion-label>\n            <ion-textarea rows=\"4\" formControlName=\"komen\"></ion-textarea>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\" mode=\"ios\">GAMBAR <span\n              style=\"color: red;\">*</span></ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px; \">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label style=\"display: flex; justify-content:center\">\n            <div style=\"display: flex; justify-content:center\">\n              <img [src]=\"url\" class=\"border-radius-md\" width=\"40%\" id=\"upload-Preview\" style=\"border-radius: 10px;\" />\n            </div>\n            <input id=\"upload-Image\" accept=\"image/*\" (change)=\"onSelectFile($event)\" formControlName=\"gambar_lawatan\"\n              type=\"file\" style=\"display: none\">\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin:20px;\">\n        <ion-col class=\"form-control\">\n\n          <ion-button color=\"success\" expand=\"block\" [disabled]=\"form.invalid\" type=\"submit\">TAMBAH LAPORAN\n          </ion-button>\n          <!-- <ion-button color=\"success\" expand=\"block\">CETAK LAPORAN</ion-button> -->\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n</ion-content>\n\n\n<!-- PUN AND PUD -->\n<ion-content *ngIf=\"peranan_pegawai == 3 || peranan_pegawai == 4\">\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">PUSAT TANGGUNGJAWAB </ion-label>\n            <ion-select [(ngModel)]=\"ptValue\" [ngModelOptions]=\"{standalone: true}\" (ionChange)=\"getUsahawan()\">\n              <ion-select-option *ngFor=\"let pt of pt\" value=\"{{pt.Kod_PT}}\">{{pt.keterangan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">NAMA USAHAWAN <span style=\"color: red;\">*</span>\n            </ion-label>\n\n            <ion-select [disabled]=\"ptValue == null\" formControlName=\"id_pengguna\">\n              <ion-select-option *ngFor=\"let usahawan of usahawan\" value=\"{{usahawan.id_pengguna}}\">\n                {{usahawan.namausahawan}}\n              </ion-select-option>\n            </ion-select>\n\n          </ion-item>\n        </ion-col>\n      </ion-row> -->\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\" (click)=\"openSenaraiUsahawan()\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">NAMA USAHAWAN <span style=\"color: red;\">*</span>\n            </ion-label>\n          \n\n            <div *ngIf=\"tempID == null\" style=\"width: 100%;\">\n              <ion-input [disabled]=\"ptValue == null\" type=\"text\" placeholder=\"Pilih Usahawan\" disabled style=\"width: 100%\"></ion-input>\n            </div>\n            <div *ngFor=\"let usahawan of usahawan\" style=\"width: 100%;\">\n\n              <div *ngIf=\"usahawan.id_pengguna == tempID; then content else other_content\" style=\"width: 100%;\">\n              </div>\n              <ng-template #content style=\"width: 100%;\">\n                <ion-input type=\"text\" formControlName=\"id_pengguna\" placeholder=\"Pilih Usahawan\" hidden></ion-input>\n                <ion-input readonly type=\"text\" value=\"{{usahawan.namausahawan}}\" placeholder=\"Pilih Usahawan\" style=\"width: 100%;\"></ion-input>\n              </ng-template>\n            </div>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">TARIKH <span style=\"color: red;\">*</span>\n            </ion-label>\n            <ion-datetime presentation=\"date\" displayFormat=\"DD/MM/YYYY\" formControlName=\"tarikh_lawatan\"\n              style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">MASA <span style=\"color: red;\">*</span></ion-label>\n            <ion-datetime presentation=\"time\" displayFormat=\"HHmm\" formControlName=\"masa_lawatan\"\n              style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\">JENIS LAWATAN <span style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"jenis_lawatan\">\n              <ion-select-option value=\"janji temu\" mode=\"ios\">JANJI TEMU</ion-select-option>\n              <ion-select-option value=\"datang terus\" selected>DATANG TERUS</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">TINDAKAN USAHAWAN <span\n                style=\"color: red;\">*</span></ion-label>\n            <ion-select formControlName=\"id_tindakan_lawatan\">\n              <ion-select-option *ngFor=\"let tindakanLawatan of tindakanLawatan\" [value]=\"tindakanLawatan.id\"\n                selected=\"tindakanLawatan.id == this.laporan.id_tindakan_lawatan\">\n                {{tindakanLawatan.nama_tindakan_lawatan}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">KOMEN KESELURUHAN </ion-label>\n            <ion-textarea rows=\"4\" formControlName=\"komen\"></ion-textarea>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col class=\"ion-text-center\">\n          <ion-label class=\"ion-text-center\" style=\"padding-bottom: 0px;\" mode=\"ios\">GAMBAR <span\n              style=\"color: red;\">*</span></ion-label>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px; \">\n        <ion-col class=\"form-control\" style=\"display: flex; justify-content:center\">\n          <label style=\"display: flex; justify-content:center\">\n            <div style=\"display: flex; justify-content:center\">\n              <img [src]=\"url\" class=\"border-radius-md\" width=\"40%\" id=\"upload-Preview\" style=\"border-radius: 10px;\" />\n            </div>\n            <input id=\"upload-Image\" accept=\"image/*\" (change)=\"onSelectFile($event)\" formControlName=\"gambar_lawatan\"\n              type=\"file\" style=\"display: none\">\n          </label>\n\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin:20px;\">\n        <ion-col class=\"form-control\">\n\n          <ion-button color=\"success\" expand=\"block\" [disabled]=\"form.invalid\" type=\"submit\">SIMPAN LAPORAN\n          </ion-button>\n          <!-- <ion-button color=\"success\" expand=\"block\">CETAK LAPORAN</ion-button> -->\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>");
 
 /***/ })
 

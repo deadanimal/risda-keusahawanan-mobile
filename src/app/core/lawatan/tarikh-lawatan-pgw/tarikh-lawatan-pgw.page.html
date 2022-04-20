@@ -21,18 +21,40 @@
 
   <ion-grid>
     <form [formGroup]="form" (ngSubmit)="logForm()" enctype="multipart/form-data">
-      <ion-row>
+      <!-- <ion-row>
         <ion-col class="form-control">
           <ion-item lines="none" style="border: none;">
             <ion-label class="padding" position="stacked"  mode="ios">NAMA USAHAWAN</ion-label>
-            <!-- <ion-input formControlName="id_pengguna"></ion-input> -->
             <ion-select formControlName="id_pengguna">
               <ion-select-option *ngFor="let usahawan of usahawan" value="{{usahawan.id_pengguna}}">
                 {{usahawan.name}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
+      </ion-row> -->
+
+      <ion-row>
+        <ion-col class="form-control">
+          <ion-item lines="none" style="border: none;" (click)="openSenaraiUsahawan()">
+            <ion-label class="padding" position="stacked" mode="ios">NAMA USAHAWAN <span style="color: red;">*</span>
+            </ion-label>
+
+            <div *ngIf="tempID == null" style="width: 100%;">
+              <ion-input type="text" placeholder="Pilih Usahawan" style="width: 100%"></ion-input>
+            </div>
+            <div *ngFor="let usahawan of usahawan" style="width: 100%;">
+
+              <div *ngIf="usahawan.id_pengguna == tempID; then content else other_content" style="width: 100%;">
+              </div>
+              <ng-template #content style="width: 100%;">
+                <ion-input type="text" formControlName="id_pengguna" placeholder="Pilih Usahawan" hidden></ion-input>
+                <ion-input readonly type="text" value="{{usahawan.name}}" placeholder="Pilih Usahawan" style="width: 100%;"></ion-input>
+              </ng-template>
+            </div>
+          </ion-item>
+        </ion-col>
       </ion-row>
+
       <ion-row style="margin-bottom: 15%;"> 
         <ion-col class="form-control">
           <ion-item lines="none" class="form-control" style="border: none;">

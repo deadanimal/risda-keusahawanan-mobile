@@ -7,6 +7,109 @@
 
   (self["webpackChunkmyApp"] = self["webpackChunkmyApp"] || []).push([["default-src_app_core_lawatan_tarikh-lawatan-pgw_tarikh-lawatan-pgw_page_ts"], {
     /***/
+    39542: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "CarianUsahawanPage": function CarianUsahawanPage() {
+          return (
+            /* binding */
+            _CarianUsahawanPage
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_carian_usahawan_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./carian-usahawan.page.html */
+      24959);
+      /* harmony import */
+
+
+      var _carian_usahawan_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./carian-usahawan.page.scss */
+      80662);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/angular */
+      19122);
+
+      var _CarianUsahawanPage = /*#__PURE__*/function () {
+        function CarianUsahawanPage(modalController) {
+          _classCallCheck(this, CarianUsahawanPage);
+
+          this.modalController = modalController;
+        }
+
+        _createClass(CarianUsahawanPage, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            this.peranan = window.sessionStorage.getItem("peranan_pegawai");
+            console.log("senarai", this.usahawans);
+          }
+        }, {
+          key: "dismiss",
+          value: function dismiss() {
+            this.modalController.dismiss({
+              'dismissed': true
+            });
+          }
+        }, {
+          key: "selectDismiss",
+          value: function selectDismiss() {
+            console.log("usahawan", this.pilihUsahawan); // this.modalController.dismiss({
+            //   'dismissed': true
+            // });
+
+            this.modalController.dismiss(this.pilihUsahawan);
+          }
+        }]);
+
+        return CarianUsahawanPage;
+      }();
+
+      _CarianUsahawanPage.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.ModalController
+        }];
+      };
+
+      _CarianUsahawanPage.propDecorators = {
+        usahawans: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Input
+        }]
+      };
+      _CarianUsahawanPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+        selector: 'app-carian-usahawan',
+        template: _raw_loader_carian_usahawan_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_carian_usahawan_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _CarianUsahawanPage);
+      /***/
+    },
+
+    /***/
     27000: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
@@ -28,7 +131,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -46,25 +149,25 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic/angular */
       19122);
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/forms */
       3679);
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
@@ -83,6 +186,12 @@
       var src_app_services_lawatan_lawatan_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! src/app/services/lawatan/lawatan.service */
       89765);
+      /* harmony import */
+
+
+      var _carian_usahawan_carian_usahawan_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! ../carian-usahawan/carian-usahawan.page */
+      39542);
 
       var _TarikhLawatanPgwPage = /*#__PURE__*/function () {
         function TarikhLawatanPgwPage(modalController, formBuilder, router, lawatanService, alertController) {
@@ -93,11 +202,12 @@
           this.router = router;
           this.lawatanService = lawatanService;
           this.alertController = alertController;
+          this.tempID = null;
           this.form = this.formBuilder.group({
-            id_pengguna: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
+            id_pengguna: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
             id_pegawai: [''],
-            tarikh_lawatan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
-            masa_lawatan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required]
+            tarikh_lawatan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required],
+            masa_lawatan: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
           });
         }
 
@@ -121,7 +231,7 @@
         }, {
           key: "logForm",
           value: function logForm() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
               var _this = this;
 
               var tempDate, alert;
@@ -187,6 +297,60 @@
               _this2.usahawan = res;
             });
           }
+        }, {
+          key: "openSenaraiUsahawan",
+          value: function openSenaraiUsahawan() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var usahawans, modal, _yield$modal$onDidDis, usahawan;
+
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      console.log("AAAAAA", this.usahawan);
+                      usahawans = this.usahawan;
+                      _context2.next = 4;
+                      return this.modalController.create({
+                        component: _carian_usahawan_carian_usahawan_page__WEBPACK_IMPORTED_MODULE_4__.CarianUsahawanPage,
+                        cssClass: 'my-custom-class',
+                        componentProps: {
+                          usahawans: usahawans
+                        }
+                      });
+
+                    case 4:
+                      modal = _context2.sent;
+                      _context2.next = 7;
+                      return modal.present();
+
+                    case 7:
+                      _context2.next = 9;
+                      return modal.onDidDismiss();
+
+                    case 9:
+                      _yield$modal$onDidDis = _context2.sent;
+                      usahawan = _yield$modal$onDidDis.data;
+
+                      if (usahawan > 0) {
+                        console.log("yeayyy", usahawan);
+                        this.tempID = usahawan;
+                        console.log("AAAAAA", this.tempID);
+                        this.form.patchValue({
+                          id_pengguna: usahawan
+                        });
+                      } else {
+                        console.log("AAAAAA", this.tempID);
+                        this.tempID == null;
+                      }
+
+                    case 12:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
         }]);
 
         return TarikhLawatanPgwPage;
@@ -194,23 +358,35 @@
 
       _TarikhLawatanPgwPage.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.ModalController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.ModalController
         }, {
-          type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormBuilder
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormBuilder
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router
         }, {
           type: src_app_services_lawatan_lawatan_service__WEBPACK_IMPORTED_MODULE_3__.LawatanService
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.AlertController
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.AlertController
         }];
       };
 
-      _TarikhLawatanPgwPage = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+      _TarikhLawatanPgwPage = (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-tarikh-lawatan-pgw',
         template: _raw_loader_tarikh_lawatan_pgw_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_tarikh_lawatan_pgw_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
       })], _TarikhLawatanPgwPage);
+      /***/
+    },
+
+    /***/
+    80662: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = ".list {\n  height: 80%;\n  overflow: scroll;\n  margin-bottom: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNhcmlhbi11c2FoYXdhbi5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBRUEsZ0JBQUE7RUFDQSxpQkFBQTtBQUFKIiwiZmlsZSI6ImNhcmlhbi11c2FoYXdhbi5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubGlzdHtcbiAgICBoZWlnaHQ6IDgwJTtcbiAgICAvLyBiYWNrZ3JvdW5kLWNvbG9yOiBhcXVhO1xuICAgIG92ZXJmbG93OiBzY3JvbGw7XG4gICAgbWFyZ2luLWJvdHRvbTogMiU7XG59Il19 */";
       /***/
     },
 
@@ -227,6 +403,18 @@
     },
 
     /***/
+    24959: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Senarai Usahawan</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"peranan != 7\" class=\"ion-padding\">\n\n  <ion-searchbar placeholder=\"Carian Usahawan\" [(ngModel)]=\"searchTerm\" showCancelButton=\"focus\"></ion-searchbar>\n\n\n  <!-- {{ usahawans }} -->\n  <div class=\"list\">\n    <ion-list>\n\n      <ion-radio-group [(ngModel)]=\"pilihUsahawan\">\n\n        <ion-item *ngFor=\"let usahawan of usahawans | filter:searchTerm\">\n          <!-- {{usahawan}} -->\n          <ion-label>{{usahawan.namausahawan}}</ion-label>\n          <ion-radio slot=\"start\" value=\"{{usahawan.id_pengguna}}\"></ion-radio>\n        </ion-item>\n\n      </ion-radio-group>\n    </ion-list>\n  </div>\n\n\n\n  <ion-button color=\"dark\" (click)=\"selectDismiss()\" expand=\"block\">\n    Pilih\n  </ion-button>\n  <ion-button color=\"warning\" (click)=\"dismiss()\" expand=\"block\">\n    <ion-text color=\"dark\">\n      Batal\n    </ion-text>\n  </ion-button>\n\n</ion-content>\n\n\n<ion-content *ngIf=\"peranan == 7\" class=\"ion-padding\">\n\n  <ion-searchbar placeholder=\"Carian Usahawan\" [(ngModel)]=\"searchTerm\" showCancelButton=\"focus\"></ion-searchbar>\n\n\n  <!-- {{ usahawans }} -->\n  <div class=\"list\">\n    <ion-list>\n\n      <ion-radio-group [(ngModel)]=\"pilihUsahawan\">\n\n        <ion-item *ngFor=\"let usahawan of usahawans | filter:searchTerm\">\n          <!-- {{usahawan}} -->\n          <ion-label>{{usahawan.name}}</ion-label>\n          <ion-radio slot=\"start\" value=\"{{usahawan.id_pengguna}}\"></ion-radio>\n        </ion-item>\n\n      </ion-radio-group>\n    </ion-list>\n  </div>\n\n\n\n  <ion-button color=\"dark\" (click)=\"selectDismiss()\" expand=\"block\">\n    Pilih\n  </ion-button>\n  <ion-button color=\"warning\" (click)=\"dismiss()\" expand=\"block\">\n    <ion-text color=\"dark\">\n      Batal\n    </ion-text>\n  </ion-button>\n\n</ion-content>";
+      /***/
+    },
+
+    /***/
     38406: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
@@ -234,7 +422,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            TARIKH LAWATAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n \n  \n\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\"  mode=\"ios\">NAMA USAHAWAN</ion-label>\n            <!-- <ion-input formControlName=\"id_pengguna\"></ion-input> -->\n            <ion-select formControlName=\"id_pengguna\">\n              <ion-select-option *ngFor=\"let usahawan of usahawan\" value=\"{{usahawan.id_pengguna}}\">\n                {{usahawan.name}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row style=\"margin-bottom: 15%;\"> \n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\"  mode=\"ios\">TARIKH </ion-label>\n            <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n            <ion-datetime presentation=\"date\" displayFormat=\"YYYY-MM-DD\" formControlName=\"tarikh_lawatan\" style=\"background-color: #f5f5f5; width:100%\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\"  mode=\"ios\">MASA </ion-label>\n            <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n            <ion-datetime displayFormat=\"HH:mm\" presentation=\"time\" formControlName=\"masa_lawatan\" style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <!-- (click)=\"openmodal()\" -->\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"form.invalid\" >TETAP TARIKH LAWATAN</ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"dismiss()\">\n        <ion-icon name=\"chevron-back-outline\" style=\"color: #986522;\"></ion-icon>\n      </ion-button>\n      <ion-text color=\"warning\">\n        <h1>\n          <strong class=\"ion-text-uppercase\">\n            TARIKH LAWATAN\n          </strong>\n        </h1>\n      </ion-text>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n \n  \n\n  <ion-grid>\n    <form [formGroup]=\"form\" (ngSubmit)=\"logForm()\" enctype=\"multipart/form-data\">\n      <!-- <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\"  mode=\"ios\">NAMA USAHAWAN</ion-label>\n            <ion-select formControlName=\"id_pengguna\">\n              <ion-select-option *ngFor=\"let usahawan of usahawan\" value=\"{{usahawan.id_pengguna}}\">\n                {{usahawan.name}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row> -->\n\n      <ion-row>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" style=\"border: none;\" (click)=\"openSenaraiUsahawan()\">\n            <ion-label class=\"padding\" position=\"stacked\" mode=\"ios\">NAMA USAHAWAN <span style=\"color: red;\">*</span>\n            </ion-label>\n\n            <div *ngIf=\"tempID == null\" style=\"width: 100%;\">\n              <ion-input type=\"text\" placeholder=\"Pilih Usahawan\" style=\"width: 100%\"></ion-input>\n            </div>\n            <div *ngFor=\"let usahawan of usahawan\" style=\"width: 100%;\">\n\n              <div *ngIf=\"usahawan.id_pengguna == tempID; then content else other_content\" style=\"width: 100%;\">\n              </div>\n              <ng-template #content style=\"width: 100%;\">\n                <ion-input type=\"text\" formControlName=\"id_pengguna\" placeholder=\"Pilih Usahawan\" hidden></ion-input>\n                <ion-input readonly type=\"text\" value=\"{{usahawan.name}}\" placeholder=\"Pilih Usahawan\" style=\"width: 100%;\"></ion-input>\n              </ng-template>\n            </div>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 15%;\"> \n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\"  mode=\"ios\">TARIKH </ion-label>\n            <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n            <ion-datetime presentation=\"date\" displayFormat=\"YYYY-MM-DD\" formControlName=\"tarikh_lawatan\" style=\"background-color: #f5f5f5; width:100%\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n        <ion-col class=\"form-control\">\n          <ion-item lines=\"none\" class=\"form-control\" style=\"border: none;\">\n            <ion-label class=\"padding\" position=\"stacked\"  mode=\"ios\">MASA </ion-label>\n            <!-- <ion-input type=\"date\" formControlName=\"title\"></ion-input> -->\n            <ion-datetime displayFormat=\"HH:mm\" presentation=\"time\" formControlName=\"masa_lawatan\" style=\"background-color: #f5f5f5;\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row style=\"margin-bottom: 20px;\">\n        <ion-col class=\"form-control\">\n          <!-- (click)=\"openmodal()\" -->\n          <ion-button color=\"success\" expand=\"block\" type=\"submit\" [disabled]=\"form.invalid\" >TETAP TARIKH LAWATAN</ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n\n\n\n\n</ion-content>";
       /***/
     }
   }]);

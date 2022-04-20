@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { LawatanService } from 'src/app/services/lawatan/lawatan.service';
+import { CarianUsahawanPage } from '../carian-usahawan/carian-usahawan.page';
 
 @Component({
   selector: 'app-tarikh-lawatan-pgw',
@@ -110,5 +111,36 @@ export class TarikhLawatanPgwPage implements OnInit {
   }
 
 
+  tempID: any = null
+
+  async openSenaraiUsahawan() {
+
+    console.log("AAAAAA", this.usahawan)
+
+    let usahawans = this.usahawan;
+    const modal = await this.modalController.create({
+      component: CarianUsahawanPage,
+      cssClass: 'my-custom-class',
+      componentProps: { usahawans }
+    });
+    await modal.present();
+
+    const { data: usahawan } = await modal.onDidDismiss();
+    if (usahawan >0) {
+      console.log("yeayyy", usahawan)
+
+      this.tempID = usahawan
+
+      console.log("AAAAAA", this.tempID)
+
+      this.form.patchValue({
+        id_pengguna: usahawan
+      })
+    } else {
+
+      console.log("AAAAAA", this.tempID)
+      this.tempID == null
+    }
+  }
 
 }

@@ -17,8 +17,10 @@ export class CarianUsahawanPage implements OnInit {
     public modalController: ModalController,
   ) { }
 
+  
+  peranan: any;
   ngOnInit() {
-
+    this.peranan = window.sessionStorage.getItem("peranan_pegawai");
     console.log("senarai",this.usahawans)
   }
 

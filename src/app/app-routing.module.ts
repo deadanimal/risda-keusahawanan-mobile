@@ -170,6 +170,14 @@ const routes: Routes = [
   {
     path: 'carian-usahawan',
     loadChildren: () => import('./core/lawatan/carian-usahawan/carian-usahawan.module').then( m => m.CarianUsahawanPageModule)
+  },
+  {
+    path: 'carian-usahawan-tarikh-lawatan',
+    loadChildren: () => import('./lawatan/carian-usahawan-tarikh-lawatan/carian-usahawan-tarikh-lawatan.module').then( m => m.CarianUsahawanTarikhLawatanPageModule)
+  },
+  {
+    path: 'carian-usahawan-tarikh-lawatan',
+    loadChildren: () => import('./core/lawatan/carian-usahawan-tarikh-lawatan/carian-usahawan-tarikh-lawatan.module').then( m => m.CarianUsahawanTarikhLawatanPageModule)
   }
 ];
 

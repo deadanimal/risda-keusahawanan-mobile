@@ -438,7 +438,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() */
-          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_lawatan_carian-usahawan_carian-usahawan_page_ts"), __webpack_require__.e("default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"), __webpack_require__.e("src_app_core_lawatan_tambah-laporan_tambah-laporan_module_ts-src_app_services_lawatan_lawatan-6b63f7")]).then(__webpack_require__.bind(__webpack_require__,
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"), __webpack_require__.e("src_app_core_lawatan_tambah-laporan_tambah-laporan_module_ts-src_app_services_lawatan_lawatan-6b63f7")]).then(__webpack_require__.bind(__webpack_require__,
           /*! ./core/lawatan/tambah-laporan/tambah-laporan.module */
           36601)).then(function (m) {
             return m.TambahLaporanPageModule;
@@ -471,7 +471,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() */
-          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_lawatan_kemaskini-laporan_kemaskini-laporan_page_ts"), __webpack_require__.e("default-src_app_core_lawatan_carian-usahawan_carian-usahawan_page_ts"), __webpack_require__.e("default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"), __webpack_require__.e("src_app_core_lawatan_senarai-laporan-pegawai_senarai-laporan-pegawai_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          [__webpack_require__.e("default-node_modules_moment_moment_js"), __webpack_require__.e("default-src_app_core_lawatan_kemaskini-laporan_kemaskini-laporan_page_ts"), __webpack_require__.e("default-src_app_core_lawatan_tambah-laporan_tambah-laporan_page_ts"), __webpack_require__.e("src_app_core_lawatan_senarai-laporan-pegawai_senarai-laporan-pegawai_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
           /*! ./core/lawatan/senarai-laporan-pegawai/senarai-laporan-pegawai.module */
           15406)).then(function (m) {
             return m.SenaraiLaporanPegawaiPageModule;
@@ -513,12 +513,34 @@
       }, {
         path: 'carian-usahawan',
         loadChildren: function loadChildren() {
-          return Promise.all(
+          return __webpack_require__.e(
           /*! import() */
-          [__webpack_require__.e("default-src_app_core_lawatan_carian-usahawan_carian-usahawan_page_ts"), __webpack_require__.e("src_app_core_lawatan_carian-usahawan_carian-usahawan_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          "src_app_core_lawatan_carian-usahawan_carian-usahawan_module_ts").then(__webpack_require__.bind(__webpack_require__,
           /*! ./core/lawatan/carian-usahawan/carian-usahawan.module */
           78838)).then(function (m) {
             return m.CarianUsahawanPageModule;
+          });
+        }
+      }, {
+        path: 'carian-usahawan-tarikh-lawatan',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_lawatan_carian-usahawan-tarikh-lawatan_carian-usahawan-tarikh-lawatan_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./lawatan/carian-usahawan-tarikh-lawatan/carian-usahawan-tarikh-lawatan.module */
+          2026)).then(function (m) {
+            return m.CarianUsahawanTarikhLawatanPageModule;
+          });
+        }
+      }, {
+        path: 'carian-usahawan-tarikh-lawatan',
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() */
+          "src_app_core_lawatan_carian-usahawan-tarikh-lawatan_carian-usahawan-tarikh-lawatan_module_ts").then(__webpack_require__.bind(__webpack_require__,
+          /*! ./core/lawatan/carian-usahawan-tarikh-lawatan/carian-usahawan-tarikh-lawatan.module */
+          48517)).then(function (m) {
+            return m.CarianUsahawanTarikhLawatanPageModule;
           });
         }
       }];

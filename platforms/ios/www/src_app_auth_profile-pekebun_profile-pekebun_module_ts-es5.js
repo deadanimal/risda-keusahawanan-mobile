@@ -957,7 +957,7 @@
 
                           _this6.presentAlert2();
                         } else {
-                          if (res.No_KP == null) {
+                          if (res.No_KP == null || res.No_KP == "") {
                             loading.dismiss();
 
                             _this6.presentAlert2();
@@ -971,6 +971,9 @@
                             loading.dismiss();
                           }
                         }
+                      }, function (err) {
+                        loading.dismiss();
+                        alert('Something went wrong');
                       });
 
                     case 5:
@@ -1009,12 +1012,16 @@
 
                           _this7.presentAlert2();
                         } else {
+                          console.log("yeayyy", _this7.pekebunKecil);
                           _this7.pekebunKecil = res[0];
 
                           _this7.patchValue2();
 
                           loading.dismiss();
                         }
+                      }, function (err) {
+                        loading.dismiss();
+                        alert('Something went wrong');
                       });
 
                     case 5:
@@ -1031,9 +1038,12 @@
             var _this8 = this;
 
             this.pekebunService.getNoTS(nokp).subscribe(function (res) {
-              console.log("noTS", res);
+              console.log("noTS", res); // console.log("resaaaaa", res)
 
-              if (res == 400) {} else {
+              if (res == 400) {
+                _this8.form.patchValue({// noTS: null
+                });
+              } else {
                 _this8.form.patchValue({
                   noTS: res[0].noTS
                 });
@@ -1051,26 +1061,7 @@
 
               _this9.daerahService.get().subscribe(function (resDaerah) {
                 console.log("resDaerah", resDaerah);
-                _this9.daerah = resDaerah; // this.mukimService.get().subscribe((resMukim) => {
-                //   console.log("resMukim", resMukim)
-                //   this.mukim = resMukim;
-                //   this.parlimenService.get().subscribe((resParlimen) => {
-                //     console.log("resParlimen", resParlimen)
-                //     this.parlimen = resParlimen;
-                //     this.dunService.get().subscribe((resDun) => {
-                //       console.log("resDun", resDun)
-                //       this.dun = resDun;
-                //       this.kampungService.get().subscribe((resKampung) => {
-                //         console.log("resKampung", resKampung)
-                //         this.kampung = resKampung;
-                //         this.seksyenService.get().subscribe((resSeksyen) => {
-                //           console.log("resSeksyen", resSeksyen)
-                //           this.seksyen = resSeksyen;
-                //         })
-                //       })
-                //     })
-                //   })
-                // })
+                _this9.daerah = resDaerah;
               });
             });
           }

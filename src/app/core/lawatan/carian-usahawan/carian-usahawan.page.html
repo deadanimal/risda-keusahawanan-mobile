@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content *ngIf="peranan != 7" class="ion-padding">
 
   <ion-searchbar placeholder="Carian Usahawan" [(ngModel)]="searchTerm" showCancelButton="focus"></ion-searchbar>
 
@@ -18,6 +18,41 @@
         <ion-item *ngFor="let usahawan of usahawans | filter:searchTerm">
           <!-- {{usahawan}} -->
           <ion-label>{{usahawan.namausahawan}}</ion-label>
+          <ion-radio slot="start" value="{{usahawan.id_pengguna}}"></ion-radio>
+        </ion-item>
+
+      </ion-radio-group>
+    </ion-list>
+  </div>
+
+
+
+  <ion-button color="dark" (click)="selectDismiss()" expand="block">
+    Pilih
+  </ion-button>
+  <ion-button color="warning" (click)="dismiss()" expand="block">
+    <ion-text color="dark">
+      Batal
+    </ion-text>
+  </ion-button>
+
+</ion-content>
+
+
+<ion-content *ngIf="peranan == 7" class="ion-padding">
+
+  <ion-searchbar placeholder="Carian Usahawan" [(ngModel)]="searchTerm" showCancelButton="focus"></ion-searchbar>
+
+
+  <!-- {{ usahawans }} -->
+  <div class="list">
+    <ion-list>
+
+      <ion-radio-group [(ngModel)]="pilihUsahawan">
+
+        <ion-item *ngFor="let usahawan of usahawans | filter:searchTerm">
+          <!-- {{usahawan}} -->
+          <ion-label>{{usahawan.name}}</ion-label>
           <ion-radio slot="start" value="{{usahawan.id_pengguna}}"></ion-radio>
         </ion-item>
 

@@ -323,6 +323,133 @@
         declarations: [_carian_usahawan_page__WEBPACK_IMPORTED_MODULE_1__.CarianUsahawanPage]
       })], _CarianUsahawanPageModule);
       /***/
+    },
+
+    /***/
+    39542: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "CarianUsahawanPage": function CarianUsahawanPage() {
+          return (
+            /* binding */
+            _CarianUsahawanPage
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_carian_usahawan_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./carian-usahawan.page.html */
+      24959);
+      /* harmony import */
+
+
+      var _carian_usahawan_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./carian-usahawan.page.scss */
+      80662);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/angular */
+      19122);
+
+      var _CarianUsahawanPage = /*#__PURE__*/function () {
+        function CarianUsahawanPage(modalController) {
+          _classCallCheck(this, CarianUsahawanPage);
+
+          this.modalController = modalController;
+        }
+
+        _createClass(CarianUsahawanPage, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            this.peranan = window.sessionStorage.getItem("peranan_pegawai");
+            console.log("senarai", this.usahawans);
+          }
+        }, {
+          key: "dismiss",
+          value: function dismiss() {
+            this.modalController.dismiss({
+              'dismissed': true
+            });
+          }
+        }, {
+          key: "selectDismiss",
+          value: function selectDismiss() {
+            console.log("usahawan", this.pilihUsahawan); // this.modalController.dismiss({
+            //   'dismissed': true
+            // });
+
+            this.modalController.dismiss(this.pilihUsahawan);
+          }
+        }]);
+
+        return CarianUsahawanPage;
+      }();
+
+      _CarianUsahawanPage.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.ModalController
+        }];
+      };
+
+      _CarianUsahawanPage.propDecorators = {
+        usahawans: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Input
+        }]
+      };
+      _CarianUsahawanPage = (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
+        selector: 'app-carian-usahawan',
+        template: _raw_loader_carian_usahawan_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_carian_usahawan_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _CarianUsahawanPage);
+      /***/
+    },
+
+    /***/
+    80662: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = ".list {\n  height: 80%;\n  overflow: scroll;\n  margin-bottom: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNhcmlhbi11c2FoYXdhbi5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0VBRUEsZ0JBQUE7RUFDQSxpQkFBQTtBQUFKIiwiZmlsZSI6ImNhcmlhbi11c2FoYXdhbi5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubGlzdHtcbiAgICBoZWlnaHQ6IDgwJTtcbiAgICAvLyBiYWNrZ3JvdW5kLWNvbG9yOiBhcXVhO1xuICAgIG92ZXJmbG93OiBzY3JvbGw7XG4gICAgbWFyZ2luLWJvdHRvbTogMiU7XG59Il19 */";
+      /***/
+    },
+
+    /***/
+    24959: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Senarai Usahawan</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"peranan != 7\" class=\"ion-padding\">\n\n  <ion-searchbar placeholder=\"Carian Usahawan\" [(ngModel)]=\"searchTerm\" showCancelButton=\"focus\"></ion-searchbar>\n\n\n  <!-- {{ usahawans }} -->\n  <div class=\"list\">\n    <ion-list>\n\n      <ion-radio-group [(ngModel)]=\"pilihUsahawan\">\n\n        <ion-item *ngFor=\"let usahawan of usahawans | filter:searchTerm\">\n          <!-- {{usahawan}} -->\n          <ion-label>{{usahawan.namausahawan}}</ion-label>\n          <ion-radio slot=\"start\" value=\"{{usahawan.id_pengguna}}\"></ion-radio>\n        </ion-item>\n\n      </ion-radio-group>\n    </ion-list>\n  </div>\n\n\n\n  <ion-button color=\"dark\" (click)=\"selectDismiss()\" expand=\"block\">\n    Pilih\n  </ion-button>\n  <ion-button color=\"warning\" (click)=\"dismiss()\" expand=\"block\">\n    <ion-text color=\"dark\">\n      Batal\n    </ion-text>\n  </ion-button>\n\n</ion-content>\n\n\n<ion-content *ngIf=\"peranan == 7\" class=\"ion-padding\">\n\n  <ion-searchbar placeholder=\"Carian Usahawan\" [(ngModel)]=\"searchTerm\" showCancelButton=\"focus\"></ion-searchbar>\n\n\n  <!-- {{ usahawans }} -->\n  <div class=\"list\">\n    <ion-list>\n\n      <ion-radio-group [(ngModel)]=\"pilihUsahawan\">\n\n        <ion-item *ngFor=\"let usahawan of usahawans | filter:searchTerm\">\n          <!-- {{usahawan}} -->\n          <ion-label>{{usahawan.name}}</ion-label>\n          <ion-radio slot=\"start\" value=\"{{usahawan.id_pengguna}}\"></ion-radio>\n        </ion-item>\n\n      </ion-radio-group>\n    </ion-list>\n  </div>\n\n\n\n  <ion-button color=\"dark\" (click)=\"selectDismiss()\" expand=\"block\">\n    Pilih\n  </ion-button>\n  <ion-button color=\"warning\" (click)=\"dismiss()\" expand=\"block\">\n    <ion-text color=\"dark\">\n      Batal\n    </ion-text>\n  </ion-button>\n\n</ion-content>";
+      /***/
     }
   }]);
 })();
