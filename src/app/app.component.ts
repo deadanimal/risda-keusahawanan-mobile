@@ -29,7 +29,7 @@ export class AppComponent {
   public appPagesPegawai = [
     { title: 'Carian', url: '/carian', icon: 'assets/new-iconv2/Cari.png' },
     { title: 'Lawatan', url: '/lawatan-pegawai', icon: 'assets/new-iconv2/Lawatan.png' },
-    { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-iconv2/Katalog.png' },
+    // { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-iconv2/Katalog.png' },
     // { title: 'Buletin', url: '/buletin', icon: 'assets/new-icon/Buletin.png' },
     // { title: 'Log Keluar', url: '#', icon: 'assets/new-icon/log-out-button.png' },
   ];
@@ -78,6 +78,14 @@ export class AppComponent {
       this.appPagesPegawai[1].url = "/senarai-laporan-pegawai";
       console.log("peranan_pegawai success", this.appPagesPegawai[1])
     }
+    
+
+    if (this.peranan_pegawai == "3" ||  this.peranan_pegawai == "4") {
+      
+      this.appPagesPegawai.push(
+        { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-iconv2/Katalog.png' },
+      )
+    }
 
     if (this.peranan_pegawai == "1") {
       this.appPagesPegawai.push(
@@ -85,6 +93,7 @@ export class AppComponent {
       )
     }
 
+    
 
 
   }
