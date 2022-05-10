@@ -281,7 +281,7 @@ let AppComponent = class AppComponent {
         this.appPagesPegawai = [
             { title: 'Carian', url: '/carian', icon: 'assets/new-iconv2/Cari.png' },
             { title: 'Lawatan', url: '/lawatan-pegawai', icon: 'assets/new-iconv2/Lawatan.png' },
-            { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-iconv2/Katalog.png' },
+            // { title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-iconv2/Katalog.png' },
             // { title: 'Buletin', url: '/buletin', icon: 'assets/new-icon/Buletin.png' },
             // { title: 'Log Keluar', url: '#', icon: 'assets/new-icon/log-out-button.png' },
         ];
@@ -310,6 +310,9 @@ let AppComponent = class AppComponent {
         else {
             this.appPagesPegawai[1].url = "/senarai-laporan-pegawai";
             console.log("peranan_pegawai success", this.appPagesPegawai[1]);
+        }
+        if (this.peranan_pegawai == "3" || this.peranan_pegawai == "4") {
+            this.appPagesPegawai.push({ title: 'Katalog', url: '/katalog-pegawai', icon: 'assets/new-iconv2/Katalog.png' });
         }
         if (this.peranan_pegawai == "1") {
             this.appPagesPegawai.push({ title: 'Buletin', url: '/buletin', icon: 'assets/new-iconv2/Buletin.png' });
@@ -668,7 +671,7 @@ const environment = {
     production: false,
     // baseUrl : 'http://127.0.0.1:8000/'
     // baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
-    baseUrl: "http://reds.risda.gov.my/"
+    baseUrl: "https://reds.risda.gov.my/"
 };
 /*
  * For easier debugging in development mode, you can import the following file

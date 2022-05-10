@@ -449,7 +449,7 @@
                         // subHeader: 'Subtitle',
                         message: 'Email dan kata laluan berjaya dikemaskini',
                         buttons: [{
-                          text: 'Okay',
+                          text: 'OK',
                           // id: 'confirm-button',
                           handler: function handler() {
                             _this2.router.navigate(['/dashboard']);

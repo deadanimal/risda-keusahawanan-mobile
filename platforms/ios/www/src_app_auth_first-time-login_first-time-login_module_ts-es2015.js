@@ -241,7 +241,7 @@ let FirstTimeLoginPage = class FirstTimeLoginPage {
                 message: 'Email dan kata laluan berjaya dikemaskini',
                 buttons: [
                     {
-                        text: 'Okay',
+                        text: 'OK',
                         // id: 'confirm-button',
                         handler: () => {
                             this.router.navigate(['/dashboard']);
