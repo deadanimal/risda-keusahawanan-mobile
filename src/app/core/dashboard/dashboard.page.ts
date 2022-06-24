@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { NotifikasiService } from 'src/app/services/notifikasi/notifikasi.service';
 import { PegawaiService } from 'src/app/services/pegawai/pegawai.service';
 import { UsahawanService } from 'src/app/services/usahawan/usahawan.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ import { UsahawanService } from 'src/app/services/usahawan/usahawan.service';
 export class DashboardPage implements OnInit {
   katalog: any;
   buletin: any;
+  env = environment.baseUrl;
 
   
   // user_id = window.sessionStorage.getItem("user_id");

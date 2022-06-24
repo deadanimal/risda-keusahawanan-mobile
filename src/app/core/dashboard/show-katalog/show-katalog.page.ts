@@ -13,6 +13,7 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 export class ShowKatalogPage implements OnInit {
 
   @Input() katalog: any;
+  env = environment.baseUrl;
 
   constructor(
     public modalController: ModalController,

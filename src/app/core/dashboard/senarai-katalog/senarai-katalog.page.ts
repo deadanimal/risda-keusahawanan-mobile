@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import { ShowKatalogPage } from '../show-katalog/show-katalog.page';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-senarai-katalog',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class SenaraiKatalogPage implements OnInit {
   katalog: any;
+  env = environment.baseUrl;
 
   constructor(
     private katalogService : KatalogService,

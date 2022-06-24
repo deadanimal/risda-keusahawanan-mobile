@@ -9,8 +9,9 @@ export const environment = {
 
   // baseUrl: 'https://risda-keusahawanan.prototype.com.my/'
 
-  baseUrl:"https://reds.risda.gov.my/"
+  // baseUrl:"https://reds.risda.gov.my/"
 
+  baseUrl:"https://reds-training.risda.gov.my/"
   
 };
 
