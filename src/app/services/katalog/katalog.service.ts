@@ -12,8 +12,11 @@ export class KatalogService {
 
   constructor(private http: HttpClient) { }
 
-  post(data: any): Observable<any> {
-    return this.http.post<any>(`${this.url}`, data);
+  post(data: any, file: File): Observable<any> {
+    const formdata: FormData = new FormData();
+    formdata.append('data', JSON.stringify(data));
+    formdata.append('file', file);
+    return this.http.post<any>(`${this.url}`, formdata);
   }
 
   getAll(): Observable<any> {

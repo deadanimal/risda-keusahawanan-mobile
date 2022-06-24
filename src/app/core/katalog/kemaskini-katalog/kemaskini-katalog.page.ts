@@ -6,7 +6,7 @@ import { KatalogService } from 'src/app/services/katalog/katalog.service';
 import * as moment from 'moment';
 import { StokService } from 'src/app/services/stok/stok.service';
 import { map } from 'rxjs/operators';
-
+import { environment } from 'src/environments/environment';
 
 interface LocalFile {
   name: string;
@@ -22,6 +22,7 @@ interface LocalFile {
 export class KemaskiniKatalogPage implements OnInit {
 
   @Input() katalog: any;
+  env = environment.baseUrl;
 
   private form: FormGroup;
 

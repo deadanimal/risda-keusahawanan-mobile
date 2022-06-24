@@ -23,6 +23,7 @@ export class TambahKatalogPage implements OnInit {
 
   usahawan_id: any
   user_id: any
+  gambar: File;
 
   constructor(
     public modalController: ModalController,
@@ -80,12 +81,12 @@ export class TambahKatalogPage implements OnInit {
     const loading = await this.loadingController.create({ message: 'Loading ...' });
     loading.present();
 
-    this.katalogService.post(this.form.value).subscribe((res) => {
+    this.katalogService.post(this.form.value, this.gambar).subscribe((res) => {
       console.log("res", res);
 
       loading.dismiss();
       this.dismiss();
-      window.location.reload();
+      // window.location.reload();
     });
   }
 
@@ -110,7 +111,7 @@ export class TambahKatalogPage implements OnInit {
 
   url: any = 'assets/icon/image-not-available.png';
   onSelectFile(event) {
-
+    this.gambar = event.target.files[0];
     const test = event.target.files[0];
     console.log('size', test.size);
     console.log('type', test.type);
@@ -151,10 +152,11 @@ export class TambahKatalogPage implements OnInit {
       name: fileName,
       path: filePath,
       data: `${base64Data}`,
+      // data: files.item(0)
     });
 
     console.log("AAAA", this.images);
-
+    
     this.form.patchValue({
       gambar_url: this.images[0].data
     })
