@@ -35,7 +35,7 @@ export class FileDownloadModalComponent implements OnInit {
     this.androidPermissions.requestPermissions([
       this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
       this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
-      this.androidPermissions.PERMISSION.MANAGE_EXTERNAL_STORAGE,
+      this.androidPermissions.PERMISSION
     ]);
 
   }
