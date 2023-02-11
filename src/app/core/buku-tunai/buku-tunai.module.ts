@@ -10,6 +10,7 @@ import { BukuTunaiPage } from "./buku-tunai.page";
 import { FileTransfer } from "@ionic-native/file-transfer/ngx";
 import { File } from "@ionic-native/file/ngx";
 import { HTTP } from "@ionic-native/http/ngx";
+import { AndroidPermissions } from "@ionic-native/android-permissions/ngx";
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { HTTP } from "@ionic-native/http/ngx";
     ReactiveFormsModule,
   ],
   declarations: [BukuTunaiPage],
-  providers: [FileTransfer, File, HTTP],
+  providers: [FileTransfer, File, HTTP, AndroidPermissions],
 })
-export class BukuTunaiPageModule {}
+export class BukuTunaiPageModule { }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { File } from "@ionic-native/file/ngx";
 import { HTTP } from "@ionic-native/http/ngx";
-import { ModalController } from "@ionic/angular";
+import { ModalController, Platform } from "@ionic/angular";
 import { LocalNotifications } from "@awesome-cordova-plugins/local-notifications/ngx";
 import { FileOpener } from "@awesome-cordova-plugins/file-opener/ngx";
+import { AndroidPermissions } from "@ionic-native/android-permissions/ngx";
 @Component({
   selector: "app-file-download-modal",
   templateUrl: "./file-download-modal.component.html",
@@ -24,11 +25,19 @@ export class FileDownloadModalComponent implements OnInit {
     private file: File,
     private http: HTTP,
     private localNotifications: LocalNotifications,
-    private fileOpener: FileOpener
+    private fileOpener: FileOpener,
+    private androidPermissions: AndroidPermissions, private platform: Platform
   ) { }
 
   ngOnInit() {
     console.log(this.url);
+
+    this.androidPermissions.requestPermissions([
+      this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
+      this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+      this.androidPermissions.PERMISSION.MANAGE_EXTERNAL_STORAGE,
+    ]);
+
   }
 
   async close() {
@@ -70,6 +79,9 @@ export class FileDownloadModalComponent implements OnInit {
   }
 
   async writeFile() {
+
+
+
     if (this.downloadedFile == null) return;
 
     if (this.url.endsWith("pdf")) {

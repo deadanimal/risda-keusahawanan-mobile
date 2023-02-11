@@ -10,6 +10,7 @@ import { RingkasanLejarPage } from "./ringkasan-lejar.page";
 import { File } from "@ionic-native/file/ngx";
 import { HTTP } from "@ionic-native/http/ngx";
 import { FileTransfer } from "@ionic-native/file-transfer/ngx";
+import { AndroidPermissions } from "@ionic-native/android-permissions/ngx";
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,6 @@ import { FileTransfer } from "@ionic-native/file-transfer/ngx";
   ],
   declarations: [RingkasanLejarPage],
 
-  providers: [FileTransfer, File, HTTP],
+  providers: [FileTransfer, File, HTTP, AndroidPermissions],
 })
-export class RingkasanLejarPageModule {}
+export class RingkasanLejarPageModule { }
